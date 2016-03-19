@@ -1,0 +1,16 @@
+<android.support.v4.widget.SwipeRefreshLayout
+    android:id="@+id/home_swipe"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:paddingLeft="5dp"
+    android:paddingRight="5dp"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <ListView
+        android:scrollbars="none"
+        android:dividerHeight="2dp"
+        android:divider="@color/background"
+        android:id="@+id/home_job_listview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+</android.support.v4.widget.SwipeRefreshLayout>

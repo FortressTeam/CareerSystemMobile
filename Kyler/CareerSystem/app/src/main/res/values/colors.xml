@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="selector_actived">#D2D7D3</color>
+    <color name="selector_pressed">#D35400</color>
+    <color name="selector_unactived">#EEEEEE</color>
+
+    <color name="listviewitemexperiencebackground">#e8e9e9</color>
+    <color name="Black">#000000</color>
+    <color name="White">#FFFFFF</color>
+
+    <color name="navigationviewbackground">#2B323A</color>
+    <color name="navigationviewcounterbg">#D32F2F</color>
+
+
+    <color name="background">#E5E6E6</color>
+    <color name="barbackground">#1178AB</color>
+    <color name="systembarbackground">#263238</color>
+
+
+    <color name="jobappliedaccepted">#DCEDC8</color>
+    <color name="jobappliedpending">#FFF9C4</color>
+    <color name="jobappliedreject">#FFCCBC</color>
+</resources>
