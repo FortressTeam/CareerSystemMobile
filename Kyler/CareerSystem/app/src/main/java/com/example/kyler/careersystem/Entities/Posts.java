@@ -11,12 +11,12 @@ public class Posts {
     private String postContent;
     private int postSalary;
     private String postLocation;
-    private Date postDate;
+    private String postDate;
     private int postStatus;
     private int categoryID;
     private int hiringManagerID;
 
-    public Posts(int ID, String postTitle, String postContent, int postSalary, String postLocation, Date postDate, int postStatus, int categoryID, int hiringManagerID) {
+    public Posts(int ID, String postTitle, String postContent, int postSalary, String postLocation, String postDate, int postStatus, int categoryID, int hiringManagerID) {
         this.ID = ID;
         this.postTitle = postTitle;
         this.postContent = postContent;
@@ -68,11 +68,11 @@ public class Posts {
         this.postLocation = postLocation;
     }
 
-    public Date getPostDate() {
+    public String getPostDate() {
         return postDate;
     }
 
-    public void setPostDate(Date postDate) {
+    public void setPostDate(String postDate) {
         this.postDate = postDate;
     }
 

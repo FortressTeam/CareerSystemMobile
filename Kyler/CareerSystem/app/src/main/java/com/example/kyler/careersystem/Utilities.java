@@ -19,11 +19,19 @@ import com.example.kyler.careersystem.Applicant.JobappliedFragment;
 import com.example.kyler.careersystem.Applicant.MyResumeFragment;
 import com.example.kyler.careersystem.Applicant.NavigationListViewAdapter;
 import com.example.kyler.careersystem.Applicant.NavigationListViewItem;
+import com.example.kyler.careersystem.Entities.Categories;
+import com.example.kyler.careersystem.Entities.HiringManagers;
+import com.example.kyler.careersystem.Entities.Posts;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by Duck_Ky on 3/5/2016.
@@ -98,6 +106,45 @@ public class Utilities {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        return jobListViewItem;
+    }
+
+    private static String getDays(String datetime){
+        if(datetime==null)
+            return "";
+        long days=1;
+        try {
+            Date date = new SimpleDateFormat("d - LLL - yyyy").parse(datetime);
+            Date current = new SimpleDateFormat("d - LLL - yyyy").parse(new SimpleDateFormat("d - LLL - yyyy").format(Calendar.getInstance().getTime()));
+            long diff = current.getTime() - date.getTime();
+            days = TimeUnit.DAYS.convert(diff,TimeUnit.MILLISECONDS);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        if(days>0) {
+            if (days == 1)
+                return "yesterday";
+            else
+                return days + " days ago";
+        }
+        else {
+            if(days ==0)
+                return "today";
+            else
+                return "error";
+        }
+    }
+
+    public static JobListViewItem getJobLVItemfrom(Posts post,HiringManagers hiringManager,Categories category){
+        JobListViewItem jobListViewItem=null;
+        String title=post.getPostTitle();
+        String titleTime=getDays(post.getPostDate());
+        String image= UrlStatic.URLimg+"company_img/"+hiringManager.getCompanyLogo();
+        String salary="VND "+post.getPostSalary();
+        String company=hiringManager.getCompanyName();
+        String major=category.getCategoryName();
+        String description=hiringManager.getCompanyAbout();
+        jobListViewItem = new JobListViewItem(title,titleTime,image,salary,company,major,description);
         return jobListViewItem;
     }
 

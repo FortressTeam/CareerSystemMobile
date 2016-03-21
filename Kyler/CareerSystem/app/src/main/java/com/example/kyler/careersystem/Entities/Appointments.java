@@ -9,13 +9,13 @@ public class Appointments {
     private int ID;
     private String appointmentName;
     private String appointmentDescription;
-    private Date appointmentStart;
-    private Date appointmentEnd;
+    private String appointmentStart;
+    private String appointmentEnd;
     private String appointmentAddress;
     private int appointmentSMSAlert;
     private int hiringManagerID;
 
-    public Appointments(int ID, String appointmentName, String appointmentDescription, Date appointmentStart, Date appointmentEnd, String appointmentAddress, int appointmentSMSAlert, int hiringManagerID) {
+    public Appointments(int ID, String appointmentName, String appointmentDescription, String appointmentStart, String appointmentEnd, String appointmentAddress, int appointmentSMSAlert, int hiringManagerID) {
         this.ID = ID;
         this.appointmentName = appointmentName;
         this.appointmentDescription = appointmentDescription;
@@ -50,19 +50,19 @@ public class Appointments {
         this.appointmentDescription = appointmentDescription;
     }
 
-    public Date getAppointmentStart() {
+    public String getAppointmentStart() {
         return appointmentStart;
     }
 
-    public void setAppointmentStart(Date appointmentStart) {
+    public void setAppointmentStart(String appointmentStart) {
         this.appointmentStart = appointmentStart;
     }
 
-    public Date getAppointmentEnd() {
+    public String getAppointmentEnd() {
         return appointmentEnd;
     }
 
-    public void setAppointmentEnd(Date appointmentEnd) {
+    public void setAppointmentEnd(String appointmentEnd) {
         this.appointmentEnd = appointmentEnd;
     }
 

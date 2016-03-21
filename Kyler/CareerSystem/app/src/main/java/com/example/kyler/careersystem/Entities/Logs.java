@@ -8,10 +8,10 @@ import java.util.Date;
 public class Logs {
     private int ID;
     private String logActivity;
-    private Date logDate;
+    private String logDate;
     private int AdministratorID;
 
-    public Logs(int ID, String logActivity, Date logDate, int administratorID) {
+    public Logs(int ID, String logActivity, String logDate, int administratorID) {
         this.ID = ID;
         this.logActivity = logActivity;
         this.logDate = logDate;
@@ -34,11 +34,11 @@ public class Logs {
         this.logActivity = logActivity;
     }
 
-    public Date getLogDate() {
+    public String getLogDate() {
         return logDate;
     }
 
-    public void setLogDate(Date logDate) {
+    public void setLogDate(String logDate) {
         this.logDate = logDate;
     }
 

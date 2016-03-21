@@ -9,11 +9,11 @@ public class PersonalHistory {
     private int ID;
     private String personalHistoryTitle;
     private String personalHistoryDetail;
-    private Date personalHistoryStart;
-    private Date personalHistoryEnd;
+    private String personalHistoryStart;
+    private String personalHistoryEnd;
     private int applicantID;
 
-    public PersonalHistory(int ID, String personalHistoryTitle, String personalHistoryDetail, Date personalHistoryStart, Date personalHistoryEnd, int applicantID) {
+    public PersonalHistory(int ID, String personalHistoryTitle, String personalHistoryDetail, String personalHistoryStart, String personalHistoryEnd, int applicantID) {
         this.ID = ID;
         this.personalHistoryTitle = personalHistoryTitle;
         this.personalHistoryDetail = personalHistoryDetail;
@@ -46,19 +46,19 @@ public class PersonalHistory {
         this.personalHistoryDetail = personalHistoryDetail;
     }
 
-    public Date getPersonalHistoryStart() {
+    public String getPersonalHistoryStart() {
         return personalHistoryStart;
     }
 
-    public void setPersonalHistoryStart(Date personalHistoryStart) {
+    public void setPersonalHistoryStart(String personalHistoryStart) {
         this.personalHistoryStart = personalHistoryStart;
     }
 
-    public Date getPersonalHistoryEnd() {
+    public String getPersonalHistoryEnd() {
         return personalHistoryEnd;
     }
 
-    public void setPersonalHistoryEnd(Date personalHistoryEnd) {
+    public void setPersonalHistoryEnd(String personalHistoryEnd) {
         this.personalHistoryEnd = personalHistoryEnd;
     }
 

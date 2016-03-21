@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +15,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.kyler.careersystem.Applicant.ChildApplicantActivity;
-import com.example.kyler.careersystem.GetDataFromService.GetJsonPostDetail;
+import com.example.kyler.careersystem.Business.EntitiesCreating;
+import com.example.kyler.careersystem.Entities.HiringManagers;
+import com.example.kyler.careersystem.Entities.Posts;
+import com.example.kyler.careersystem.GetDataFromService.GetJsonObject;
+import com.example.kyler.careersystem.UrlStatic;
 import com.example.kyler.careersystem.R;
 import com.example.kyler.careersystem.Utilities;
 import com.github.ksoichiro.android.observablescrollview.ObservableScrollView;
@@ -25,18 +30,20 @@ import com.squareup.picasso.Picasso;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.concurrent.ExecutionException;
+
 /**
  * Created by kyler on 09/03/2016.
  */
 public class JobDetailFragment extends Fragment implements ObservableScrollViewCallbacks,Button.OnClickListener {
     private ObservableScrollView scrollView;
-    private TextView jobDetailCompanyInfo,jobDetailTitle,jobDetailSalary,jobDetailRequired,jobDetailOverview,jobDetailMoreInfo;
+    private TextView jobDetailPostTitle,jobDetailPostSalary,jobDetailPostLocation,jobDetailPostDate,jobDetailPostContent,jobDetailPostMoreInfo;
+    private TextView jobDetailCompanyName,jobDetailCompanyAddress,jobDetailCompanySize,jobDetailHiringManagerName,jobDetailHiringManagerPhone;
     private Button btApply;
-    private ImageView companyImage;
+    private ImageView companyLogo;
     private FloatingActionButton jobDetailFloatactionbuttonFavorite;
 
-    private JSONObject jsJob1;
-
+    private JSONObject jsonSendData;
 
     public JobDetailFragment(){}
 
@@ -45,57 +52,83 @@ public class JobDetailFragment extends Fragment implements ObservableScrollViewC
         View rootView = inflater.inflate(R.layout.applicant_job_detail_fragment, container, false);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Job Detail");
         Bundle bundle = getArguments();
-        Toast.makeText(getActivity().getApplicationContext(),bundle.getString("sendData"),Toast.LENGTH_LONG).show();
-        companyImage = (ImageView) rootView.findViewById(R.id.job_detail_image);
+        String url = UrlStatic.URLtest1+bundle.getString("sendData")+".json";
+        companyLogo = (ImageView) rootView.findViewById(R.id.job_detail_company_logo);
         btApply = (Button) rootView.findViewById(R.id.job_detail_btapply);
         jobDetailFloatactionbuttonFavorite = (FloatingActionButton) rootView.findViewById(R.id.job_detail_floatactionbutton_favorite);
-        companyImage.setOnClickListener(this);
+        companyLogo.setOnClickListener(this);
         jobDetailFloatactionbuttonFavorite.setOnClickListener(this);
-//        if(bundle.getBoolean("applied")) {
+
             btApply.setVisibility(View.VISIBLE);
             btApply.setOnClickListener(this);
-//        }else{
-//            btApply.setVisibility(View.GONE);
-//        }
-        jobDetailCompanyInfo = (TextView) rootView.findViewById(R.id.job_detail_companyinfo);
-        jobDetailTitle = (TextView) rootView.findViewById(R.id.job_detail_title);
-        jobDetailSalary = (TextView) rootView.findViewById(R.id.job_detail_salary);
-        jobDetailRequired = (TextView) rootView.findViewById(R.id.job_detail_required);
-        jobDetailOverview = (TextView) rootView.findViewById(R.id.job_detail_overview);
-        jobDetailMoreInfo = (TextView) rootView.findViewById(R.id.job_detail_moreinfo);
+
+        jobDetailCompanyName = (TextView) rootView.findViewById(R.id.job_detail_company_name);
+        jobDetailCompanyAddress = (TextView) rootView.findViewById(R.id.job_detail_company_address);
+        jobDetailCompanySize = (TextView) rootView.findViewById(R.id.job_detail_company_size);
+        jobDetailHiringManagerName = (TextView) rootView.findViewById(R.id.job_detail_hiringmanager_name);
+        jobDetailHiringManagerPhone = (TextView) rootView.findViewById(R.id.job_detail_hiringmanager_phone);
+
+        jobDetailPostTitle = (TextView) rootView.findViewById(R.id.job_detail_post_title);
+        jobDetailPostSalary = (TextView) rootView.findViewById(R.id.job_detail_post_salary);
+        jobDetailPostLocation = (TextView) rootView.findViewById(R.id.job_detail_post_location);
+        jobDetailPostDate = (TextView) rootView.findViewById(R.id.job_detail_post_date);
+        jobDetailPostContent = (TextView) rootView.findViewById(R.id.job_detail_post_content);
+        jobDetailPostMoreInfo= (TextView) rootView.findViewById(R.id.job_detail_post_moreinfo);
+
         try {
-            jsJob1= new JSONObject("{ \"post_id\": \"1\"," +
-                    " \"post_title\": \"Job xxxx\"," +
-                    " \"post_required\": \"5 years experience\"," +
-                    " \"post_moreinfo\": \"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.\"," +
-                    "  \"post_content\": \"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.\",\n" +
-                    " \"post_salary\": 300," +
-                    " \"post_image\": \"https://cdn1.iconfinder.com/data/icons/avatar-3/512/Pilot-128.png\"," +
-                    " \"post_date\": \"12/12/2016\"," +
-                    " \"post_status\": 1," +
-                    " \"category_name\": \"Information Technology\"," +
-                    " \"company_overview\": \"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.\"," +
-                    " \"company_name\": \"Enclave\" }");
-            if(jsJob1.has("post_image"))
-                Picasso.with(getActivity().getApplicationContext()).load((jsJob1.getString("post_image"))).into(companyImage);
-            if(jsJob1.has("company_overview"))
-                jobDetailCompanyInfo.setText(jsJob1.getString("company_overview"));
-            if(jsJob1.has("post_title"))
-                jobDetailTitle.setText(jsJob1.getString("post_title"));
-            if(jsJob1.has("post_salary"))
-                jobDetailSalary.setText(jsJob1.getString("post_salary"));
-            if(jsJob1.has("post_required"))
-                jobDetailRequired.setText(jsJob1.getString("post_required"));
-            if(jsJob1.has("post_content"))
-                jobDetailOverview.setText(jsJob1.getString("post_content"));
-            if(jsJob1.has("post_moreinfo"))
-                jobDetailMoreInfo.setText(jsJob1.getString("post_moreinfo"));
-//            new GetJsonPostDetail(getActivity(),jobDetailTitle,jobDetailSalary,jobDetailOverview).execute("http://192.168.11.108/CareerSystemWebBased/career_system/api/v1/posts/2.json");
+            JSONObject jsonObject = new GetJsonObject(getActivity(),"post").execute(url).get();
+            Posts post = EntitiesCreating.createPost(jsonObject);
+            jsonSendData = new JSONObject(jsonObject.getString("hiring_manager"));
+            HiringManagers hiringManager = EntitiesCreating.createHiringManagers(jsonSendData);
+            jobDetailCompanyName.setText(hiringManager.getCompanyName());
+            jobDetailCompanyAddress.setText(hiringManager.getCompanyAddress());
+            jobDetailCompanySize.setText(hiringManager.getCompanySize()+"");
+            jobDetailHiringManagerName.setText(hiringManager.getHiringManagerName());
+            jobDetailHiringManagerPhone.setText(hiringManager.getHiringManagerPhone());
+            Picasso.with(getActivity().getApplicationContext()).load(UrlStatic.URLimg+"/company_img/"+hiringManager.getCompanyLogo()).into(companyLogo);
+            jobDetailPostTitle.setText(post.getPostTitle());
+            jobDetailPostSalary.setText("VND "+post.getPostSalary());
+            jobDetailPostLocation.setText(post.getPostLocation());
+            jobDetailPostDate.setText(post.getPostDate());
+            jobDetailPostContent.setText(Html.fromHtml(post.getPostContent()));
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
         } catch (JSONException e) {
             e.printStackTrace();
         }
-//        new Jsonworks().execute("http://192.168.11.108/CareerSystemWebBased/career_system/api/v1/posts.json");
 
+//        try {
+//            jsJob1= new JSONObject("{ \"post_id\": \"1\"," +
+//                    " \"post_title\": \"Job xxxx\"," +
+//                    " \"post_required\": \"5 years experience\"," +
+//                    " \"post_moreinfo\": \"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.\"," +
+//                    "  \"post_content\": \"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.\",\n" +
+//                    " \"post_salary\": 300," +
+//                    " \"post_image\": \"https://cdn1.iconfinder.com/data/icons/avatar-3/512/Pilot-128.png\"," +
+//                    " \"post_date\": \"12/12/2016\"," +
+//                    " \"post_status\": 1," +
+//                    " \"category_name\": \"Information Technology\"," +
+//                    " \"company_overview\": \"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.\"," +
+//                    " \"company_name\": \"Enclave\" }");
+//            if(jsJob1.has("post_image"))
+//                Picasso.with(getActivity().getApplicationContext()).load((jsJob1.getString("post_image"))).into(companyLogo);
+//            if(jsJob1.has("company_overview"))
+//                jobDetailCompanyInfo.setText(jsJob1.getString("company_overview"));
+//            if(jsJob1.has("post_title"))
+//                jobDetailPostTitle.setText(jsJob1.getString("post_title"));
+//            if(jsJob1.has("post_salary"))
+//                jobDetailPostSalary.setText(jsJob1.getString("post_salary"));
+//            if(jsJob1.has("post_required"))
+//                jobDetailPostLocation.setText(jsJob1.getString("post_required"));
+//            if(jsJob1.has("post_content"))
+//                jobDetailPostContent.setText(jsJob1.getString("post_content"));
+//            if(jsJob1.has("post_moreinfo"))
+//                jobDetailPostMoreInfo.setText(jsJob1.getString("post_moreinfo"));
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
         scrollView = (ObservableScrollView) rootView.findViewById(R.id.job_detail_scrollview);
         scrollView.setScrollViewCallbacks(this);
         return rootView;
@@ -138,78 +171,11 @@ public class JobDetailFragment extends Fragment implements ObservableScrollViewC
                 Toast.makeText(getActivity().getApplicationContext(), "FloatActionButton!", Toast.LENGTH_SHORT).show();
                 jobDetailFloatactionbuttonFavorite.setImageResource(R.drawable.starfollow);
                 break;
-            case R.id.job_detail_image:
-                Utilities.startFragWith(getActivity(), ChildApplicantActivity.class, "companydetail", "Hello, I am Kyler!");
+            case R.id.job_detail_company_logo:
+                Utilities.startFragWith(getActivity(), ChildApplicantActivity.class, "companydetail", jsonSendData.toString());
                 break;
             default:
                 break;
         }
     }
-
-//    class Jsonworks extends AsyncTask<String,Void,String>{
-//        TextView postTitle,postContent,postSalary;
-//
-//
-//
-//        @Override
-//        protected void onPreExecute() {
-//            super.onPreExecute();
-//            pDialog = new ProgressDialog(getActivity());
-//            pDialog.setMessage("Loading profile ...");
-//            pDialog.setIndeterminate(false);
-//            pDialog.setCancelable(false);
-//            pDialog.show();
-//        }
-//
-//        @Override
-//        protected String doInBackground(String... strings) {
-//            StringBuilder result = new StringBuilder();
-//            BufferedReader reader = null;
-//            HttpURLConnection connection = null;
-//            try {
-//                URL url = new URL(strings[0]);
-//                connection = (HttpURLConnection) url.openConnection();
-//                connection.connect();
-//                InputStream iS = connection.getInputStream();
-//                reader = new BufferedReader(new InputStreamReader(iS));
-//                String line = "";
-//                while((line=reader.readLine())!=null){
-//                    result.append(line);
-//                }
-//            } catch (MalformedURLException e) {
-//                e.printStackTrace();
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            } finally {
-//                if(connection!=null)
-//                    connection.disconnect();
-//                if(reader!=null)
-//                    try {
-//                        reader.close();
-//                    } catch (IOException e) {
-//                        e.printStackTrace();
-//                    }
-//            }
-//            return result.toString();
-//        }
-//
-//        @Override
-//        protected void onPostExecute(String s) {
-//            super.onPostExecute(s);
-//            pDialog.dismiss();
-//            try {
-//                JSONObject parent = new JSONObject(s);
-//                JSONArray jsonArray = new JSONArray(parent.getString("posts"));
-//                JSONObject jsonObject = jsonArray.getJSONObject(1);
-//                postTitle = (TextView) getActivity().findViewById(R.id.job_detail_title);
-//                postContent = (TextView) getActivity().findViewById(R.id.job_detail_overview);
-//                postSalary = (TextView) getActivity().findViewById(R.id.job_detail_salary);
-//                postTitle.setText(jsonObject.getString("post_title"));
-//                postContent.setText(jsonObject.getString("post_content"));
-//                postSalary.setText(jsonObject.getString("post_salary"));
-//            } catch (JSONException e) {
-//                e.printStackTrace();
-//            }
-//        }
-//    }
 }

@@ -9,12 +9,12 @@ public class Feedbacks {
     private int ID;
     private String feedbackTitle;
     private String feedbackCommend;
-    private Date feedbackDate;
+    private String feedbackDate;
     private String feedbackResult;
     private int feedbackTypeID;
     private int userID;
 
-    public Feedbacks(int ID, String feedbackTitle, String feedbackCommend, Date feedbackDate, String feedbackResult, int feedbackTypeID, int userID) {
+    public Feedbacks(int ID, String feedbackTitle, String feedbackCommend, String feedbackDate, String feedbackResult, int feedbackTypeID, int userID) {
         this.ID = ID;
         this.feedbackTitle = feedbackTitle;
         this.feedbackCommend = feedbackCommend;
@@ -48,11 +48,11 @@ public class Feedbacks {
         this.feedbackCommend = feedbackCommend;
     }
 
-    public Date getFeedbackDate() {
+    public String getFeedbackDate() {
         return feedbackDate;
     }
 
-    public void setFeedbackDate(Date feedbackDate) {
+    public void setFeedbackDate(String feedbackDate) {
         this.feedbackDate = feedbackDate;
     }
 

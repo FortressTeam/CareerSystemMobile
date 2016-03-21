@@ -9,14 +9,14 @@ public class Users {
     private int ID;
     private String username;
     private String password;
-    private Date userRegistered;
+    private String userRegistered;
     private String userEmail;
     private int userStatus;
     private String userActivationKey;
     private String userAvatar;
     private int groupID;
 
-    public Users(int ID, String username, String password, Date userRegistered, String userEmail, int userStatus, String userActivationKey, String userAvatar, int groupID) {
+    public Users(int ID, String username, String password, String userRegistered, String userEmail, int userStatus, String userActivationKey, String userAvatar, int groupID) {
         this.ID = ID;
         this.username = username;
         this.password = password;
@@ -52,11 +52,11 @@ public class Users {
         this.password = password;
     }
 
-    public Date getUserRegistered() {
+    public String getUserRegistered() {
         return userRegistered;
     }
 
-    public void setUserRegistered(Date userRegistered) {
+    public void setUserRegistered(String userRegistered) {
         this.userRegistered = userRegistered;
     }
 

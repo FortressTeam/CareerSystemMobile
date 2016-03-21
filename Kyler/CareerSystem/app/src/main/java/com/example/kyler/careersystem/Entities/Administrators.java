@@ -9,10 +9,10 @@ public class Administrators {
     private int ID;
     private String AdministratorName;
     private String AdministratorPhone;
-    private Date AdministratorDateOfBirth;
+    private String AdministratorDateOfBirth;
     private String AdministratorAddress;
 
-    public Administrators(int ID, String administratorName, String administratorPhone, Date administratorDateOfBirth, String administratorAddress) {
+    public Administrators(int ID, String administratorName, String administratorPhone, String administratorDateOfBirth, String administratorAddress) {
         this.ID = ID;
         AdministratorName = administratorName;
         AdministratorPhone = administratorPhone;
@@ -44,11 +44,11 @@ public class Administrators {
         AdministratorPhone = administratorPhone;
     }
 
-    public Date getAdministratorDateOfBirth() {
+    public String getAdministratorDateOfBirth() {
         return AdministratorDateOfBirth;
     }
 
-    public void setAdministratorDateOfBirth(Date administratorDateOfBirth) {
+    public void setAdministratorDateOfBirth(String administratorDateOfBirth) {
         AdministratorDateOfBirth = administratorDateOfBirth;
     }
 

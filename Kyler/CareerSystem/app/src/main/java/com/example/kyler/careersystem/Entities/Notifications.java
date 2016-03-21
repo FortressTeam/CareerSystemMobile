@@ -9,11 +9,11 @@ public class Notifications {
     private int ID;
     private String notificationTitle;
     private String notificationDetail;
-    private Date notificationTime;
+    private String notificationTime;
     private int isSeen;
     private int userID;
 
-    public Notifications(int ID, String notificationTitle, String notificationDetail, Date notificationTime, int isSeen, int userID) {
+    public Notifications(int ID, String notificationTitle, String notificationDetail, String notificationTime, int isSeen, int userID) {
         this.ID = ID;
         this.notificationTitle = notificationTitle;
         this.notificationDetail = notificationDetail;
@@ -46,11 +46,11 @@ public class Notifications {
         this.notificationDetail = notificationDetail;
     }
 
-    public Date getNotificationTime() {
+    public String getNotificationTime() {
         return notificationTime;
     }
 
-    public void setNotificationTime(Date notificationTime) {
+    public void setNotificationTime(String notificationTime) {
         this.notificationTime = notificationTime;
     }
 

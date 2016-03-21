@@ -9,7 +9,7 @@ public class Applicants {
     private int ID;
     private String applicantName;
     private String applicantPhone;
-    private Date applicantDateOfBirth;
+    private String applicantDateOfBirth;
     private String applicantPlaceOfBirth;
     private String applicantAddress;
     private String applicantCountry;
@@ -20,7 +20,7 @@ public class Applicants {
     private int applicantStatus;
     private int careerPathID;
 
-    public Applicants(int ID, String applicantName, String applicantPhone, Date applicantDateOfBirth, String applicantPlaceOfBirth, String applicantAddress, String applicantCountry, String applicantAbout, int applicantMaritalStatus, String applicantFutureGoal, String applicantWebsite, int applicantStatus, int careerPathID) {
+    public Applicants(int ID, String applicantName, String applicantPhone, String applicantDateOfBirth, String applicantPlaceOfBirth, String applicantAddress, String applicantCountry, String applicantAbout, int applicantMaritalStatus, String applicantFutureGoal, String applicantWebsite, int applicantStatus, int careerPathID) {
         this.ID = ID;
         this.applicantName = applicantName;
         this.applicantPhone = applicantPhone;
@@ -60,11 +60,11 @@ public class Applicants {
         this.applicantPhone = applicantPhone;
     }
 
-    public Date getApplicantDateOfBirth() {
+    public String getApplicantDateOfBirth() {
         return applicantDateOfBirth;
     }
 
-    public void setApplicantDateOfBirth(Date applicantDateOfBirth) {
+    public void setApplicantDateOfBirth(String applicantDateOfBirth) {
         this.applicantDateOfBirth = applicantDateOfBirth;
     }
 

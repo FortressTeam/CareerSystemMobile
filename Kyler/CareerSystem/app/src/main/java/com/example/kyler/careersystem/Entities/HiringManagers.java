@@ -11,9 +11,9 @@ public class HiringManagers {
     private String companyAddress;
     private int companySize;
     private String companyAbout;
-    private String companyIcon;
+    private String companyLogo;
 
-    public HiringManagers(int ID, String hiringManagerName, String hiringManagerPhone, String companyName, String companyAddress, int companySize, String companyAbout, String companyIcon) {
+    public HiringManagers(int ID, String hiringManagerName, String hiringManagerPhone, String companyName, String companyAddress, int companySize, String companyAbout, String companyLogo) {
         this.ID = ID;
         this.hiringManagerName = hiringManagerName;
         this.hiringManagerPhone = hiringManagerPhone;
@@ -21,7 +21,7 @@ public class HiringManagers {
         this.companyAddress = companyAddress;
         this.companySize = companySize;
         this.companyAbout = companyAbout;
-        this.companyIcon = companyIcon;
+        this.companyLogo = companyLogo;
     }
 
     public int getID() {
@@ -80,11 +80,11 @@ public class HiringManagers {
         this.companyAbout = companyAbout;
     }
 
-    public String getCompanyIcon() {
-        return companyIcon;
+    public String getCompanyLogo() {
+        return companyLogo;
     }
 
-    public void setCompanyIcon(String companyIcon) {
-        this.companyIcon = companyIcon;
+    public void setCompanyLogo(String companyLogo) {
+        this.companyLogo = companyLogo;
     }
 }
