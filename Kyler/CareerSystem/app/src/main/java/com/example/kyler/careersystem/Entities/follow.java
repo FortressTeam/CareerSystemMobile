@@ -1,5 +1,8 @@
 package com.example.kyler.careersystem.Entities;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 /**
  * Created by kyler on 14/03/2016.
  */
@@ -8,6 +11,25 @@ public class follow {
     private int applicantID;
     private int followHiringManager;
     private int followApplicant;
+
+    public follow(JSONObject jsonObject){
+        try {
+            if (jsonObject.has("hiring_manager_id")) {
+                this.hiringManagerID = jsonObject.getInt("hiring_manager_id");
+            }
+            if (jsonObject.has("applicant_id")) {
+                this.applicantID = jsonObject.getInt("applicant_id");
+            }
+            if (jsonObject.has("follow_hiring_manager")) {
+                this.followHiringManager = jsonObject.getInt("follow_hiring_manager");
+            }
+            if (jsonObject.has("follow_applicant")) {
+                this.followApplicant = jsonObject.getInt("follow_applicant");
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
 
     public follow(int hiringManagerID, int applicantID, int followHiringManager, int followApplicant) {
         this.hiringManagerID = hiringManagerID;

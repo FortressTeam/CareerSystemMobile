@@ -1,5 +1,10 @@
 package com.example.kyler.careersystem.Entities;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -10,6 +15,28 @@ public class Logs {
     private String logActivity;
     private String logDate;
     private int AdministratorID;
+
+    public Logs(JSONObject jsonObject){
+        try {
+            if (jsonObject.has("id")) {
+                this.ID = jsonObject.getInt("id");
+            }
+            if (jsonObject.has("log_activity")) {
+                this.logActivity = jsonObject.getString("log_activity");
+            }
+            if (jsonObject.has("log_date")) {
+                Date date = new SimpleDateFormat("yyyy-MM-dd").parse(jsonObject.getString("log_date"));
+                this.logDate = new SimpleDateFormat("d - LLL - yyyy").format(date);
+            }
+            if (jsonObject.has("administrator_id")) {
+                this.AdministratorID = jsonObject.getInt("administrator_id");
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+    }
 
     public Logs(int ID, String logActivity, String logDate, int administratorID) {
         this.ID = ID;

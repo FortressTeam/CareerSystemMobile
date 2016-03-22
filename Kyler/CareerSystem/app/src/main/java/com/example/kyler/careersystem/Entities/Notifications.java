@@ -1,5 +1,10 @@
 package com.example.kyler.careersystem.Entities;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -12,6 +17,34 @@ public class Notifications {
     private String notificationTime;
     private int isSeen;
     private int userID;
+
+    public Notifications(JSONObject jsonObject){
+        try {
+            if (jsonObject.has("id")) {
+                this.ID = jsonObject.getInt("id");
+            }
+            if (jsonObject.has("notification_title")) {
+                this.notificationTitle = jsonObject.getString("notification_title");
+            }
+            if (jsonObject.has("notification_detail")) {
+                this.notificationDetail = jsonObject.getString("notification_detail");
+            }
+            if (jsonObject.has("notification_time")) {
+                Date date = new SimpleDateFormat("yyyy-MM-dd").parse(jsonObject.getString("notification_time"));
+                this.notificationTime = new SimpleDateFormat("d - LLL - yyyy").format(date);
+            }
+            if (jsonObject.has("is_seen")) {
+                this.isSeen = jsonObject.getInt("is_seen");
+            }
+            if (jsonObject.has("user_id")) {
+                this.userID = jsonObject.getInt("user_id");
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+    }
 
     public Notifications(int ID, String notificationTitle, String notificationDetail, String notificationTime, int isSeen, int userID) {
         this.ID = ID;

@@ -1,5 +1,10 @@
 package com.example.kyler.careersystem.Entities;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -14,6 +19,41 @@ public class Appointments {
     private String appointmentAddress;
     private int appointmentSMSAlert;
     private int hiringManagerID;
+
+    public Appointments(JSONObject jsonObject){
+        try {
+            if (jsonObject.has("id")) {
+                this.ID = jsonObject.getInt("id");
+            }
+            if (jsonObject.has("appointment_name")) {
+                this.appointmentName = jsonObject.getString("appointment_name");
+            }
+            if (jsonObject.has("appointment_description")) {
+                this.appointmentDescription = jsonObject.getString("appointment_description");
+            }
+            if (jsonObject.has("appointment_start")) {
+                Date date = new SimpleDateFormat("yyyy-MM-dd").parse(jsonObject.getString("appointment_start"));
+                this.appointmentStart = new SimpleDateFormat("d - LLL - yyyy").format(date);
+            }
+            if (jsonObject.has("appointment_end")) {
+                Date date = new SimpleDateFormat("yyyy-MM-dd").parse(jsonObject.getString("appointment_end"));
+                this.appointmentEnd = new SimpleDateFormat("d - LLL - yyyy").format(date);
+            }
+            if (jsonObject.has("appointment_address")) {
+                this.appointmentAddress = jsonObject.getString("appointment_address");
+            }
+            if (jsonObject.has("appointment_SMS_alert")) {
+                this.appointmentSMSAlert = jsonObject.getInt("appointment_SMS_alert");
+            }
+            if (jsonObject.has("hiring_manager_id")) {
+                this.hiringManagerID = jsonObject.getInt("hiring_manager_id");
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+    }
 
     public Appointments(int ID, String appointmentName, String appointmentDescription, String appointmentStart, String appointmentEnd, String appointmentAddress, int appointmentSMSAlert, int hiringManagerID) {
         this.ID = ID;

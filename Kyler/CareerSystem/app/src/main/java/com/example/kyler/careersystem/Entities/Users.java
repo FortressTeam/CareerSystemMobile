@@ -1,5 +1,10 @@
 package com.example.kyler.careersystem.Entities;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -15,6 +20,40 @@ public class Users {
     private String userActivationKey;
     private String userAvatar;
     private int groupID;
+
+    public Users(JSONObject jsonObject){
+        try {
+            if (jsonObject.has("id")) {
+                this.ID = jsonObject.getInt("id");
+            }
+            if (jsonObject.has("user_name")) {
+                this.username = jsonObject.getString("user_name");
+            }
+            if (jsonObject.has("user_password")) {
+                this.password = jsonObject.getString("user_password");
+            }
+            if (jsonObject.has("user_registered")) {
+                Date date = new SimpleDateFormat("yyyy-MM-dd").parse(jsonObject.getString("user_registered"));
+                this.userRegistered = new SimpleDateFormat("d - LLL - yyyy").format(date);
+            }
+            if (jsonObject.has("user_email")) {
+                this.userEmail = jsonObject.getString("user_email");
+            }
+            if (jsonObject.has("user_status")) {
+                this.userStatus = jsonObject.getInt("user_status");
+            }
+            if (jsonObject.has("user_activation_key")) {
+                this.userActivationKey = jsonObject.getString("user_activation_key");
+            }
+            if (jsonObject.has("group_id")) {
+                this.groupID = jsonObject.getInt("group_id");
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+    }
 
     public Users(int ID, String username, String password, String userRegistered, String userEmail, int userStatus, String userActivationKey, String userAvatar, int groupID) {
         this.ID = ID;

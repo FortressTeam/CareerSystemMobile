@@ -1,6 +1,7 @@
 package com.example.kyler.careersystem.Applicant;
 
 import android.app.Fragment;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -17,11 +18,12 @@ import android.widget.Toast;
 import com.example.kyler.careersystem.Applicant.Customize.JobListViewAdapterLoadInfinite;
 import com.example.kyler.careersystem.Applicant.Customize.JobListViewItem;
 import com.example.kyler.careersystem.Applicant.Customize.ViewHolder;
-import com.example.kyler.careersystem.Business.EntitiesCreating;
+import com.example.kyler.careersystem.Controller.PostController;
 import com.example.kyler.careersystem.Entities.Categories;
 import com.example.kyler.careersystem.Entities.HiringManagers;
 import com.example.kyler.careersystem.Entities.Posts;
 import com.example.kyler.careersystem.GetDataFromService.GetJsonArray;
+import com.example.kyler.careersystem.GetDataFromService.GetJsonLoadMore;
 import com.example.kyler.careersystem.UrlStatic;
 import com.example.kyler.careersystem.R;
 import com.example.kyler.careersystem.Utilities;
@@ -31,6 +33,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.concurrent.ExecutionException;
 
 public class HomeFragment extends Fragment implements AbsListView.OnScrollListener,ListView.OnItemClickListener {
@@ -40,6 +43,11 @@ public class HomeFragment extends Fragment implements AbsListView.OnScrollListen
     private ArrayList<JobListViewItem> jobListViewItems;
     private Handler mHandler;
     private ProgressBar progressBar;
+
+    private PostController postController;
+
+    private int page=1;
+    private boolean nomoreData=false;
 
     public HomeFragment(){}
 
@@ -75,6 +83,7 @@ public class HomeFragment extends Fragment implements AbsListView.OnScrollListen
 //                    "  \"company_name\": \"Enclave\"\n" +
 //                    "}");
 //        }catch(JSONException e){e.printStackTrace();}
+        postController = new PostController();
         mHandler = new Handler();
         home_job_listview = (ListView) rootView.findViewById(R.id.home_job_listview);
         View footer = getActivity().getLayoutInflater().inflate(R.layout.progress_bar_footer, null);
@@ -82,13 +91,13 @@ public class HomeFragment extends Fragment implements AbsListView.OnScrollListen
         home_job_listview.addFooterView(footer);
         jobListViewItems = new ArrayList<JobListViewItem>();
         try {
-            JSONArray jsonArray = new GetJsonArray(getActivity(),"posts").execute(UrlStatic.URLPosts).get();
+            JSONArray jsonArray = new GetJsonArray(getActivity(),"posts").execute(UrlStatic.URLHomefragment+page).get();
             for(int i=0;i<jsonArray.length();i++){
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
-                Posts post = EntitiesCreating.createPost(jsonObject);
-                HiringManagers hiringManager = EntitiesCreating.createHiringManagers(new JSONObject(jsonObject.getString("hiring_manager")));
-                Categories category = EntitiesCreating.createCategories(new JSONObject(jsonObject.getString("category")));
-                jobListViewItems.add(Utilities.getJobLVItemfrom(post,hiringManager,category));
+                Posts post = new Posts(jsonObject);
+                HiringManagers hiringManager = new HiringManagers(new JSONObject(jsonObject.getString("hiring_manager")));
+                Categories category = new Categories(new JSONObject(jsonObject.getString("category")));
+                jobListViewItems.add(postController.getJobListView(post,hiringManager,category));
             }
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -104,11 +113,11 @@ public class HomeFragment extends Fragment implements AbsListView.OnScrollListen
 //            else
 //                jobListViewItems.add(Utilities.getJobLVItemfrom(jsJob2));
 //        }
-        jobListViewAdapterLoadInfinite = new JobListViewAdapterLoadInfinite(getActivity().getApplicationContext(),jobListViewItems,3,1);
+        jobListViewAdapterLoadInfinite = new JobListViewAdapterLoadInfinite(getActivity().getApplicationContext(),jobListViewItems,5,5);
         home_job_listview.setAdapter(jobListViewAdapterLoadInfinite);
         home_job_listview.setOnScrollListener(this);
         home_job_listview.setOnItemClickListener(this);
-        progressBar.setVisibility((3 < jobListViewItems.size()) ? View.VISIBLE : View.GONE);
+        progressBar.setVisibility((4 < jobListViewItems.size()) ? View.VISIBLE : View.GONE);
         final SwipeRefreshLayout swipeLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.home_swipe);
         swipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -151,9 +160,9 @@ public class HomeFragment extends Fragment implements AbsListView.OnScrollListen
         }
 
         //Load more
-        if(firstVisibleItem + visibleItemCount == totalItemCount && !jobListViewAdapterLoadInfinite.endReached() && !hasCallback){ //check if we've reached the bottom
-            Toast.makeText(getActivity().getApplicationContext(),"Loading",Toast.LENGTH_SHORT).show();
-            mHandler.postDelayed(showMore, 1000);
+        if(firstVisibleItem + visibleItemCount == totalItemCount && !nomoreData && !hasCallback){ //check if we've reached the bottom
+            Toast.makeText(getActivity().getApplicationContext(), "Loading", Toast.LENGTH_SHORT).show();
+            mHandler.postDelayed(showMore, 3000);
             hasCallback = true;
         }
     }
@@ -161,9 +170,37 @@ public class HomeFragment extends Fragment implements AbsListView.OnScrollListen
     private boolean hasCallback;
     private Runnable showMore = new Runnable(){
         public void run(){
+            if(jobListViewAdapterLoadInfinite.endReached()){
+                page++;
+                try {
+                    JSONArray jsonArray = new GetJsonLoadMore(progressBar,"posts").execute(UrlStatic.URLHomefragment+page).get();
+                    if(jsonArray!=null){
+                        nomoreData=false;
+                        for(int i=0;i<jsonArray.length();i++){
+                            JSONObject jsonObject = jsonArray.getJSONObject(i);
+                            Posts post = new Posts(jsonObject);
+                            HiringManagers hiringManager = new HiringManagers(new JSONObject(jsonObject.getString("hiring_manager")));
+                            Categories category = new Categories(new JSONObject(jsonObject.getString("category")));
+                            jobListViewItems.add(postController.getJobListView(post,hiringManager,category));
+                            jobListViewAdapterLoadInfinite.setJobListViewItems(jobListViewItems);
+                        }
+                    }else
+                        nomoreData=true;
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
             boolean noMoreToShow = jobListViewAdapterLoadInfinite.showMore(); //show more views and find out if
             hasCallback = false;
-            progressBar.setVisibility(noMoreToShow? View.GONE : View.VISIBLE);
+            if(noMoreToShow && nomoreData)
+                progressBar.setVisibility(View.GONE);
+            else
+                progressBar.setVisibility(View.VISIBLE);
+//            progressBar.setVisibility((hasData&&!noMoreToShow)? View.VISIBLE : View.GONE);
         }
     };
 

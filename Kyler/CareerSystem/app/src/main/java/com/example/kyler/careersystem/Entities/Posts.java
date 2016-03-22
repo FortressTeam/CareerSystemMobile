@@ -1,5 +1,10 @@
 package com.example.kyler.careersystem.Entities;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -15,6 +20,43 @@ public class Posts {
     private int postStatus;
     private int categoryID;
     private int hiringManagerID;
+
+    public Posts(JSONObject jsonObject){
+        try {
+            if(jsonObject.has("id")){
+                this.ID=jsonObject.getInt("id");
+            }
+            if(jsonObject.has("post_title")){
+                this.postTitle=jsonObject.getString("post_title");
+            }
+            if(jsonObject.has("post_content")){
+                this.postContent=jsonObject.getString("post_content");
+            }
+            if(jsonObject.has("post_salary")){
+                this.postSalary=jsonObject.getInt("post_salary");
+            }
+            if(jsonObject.has("post_location")){
+                this.postLocation=jsonObject.getString("post_location");
+            }
+            if(jsonObject.has("post_date")){
+                Date date = new SimpleDateFormat("yyyy-MM-dd").parse(jsonObject.getString("post_date"));
+                this.postDate=new SimpleDateFormat("d - LLL - yyyy").format(date);
+            }
+            if(jsonObject.has("post_content")){
+                this.postStatus=jsonObject.getInt("post_status");
+            }
+            if(jsonObject.has("post_content")){
+                this.categoryID=jsonObject.getInt("category_id");
+            }
+            if(jsonObject.has("post_content")){
+                this.hiringManagerID=jsonObject.getInt("hiring_manager_id");
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+    }
 
     public Posts(int ID, String postTitle, String postContent, int postSalary, String postLocation, String postDate, int postStatus, int categoryID, int hiringManagerID) {
         this.ID = ID;

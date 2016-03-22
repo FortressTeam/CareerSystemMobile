@@ -1,11 +1,27 @@
 package com.example.kyler.careersystem.Entities;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 /**
  * Created by kyler on 14/03/2016.
  */
 public class ApplicantsHasHobbies {
     private int applicantID;
     private int hobbieID;
+
+    public ApplicantsHasHobbies(JSONObject jsonObject){
+        try {
+            if (jsonObject.has("applicant_id")) {
+                this.applicantID = jsonObject.getInt("applicant_id");
+            }
+            if (jsonObject.has("hobbieID")) {
+                this.hobbieID = jsonObject.getInt("hobbie_id");
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
 
     public ApplicantsHasHobbies(int applicantID, int hobbieID) {
         this.applicantID = applicantID;

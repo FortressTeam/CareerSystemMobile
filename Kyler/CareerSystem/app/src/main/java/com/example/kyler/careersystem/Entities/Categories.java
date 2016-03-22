@@ -1,5 +1,8 @@
 package com.example.kyler.careersystem.Entities;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 /**
  * Created by kyler on 09/03/2016.
  */
@@ -10,6 +13,31 @@ public class Categories {
     private int parentID;
     private int left;
     private int right;
+
+    public Categories(JSONObject jsonObject){
+        try{
+            if(jsonObject.has("id")){
+                this.ID=jsonObject.getInt("id");
+            }
+            if(jsonObject.has("category_name")){
+                this.categoryName=jsonObject.getString("category_name");
+            }
+            if(jsonObject.has("category_description")){
+                this.categoryDescription=jsonObject.getString("category_description");
+            }
+            if(jsonObject.has("parent_id")){
+                this.parentID=jsonObject.getInt("parent_id");
+            }
+            if(jsonObject.has("left")){
+                this.left=jsonObject.getInt("left");
+            }
+            if(jsonObject.has("right")){
+                this.right=jsonObject.getInt("right");
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
 
     public Categories(int ID, String categoryName, String categoryDescription, int parentID, int left, int right) {
         this.ID = ID;

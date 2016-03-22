@@ -1,5 +1,10 @@
 package com.example.kyler.careersystem.Entities;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -19,6 +24,55 @@ public class Applicants {
     private String applicantWebsite;
     private int applicantStatus;
     private int careerPathID;
+
+    public Applicants(JSONObject jsonObject){
+        try{
+            if(jsonObject.has("id")){
+                this.ID = jsonObject.getInt("id");
+            }
+            if(jsonObject.has("applicant_name")){
+                this.applicantName = jsonObject.getString("applicant_name");
+            }
+            if(jsonObject.has("applicant_phone_number")){
+                this.applicantPhone = jsonObject.getString("applicant_phone_number");
+            }
+            if(jsonObject.has("applicant_date_of_birth")){
+                Date date = new SimpleDateFormat("yyyy-MM-dd").parse(jsonObject.getString("applicant_date_of_birth"));
+                this.applicantDateOfBirth = new SimpleDateFormat("d - LLL - yyyy").format(date);
+            }
+            if(jsonObject.has("applicant_place_of_birth")){
+                this.applicantPlaceOfBirth = jsonObject.getString("applicant_place_of_birth");
+            }
+            if(jsonObject.has("applicant_address")){
+                this.applicantAddress = jsonObject.getString("applicant_address");
+            }
+            if(jsonObject.has("applicant_country")){
+                this.applicantCountry = jsonObject.getString("applicant_country");
+            }
+            if(jsonObject.has("applicant_about")){
+                this.applicantAbout = jsonObject.getString("applicant_about");
+            }
+            if(jsonObject.has("applicant_marital_status")){
+                this.applicantMaritalStatus = jsonObject.getInt("applicant_marital_statis");
+            }
+            if(jsonObject.has("applicant_future_goals")){
+                this.applicantFutureGoal = jsonObject.getString("applicant_future_goals");
+            }
+            if(jsonObject.has("applicant_website")){
+                this.applicantWebsite = jsonObject.getString("applicant_website");
+            }
+            if(jsonObject.has("applicant_status")){
+                this.applicantStatus = jsonObject.getInt("applicant_status");
+            }
+            if(jsonObject.has("applicant_path_id")){
+                this.careerPathID = jsonObject.getInt("applicant_path_id");
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+    }
 
     public Applicants(int ID, String applicantName, String applicantPhone, String applicantDateOfBirth, String applicantPlaceOfBirth, String applicantAddress, String applicantCountry, String applicantAbout, int applicantMaritalStatus, String applicantFutureGoal, String applicantWebsite, int applicantStatus, int careerPathID) {
         this.ID = ID;

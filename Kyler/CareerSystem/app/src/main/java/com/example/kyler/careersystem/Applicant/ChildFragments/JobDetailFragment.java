@@ -15,7 +15,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.kyler.careersystem.Applicant.ChildApplicantActivity;
-import com.example.kyler.careersystem.Business.EntitiesCreating;
 import com.example.kyler.careersystem.Entities.HiringManagers;
 import com.example.kyler.careersystem.Entities.Posts;
 import com.example.kyler.careersystem.GetDataFromService.GetJsonObject;
@@ -77,9 +76,9 @@ public class JobDetailFragment extends Fragment implements ObservableScrollViewC
 
         try {
             JSONObject jsonObject = new GetJsonObject(getActivity(),"post").execute(url).get();
-            Posts post = EntitiesCreating.createPost(jsonObject);
+            Posts post = new Posts(jsonObject);
             jsonSendData = new JSONObject(jsonObject.getString("hiring_manager"));
-            HiringManagers hiringManager = EntitiesCreating.createHiringManagers(jsonSendData);
+            HiringManagers hiringManager = new HiringManagers(jsonSendData);
             jobDetailCompanyName.setText(hiringManager.getCompanyName());
             jobDetailCompanyAddress.setText(hiringManager.getCompanyAddress());
             jobDetailCompanySize.setText(hiringManager.getCompanySize()+"");

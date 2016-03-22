@@ -109,7 +109,7 @@ public class Utilities {
         return jobListViewItem;
     }
 
-    private static String getDays(String datetime){
+    public static String getDays(String datetime){
         if(datetime==null)
             return "";
         long days=1;

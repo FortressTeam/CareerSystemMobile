@@ -34,6 +34,10 @@ public class JobListViewAdapterLoadInfinite extends ArrayAdapter<JobListViewItem
         this.stepNumber = stepNumber;
     }
 
+    public void setJobListViewItems(ArrayList<JobListViewItem> jobListViewItems) {
+        this.jobListViewItems = jobListViewItems;
+    }
+
     @Override
     public int getCount() {
         return count;

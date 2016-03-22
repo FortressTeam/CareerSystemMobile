@@ -11,7 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.kyler.careersystem.Business.EntitiesCreating;
+
 import com.example.kyler.careersystem.Entities.HiringManagers;
 import com.example.kyler.careersystem.R;
 import com.example.kyler.careersystem.UrlStatic;
@@ -43,7 +43,7 @@ public class CompanyInformationFragment extends Fragment implements View.OnClick
         companyAdress = (TextView) rootView.findViewById(R.id.company_information_companyaddress);
         companyPhone = (TextView) rootView.findViewById(R.id.company_information_companyphone);
         companyAbout = (TextView) rootView.findViewById(R.id.company_information_companyabout);
-        HiringManagers hiringManager = EntitiesCreating.createHiringManagers(jsonreceive);
+        HiringManagers hiringManager = new HiringManagers(jsonreceive);
         Picasso.with(getActivity().getApplicationContext()).load(UrlStatic.URLimg+"company_img/"+hiringManager.getCompanyLogo()).into(companyImage);
         companyName.setText(hiringManager.getCompanyName());
         companySize.setText(hiringManager.getCompanySize()+"");

@@ -1,19 +1,41 @@
 package com.example.kyler.careersystem.Entities;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 /**
  * Created by kyler on 14/03/2016.
  */
 public class CurriculumVitaeTemplates {
     private int ID;
-    private String TemplateName;
-    private String TemplateDescription;
-    private String TemplateURL;
+    private String CurriculumVitaeTemplateName;
+    private String CurriculumVitaeTemplateDescription;
+    private String CurriculumVitaeTemplateURL;
 
-    public CurriculumVitaeTemplates(int ID, String templateName, String templateDescription, String templateURL) {
+    public CurriculumVitaeTemplates(JSONObject jsonObject){
+        try {
+            if (jsonObject.has("id")) {
+                this.ID = jsonObject.getInt("id");
+            }
+            if (jsonObject.has("curriculum_vitae_template_name")) {
+                this.CurriculumVitaeTemplateName = jsonObject.getString("curriculum_vitae_template_name");
+            }
+            if (jsonObject.has("curriculum_vitae_template_description")) {
+                this.CurriculumVitaeTemplateDescription = jsonObject.getString("curriculum_vitae_template_description");
+            }
+            if (jsonObject.has("curriculum_vitae_template_url")) {
+                this.CurriculumVitaeTemplateURL = jsonObject.getString("curriculum_vitae_template_url");
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public CurriculumVitaeTemplates(int ID, String curriculumVitaeTemplateName, String curriculumVitaeTemplateDescription, String curriculumVitaeTemplateURL) {
         this.ID = ID;
-        TemplateName = templateName;
-        TemplateDescription = templateDescription;
-        TemplateURL = templateURL;
+        CurriculumVitaeTemplateName = curriculumVitaeTemplateName;
+        CurriculumVitaeTemplateDescription = curriculumVitaeTemplateDescription;
+        CurriculumVitaeTemplateURL = curriculumVitaeTemplateURL;
     }
 
     public int getID() {
@@ -24,27 +46,27 @@ public class CurriculumVitaeTemplates {
         this.ID = ID;
     }
 
-    public String getTemplateName() {
-        return TemplateName;
+    public String getCurriculumVitaeTemplateName() {
+        return CurriculumVitaeTemplateName;
     }
 
-    public void setTemplateName(String templateName) {
-        TemplateName = templateName;
+    public void setCurriculumVitaeTemplateName(String curriculumVitaeTemplateName) {
+        CurriculumVitaeTemplateName = curriculumVitaeTemplateName;
     }
 
-    public String getTemplateDescription() {
-        return TemplateDescription;
+    public String getCurriculumVitaeTemplateDescription() {
+        return CurriculumVitaeTemplateDescription;
     }
 
-    public void setTemplateDescription(String templateDescription) {
-        TemplateDescription = templateDescription;
+    public void setCurriculumVitaeTemplateDescription(String curriculumVitaeTemplateDescription) {
+        CurriculumVitaeTemplateDescription = curriculumVitaeTemplateDescription;
     }
 
-    public String getTemplateURL() {
-        return TemplateURL;
+    public String getCurriculumVitaeTemplateURL() {
+        return CurriculumVitaeTemplateURL;
     }
 
-    public void setTemplateURL(String templateURL) {
-        TemplateURL = templateURL;
+    public void setCurriculumVitaeTemplateURL(String curriculumVitaeTemplateURL) {
+        CurriculumVitaeTemplateURL = curriculumVitaeTemplateURL;
     }
 }

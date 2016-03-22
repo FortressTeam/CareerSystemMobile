@@ -1,5 +1,10 @@
 package com.example.kyler.careersystem.Entities;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -8,16 +13,47 @@ import java.util.Date;
 public class Feedbacks {
     private int ID;
     private String feedbackTitle;
-    private String feedbackCommend;
+    private String feedbackComment;
     private String feedbackDate;
     private String feedbackResult;
     private int feedbackTypeID;
     private int userID;
 
-    public Feedbacks(int ID, String feedbackTitle, String feedbackCommend, String feedbackDate, String feedbackResult, int feedbackTypeID, int userID) {
+    public Feedbacks(JSONObject jsonObject){
+        try {
+            if (jsonObject.has("id")) {
+                this.ID = jsonObject.getInt("id");
+            }
+            if (jsonObject.has("feedback_title")) {
+                this.feedbackTitle = jsonObject.getString("feedback_title");
+            }
+            if (jsonObject.has("feedback_comment")) {
+                this.feedbackComment = jsonObject.getString("feedback_comment");
+            }
+            if (jsonObject.has("feedback_date")) {
+                Date date = new SimpleDateFormat("yyyy-MM-dd").parse(jsonObject.getString("feedback_date"));
+                this.feedbackDate = new SimpleDateFormat("d - LLL - yyyy").format(date);
+            }
+            if (jsonObject.has("feedback_result")) {
+                this.feedbackResult = jsonObject.getString("feedback_result");
+            }
+            if (jsonObject.has("feedback_type_id")) {
+                this.feedbackTypeID = jsonObject.getInt("feedback_type_id");
+            }
+            if (jsonObject.has("user_id")) {
+                this.userID = jsonObject.getInt("user_id");
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public Feedbacks(int ID, String feedbackTitle, String feedbackComment, String feedbackDate, String feedbackResult, int feedbackTypeID, int userID) {
         this.ID = ID;
         this.feedbackTitle = feedbackTitle;
-        this.feedbackCommend = feedbackCommend;
+        this.feedbackComment = feedbackComment;
         this.feedbackDate = feedbackDate;
         this.feedbackResult = feedbackResult;
         this.feedbackTypeID = feedbackTypeID;
@@ -40,12 +76,12 @@ public class Feedbacks {
         this.feedbackTitle = feedbackTitle;
     }
 
-    public String getFeedbackCommend() {
-        return feedbackCommend;
+    public String getFeedbackComment() {
+        return feedbackComment;
     }
 
-    public void setFeedbackCommend(String feedbackCommend) {
-        this.feedbackCommend = feedbackCommend;
+    public void setFeedbackComment(String feedbackComment) {
+        this.feedbackComment = feedbackComment;
     }
 
     public String getFeedbackDate() {

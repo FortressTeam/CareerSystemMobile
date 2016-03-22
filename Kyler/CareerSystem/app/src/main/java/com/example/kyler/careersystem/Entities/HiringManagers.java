@@ -1,5 +1,8 @@
 package com.example.kyler.careersystem.Entities;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 /**
  * Created by kyler on 09/03/2016.
  */
@@ -12,6 +15,37 @@ public class HiringManagers {
     private int companySize;
     private String companyAbout;
     private String companyLogo;
+
+    public HiringManagers(JSONObject jsonObject){
+        try {
+            if(jsonObject.has("id")){
+                this.ID=jsonObject.getInt("id");
+            }
+            if(jsonObject.has("hiring_manager_name")){
+                this.hiringManagerName=jsonObject.getString("hiring_manager_name");
+            }
+            if(jsonObject.has("hiring_manager_phone_number")){
+                this.hiringManagerPhone=jsonObject.getString("hiring_manager_phone_number");
+            }
+            if(jsonObject.has("company_name")){
+                this.companyName=jsonObject.getString("company_name");
+            }
+            if(jsonObject.has("company_address")){
+                this.companyAddress=jsonObject.getString("company_address");
+            }
+            if(jsonObject.has("company_size")){
+                this.companySize=jsonObject.getInt("company_size");
+            }
+            if(jsonObject.has("company_about")){
+                this.companyAbout=jsonObject.getString("company_about");
+            }
+            if(jsonObject.has("company_logo")){
+                this.companyLogo=jsonObject.getString("company_logo");
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
 
     public HiringManagers(int ID, String hiringManagerName, String hiringManagerPhone, String companyName, String companyAddress, int companySize, String companyAbout, String companyLogo) {
         this.ID = ID;

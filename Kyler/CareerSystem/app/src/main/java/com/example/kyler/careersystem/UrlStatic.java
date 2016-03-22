@@ -9,4 +9,5 @@ public class UrlStatic {
     public static String URLtest="http://192.168.11.108/CareerSystemWebBased/career_system/api/posts/1.json";
     public static String URLPosts="http://192.168.11.108/CareerSystemWebBased/career_system/api/posts.json";
     public static String URLPost="http://192.168.11.108/CareerSystemWebBased/career_system/api/posts/";
+    public static String URLHomefragment="http://192.168.11.108/CareerSystemWebBased/career_system/api/posts.json?limit=10&page=";
 }
