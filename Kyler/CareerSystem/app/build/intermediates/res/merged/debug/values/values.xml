@@ -34,7 +34,7 @@
     <color name="bright_foreground_material_light">@android:color/black</color>
     <color name="button_material_dark">#ff5a595b</color>
     <color name="button_material_light">#ffd6d7d7</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorAccent">#000000</color>
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="design_fab_shadow_end_color">@android:color/transparent</color>
@@ -279,7 +279,9 @@
     <integer name="cancel_button_image_alpha">127</integer>
     <integer name="design_snackbar_text_max_lines">2</integer>
     <integer name="status_bar_notification_info_maxnum">999</integer>
+    <string name="AddPost">Add New</string>
     <string name="Apply">Apply</string>
+    <string name="CancelAddPost">Cancel</string>
     <string name="Delete">Delete</string>
     <string name="Subscribe">Subscribe</string>
     <string name="abc_action_bar_home_description">Navigate home</string>

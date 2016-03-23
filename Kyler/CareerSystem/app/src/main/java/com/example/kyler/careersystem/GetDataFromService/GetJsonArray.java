@@ -47,6 +47,9 @@ public class GetJsonArray extends AsyncTask<String,Void,JSONArray> {
             URL url = new URL(strings[0]);
             connection = (HttpURLConnection) url.openConnection();
             connection.connect();
+            if(connection.getResponseCode()==404){
+                return null;
+            }
             BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
             String line = "";
             if(reader != null){

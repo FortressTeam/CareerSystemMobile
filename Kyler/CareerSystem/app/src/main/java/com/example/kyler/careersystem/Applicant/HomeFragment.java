@@ -113,7 +113,7 @@ public class HomeFragment extends Fragment implements AbsListView.OnScrollListen
 //            else
 //                jobListViewItems.add(Utilities.getJobLVItemfrom(jsJob2));
 //        }
-        jobListViewAdapterLoadInfinite = new JobListViewAdapterLoadInfinite(getActivity().getApplicationContext(),jobListViewItems,5,5);
+        jobListViewAdapterLoadInfinite = new JobListViewAdapterLoadInfinite(getActivity().getApplicationContext(),jobListViewItems,10,5);
         home_job_listview.setAdapter(jobListViewAdapterLoadInfinite);
         home_job_listview.setOnScrollListener(this);
         home_job_listview.setOnItemClickListener(this);
@@ -196,7 +196,7 @@ public class HomeFragment extends Fragment implements AbsListView.OnScrollListen
             }
             boolean noMoreToShow = jobListViewAdapterLoadInfinite.showMore(); //show more views and find out if
             hasCallback = false;
-            if(noMoreToShow && nomoreData)
+            if(nomoreData)
                 progressBar.setVisibility(View.GONE);
             else
                 progressBar.setVisibility(View.VISIBLE);

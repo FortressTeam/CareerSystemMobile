@@ -8,4 +8,6 @@
     <string name="Apply">Apply</string>
     <string name="Delete">Delete</string>
     <string name="Subscribe">Subscribe</string>
+    <string name="AddPost">Add New</string>
+    <string name="CancelAddPost">Cancel</string>
 </resources>

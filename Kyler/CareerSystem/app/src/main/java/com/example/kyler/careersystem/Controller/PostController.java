@@ -16,7 +16,12 @@ public class PostController {
         String title=post.getPostTitle();
         String titleTime= Utilities.getDays(post.getPostDate());
         String image= UrlStatic.URLimg+"company_img/"+hiringManager.getCompanyLogo();
-        String salary="VND "+post.getPostSalary();
+        String salary = "";
+        if(post.getPostSalary() == 0){
+            salary = "Negotiable";
+        }else{
+            salary="VND "+post.getPostSalary();
+        }
         String company=hiringManager.getCompanyName();
         String major=category.getCategoryName();
         String description=hiringManager.getCompanyAbout();

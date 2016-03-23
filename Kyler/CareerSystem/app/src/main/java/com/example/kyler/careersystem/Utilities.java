@@ -22,6 +22,7 @@ import com.example.kyler.careersystem.Applicant.NavigationListViewItem;
 import com.example.kyler.careersystem.Entities.Categories;
 import com.example.kyler.careersystem.Entities.HiringManagers;
 import com.example.kyler.careersystem.Entities.Posts;
+import com.example.kyler.careersystem.HiringManager.AddPostFragment;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -161,7 +162,8 @@ public class Utilities {
                 fragment = new FindFragment();
                 break;
             case 4://favorite
-                fragment = new HomeFragment();
+//                fragment = new HomeFragment();
+                fragment = new AddPostFragment();
                 break;
             case 5://jobapplied
                 fragment = new JobappliedFragment();
