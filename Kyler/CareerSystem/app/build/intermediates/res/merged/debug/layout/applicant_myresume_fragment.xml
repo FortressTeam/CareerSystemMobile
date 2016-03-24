@@ -15,7 +15,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <LinearLayout
-                android:elevation="2dp"
                 android:background="@drawable/customborder"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
@@ -117,7 +116,6 @@
                 android:layout_height="3dp"/>
 
             <LinearLayout
-                android:elevation="2dp"
                 android:orientation="vertical"
                 android:background="@drawable/customborder"
                 android:layout_width="match_parent"
@@ -219,7 +217,6 @@
                 android:background="@color/background"/>
 
             <LinearLayout
-                android:elevation="2dp"
                 android:background="@drawable/customborder"
                 android:orientation="vertical"
                 android:layout_width="match_parent"
@@ -273,7 +270,6 @@
                 android:background="@color/background"/>
 
             <LinearLayout
-                android:elevation="2dp"
                 android:background="@drawable/customborder"
                 android:orientation="vertical"
                 android:layout_width="match_parent"
@@ -336,7 +332,6 @@
                 android:background="@color/background"/>
 
             <LinearLayout
-                android:elevation="2dp"
                 android:background="@drawable/customborder"
                 android:orientation="vertical"
                 android:layout_width="match_parent"
@@ -399,7 +394,6 @@
                 android:background="@color/background"/>
 
             <LinearLayout
-                android:elevation="2dp"
                 android:background="@drawable/customborder"
                 android:orientation="vertical"
                 android:layout_width="match_parent"
@@ -462,7 +456,6 @@
                 android:background="@color/background"/>
 
             <LinearLayout
-                android:elevation="2dp"
                 android:background="@drawable/customborder"
                 android:orientation="vertical"
                 android:layout_width="match_parent"
@@ -525,7 +518,6 @@
                 android:background="@color/background"/>
 
             <LinearLayout
-                android:elevation="2dp"
                 android:background="@drawable/customborder"
                 android:orientation="vertical"
                 android:layout_width="match_parent"
@@ -588,7 +580,6 @@
                 android:background="@color/background"/>
 
             <LinearLayout
-                android:elevation="2dp"
                 android:background="@drawable/customborder"
                 android:orientation="vertical"
                 android:layout_width="match_parent"
@@ -651,7 +642,6 @@
                 android:background="@color/background"/>
 
             <LinearLayout
-                android:elevation="2dp"
                 android:background="@drawable/customborder"
                 android:orientation="vertical"
                 android:layout_width="match_parent"
@@ -714,7 +704,6 @@
                 android:background="@color/background"/>
 
             <LinearLayout
-                android:elevation="2dp"
                 android:background="@drawable/customborder"
                 android:orientation="vertical"
                 android:layout_width="match_parent"

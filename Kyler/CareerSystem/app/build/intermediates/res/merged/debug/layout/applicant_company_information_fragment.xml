@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/background"
@@ -11,7 +11,6 @@
         android:layout_width="match_parent"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
-        android:layout_alignBottom="@+id/company_information_subscribe_layout"
         android:layout_height="match_parent">
         <LinearLayout
             android:background="@color/background"
@@ -142,6 +141,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <TextView
+                    android:background="@drawable/customline"
                     android:textColor="@color/Black"
                     android:textStyle="bold"
                     android:textSize="@dimen/activity_content_big"
@@ -157,20 +157,19 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
             </LinearLayout>
+            <LinearLayout
+                android:layout_marginTop="5dp"
+                android:gravity="center_horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <Button
+                    android:id="@+id/company_information_subscribe"
+                    android:text="@string/Subscribe"
+                    android:textColor="@color/Black"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
         </LinearLayout>
     </com.github.ksoichiro.android.observablescrollview.ObservableScrollView>
-    <LinearLayout
-        android:id="@+id/company_information_subscribe_layout"
-        android:layout_alignParentBottom="true"
-        android:layout_marginTop="5dp"
-        android:gravity="center_horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <Button
-            android:id="@+id/company_information_subscribe"
-            android:text="@string/Subscribe"
-            android:textColor="@color/Black"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"/>
-    </LinearLayout>
-</RelativeLayout>
+
+</LinearLayout>
