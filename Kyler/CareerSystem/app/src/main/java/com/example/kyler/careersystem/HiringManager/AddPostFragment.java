@@ -249,7 +249,6 @@ public class AddPostFragment extends Fragment implements View.OnClickListener,Ch
                 }
                 if (isSuccess) {
                     Toast.makeText(getActivity().getApplicationContext(), "Create Post success ... ", Toast.LENGTH_SHORT).show();
-
                 } else {
                     Toast.makeText(getActivity().getApplicationContext(), "Create Post fail ... Something went wrong ", Toast.LENGTH_SHORT).show();
                 }

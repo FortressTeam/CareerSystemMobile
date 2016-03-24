@@ -1,18 +1,10 @@
 [
     {
-        "merged": "C:\\home\\kyler\\GitHub\\CareerSystemMobile\\Kyler\\CareerSystem\\app\\build\\intermediates\\res\\merged\\debug\\menu\\activity_applicant_main_drawer.xml",
-        "source": "C:\\home\\kyler\\GitHub\\CareerSystemMobile\\Kyler\\CareerSystem\\app\\src\\main\\res\\menu\\activity_applicant_main_drawer.xml"
+        "merged": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/build/intermediates/res/merged/debug/menu/applicant_main.xml",
+        "source": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/src/main/res/menu/applicant_main.xml"
     },
     {
-        "merged": "C:\\Users\\Duck_Ky\\Documents\\GitHub\\CareerSystemMobile\\Kyler\\CareerSystem\\app\\build\\intermediates\\res\\merged\\debug\\menu\\applicant_main.xml",
-        "source": "C:\\Users\\Duck_Ky\\Documents\\GitHub\\CareerSystemMobile\\Kyler\\CareerSystem\\app\\src\\main\\res\\menu\\applicant_main.xml"
-    },
-    {
-        "merged": "C:\\home\\kyler\\GitHub\\CareerSystemMobile\\Kyler\\CareerSystem\\app\\build\\intermediates\\res\\merged\\debug\\menu\\applicant_main.xml",
-        "source": "C:\\home\\kyler\\GitHub\\CareerSystemMobile\\Kyler\\CareerSystem\\app\\src\\main\\res\\menu\\applicant_main.xml"
-    },
-    {
-        "merged": "C:\\Users\\Duck_Ky\\Documents\\GitHub\\CareerSystemMobile\\Kyler\\CareerSystem\\app\\build\\intermediates\\res\\merged\\debug\\menu\\activity_applicant_main_drawer.xml",
-        "source": "C:\\Users\\Duck_Ky\\Documents\\GitHub\\CareerSystemMobile\\Kyler\\CareerSystem\\app\\src\\main\\res\\menu\\activity_applicant_main_drawer.xml"
+        "merged": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/build/intermediates/res/merged/debug/menu/activity_applicant_main_drawer.xml",
+        "source": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/src/main/res/menu/activity_applicant_main_drawer.xml"
     }
 ]

@@ -1,226 +1,134 @@
 [
     {
-        "merged": "C:\\Users\\Duck_Ky\\Documents\\GitHub\\CareerSystemMobile\\Kyler\\CareerSystem\\app\\build\\intermediates\\res\\merged\\debug\\drawable-ldpi-v4\\navhomeicon.png",
-        "source": "C:\\Users\\Duck_Ky\\Documents\\GitHub\\CareerSystemMobile\\Kyler\\CareerSystem\\app\\build\\generated\\res\\pngs\\debug\\drawable-ldpi\\navhomeicon.png"
+        "merged": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/build/intermediates/res/merged/debug/drawable-ldpi-v4/resumeactivityicon.png",
+        "source": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/build/generated/res/pngs/debug/drawable-ldpi/resumeactivityicon.png"
     },
     {
-        "merged": "C:\\home\\kyler\\GitHub\\CareerSystemMobile\\Kyler\\CareerSystem\\app\\build\\intermediates\\res\\merged\\debug\\drawable-ldpi-v4\\icon_title.png",
-        "source": "C:\\home\\kyler\\GitHub\\CareerSystemMobile\\Kyler\\CareerSystem\\app\\build\\generated\\res\\pngs\\debug\\drawable-ldpi\\icon_title.png"
+        "merged": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/build/intermediates/res/merged/debug/drawable-ldpi-v4/editicon.png",
+        "source": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/build/generated/res/pngs/debug/drawable-ldpi/editicon.png"
     },
     {
-        "merged": "C:\\home\\kyler\\GitHub\\CareerSystemMobile\\Kyler\\CareerSystem\\app\\build\\intermediates\\res\\merged\\debug\\drawable-ldpi-v4\\addicon.png",
-        "source": "C:\\home\\kyler\\GitHub\\CareerSystemMobile\\Kyler\\CareerSystem\\app\\build\\generated\\res\\pngs\\debug\\drawable-ldpi\\addicon.png"
+        "merged": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/build/intermediates/res/merged/debug/drawable-ldpi-v4/navmyresumeicon.png",
+        "source": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/build/generated/res/pngs/debug/drawable-ldpi/navmyresumeicon.png"
     },
     {
-        "merged": "C:\\Users\\Duck_Ky\\Documents\\GitHub\\CareerSystemMobile\\Kyler\\CareerSystem\\app\\build\\intermediates\\res\\merged\\debug\\drawable-ldpi-v4\\navfavoriteicon.png",
-        "source": "C:\\Users\\Duck_Ky\\Documents\\GitHub\\CareerSystemMobile\\Kyler\\CareerSystem\\app\\build\\generated\\res\\pngs\\debug\\drawable-ldpi\\navfavoriteicon.png"
+        "merged": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/build/intermediates/res/merged/debug/drawable-ldpi-v4/resumeawardicon.png",
+        "source": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/build/generated/res/pngs/debug/drawable-ldpi/resumeawardicon.png"
     },
     {
-        "merged": "C:\\home\\kyler\\GitHub\\CareerSystemMobile\\Kyler\\CareerSystem\\app\\build\\intermediates\\res\\merged\\debug\\drawable-ldpi-v4\\icon_category.png",
-        "source": "C:\\home\\kyler\\GitHub\\CareerSystemMobile\\Kyler\\CareerSystem\\app\\build\\generated\\res\\pngs\\debug\\drawable-ldpi\\icon_category.png"
+        "merged": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/build/intermediates/res/merged/debug/drawable-ldpi-v4/resumecontacticon.png",
+        "source": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/build/generated/res/pngs/debug/drawable-ldpi/resumecontacticon.png"
     },
     {
-        "merged": "C:\\home\\kyler\\GitHub\\CareerSystemMobile\\Kyler\\CareerSystem\\app\\build\\intermediates\\res\\merged\\debug\\drawable-ldpi-v4\\resumeactivityicon.png",
-        "source": "C:\\home\\kyler\\GitHub\\CareerSystemMobile\\Kyler\\CareerSystem\\app\\build\\generated\\res\\pngs\\debug\\drawable-ldpi\\resumeactivityicon.png"
+        "merged": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/build/intermediates/res/merged/debug/drawable-ldpi-v4/resumemoreinforicon.png",
+        "source": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/build/generated/res/pngs/debug/drawable-ldpi/resumemoreinforicon.png"
     },
     {
-        "merged": "C:\\Users\\Duck_Ky\\Documents\\GitHub\\CareerSystemMobile\\Kyler\\CareerSystem\\app\\build\\intermediates\\res\\merged\\debug\\drawable-ldpi-v4\\navigationbackicon.png",
-        "source": "C:\\Users\\Duck_Ky\\Documents\\GitHub\\CareerSystemMobile\\Kyler\\CareerSystem\\app\\build\\generated\\res\\pngs\\debug\\drawable-ldpi\\navigationbackicon.png"
+        "merged": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/build/intermediates/res/merged/debug/drawable-ldpi-v4/navigationbackicon.png",
+        "source": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/build/generated/res/pngs/debug/drawable-ldpi/navigationbackicon.png"
     },
     {
-        "merged": "C:\\Users\\Duck_Ky\\Documents\\GitHub\\CareerSystemMobile\\Kyler\\CareerSystem\\app\\build\\intermediates\\res\\merged\\debug\\drawable-ldpi-v4\\resumeawardicon.png",
-        "source": "C:\\Users\\Duck_Ky\\Documents\\GitHub\\CareerSystemMobile\\Kyler\\CareerSystem\\app\\build\\generated\\res\\pngs\\debug\\drawable-ldpi\\resumeawardicon.png"
+        "merged": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/build/intermediates/res/merged/debug/drawable-ldpi-v4/resumehobbieicon.png",
+        "source": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/build/generated/res/pngs/debug/drawable-ldpi/resumehobbieicon.png"
     },
     {
-        "merged": "C:\\home\\kyler\\GitHub\\CareerSystemMobile\\Kyler\\CareerSystem\\app\\build\\intermediates\\res\\merged\\debug\\drawable-ldpi-v4\\jobappliedjoboverview.png",
-        "source": "C:\\home\\kyler\\GitHub\\CareerSystemMobile\\Kyler\\CareerSystem\\app\\build\\generated\\res\\pngs\\debug\\drawable-ldpi\\jobappliedjoboverview.png"
+        "merged": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/build/intermediates/res/merged/debug/drawable-ldpi-v4/icon_settings.png",
+        "source": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/build/generated/res/pngs/debug/drawable-ldpi/icon_settings.png"
     },
     {
-        "merged": "C:\\Users\\Duck_Ky\\Documents\\GitHub\\CareerSystemMobile\\Kyler\\CareerSystem\\app\\build\\intermediates\\res\\merged\\debug\\drawable-ldpi-v4\\icon_money.png",
-        "source": "C:\\Users\\Duck_Ky\\Documents\\GitHub\\CareerSystemMobile\\Kyler\\CareerSystem\\app\\build\\generated\\res\\pngs\\debug\\drawable-ldpi\\icon_money.png"
+        "merged": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/build/intermediates/res/merged/debug/drawable-ldpi-v4/navfindicon.png",
+        "source": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/build/generated/res/pngs/debug/drawable-ldpi/navfindicon.png"
     },
     {
-        "merged": "C:\\Users\\Duck_Ky\\Documents\\GitHub\\CareerSystemMobile\\Kyler\\CareerSystem\\app\\build\\intermediates\\res\\merged\\debug\\drawable-ldpi-v4\\navnotificationicon.png",
-        "source": "C:\\Users\\Duck_Ky\\Documents\\GitHub\\CareerSystemMobile\\Kyler\\CareerSystem\\app\\build\\generated\\res\\pngs\\debug\\drawable-ldpi\\navnotificationicon.png"
+        "merged": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/build/intermediates/res/merged/debug/drawable-ldpi-v4/myresumeicon.png",
+        "source": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/build/generated/res/pngs/debug/drawable-ldpi/myresumeicon.png"
     },
     {
-        "merged": "C:\\Users\\Duck_Ky\\Documents\\GitHub\\CareerSystemMobile\\Kyler\\CareerSystem\\app\\build\\intermediates\\res\\merged\\debug\\drawable-ldpi-v4\\navjobappliedicon.png",
-        "source": "C:\\Users\\Duck_Ky\\Documents\\GitHub\\CareerSystemMobile\\Kyler\\CareerSystem\\app\\build\\generated\\res\\pngs\\debug\\drawable-ldpi\\navjobappliedicon.png"
+        "merged": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/build/intermediates/res/merged/debug/drawable-ldpi-v4/jobappliedjoboverview.png",
+        "source": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/build/generated/res/pngs/debug/drawable-ldpi/jobappliedjoboverview.png"
     },
     {
-        "merged": "C:\\Users\\Duck_Ky\\Documents\\GitHub\\CareerSystemMobile\\Kyler\\CareerSystem\\app\\build\\intermediates\\res\\merged\\debug\\drawable-ldpi-v4\\resumelanguageicon.png",
-        "source": "C:\\Users\\Duck_Ky\\Documents\\GitHub\\CareerSystemMobile\\Kyler\\CareerSystem\\app\\build\\generated\\res\\pngs\\debug\\drawable-ldpi\\resumelanguageicon.png"
+        "merged": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/build/intermediates/res/merged/debug/drawable-ldpi-v4/icon_question.png",
+        "source": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/build/generated/res/pngs/debug/drawable-ldpi/icon_question.png"
     },
     {
-        "merged": "C:\\Users\\Duck_Ky\\Documents\\GitHub\\CareerSystemMobile\\Kyler\\CareerSystem\\app\\build\\intermediates\\res\\merged\\debug\\drawable-ldpi-v4\\myresumeicon.png",
-        "source": "C:\\Users\\Duck_Ky\\Documents\\GitHub\\CareerSystemMobile\\Kyler\\CareerSystem\\app\\build\\generated\\res\\pngs\\debug\\drawable-ldpi\\myresumeicon.png"
+        "merged": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/build/intermediates/res/merged/debug/drawable-ldpi-v4/navfavoriteicon.png",
+        "source": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/build/generated/res/pngs/debug/drawable-ldpi/navfavoriteicon.png"
     },
     {
-        "merged": "C:\\home\\kyler\\GitHub\\CareerSystemMobile\\Kyler\\CareerSystem\\app\\build\\intermediates\\res\\merged\\debug\\drawable-ldpi-v4\\resumehobbieicon.png",
-        "source": "C:\\home\\kyler\\GitHub\\CareerSystemMobile\\Kyler\\CareerSystem\\app\\build\\generated\\res\\pngs\\debug\\drawable-ldpi\\resumehobbieicon.png"
+        "merged": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/build/intermediates/res/merged/debug/drawable-ldpi-v4/navhomeicon.png",
+        "source": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/build/generated/res/pngs/debug/drawable-ldpi/navhomeicon.png"
     },
     {
-        "merged": "C:\\home\\kyler\\GitHub\\CareerSystemMobile\\Kyler\\CareerSystem\\app\\build\\intermediates\\res\\merged\\debug\\drawable-ldpi-v4\\resumeeducationicon.png",
-        "source": "C:\\home\\kyler\\GitHub\\CareerSystemMobile\\Kyler\\CareerSystem\\app\\build\\generated\\res\\pngs\\debug\\drawable-ldpi\\resumeeducationicon.png"
+        "merged": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/build/intermediates/res/merged/debug/drawable-ldpi-v4/navjobappliedicon.png",
+        "source": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/build/generated/res/pngs/debug/drawable-ldpi/navjobappliedicon.png"
     },
     {
-        "merged": "C:\\home\\kyler\\GitHub\\CareerSystemMobile\\Kyler\\CareerSystem\\app\\build\\intermediates\\res\\merged\\debug\\drawable-ldpi-v4\\resumemoreinforicon.png",
-        "source": "C:\\home\\kyler\\GitHub\\CareerSystemMobile\\Kyler\\CareerSystem\\app\\build\\generated\\res\\pngs\\debug\\drawable-ldpi\\resumemoreinforicon.png"
+        "merged": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/build/intermediates/res/merged/debug/drawable-ldpi-v4/resumelanguageicon.png",
+        "source": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/build/generated/res/pngs/debug/drawable-ldpi/resumelanguageicon.png"
     },
     {
-        "merged": "C:\\home\\kyler\\GitHub\\CareerSystemMobile\\Kyler\\CareerSystem\\app\\build\\intermediates\\res\\merged\\debug\\drawable-ldpi-v4\\navjobappliedicon.png",
-        "source": "C:\\home\\kyler\\GitHub\\CareerSystemMobile\\Kyler\\CareerSystem\\app\\build\\generated\\res\\pngs\\debug\\drawable-ldpi\\navjobappliedicon.png"
+        "merged": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/build/intermediates/res/merged/debug/drawable-ldpi-v4/resumeexperienceicon.png",
+        "source": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/build/generated/res/pngs/debug/drawable-ldpi/resumeexperienceicon.png"
     },
     {
-        "merged": "C:\\Users\\Duck_Ky\\Documents\\GitHub\\CareerSystemMobile\\Kyler\\CareerSystem\\app\\build\\intermediates\\res\\merged\\debug\\drawable-ldpi-v4\\resumemoreinforicon.png",
-        "source": "C:\\Users\\Duck_Ky\\Documents\\GitHub\\CareerSystemMobile\\Kyler\\CareerSystem\\app\\build\\generated\\res\\pngs\\debug\\drawable-ldpi\\resumemoreinforicon.png"
+        "merged": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/build/intermediates/res/merged/debug/drawable-ldpi-v4/icon_category.png",
+        "source": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/build/generated/res/pngs/debug/drawable-ldpi/icon_category.png"
     },
     {
-        "merged": "C:\\Users\\Duck_Ky\\Documents\\GitHub\\CareerSystemMobile\\Kyler\\CareerSystem\\app\\build\\intermediates\\res\\merged\\debug\\drawable-ldpi-v4\\icon_title.png",
-        "source": "C:\\Users\\Duck_Ky\\Documents\\GitHub\\CareerSystemMobile\\Kyler\\CareerSystem\\app\\build\\generated\\res\\pngs\\debug\\drawable-ldpi\\icon_title.png"
+        "merged": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/build/intermediates/res/merged/debug/drawable-ldpi-v4/starfollow.png",
+        "source": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/build/generated/res/pngs/debug/drawable-ldpi/starfollow.png"
     },
     {
-        "merged": "C:\\home\\kyler\\GitHub\\CareerSystemMobile\\Kyler\\CareerSystem\\app\\build\\intermediates\\res\\merged\\debug\\drawable-ldpi-v4\\resumecontacticon.png",
-        "source": "C:\\home\\kyler\\GitHub\\CareerSystemMobile\\Kyler\\CareerSystem\\app\\build\\generated\\res\\pngs\\debug\\drawable-ldpi\\resumecontacticon.png"
+        "merged": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/build/intermediates/res/merged/debug/drawable-ldpi-v4/resumeskillicon.png",
+        "source": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/build/generated/res/pngs/debug/drawable-ldpi/resumeskillicon.png"
     },
     {
-        "merged": "C:\\Users\\Duck_Ky\\Documents\\GitHub\\CareerSystemMobile\\Kyler\\CareerSystem\\app\\build\\intermediates\\res\\merged\\debug\\drawable-ldpi-v4\\navfindicon.png",
-        "source": "C:\\Users\\Duck_Ky\\Documents\\GitHub\\CareerSystemMobile\\Kyler\\CareerSystem\\app\\build\\generated\\res\\pngs\\debug\\drawable-ldpi\\navfindicon.png"
+        "merged": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/build/intermediates/res/merged/debug/drawable-ldpi-v4/addicon.png",
+        "source": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/build/generated/res/pngs/debug/drawable-ldpi/addicon.png"
     },
     {
-        "merged": "C:\\home\\kyler\\GitHub\\CareerSystemMobile\\Kyler\\CareerSystem\\app\\build\\intermediates\\res\\merged\\debug\\drawable-ldpi-v4\\navfindicon.png",
-        "source": "C:\\home\\kyler\\GitHub\\CareerSystemMobile\\Kyler\\CareerSystem\\app\\build\\generated\\res\\pngs\\debug\\drawable-ldpi\\navfindicon.png"
+        "merged": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/build/intermediates/res/merged/debug/drawable-ldpi-v4/navnotificationicon.png",
+        "source": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/build/generated/res/pngs/debug/drawable-ldpi/navnotificationicon.png"
     },
     {
-        "merged": "C:\\home\\kyler\\GitHub\\CareerSystemMobile\\Kyler\\CareerSystem\\app\\build\\intermediates\\res\\merged\\debug\\drawable-ldpi-v4\\editicon.png",
-        "source": "C:\\home\\kyler\\GitHub\\CareerSystemMobile\\Kyler\\CareerSystem\\app\\build\\generated\\res\\pngs\\debug\\drawable-ldpi\\editicon.png"
+        "merged": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/build/intermediates/res/merged/debug/drawable-ldpi-v4/icon_title.png",
+        "source": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/build/generated/res/pngs/debug/drawable-ldpi/icon_title.png"
     },
     {
-        "merged": "C:\\Users\\Duck_Ky\\Documents\\GitHub\\CareerSystemMobile\\Kyler\\CareerSystem\\app\\build\\intermediates\\res\\merged\\debug\\drawable-ldpi-v4\\star.png",
-        "source": "C:\\Users\\Duck_Ky\\Documents\\GitHub\\CareerSystemMobile\\Kyler\\CareerSystem\\app\\build\\generated\\res\\pngs\\debug\\drawable-ldpi\\star.png"
+        "merged": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/build/intermediates/res/merged/debug/drawable-ldpi-v4/icon_money.png",
+        "source": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/build/generated/res/pngs/debug/drawable-ldpi/icon_money.png"
     },
     {
-        "merged": "C:\\home\\kyler\\GitHub\\CareerSystemMobile\\Kyler\\CareerSystem\\app\\build\\intermediates\\res\\merged\\debug\\drawable-ldpi-v4\\navigationbackicon.png",
-        "source": "C:\\home\\kyler\\GitHub\\CareerSystemMobile\\Kyler\\CareerSystem\\app\\build\\generated\\res\\pngs\\debug\\drawable-ldpi\\navigationbackicon.png"
+        "merged": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/build/intermediates/res/merged/debug/drawable-ldpi-v4/resumeabouticon.png",
+        "source": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/build/generated/res/pngs/debug/drawable-ldpi/resumeabouticon.png"
     },
     {
-        "merged": "C:\\Users\\Duck_Ky\\Documents\\GitHub\\CareerSystemMobile\\Kyler\\CareerSystem\\app\\build\\intermediates\\res\\merged\\debug\\drawable-ldpi-v4\\resumeexperienceicon.png",
-        "source": "C:\\Users\\Duck_Ky\\Documents\\GitHub\\CareerSystemMobile\\Kyler\\CareerSystem\\app\\build\\generated\\res\\pngs\\debug\\drawable-ldpi\\resumeexperienceicon.png"
+        "merged": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/build/intermediates/res/merged/debug/drawable-ldpi-v4/star.png",
+        "source": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/build/generated/res/pngs/debug/drawable-ldpi/star.png"
     },
     {
-        "merged": "C:\\home\\kyler\\GitHub\\CareerSystemMobile\\Kyler\\CareerSystem\\app\\build\\intermediates\\res\\merged\\debug\\drawable-ldpi-v4\\resumeexperienceicon.png",
-        "source": "C:\\home\\kyler\\GitHub\\CareerSystemMobile\\Kyler\\CareerSystem\\app\\build\\generated\\res\\pngs\\debug\\drawable-ldpi\\resumeexperienceicon.png"
+        "merged": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/build/intermediates/res/merged/debug/drawable-ldpi-v4/deleteicon.png",
+        "source": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/build/generated/res/pngs/debug/drawable-ldpi/deleteicon.png"
     },
     {
-        "merged": "C:\\Users\\Duck_Ky\\Documents\\GitHub\\CareerSystemMobile\\Kyler\\CareerSystem\\app\\build\\intermediates\\res\\merged\\debug\\drawable-ldpi-v4\\starfollow.png",
-        "source": "C:\\Users\\Duck_Ky\\Documents\\GitHub\\CareerSystemMobile\\Kyler\\CareerSystem\\app\\build\\generated\\res\\pngs\\debug\\drawable-ldpi\\starfollow.png"
+        "merged": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/build/intermediates/res/merged/debug/drawable-ldpi-v4/icon_problem.png",
+        "source": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/build/generated/res/pngs/debug/drawable-ldpi/icon_problem.png"
     },
     {
-        "merged": "C:\\Users\\Duck_Ky\\Documents\\GitHub\\CareerSystemMobile\\Kyler\\CareerSystem\\app\\build\\intermediates\\res\\merged\\debug\\drawable-ldpi-v4\\editicon.png",
-        "source": "C:\\Users\\Duck_Ky\\Documents\\GitHub\\CareerSystemMobile\\Kyler\\CareerSystem\\app\\build\\generated\\res\\pngs\\debug\\drawable-ldpi\\editicon.png"
+        "merged": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/build/intermediates/res/merged/debug/drawable-ldpi-v4/resumeeducationicon.png",
+        "source": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/build/generated/res/pngs/debug/drawable-ldpi/resumeeducationicon.png"
     },
     {
-        "merged": "C:\\home\\kyler\\GitHub\\CareerSystemMobile\\Kyler\\CareerSystem\\app\\build\\intermediates\\res\\merged\\debug\\drawable-ldpi-v4\\deleteicon.png",
-        "source": "C:\\home\\kyler\\GitHub\\CareerSystemMobile\\Kyler\\CareerSystem\\app\\build\\generated\\res\\pngs\\debug\\drawable-ldpi\\deleteicon.png"
+        "merged": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/build/intermediates/res/merged/debug/drawable-ldpi-v4/icon_idea.png",
+        "source": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/build/generated/res/pngs/debug/drawable-ldpi/icon_idea.png"
     },
     {
-        "merged": "C:\\home\\kyler\\GitHub\\CareerSystemMobile\\Kyler\\CareerSystem\\app\\build\\intermediates\\res\\merged\\debug\\drawable-ldpi-v4\\resumeabouticon.png",
-        "source": "C:\\home\\kyler\\GitHub\\CareerSystemMobile\\Kyler\\CareerSystem\\app\\build\\generated\\res\\pngs\\debug\\drawable-ldpi\\resumeabouticon.png"
+        "merged": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/build/intermediates/res/merged/debug/drawable-ldpi-v4/icon_location.png",
+        "source": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/build/generated/res/pngs/debug/drawable-ldpi/icon_location.png"
     },
     {
-        "merged": "C:\\home\\kyler\\GitHub\\CareerSystemMobile\\Kyler\\CareerSystem\\app\\build\\intermediates\\res\\merged\\debug\\drawable-ldpi-v4\\myresumeicon.png",
-        "source": "C:\\home\\kyler\\GitHub\\CareerSystemMobile\\Kyler\\CareerSystem\\app\\build\\generated\\res\\pngs\\debug\\drawable-ldpi\\myresumeicon.png"
-    },
-    {
-        "merged": "C:\\home\\kyler\\GitHub\\CareerSystemMobile\\Kyler\\CareerSystem\\app\\build\\intermediates\\res\\merged\\debug\\drawable-ldpi-v4\\navmyresumeicon.png",
-        "source": "C:\\home\\kyler\\GitHub\\CareerSystemMobile\\Kyler\\CareerSystem\\app\\build\\generated\\res\\pngs\\debug\\drawable-ldpi\\navmyresumeicon.png"
-    },
-    {
-        "merged": "C:\\home\\kyler\\GitHub\\CareerSystemMobile\\Kyler\\CareerSystem\\app\\build\\intermediates\\res\\merged\\debug\\drawable-ldpi-v4\\navnotificationicon.png",
-        "source": "C:\\home\\kyler\\GitHub\\CareerSystemMobile\\Kyler\\CareerSystem\\app\\build\\generated\\res\\pngs\\debug\\drawable-ldpi\\navnotificationicon.png"
-    },
-    {
-        "merged": "C:\\Users\\Duck_Ky\\Documents\\GitHub\\CareerSystemMobile\\Kyler\\CareerSystem\\app\\build\\intermediates\\res\\merged\\debug\\drawable-ldpi-v4\\resumecontacticon.png",
-        "source": "C:\\Users\\Duck_Ky\\Documents\\GitHub\\CareerSystemMobile\\Kyler\\CareerSystem\\app\\build\\generated\\res\\pngs\\debug\\drawable-ldpi\\resumecontacticon.png"
-    },
-    {
-        "merged": "C:\\Users\\Duck_Ky\\Documents\\GitHub\\CareerSystemMobile\\Kyler\\CareerSystem\\app\\build\\intermediates\\res\\merged\\debug\\drawable-ldpi-v4\\jobappliedjoboverview.png",
-        "source": "C:\\Users\\Duck_Ky\\Documents\\GitHub\\CareerSystemMobile\\Kyler\\CareerSystem\\app\\build\\generated\\res\\pngs\\debug\\drawable-ldpi\\jobappliedjoboverview.png"
-    },
-    {
-        "merged": "C:\\home\\kyler\\GitHub\\CareerSystemMobile\\Kyler\\CareerSystem\\app\\build\\intermediates\\res\\merged\\debug\\drawable-ldpi-v4\\navhomeicon.png",
-        "source": "C:\\home\\kyler\\GitHub\\CareerSystemMobile\\Kyler\\CareerSystem\\app\\build\\generated\\res\\pngs\\debug\\drawable-ldpi\\navhomeicon.png"
-    },
-    {
-        "merged": "C:\\home\\kyler\\GitHub\\CareerSystemMobile\\Kyler\\CareerSystem\\app\\build\\intermediates\\res\\merged\\debug\\drawable-ldpi-v4\\navfavoriteicon.png",
-        "source": "C:\\home\\kyler\\GitHub\\CareerSystemMobile\\Kyler\\CareerSystem\\app\\build\\generated\\res\\pngs\\debug\\drawable-ldpi\\navfavoriteicon.png"
-    },
-    {
-        "merged": "C:\\Users\\Duck_Ky\\Documents\\GitHub\\CareerSystemMobile\\Kyler\\CareerSystem\\app\\build\\intermediates\\res\\merged\\debug\\drawable-ldpi-v4\\resumehobbieicon.png",
-        "source": "C:\\Users\\Duck_Ky\\Documents\\GitHub\\CareerSystemMobile\\Kyler\\CareerSystem\\app\\build\\generated\\res\\pngs\\debug\\drawable-ldpi\\resumehobbieicon.png"
-    },
-    {
-        "merged": "C:\\Users\\Duck_Ky\\Documents\\GitHub\\CareerSystemMobile\\Kyler\\CareerSystem\\app\\build\\intermediates\\res\\merged\\debug\\drawable-ldpi-v4\\navmyresumeicon.png",
-        "source": "C:\\Users\\Duck_Ky\\Documents\\GitHub\\CareerSystemMobile\\Kyler\\CareerSystem\\app\\build\\generated\\res\\pngs\\debug\\drawable-ldpi\\navmyresumeicon.png"
-    },
-    {
-        "merged": "C:\\home\\kyler\\GitHub\\CareerSystemMobile\\Kyler\\CareerSystem\\app\\build\\intermediates\\res\\merged\\debug\\drawable-ldpi-v4\\resumeskillicon.png",
-        "source": "C:\\home\\kyler\\GitHub\\CareerSystemMobile\\Kyler\\CareerSystem\\app\\build\\generated\\res\\pngs\\debug\\drawable-ldpi\\resumeskillicon.png"
-    },
-    {
-        "merged": "C:\\Users\\Duck_Ky\\Documents\\GitHub\\CareerSystemMobile\\Kyler\\CareerSystem\\app\\build\\intermediates\\res\\merged\\debug\\drawable-ldpi-v4\\icon_location.png",
-        "source": "C:\\Users\\Duck_Ky\\Documents\\GitHub\\CareerSystemMobile\\Kyler\\CareerSystem\\app\\build\\generated\\res\\pngs\\debug\\drawable-ldpi\\icon_location.png"
-    },
-    {
-        "merged": "C:\\home\\kyler\\GitHub\\CareerSystemMobile\\Kyler\\CareerSystem\\app\\build\\intermediates\\res\\merged\\debug\\drawable-ldpi-v4\\star.png",
-        "source": "C:\\home\\kyler\\GitHub\\CareerSystemMobile\\Kyler\\CareerSystem\\app\\build\\generated\\res\\pngs\\debug\\drawable-ldpi\\star.png"
-    },
-    {
-        "merged": "C:\\Users\\Duck_Ky\\Documents\\GitHub\\CareerSystemMobile\\Kyler\\CareerSystem\\app\\build\\intermediates\\res\\merged\\debug\\drawable-ldpi-v4\\deleteicon.png",
-        "source": "C:\\Users\\Duck_Ky\\Documents\\GitHub\\CareerSystemMobile\\Kyler\\CareerSystem\\app\\build\\generated\\res\\pngs\\debug\\drawable-ldpi\\deleteicon.png"
-    },
-    {
-        "merged": "C:\\Users\\Duck_Ky\\Documents\\GitHub\\CareerSystemMobile\\Kyler\\CareerSystem\\app\\build\\intermediates\\res\\merged\\debug\\drawable-ldpi-v4\\addicon.png",
-        "source": "C:\\Users\\Duck_Ky\\Documents\\GitHub\\CareerSystemMobile\\Kyler\\CareerSystem\\app\\build\\generated\\res\\pngs\\debug\\drawable-ldpi\\addicon.png"
-    },
-    {
-        "merged": "C:\\home\\kyler\\GitHub\\CareerSystemMobile\\Kyler\\CareerSystem\\app\\build\\intermediates\\res\\merged\\debug\\drawable-ldpi-v4\\starfollow.png",
-        "source": "C:\\home\\kyler\\GitHub\\CareerSystemMobile\\Kyler\\CareerSystem\\app\\build\\generated\\res\\pngs\\debug\\drawable-ldpi\\starfollow.png"
-    },
-    {
-        "merged": "C:\\Users\\Duck_Ky\\Documents\\GitHub\\CareerSystemMobile\\Kyler\\CareerSystem\\app\\build\\intermediates\\res\\merged\\debug\\drawable-ldpi-v4\\resumeskillicon.png",
-        "source": "C:\\Users\\Duck_Ky\\Documents\\GitHub\\CareerSystemMobile\\Kyler\\CareerSystem\\app\\build\\generated\\res\\pngs\\debug\\drawable-ldpi\\resumeskillicon.png"
-    },
-    {
-        "merged": "C:\\Users\\Duck_Ky\\Documents\\GitHub\\CareerSystemMobile\\Kyler\\CareerSystem\\app\\build\\intermediates\\res\\merged\\debug\\drawable-ldpi-v4\\resumeactivityicon.png",
-        "source": "C:\\Users\\Duck_Ky\\Documents\\GitHub\\CareerSystemMobile\\Kyler\\CareerSystem\\app\\build\\generated\\res\\pngs\\debug\\drawable-ldpi\\resumeactivityicon.png"
-    },
-    {
-        "merged": "C:\\Users\\Duck_Ky\\Documents\\GitHub\\CareerSystemMobile\\Kyler\\CareerSystem\\app\\build\\intermediates\\res\\merged\\debug\\drawable-ldpi-v4\\resumeeducationicon.png",
-        "source": "C:\\Users\\Duck_Ky\\Documents\\GitHub\\CareerSystemMobile\\Kyler\\CareerSystem\\app\\build\\generated\\res\\pngs\\debug\\drawable-ldpi\\resumeeducationicon.png"
-    },
-    {
-        "merged": "C:\\Users\\Duck_Ky\\Documents\\GitHub\\CareerSystemMobile\\Kyler\\CareerSystem\\app\\build\\intermediates\\res\\merged\\debug\\drawable-ldpi-v4\\icon_category.png",
-        "source": "C:\\Users\\Duck_Ky\\Documents\\GitHub\\CareerSystemMobile\\Kyler\\CareerSystem\\app\\build\\generated\\res\\pngs\\debug\\drawable-ldpi\\icon_category.png"
-    },
-    {
-        "merged": "C:\\Users\\Duck_Ky\\Documents\\GitHub\\CareerSystemMobile\\Kyler\\CareerSystem\\app\\build\\intermediates\\res\\merged\\debug\\drawable-ldpi-v4\\resumeabouticon.png",
-        "source": "C:\\Users\\Duck_Ky\\Documents\\GitHub\\CareerSystemMobile\\Kyler\\CareerSystem\\app\\build\\generated\\res\\pngs\\debug\\drawable-ldpi\\resumeabouticon.png"
-    },
-    {
-        "merged": "C:\\home\\kyler\\GitHub\\CareerSystemMobile\\Kyler\\CareerSystem\\app\\build\\intermediates\\res\\merged\\debug\\drawable-ldpi-v4\\resumelanguageicon.png",
-        "source": "C:\\home\\kyler\\GitHub\\CareerSystemMobile\\Kyler\\CareerSystem\\app\\build\\generated\\res\\pngs\\debug\\drawable-ldpi\\resumelanguageicon.png"
-    },
-    {
-        "merged": "C:\\home\\kyler\\GitHub\\CareerSystemMobile\\Kyler\\CareerSystem\\app\\build\\intermediates\\res\\merged\\debug\\drawable-ldpi-v4\\icon_location.png",
-        "source": "C:\\home\\kyler\\GitHub\\CareerSystemMobile\\Kyler\\CareerSystem\\app\\build\\generated\\res\\pngs\\debug\\drawable-ldpi\\icon_location.png"
-    },
-    {
-        "merged": "C:\\home\\kyler\\GitHub\\CareerSystemMobile\\Kyler\\CareerSystem\\app\\build\\intermediates\\res\\merged\\debug\\drawable-ldpi-v4\\icon_money.png",
-        "source": "C:\\home\\kyler\\GitHub\\CareerSystemMobile\\Kyler\\CareerSystem\\app\\build\\generated\\res\\pngs\\debug\\drawable-ldpi\\icon_money.png"
-    },
-    {
-        "merged": "C:\\home\\kyler\\GitHub\\CareerSystemMobile\\Kyler\\CareerSystem\\app\\build\\intermediates\\res\\merged\\debug\\drawable-ldpi-v4\\resumeawardicon.png",
-        "source": "C:\\home\\kyler\\GitHub\\CareerSystemMobile\\Kyler\\CareerSystem\\app\\build\\generated\\res\\pngs\\debug\\drawable-ldpi\\resumeawardicon.png"
+        "merged": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/build/intermediates/res/merged/debug/drawable-ldpi-v4/icon_praise.png",
+        "source": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/build/generated/res/pngs/debug/drawable-ldpi/icon_praise.png"
     }
 ]

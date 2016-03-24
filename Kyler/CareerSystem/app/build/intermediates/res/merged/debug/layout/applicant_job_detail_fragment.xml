@@ -28,7 +28,6 @@
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/activity_title_medium"
                     android:textStyle="bold|normal"
-                    android:background="@drawable/customline"
                     android:text="Company Information :"
                     android:textColor="@color/Black"/>
                 <LinearLayout
@@ -169,7 +168,6 @@
                     android:textSize="@dimen/activity_title_medium"
                     android:textStyle="bold|normal"
                     android:text="Job Information :"
-                    android:background="@drawable/customline"
                     android:textColor="@color/Black"/>
                 <LinearLayout
                     android:paddingTop="2dp"
