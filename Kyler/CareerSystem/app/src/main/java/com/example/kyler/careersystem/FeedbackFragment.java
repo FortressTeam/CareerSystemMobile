@@ -106,7 +106,7 @@ public class FeedbackFragment extends Fragment implements View.OnClickListener,O
     private void selectFeedbackType(View view){
         unselectFeedbackType();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            view.setElevation(8);
+            view.setElevation(20);
         }
     }
 

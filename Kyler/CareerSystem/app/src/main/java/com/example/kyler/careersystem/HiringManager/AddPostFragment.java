@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -37,16 +38,15 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.concurrent.ExecutionException;
 
-public class AddPostFragment extends Fragment implements View.OnClickListener,CheckBox.OnCheckedChangeListener,Spinner.OnItemSelectedListener,ObservableScrollViewCallbacks {
+public class AddPostFragment extends Fragment implements View.OnClickListener,Spinner.OnItemSelectedListener,ObservableScrollViewCallbacks,View.OnFocusChangeListener {
     private EditText addPostTitle,addPostSalary,addPostLocation,addPostContent;
+    private ImageView addPostTitleIcon,addPostSalaryIcon,addPostLocationIcon,addPostCategoryIcon,addPostContentIcon;
     private Button addPostAdd,addPostCancel;
     private Spinner addPostCategory;
-    private CheckBox addPostSalarycb;
     private ObservableScrollView observableScrollView;
 
     private int page=1;
     private boolean noMoreData = false;
-    private boolean negotiable = false;
     private int categoryID,hiringManagerID=1;
 
     private ArrayList<Categories> arrayListCategories=null;
@@ -61,11 +61,16 @@ public class AddPostFragment extends Fragment implements View.OnClickListener,Ch
         addPostTitle = (EditText) rootView.findViewById(R.id.hiringmanager_addpost_title_edittext);
         addPostSalary = (EditText) rootView.findViewById(R.id.hiringmanager_addpost_salary_edittext);
         addPostLocation = (EditText) rootView.findViewById(R.id.hiringmanager_addpost_location_edittext);
-        addPostContent = (EditText) rootView.findViewById(R.id.hiringmanager_addpost_postcontent_edittext);
+        addPostContent = (EditText) rootView.findViewById(R.id.hiringmanager_addpost_content_edittext);
         addPostCategory = (Spinner) rootView.findViewById(R.id.hiringmanager_addpost_category_spinner);
-        addPostSalarycb = (CheckBox) rootView.findViewById(R.id.hiringmanager_addpost_salary_checkbox);
+        addPostTitleIcon = (ImageView) rootView.findViewById(R.id.hiringmanager_addpost_title_icon);
+        addPostSalaryIcon = (ImageView) rootView.findViewById(R.id.hiringmanager_addpost_salary_icon);
+        addPostLocationIcon = (ImageView) rootView.findViewById(R.id.hiringmanager_addpost_location_icon);
+        addPostCategoryIcon = (ImageView) rootView.findViewById(R.id.hiringmanager_addpost_category_icon);
+        addPostContentIcon = (ImageView) rootView.findViewById(R.id.hiringmanager_addpost_content_icon);
         arrayListCategories = new ArrayList<>();
         ArrayList<String> arr = new ArrayList<>();
+        arr.add("Category");
         try {
             do {
                 JSONArray jsonArrayCategories = new GetJsonArray(getActivity(), "categories").execute(UrlStatic.URLCategories + page).get();
@@ -90,30 +95,24 @@ public class AddPostFragment extends Fragment implements View.OnClickListener,Ch
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity().getApplicationContext(),R.layout.spinner_item,arr);
         addPostCategory.setAdapter(adapter);
         addPostCategory.setOnItemSelectedListener(this);
-        addPostSalarycb.setOnCheckedChangeListener(this);
         addPostAdd.setOnClickListener(this);
         observableScrollView.setScrollViewCallbacks(this);
+        addPostTitle.setOnFocusChangeListener(this);
+        addPostSalary.setOnFocusChangeListener(this);
+        addPostLocation.setOnFocusChangeListener(this);
+        addPostCategory.setOnFocusChangeListener(this);
+        addPostContent.setOnFocusChangeListener(this);
         adapter.notifyDataSetChanged();
         return rootView;
     }
 
-    @Override
-    public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-        if(compoundButton.isChecked()){
-            addPostSalary.setText("");
-            addPostSalary.setEnabled(false);
-            negotiable=true;
-        }
-        else {
-            addPostSalary.setEnabled(true);
-            negotiable=false;
-        }
-    }
 
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-        categoryID=arrayListCategories.get(i).getID();
-        Toast.makeText(getActivity().getApplicationContext(),arrayListCategories.get(i).getCategoryName()+" "+arrayListCategories.get(i).getID(),Toast.LENGTH_SHORT).show();
+        if(i>0){
+            categoryID=arrayListCategories.get(i-1).getID();
+            Toast.makeText(getActivity().getApplicationContext(),arrayListCategories.get(i-1).getCategoryName()+" "+arrayListCategories.get(i-1).getID(),Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
@@ -153,10 +152,19 @@ public class AddPostFragment extends Fragment implements View.OnClickListener,Ch
         switch (view.getId()){
             case R.id.hiringmanager_addpost_add:
                 if(nothingIsNull()) {
-                    if(salaryIsNumber()) {
-                        createAlertConfirm();
-                    }else{
-                        new AlertDialog.Builder(getActivity()).setTitle("Error").setMessage("Salary must be a number... ").setPositiveButton("OK",null).show();
+                    if(!hasSalary())
+                        new AlertDialog.Builder(getActivity()).setMessage("You didn't type the salary.\nYou want to Negatiable or Try again").setPositiveButton("Negatiable", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                createAlertConfirm(true);
+                            }
+                        }).setNegativeButton("Try again",null).show();
+                    else {
+                        if (salaryIsNumber()) {
+                            createAlertConfirm(false);
+                        } else {
+                            new AlertDialog.Builder(getActivity()).setTitle("Error").setMessage("Salary must be a number... ").setPositiveButton("OK", null).show();
+                        }
                     }
                 }else{
                     createAlertError();
@@ -181,6 +189,13 @@ public class AddPostFragment extends Fragment implements View.OnClickListener,Ch
             return false;
     }
 
+    private boolean hasCategory(){
+        if(!addPostCategory.getSelectedItem().toString().equals("Category"))
+            return true;
+        else
+            return false;
+    }
+
     private boolean hasContent(){
         if(!addPostContent.getText().toString().trim().equals(""))
             return true;
@@ -189,14 +204,11 @@ public class AddPostFragment extends Fragment implements View.OnClickListener,Ch
     }
 
     private boolean hasSalary(){
-        if(negotiable)
+        if(!addPostSalary.getText().toString().trim().equals(""))
             return true;
-        else{
-            if(!addPostSalary.getText().toString().trim().equals(""))
-                return true;
-            else
-                return false;
-        }
+        else
+            return false;
+
     }
 
     private boolean isNumber(String input){
@@ -204,11 +216,11 @@ public class AddPostFragment extends Fragment implements View.OnClickListener,Ch
     }
 
     private boolean nothingIsNull(){
-        return hasTitle() && hasSalary() && hasLocation() && hasContent();
+        return hasTitle() && hasLocation() && hasCategory() && hasContent();
     }
 
     private boolean salaryIsNumber(){
-        return isNumber(addPostSalary.getText().toString())&&!negotiable;
+        return isNumber(addPostSalary.getText().toString());
     }
 
     private boolean isCreatePostSuccess(JSONObject input){
@@ -222,7 +234,7 @@ public class AddPostFragment extends Fragment implements View.OnClickListener,Ch
         return result;
     }
 
-    private void createAlertConfirm(){
+    private void createAlertConfirm(final boolean isNegotiable){
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setMessage("Confirm creating a post ...").setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
@@ -232,7 +244,7 @@ public class AddPostFragment extends Fragment implements View.OnClickListener,Ch
                 try {
                     jsonObject.put("post_title", addPostTitle.getText());
                     jsonObject.put("post_content", addPostContent.getText());
-                    if (!negotiable)
+                    if (!isNegotiable)
                         jsonObject.put("post_salary", Float.parseFloat(addPostSalary.getText() + ""));
                     jsonObject.put("post_location", addPostLocation.getText());
                     jsonObject.put("post_date", new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime()));
@@ -260,13 +272,56 @@ public class AddPostFragment extends Fragment implements View.OnClickListener,Ch
         String message = "You missed :";
         if(!hasTitle())
             message +=" \nTitle ";
-        if(!hasSalary())
-            message+=" \nSalary ";
         if(!hasLocation())
             message+=" \nLocation ";
+        if(!hasCategory())
+            message+=" \nCategory";
         if(!hasContent())
             message+=" \nContent";
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle("Missing").setMessage(message).setPositiveButton("OK",null).show();
+    }
+
+    @Override
+    public void onFocusChange(View view, boolean b) {
+        switch (view.getId()){
+            case R.id.hiringmanager_addpost_title_edittext:
+                if(b){
+                    addPostTitleIcon.setBackgroundResource(R.drawable.icon_title2);
+                }else{
+                    addPostTitleIcon.setBackgroundResource(R.drawable.icon_title);
+                }
+                break;
+            case R.id.hiringmanager_addpost_salary_edittext:
+                if(b){
+                    addPostSalaryIcon.setBackgroundResource(R.drawable.icon_money2);
+                }else{
+                    addPostSalaryIcon.setBackgroundResource(R.drawable.icon_money);
+                }
+                break;
+            case R.id.hiringmanager_addpost_location_edittext:
+                if(b){
+                    addPostLocationIcon.setBackgroundResource(R.drawable.icon_location2);
+                }else{
+                    addPostLocationIcon.setBackgroundResource(R.drawable.icon_location);
+                }
+                break;
+            case R.id.hiringmanager_addpost_category_spinner:
+                if(b){
+                    addPostCategoryIcon.setBackgroundResource(R.drawable.icon_category2);
+                }else{
+                    addPostCategoryIcon.setBackgroundResource(R.drawable.icon_category);
+                }
+                break;
+            case R.id.hiringmanager_addpost_content_edittext:
+                if(b){
+                    addPostContentIcon.setBackgroundResource(R.drawable.icon_content2);
+                }else{
+                    addPostContentIcon.setBackgroundResource(R.drawable.icon_content);
+                }
+                break;
+            default:
+                break;
+        }
     }
 }

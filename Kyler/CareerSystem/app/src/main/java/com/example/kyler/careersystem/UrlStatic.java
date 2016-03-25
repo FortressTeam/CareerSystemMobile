@@ -5,6 +5,7 @@ package com.example.kyler.careersystem;
  */
 public class UrlStatic {
     public static String service="http://192.168.11.108/CareerSystemWebBased/career_system/";
+//    public static String service="http://54.179.191.67/CareerSystemWebBased/career_system/";
     public static String URLtest1=service+"api/posts/";
     public static String URLimg=service+"img/";
     public static String URLtest=service+"api/posts/1.json";
