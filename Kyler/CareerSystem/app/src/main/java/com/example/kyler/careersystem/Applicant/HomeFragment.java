@@ -1,6 +1,7 @@
 package com.example.kyler.careersystem.Applicant;
 
 import android.app.Fragment;
+import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -129,7 +130,7 @@ public class HomeFragment extends Fragment implements AbsListView.OnScrollListen
         //Load more
         if(firstVisibleItem + visibleItemCount == totalItemCount && !nomoreData && !hasCallback){ //check if we've reached the bottom
             Toast.makeText(getActivity().getApplicationContext(), "Loading", Toast.LENGTH_SHORT).show();
-            mHandler.postDelayed(showMore, 3000);
+            mHandler.post(showMore);
             hasCallback = true;
         }
     }
@@ -163,11 +164,10 @@ public class HomeFragment extends Fragment implements AbsListView.OnScrollListen
             }
             boolean noMoreToShow = jobListViewAdapterLoadInfinite.showMore(); //show more views and find out if
             hasCallback = false;
-            if(nomoreData)
-                progressBar.setVisibility(View.GONE);
-            else
-                progressBar.setVisibility(View.VISIBLE);
-//            progressBar.setVisibility((hasData&&!noMoreToShow)? View.VISIBLE : View.GONE);
+//            if(nomoreData)
+//                progressBar.setVisibility(View.GONE);
+//            else
+//                progressBar.setVisibility(View.VISIBLE);
         }
     };
 

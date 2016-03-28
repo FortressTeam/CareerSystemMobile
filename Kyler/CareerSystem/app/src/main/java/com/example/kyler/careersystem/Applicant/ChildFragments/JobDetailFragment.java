@@ -49,7 +49,7 @@ public class JobDetailFragment extends Fragment implements ObservableScrollViewC
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.applicant_job_detail_fragment, container, false);
-        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Job Detail");
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Edit Profile");
         Bundle bundle = getArguments();
         String url = UrlStatic.URLtest1+bundle.getString("sendData")+".json";
         companyLogo = (ImageView) rootView.findViewById(R.id.job_detail_company_logo);

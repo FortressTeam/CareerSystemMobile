@@ -190,18 +190,5 @@ public class FeedbackFragment extends Fragment implements View.OnClickListener,O
 
     @Override
     public void onUpOrCancelMotionEvent(ScrollState scrollState) {
-        ActionBar ab = ((AppCompatActivity)getActivity()).getSupportActionBar();
-        if (ab == null) {
-            return;
-        }
-        if (scrollState == ScrollState.UP) {
-            if (ab.isShowing()) {
-                ab.hide();
-            }
-        } else if (scrollState == ScrollState.DOWN) {
-            if (!ab.isShowing()) {
-                ab.show();
-            }
-        }
     }
 }

@@ -194,5 +194,14 @@ public class Utilities {
         activitySend.startActivity(intent);
     }
 
-
+    public static String convertTime(String date){
+        String result = "";
+        try {
+            Date resultDate = new SimpleDateFormat("yyyy-MM-dd").parse(date);
+            result = new SimpleDateFormat("d - LLL - yyyy").format(resultDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
 }

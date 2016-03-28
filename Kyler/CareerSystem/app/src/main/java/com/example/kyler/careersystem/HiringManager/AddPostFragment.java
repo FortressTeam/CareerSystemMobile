@@ -2,7 +2,10 @@ package com.example.kyler.careersystem.HiringManager;
 
 import android.app.AlertDialog;
 import android.app.Fragment;
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -105,7 +108,6 @@ public class AddPostFragment extends Fragment implements View.OnClickListener,Sp
         adapter.notifyDataSetChanged();
         return rootView;
     }
-
 
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {

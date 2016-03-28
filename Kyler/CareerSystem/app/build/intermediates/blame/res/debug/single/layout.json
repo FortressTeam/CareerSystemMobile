@@ -196,6 +196,10 @@
         "source": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/src/main/res/layout/applicant_job_detail_fragment.xml"
     },
     {
+        "merged": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/build/intermediates/res/merged/debug/layout/applicant_myresume_profile_fragment.xml",
+        "source": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/src/main/res/layout/applicant_myresume_profile_fragment.xml"
+    },
+    {
         "merged": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/build/intermediates/res/merged/debug/layout/abc_dialog_title_material.xml",
         "source": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_dialog_title_material.xml"
     },
@@ -238,6 +242,10 @@
     {
         "merged": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/build/intermediates/res/merged/debug/layout/abc_list_menu_item_icon.xml",
         "source": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_list_menu_item_icon.xml"
+    },
+    {
+        "merged": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/build/intermediates/res/merged/debug/layout/applicant_myresume_contact_fragment.xml",
+        "source": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/src/main/res/layout/applicant_myresume_contact_fragment.xml"
     },
     {
         "merged": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/build/intermediates/res/merged/debug/layout/applicant_find_job_fragment.xml",
@@ -286,6 +294,10 @@
     {
         "merged": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/build/intermediates/res/merged/debug/layout/design_menu_item_action_area.xml",
         "source": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/build/intermediates/exploded-aar/com.android.support/design/23.1.1/res/layout/design_menu_item_action_area.xml"
+    },
+    {
+        "merged": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/build/intermediates/res/merged/debug/layout/applicant_myresume_personal_history_listviewitem.xml",
+        "source": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/src/main/res/layout/applicant_myresume_personal_history_listviewitem.xml"
     },
     {
         "merged": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/build/intermediates/res/merged/debug/layout/nav_header_applicant_main.xml",

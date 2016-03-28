@@ -14,6 +14,8 @@ import android.widget.ListView;
 
 import com.example.kyler.careersystem.Applicant.ChildFragments.CompanyInformationFragment;
 import com.example.kyler.careersystem.Applicant.ChildFragments.JobDetailFragment;
+import com.example.kyler.careersystem.Applicant.ChildFragments.MyResumeContactFragment;
+import com.example.kyler.careersystem.Applicant.ChildFragments.MyResumeProfileFragment;
 import com.example.kyler.careersystem.ApplicantMainActivity;
 import com.example.kyler.careersystem.FeedbackFragment;
 import com.example.kyler.careersystem.R;
@@ -64,6 +66,15 @@ public class ChildApplicantActivity extends AppCompatActivity implements ListVie
             case "companydetail":
                 fragment = new CompanyInformationFragment();
                 bundle.putString("sendData", receiveData);
+                break;
+
+            case "myresumeeditprofile":
+                fragment = new MyResumeProfileFragment();
+                bundle.putString("sendData",receiveData);
+                break;
+            case "myresumeeditcontact":
+                fragment = new MyResumeContactFragment();
+                bundle.putString("sendData",receiveData);
                 break;
 
             case "Feedback":

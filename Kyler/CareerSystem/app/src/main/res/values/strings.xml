@@ -11,6 +11,8 @@
     <string name="AddPost">Add New</string>
     <string name="CancelAddPost">Cancel</string>
     <string name="Submit">Submit</string>
+    <string name="Save">Save</string>
+
 
     <string name="facebook_app_id">238547153159730</string>
 

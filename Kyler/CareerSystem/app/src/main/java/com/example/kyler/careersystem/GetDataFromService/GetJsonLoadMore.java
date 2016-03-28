@@ -79,6 +79,8 @@ public class GetJsonLoadMore extends AsyncTask<String,Void,JSONArray> {
     @Override
     protected void onPostExecute(JSONArray s) {
         super.onPostExecute(s);
-        progressBar.setVisibility(View.GONE);
+        if(s==null){
+            progressBar.setVisibility(View.GONE);
+        }
     }
 }
