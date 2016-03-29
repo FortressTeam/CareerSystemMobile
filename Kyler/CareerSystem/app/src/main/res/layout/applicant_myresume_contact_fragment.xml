@@ -7,7 +7,7 @@
     android:layout_marginLeft="10dp"
     android:layout_marginRight="10dp"
     android:orientation="vertical"
-    tools:context="com.example.kyler.careersystem.Applicant.ChildFragments.MyResumeContactFragment">
+    tools:context=".Applicant.ChildFragments.MyresumeContactFragment">
 
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"

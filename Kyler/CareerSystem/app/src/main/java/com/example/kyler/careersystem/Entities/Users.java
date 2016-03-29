@@ -16,7 +16,7 @@ public class Users {
     private String password;
     private String userRegistered;
     private String userEmail;
-    private int userStatus;
+    private boolean userStatus;
     private String userActivationKey;
     private String userAvatar;
     private int groupID;
@@ -40,10 +40,13 @@ public class Users {
                 this.userEmail = jsonObject.getString("user_email");
             }
             if (jsonObject.has("user_status")) {
-                this.userStatus = jsonObject.getInt("user_status");
+                this.userStatus = jsonObject.getBoolean("user_status");
             }
             if (jsonObject.has("user_activation_key")) {
                 this.userActivationKey = jsonObject.getString("user_activation_key");
+            }
+            if (jsonObject.has("user_avatar")) {
+                this.userAvatar = jsonObject.getString("user_avatar");
             }
             if (jsonObject.has("group_id")) {
                 this.groupID = jsonObject.getInt("group_id");
@@ -55,7 +58,7 @@ public class Users {
         }
     }
 
-    public Users(int ID, String username, String password, String userRegistered, String userEmail, int userStatus, String userActivationKey, String userAvatar, int groupID) {
+    public Users(int ID, String username, String password, String userRegistered, String userEmail, boolean userStatus, String userActivationKey, String userAvatar, int groupID) {
         this.ID = ID;
         this.username = username;
         this.password = password;
@@ -107,11 +110,11 @@ public class Users {
         this.userEmail = userEmail;
     }
 
-    public int getUserStatus() {
+    public boolean isUserStatus() {
         return userStatus;
     }
 
-    public void setUserStatus(int userStatus) {
+    public void setUserStatus(boolean userStatus) {
         this.userStatus = userStatus;
     }
 

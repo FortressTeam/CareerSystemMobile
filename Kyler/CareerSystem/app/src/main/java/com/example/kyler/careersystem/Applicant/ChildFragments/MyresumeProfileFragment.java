@@ -16,18 +16,18 @@ import com.example.kyler.careersystem.R;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class MyResumeProfileFragment extends Fragment implements View.OnClickListener{
-    EditText profileName,profileHometown,profileBirthday;
-    RadioButton rbMale,rbFemale;
-    Button profileSave;
+public class MyresumeProfileFragment extends Fragment implements View.OnClickListener{
+    private EditText profileName,profileHometown,profileBirthday;
+    private RadioButton rbMale,rbFemale;
+    private Button profileSave;
+    private JSONObject jsReceive = null;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView  = inflater.inflate(R.layout.applicant_myresume_profile_fragment,container,false);
+        View rootView  = inflater.inflate(R.layout.applicant_myresume_profile_fragment, container, false);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Edit Profile");
         Bundle bundle = getArguments();
-        JSONObject jsonObject = null;
-        try{ jsonObject= new JSONObject(bundle.getString("sendData"));
+        try{ jsReceive= new JSONObject(bundle.getString("sendData"));
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -38,7 +38,7 @@ public class MyResumeProfileFragment extends Fragment implements View.OnClickLis
         rbFemale = (RadioButton) rootView.findViewById(R.id.myresume_profile_rbfemale);
         profileSave = (Button) rootView.findViewById(R.id.myresume_profile_save);
         profileSave.setOnClickListener(this);
-        loadOldData(jsonObject);
+        loadOldData(jsReceive);
         return rootView;
     }
 

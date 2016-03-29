@@ -14,8 +14,10 @@ import android.widget.ListView;
 
 import com.example.kyler.careersystem.Applicant.ChildFragments.CompanyInformationFragment;
 import com.example.kyler.careersystem.Applicant.ChildFragments.JobDetailFragment;
-import com.example.kyler.careersystem.Applicant.ChildFragments.MyResumeContactFragment;
-import com.example.kyler.careersystem.Applicant.ChildFragments.MyResumeProfileFragment;
+import com.example.kyler.careersystem.Applicant.ChildFragments.MyresumeAboutFragment;
+import com.example.kyler.careersystem.Applicant.ChildFragments.MyresumeContactFragment;
+import com.example.kyler.careersystem.Applicant.ChildFragments.MyresumeEducationFragment;
+import com.example.kyler.careersystem.Applicant.ChildFragments.MyresumeProfileFragment;
 import com.example.kyler.careersystem.ApplicantMainActivity;
 import com.example.kyler.careersystem.FeedbackFragment;
 import com.example.kyler.careersystem.R;
@@ -69,11 +71,19 @@ public class ChildApplicantActivity extends AppCompatActivity implements ListVie
                 break;
 
             case "myresumeeditprofile":
-                fragment = new MyResumeProfileFragment();
+                fragment = new MyresumeProfileFragment();
                 bundle.putString("sendData",receiveData);
                 break;
             case "myresumeeditcontact":
-                fragment = new MyResumeContactFragment();
+                fragment = new MyresumeContactFragment();
+                bundle.putString("sendData",receiveData);
+                break;
+            case "myresumeeditabout":
+                fragment = new MyresumeAboutFragment();
+                bundle.putString("sendData",receiveData);
+                break;
+            case "myresumeaddeducation":
+                fragment = new MyresumeEducationFragment();
                 bundle.putString("sendData",receiveData);
                 break;
 

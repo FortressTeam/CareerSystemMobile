@@ -58,7 +58,7 @@ public class PersonalHistoryListViewAdapter extends BaseAdapter {
             @Override
             public void onClick(View view) {
                 //do edit thing in here;
-                Toast.makeText(context.getApplicationContext(),personalHistoryListViewItems.get(i).getHistoryTitle(),Toast.LENGTH_SHORT).show();
+                Toast.makeText(context.getApplicationContext(),personalHistoryListViewItems.get(i).getHistoryTitle()+"\n"+personalHistoryListViewItems.get(i).getHistoryStart(),Toast.LENGTH_SHORT).show();
             }
         });
         return view;

@@ -15,18 +15,26 @@ import android.widget.TextView;
 import com.example.kyler.careersystem.Applicant.Customize.NonScrollListView;
 import com.example.kyler.careersystem.Applicant.Customize.PersonalHistoryListViewAdapter;
 import com.example.kyler.careersystem.Applicant.Customize.PersonalHistoryListViewItem;
+import com.example.kyler.careersystem.Controller.Applicantcontroller;
+import com.example.kyler.careersystem.Entities.Applicants;
+import com.example.kyler.careersystem.Entities.Hobbies;
+import com.example.kyler.careersystem.Entities.PersonalHistory;
+import com.example.kyler.careersystem.Entities.Skills;
+import com.example.kyler.careersystem.Entities.Users;
+import com.example.kyler.careersystem.GetDataFromService.GetJsonObject;
 import com.example.kyler.careersystem.R;
+import com.example.kyler.careersystem.UrlStatic;
 import com.example.kyler.careersystem.Utilities;
 import com.github.ksoichiro.android.observablescrollview.ObservableScrollView;
 import com.github.ksoichiro.android.observablescrollview.ObservableScrollViewCallbacks;
 import com.github.ksoichiro.android.observablescrollview.ScrollState;
 import com.squareup.picasso.Picasso;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 /**
  * Created by kyler on 10/03/2016.
@@ -38,161 +46,19 @@ public class MyResumeFragment extends Fragment implements ObservableScrollViewCa
     private NonScrollListView myresume_listview_education,myresume_listview_experience,myresume_listview_activity,myresume_listview_award;
     private ObservableScrollView myresumeFragment;
     private TextView myresumeEducation,myresumeExperience,myresumeActivity,myresumeAward;
-    private ImageView myresumeUser,myresumeEditContact,myresumeEditAbout,myresumeAddEducation,myresumeAddExperience,myresumeAddActivity,myresumeAddAward,myresumeAddSkills,myresumeAddHobbies;
+    private TextView myresumeName,myresumeSex,myresumeHometown,myresumeBirthday,myresumePhone,myresumeEmail,myresumeAddress,myresumeAbout,myresumeFutureGoal;
+    private ImageView myresumeUserImage,myresumeEditContact,myresumeEditAbout,myresumeAddEducation,myresumeAddExperience,myresumeAddActivity,myresumeAddAward,myresumeAddSkills,myresumeAddHobbies;
     private LinearLayout myresumeEditProfile;
 
-    private JSONArray jsArrayEducation,jsArrayExperience,jsArrayActivity,jsArrayAward;
-    private JSONArray jsArrayData = null;
+    private ArrayList<PersonalHistory> arrayEducation,arrayExperience,arrayActivity,arrayAward,personalHistories;
+    private JSONObject jsData;
+    private int applicantID=4;
+    private Applicantcontroller applicantcontroller;
 
-    private String data="{\n" +
-            "  \"personal_history\": [\n" +
-            "    {\n" +
-            "      \"id\": 1,\n" +
-            "      \"personal_history_title\": \"SUMMER INTERN1\",\n" +
-            "      \"personal_history_detail\": \"aaaaaaaaaaaaaaaa\",\n" +
-            "      \"personal_history_start\": \"2016-03-22T00:00:00+0000\",\n" +
-            "      \"personal_history_end\": \"2016-02-19T00:00:00+0000\",\n" +
-            "      \"personal_history_type_id\": 1,\n" +
-            "      \"applicant_id\": 1,\n" +
-            "      \"applicant\": {\n" +
-            "        \"id\": 1,\n" +
-            "        \"applicant_name\": \"Kyler\",\n" +
-            "        \"applicant_phone\": \"123123123\",\n" +
-            "        \"applicant_date_of_birth\": \"1993-07-20T00:00:00+0000\",\n" +
-            "        \"applicant_place_of_birth\": \"Quang Nam\",\n" +
-            "        \"applicant_address\": \"Da nang\",\n" +
-            "        \"applicant_country\": \"Viet nam\",\n" +
-            "        \"applicant_about\": \"Kyler abc\",\n" +
-            "        \"applicant_marital\": 1,\n" +
-            "        \"applicant_future_goal\": \"be Kyler\",\n" +
-            "        \"applicant_website\": \"www.facebook.com/hkkhoa\",\n" +
-            "        \"applicant_status\": 1,\n" +
-            "        \"career_path_id\": 1\n" +
-            "      },\n" +
-            "      \"personal_history_types\": {\n" +
-            "        \"id\": 1,\n" +
-            "        \"personal_history_type_name\": \"Education\",\n" +
-            "        \"personal_history_type_description\": \"Tell about your education\"\n" +
-            "      }\n" +
-            "    },\n" +
-            "    {\n" +
-            "      \"id\": 2,\n" +
-            "      \"personal_history_title\": \"SUMMER INTERN2\",\n" +
-            "      \"personal_history_detail\": \"aaaaaaaaaaaaaaaa\",\n" +
-            "      \"personal_history_start\": \"2016-03-22T00:00:00+0000\",\n" +
-            "      \"personal_history_end\": \"2016-02-19T00:00:00+0000\",\n" +
-            "      \"personal_history_type_id\": 2,\n" +
-            "      \"applicant_id\": 1,\n" +
-            "      \"applicant\": {\n" +
-            "        \"id\": 1,\n" +
-            "        \"applicant_name\": \"Kyler\",\n" +
-            "        \"applicant_phone\": \"123123123\",\n" +
-            "        \"applicant_date_of_birth\": \"1993-07-20T00:00:00+0000\",\n" +
-            "        \"applicant_place_of_birth\": \"Quang Nam\",\n" +
-            "        \"applicant_address\": \"Da nang\",\n" +
-            "        \"applicant_country\": \"Viet nam\",\n" +
-            "        \"applicant_about\": \"Kyler abc\",\n" +
-            "        \"applicant_marital\": 1,\n" +
-            "        \"applicant_future_goal\": \"be Kyler\",\n" +
-            "        \"applicant_website\": \"www.facebook.com/hkkhoa\",\n" +
-            "        \"applicant_status\": 1,\n" +
-            "        \"career_path_id\": 1\n" +
-            "      },\n" +
-            "      \"personal_history_types\": {\n" +
-            "        \"id\": 2,\n" +
-            "        \"personal_history_type_name\": \"Experience\",\n" +
-            "        \"personal_history_type_description\": \"Tell about your experience\"\n" +
-            "      }\n" +
-            "    },\n" +
-            "    {\n" +
-            "      \"id\": 3,\n" +
-            "      \"personal_history_title\": \"SUMMER INTERN3\",\n" +
-            "      \"personal_history_detail\": \"aaaaaaaaaaaaaaaa\",\n" +
-            "      \"personal_history_start\": \"2016-03-22T00:00:00+0000\",\n" +
-            "      \"personal_history_end\": \"2016-02-19T00:00:00+0000\",\n" +
-            "      \"personal_history_type_id\": 3,\n" +
-            "      \"applicant_id\": 1,\n" +
-            "      \"applicant\": {\n" +
-            "        \"id\": 1,\n" +
-            "        \"applicant_name\": \"Kyler\",\n" +
-            "        \"applicant_phone\": \"123123123\",\n" +
-            "        \"applicant_date_of_birth\": \"1993-07-20T00:00:00+0000\",\n" +
-            "        \"applicant_place_of_birth\": \"Quang Nam\",\n" +
-            "        \"applicant_address\": \"Da nang\",\n" +
-            "        \"applicant_country\": \"Viet nam\",\n" +
-            "        \"applicant_about\": \"Kyler abc\",\n" +
-            "        \"applicant_marital\": 1,\n" +
-            "        \"applicant_future_goal\": \"be Kyler\",\n" +
-            "        \"applicant_website\": \"www.facebook.com/hkkhoa\",\n" +
-            "        \"applicant_status\": 1,\n" +
-            "        \"career_path_id\": 1\n" +
-            "      },\n" +
-            "      \"personal_history_types\": {\n" +
-            "        \"id\": 3,\n" +
-            "        \"personal_history_type_name\": \"Activity\",\n" +
-            "        \"personal_history_type_description\": \"Tell about your activity\"\n" +
-            "      }\n" +
-            "    },\n" +
-            "    {\n" +
-            "      \"id\": 4,\n" +
-            "      \"personal_history_title\": \"SUMMER INTERN4\",\n" +
-            "      \"personal_history_detail\": \"aaaaaaaaaaaaaaaa\",\n" +
-            "      \"personal_history_start\": \"2016-03-22T00:00:00+0000\",\n" +
-            "      \"personal_history_end\": \"2016-02-19T00:00:00+0000\",\n" +
-            "      \"personal_history_type_id\": 1,\n" +
-            "      \"applicant_id\": 1,\n" +
-            "      \"applicant\": {\n" +
-            "        \"id\": 1,\n" +
-            "        \"applicant_name\": \"Kyler\",\n" +
-            "        \"applicant_phone\": \"123123123\",\n" +
-            "        \"applicant_date_of_birth\": \"1993-07-20T00:00:00+0000\",\n" +
-            "        \"applicant_place_of_birth\": \"Quang Nam\",\n" +
-            "        \"applicant_address\": \"Da nang\",\n" +
-            "        \"applicant_country\": \"Viet nam\",\n" +
-            "        \"applicant_about\": \"Kyler abc\",\n" +
-            "        \"applicant_marital\": 1,\n" +
-            "        \"applicant_future_goal\": \"be Kyler\",\n" +
-            "        \"applicant_website\": \"www.facebook.com/hkkhoa\",\n" +
-            "        \"applicant_status\": 1,\n" +
-            "        \"career_path_id\": 1\n" +
-            "      },\n" +
-            "      \"personal_history_types\": {\n" +
-            "        \"id\": 1,\n" +
-            "        \"personal_history_type_name\": \"Education\",\n" +
-            "        \"personal_history_type_description\": \"Tell about your education\"\n" +
-            "      }\n" +
-            "    },\n" +
-            "    {\n" +
-            "      \"id\": 5,\n" +
-            "      \"personal_history_title\": \"SUMMER INTERN5\",\n" +
-            "      \"personal_history_detail\": \"aaaaaaaaaaaaaaaa\",\n" +
-            "      \"personal_history_start\": \"2016-03-22T00:00:00+0000\",\n" +
-            "      \"personal_history_end\": \"2016-02-19T00:00:00+0000\",\n" +
-            "      \"personal_history_type_id\": 1,\n" +
-            "      \"applicant_id\": 1,\n" +
-            "      \"applicant\": {\n" +
-            "        \"id\": 1,\n" +
-            "        \"applicant_name\": \"Kyler\",\n" +
-            "        \"applicant_phone\": \"123123123\",\n" +
-            "        \"applicant_date_of_birth\": \"1993-07-20T00:00:00+0000\",\n" +
-            "        \"applicant_place_of_birth\": \"Quang Nam\",\n" +
-            "        \"applicant_address\": \"Da nang\",\n" +
-            "        \"applicant_country\": \"Viet nam\",\n" +
-            "        \"applicant_about\": \"Kyler abc\",\n" +
-            "        \"applicant_marital\": 1,\n" +
-            "        \"applicant_future_goal\": \"be Kyler\",\n" +
-            "        \"applicant_website\": \"www.facebook.com/hkkhoa\",\n" +
-            "        \"applicant_status\": 1,\n" +
-            "        \"career_path_id\": 1\n" +
-            "      },\n" +
-            "      \"personal_history_types\": {\n" +
-            "        \"id\": 1,\n" +
-            "        \"personal_history_type_name\": \"Education\",\n" +
-            "        \"personal_history_type_description\": \"Tell about your education\"\n" +
-            "      }\n" +
-            "    }\n" +
-            "  ]\n" +
-            "}";
+    private Applicants applicant;
+    private Users user;
+    private ArrayList<Hobbies> hobbies;
+    private ArrayList<Skills> skills;
 
     public MyResumeFragment() {}
 
@@ -200,9 +66,20 @@ public class MyResumeFragment extends Fragment implements ObservableScrollViewCa
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView=inflater.inflate(R.layout.applicant_myresume_fragment,container,false);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("My Resumes");
+        applicantcontroller = new Applicantcontroller();
         myresumeFragment = (ObservableScrollView) rootView.findViewById(R.id.myresume_fragment);
-        myresumeUser = (ImageView) rootView.findViewById(R.id.myresume_user_image);
-        Picasso.with(getActivity().getApplicationContext()).load("https://cdn4.iconfinder.com/data/icons/rcons-user/32/child_boy-128.png").into(myresumeUser);
+
+        myresumeUserImage = (ImageView) rootView.findViewById(R.id.myresume_user_image);
+        myresumeName = (TextView) rootView.findViewById(R.id.myresume_name);
+        myresumeSex = (TextView) rootView.findViewById(R.id.myresume_sex);
+        myresumeHometown = (TextView) rootView.findViewById(R.id.myresume_hometown);
+        myresumeBirthday = (TextView) rootView.findViewById(R.id.myresume_birthday);
+        myresumePhone = (TextView) rootView.findViewById(R.id.myresume_phone);
+        myresumeEmail = (TextView) rootView.findViewById(R.id.myresume_email);
+        myresumeAddress = (TextView) rootView.findViewById(R.id.myresume_address);
+        myresumeAbout = (TextView) rootView.findViewById(R.id.myresume_about);
+        myresumeFutureGoal = (TextView) rootView.findViewById(R.id.myresume_futuregoal);
+
         myresumeEditProfile = (LinearLayout) rootView.findViewById(R.id.myresume_editprofile);
         myresumeEditContact = (ImageView) rootView.findViewById(R.id.myresume_editcontact);
         myresumeEditAbout = (ImageView) rootView.findViewById(R.id.myresume_editabout);
@@ -216,67 +93,89 @@ public class MyResumeFragment extends Fragment implements ObservableScrollViewCa
         myresumeExperience = (TextView) rootView.findViewById(R.id.myresume_experience);
         myresumeActivity = (TextView) rootView.findViewById(R.id.myresume_activity);
         myresumeAward = (TextView) rootView.findViewById(R.id.myresume_award);
+
         myresume_listview_education = (NonScrollListView) rootView.findViewById(R.id.myresume_listview_education);
         myresume_listview_experience = (NonScrollListView) rootView.findViewById(R.id.myresume_listview_experience);
         myresume_listview_activity = (NonScrollListView) rootView.findViewById(R.id.myresume_listview_activity);
         myresume_listview_award = (NonScrollListView) rootView.findViewById(R.id.myresume_listview_award);
 
-        try {
-            jsArrayData = new JSONArray(new JSONObject(data).getString("personal_history"));
-            jsArrayEducation = getJsonArray(jsArrayData,1);
-            jsArrayExperience = getJsonArray(jsArrayData,2);
-            jsArrayActivity = getJsonArray(jsArrayData,3);
-            jsArrayAward = getJsonArray(jsArrayData,4);
+        try{
+            jsData = new GetJsonObject(getActivity(),"applicant").execute(UrlStatic.URLApplicant+applicantID+".json").get();
+            applicant = applicantcontroller.getApplicant(jsData);
+            user = applicantcontroller.getUser(jsData.getJSONObject("user"));
+            personalHistories = applicantcontroller.getPersonalHistories(jsData.getJSONArray("personal_history"));
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        loadPersonalHistory(jsArrayEducation,educationListViewItems,educationListViewAdapter,myresume_listview_education,myresumeEducation);
-        loadPersonalHistory(jsArrayExperience,experienceListViewItems,experienceListViewAdapter,myresume_listview_experience,myresumeExperience);
-        loadPersonalHistory(jsArrayActivity,activityListViewItems,activityListViewAdapter,myresume_listview_activity,myresumeActivity);
-        loadPersonalHistory(jsArrayAward,awardListViewItems,awardListViewAdapter,myresume_listview_award,myresumeAward);
-        myresumeEditProfile.setOnClickListener(this);
-        myresumeEditContact.setOnClickListener(this);
+        loadInfo();
         return rootView;
     }
 
-    private JSONArray getJsonArray(JSONArray jsonArray,int condition){
-        JSONArray result = new JSONArray();
-        try{
-            for(int i=0;i<jsonArray.length();i++){
-                if(jsonArray.getJSONObject(i).getInt("personal_history_type_id")==condition){
-                    result.put(jsonArray.getJSONObject(i));
-                }
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
+    private ArrayList<PersonalHistory> getListPersonalHistory(ArrayList<PersonalHistory> personalHistories,int condition){
+        ArrayList<PersonalHistory> result = new ArrayList<>();
+        for(int i=0;i<personalHistories.size();i++){
+            if(personalHistories.get(i).getPersonalHistoryTypeID()==condition)
+                result.add(personalHistories.get(i));
         }
-        if(result.length()>0)
+        if(result.size()>0)
             return result;
         else
             return null;
     }
 
-    private void loadPersonalHistory(JSONArray jsonArray,ArrayList<PersonalHistoryListViewItem> listViewItems,PersonalHistoryListViewAdapter listViewAdapter,NonScrollListView nonScrollListView,TextView personalHistorytv){
-        if(jsonArray!=null){
+    private void loadPersonalHistory(ArrayList<PersonalHistory> personalHistories,ArrayList<PersonalHistoryListViewItem> listViewItems,PersonalHistoryListViewAdapter listViewAdapter,NonScrollListView nonScrollListView,TextView personalHistorytv){
+        if(personalHistories!=null){
             personalHistorytv.setVisibility(View.GONE);
             listViewItems = new ArrayList<>();
-            try{
-                for(int i=0;i<jsonArray.length();i++){
-                    JSONObject jsonObject = jsonArray.getJSONObject(i);
-                    String historyTitle = jsonObject.getString("personal_history_title");
-                    String historyDetail = jsonObject.getString("personal_history_detail");
-                    String historyStart = Utilities.convertTime(jsonObject.getString("personal_history_start"));
-                    String historyEnd = Utilities.convertTime(jsonObject.getString("personal_history_end"));
-                    listViewItems.add(new PersonalHistoryListViewItem(historyTitle,historyDetail,historyStart,historyEnd));
-                }
-            } catch (JSONException e) {
-                e.printStackTrace();
+            for(int i=0;i<personalHistories.size();i++){
+                String historyTitle = personalHistories.get(i).getPersonalHistoryTitle();
+                String historyDetail = personalHistories.get(i).getPersonalHistoryDetail();
+                String historyStart = personalHistories.get(i).getPersonalHistoryStart();
+                String historyEnd = personalHistories.get(i).getPersonalHistoryEnd();
+                listViewItems.add(new PersonalHistoryListViewItem(historyTitle,historyDetail,historyStart,historyEnd));
             }
             listViewAdapter = new PersonalHistoryListViewAdapter(getActivity().getApplicationContext(),listViewItems);
             nonScrollListView.setAdapter(listViewAdapter);
         } else{
             personalHistorytv.setVisibility(View.VISIBLE);
         }
+    }
+
+    private void loadInfo(){
+        Picasso.with(getActivity().getApplicationContext()).load(UrlStatic.URLimg+"user_img/"+user.getUserAvatar()).into(myresumeUserImage);
+        myresumeName.setText(applicant.getApplicantName());
+        if(applicant.isApplicantSex())
+            myresumeSex.setText("Male");
+        else
+            myresumeSex.setText("Female");
+        myresumeHometown.setText(applicant.getApplicantAddress());
+        myresumePhone.setText(applicant.getApplicantPhone());
+        myresumeEmail.setText(user.getUserEmail());
+        myresumeAddress.setText(applicant.getApplicantAddress());
+        myresumeAbout.setText(applicant.getApplicantAbout());
+        myresumeFutureGoal.setText(applicant.getApplicantFutureGoal());
+        arrayEducation = getListPersonalHistory(personalHistories, 1);
+        arrayExperience = getListPersonalHistory(personalHistories,2);
+        arrayActivity = getListPersonalHistory(personalHistories,3);
+        arrayAward = getListPersonalHistory(personalHistories,4);
+        loadPersonalHistory(arrayEducation,educationListViewItems,educationListViewAdapter,myresume_listview_education,myresumeEducation);
+        loadPersonalHistory(arrayExperience,experienceListViewItems,experienceListViewAdapter,myresume_listview_experience,myresumeExperience);
+        loadPersonalHistory(arrayActivity,activityListViewItems,activityListViewAdapter,myresume_listview_activity,myresumeActivity);
+        loadPersonalHistory(arrayAward,awardListViewItems,awardListViewAdapter,myresume_listview_award,myresumeAward);
+        myresumeEditProfile.setOnClickListener(this);
+        myresumeEditProfile.setOnClickListener(this);
+        myresumeEditContact.setOnClickListener(this);
+        myresumeEditAbout.setOnClickListener(this);
+        myresumeAddEducation.setOnClickListener(this);
+        myresumeAddExperience.setOnClickListener(this);
+        myresumeAddActivity.setOnClickListener(this);
+        myresumeAddAward.setOnClickListener(this);
+        myresumeAddSkills.setOnClickListener(this);
+        myresumeAddHobbies.setOnClickListener(this);
     }
 
     @Override
@@ -308,28 +207,31 @@ public class MyResumeFragment extends Fragment implements ObservableScrollViewCa
 
     @Override
     public void onClick(View view) {
+        JSONObject jsSendData = jsData;
         switch (view.getId()){
             case R.id.myresume_editprofile:
-                JSONObject jsonObject = null;
-                try {
-                    jsonObject = jsArrayData.getJSONObject(1).getJSONObject("applicant");
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                Utilities.startFragWith(getActivity(),ChildApplicantActivity.class,"myresumeeditprofile",jsonObject.toString());
+                jsSendData.remove("user");
+                jsSendData.remove("personal_history");
+                Utilities.startFragWith(getActivity(),ChildApplicantActivity.class,"myresumeeditprofile",jsSendData.toString());
                 break;
             case R.id.myresume_editcontact:
-                jsonObject = null;
+                JSONObject jsonObject = new JSONObject();
                 try {
-                    jsonObject = jsArrayData.getJSONObject(1).getJSONObject("applicant");
+                    jsonObject.put("applicant_phone_number",applicant.getApplicantPhone());
+                    jsonObject.put("user_email",user.getUserEmail());
+                    jsonObject.put("applicant_address",applicant.getApplicantAddress());
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
                 Utilities.startFragWith(getActivity(),ChildApplicantActivity.class,"myresumeeditcontact",jsonObject.toString());
                 break;
             case R.id.myresume_editabout:
+                jsSendData.remove("user");
+                jsSendData.remove("personal_history");
+                Utilities.startFragWith(getActivity(),ChildApplicantActivity.class,"myresumeeditabout",jsSendData.toString());
                 break;
             case R.id.myresume_addeducation:
+                Utilities.startFragWith(getActivity(),ChildApplicantActivity.class,"myresumeaddeducation","");
                 break;
             case R.id.myresume_addexperience:
                 break;

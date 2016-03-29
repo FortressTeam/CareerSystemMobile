@@ -116,8 +116,8 @@ public class Utilities {
             return "";
         long days=1;
         try {
-            Date date = new SimpleDateFormat("d - LLL - yyyy").parse(datetime);
-            Date current = new SimpleDateFormat("d - LLL - yyyy").parse(new SimpleDateFormat("d - LLL - yyyy").format(Calendar.getInstance().getTime()));
+            Date date = new SimpleDateFormat("dd - LLL - yyyy").parse(datetime);
+            Date current = new SimpleDateFormat("dd - LLL - yyyy").parse(new SimpleDateFormat("dd - LLL - yyyy").format(Calendar.getInstance().getTime()));
             long diff = current.getTime() - date.getTime();
             days = TimeUnit.DAYS.convert(diff,TimeUnit.MILLISECONDS);
         } catch (ParseException e) {
@@ -135,6 +135,22 @@ public class Utilities {
             else
                 return "error";
         }
+    }
+
+    public static boolean validDatepicker(String dp1,String dp2){
+        boolean result = false;
+        long days = 0;
+        try{
+            Date date1 = new SimpleDateFormat("dd - LLL - yyyy").parse(dp1);
+            Date date2 = new SimpleDateFormat("dd - LLL - yyyy").parse(dp2);
+            long diff = date2.getTime() - date1.getTime();
+            days = TimeUnit.DAYS.convert(diff,TimeUnit.MILLISECONDS);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        if(days>0)
+            result = true;
+        return result;
     }
 
     public static JobListViewItem getJobLVItemfrom(Posts post,HiringManagers hiringManager,Categories category){
@@ -198,8 +214,26 @@ public class Utilities {
         String result = "";
         try {
             Date resultDate = new SimpleDateFormat("yyyy-MM-dd").parse(date);
-            result = new SimpleDateFormat("d - LLL - yyyy").format(resultDate);
+            result = new SimpleDateFormat("dd - LLL - yyyy").format(resultDate);
         } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    public static boolean similarJson(JSONObject jsonObject1, JSONObject jsonObject2){
+        if(jsonObject1.toString().equals(jsonObject2.toString()))
+            return true;
+        else
+            return false;
+    }
+
+    public static boolean isCreatePostSuccess(JSONObject input){
+        boolean result = false;
+        try {
+            if(input.getString("message").equals("Saved"))
+                result = true;
+        } catch (JSONException e) {
             e.printStackTrace();
         }
         return result;

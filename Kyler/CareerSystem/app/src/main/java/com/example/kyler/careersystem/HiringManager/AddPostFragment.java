@@ -27,6 +27,7 @@ import com.example.kyler.careersystem.GetDataFromService.GetJsonArray;
 import com.example.kyler.careersystem.GetDataFromService.PostDataWithJson;
 import com.example.kyler.careersystem.R;
 import com.example.kyler.careersystem.UrlStatic;
+import com.example.kyler.careersystem.Utilities;
 import com.github.ksoichiro.android.observablescrollview.ObservableScrollView;
 import com.github.ksoichiro.android.observablescrollview.ObservableScrollViewCallbacks;
 import com.github.ksoichiro.android.observablescrollview.ScrollState;
@@ -225,17 +226,6 @@ public class AddPostFragment extends Fragment implements View.OnClickListener,Sp
         return isNumber(addPostSalary.getText().toString());
     }
 
-    private boolean isCreatePostSuccess(JSONObject input){
-        boolean result = false;
-        try {
-            if(input.getString("message").equals("Saved"))
-                result = true;
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return result;
-    }
-
     private void createAlertConfirm(final boolean isNegotiable){
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setMessage("Confirm creating a post ...").setPositiveButton("Yes", new DialogInterface.OnClickListener() {
@@ -253,7 +243,7 @@ public class AddPostFragment extends Fragment implements View.OnClickListener,Sp
                     jsonObject.put("post_status", true);
                     jsonObject.put("category_id", categoryID);
                     jsonObject.put("hiring_manager_id", hiringManagerID);
-                    isSuccess = isCreatePostSuccess(new PostDataWithJson(jsonObject, getActivity()).execute(UrlStatic.URLPosts).get());
+                    isSuccess = Utilities.isCreatePostSuccess(new PostDataWithJson(jsonObject, getActivity()).execute(UrlStatic.URLPosts).get());
                 } catch (JSONException e) {
                     e.printStackTrace();
                 } catch (InterruptedException e) {
