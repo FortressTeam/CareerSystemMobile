@@ -1,6 +1,7 @@
 package com.example.kyler.careersystem.Applicant.ChildFragments;
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.kyler.careersystem.ApplicantMainActivity;
 import com.example.kyler.careersystem.GetDataFromService.PutDataWithJson;
 import com.example.kyler.careersystem.R;
 import com.example.kyler.careersystem.UrlStatic;
@@ -48,23 +50,20 @@ public class MyresumeContactFragment extends Fragment {
             public void onClick(View view) {
                 JSONObject jsonObject = new JSONObject();
                 try {
-                    jsonObject.put("applicant_phone_number",contactPhone.getText().toString());
-                    jsonObject.put("user_email",contactEmail.getText().toString());
-                    jsonObject.put("applicant_address",contactAddress.getText().toString());
+                    jsonObject.put("applicant_phone_number", contactPhone.getText().toString());
+                    jsonObject.put("user_email", contactEmail.getText().toString());
+                    jsonObject.put("applicant_address", contactAddress.getText().toString());
+                    JSONObject jsresult = new PutDataWithJson(jsonObject, getActivity()).execute(UrlStatic.URLApplicant + applicantID + ".json").get();
+                    if (Utilities.isCreateUpdateSuccess(jsresult)) {
+                        Toast.makeText(getActivity().getApplicationContext(), "Success", Toast.LENGTH_SHORT).show();
+                        Utilities.startActivity(getActivity(), ApplicantMainActivity.class, 2);
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
-                }
-                if(!Utilities.similarJson(jsonObject,jsReceive)){
-                    try {
-                        JSONObject jsresult = new PutDataWithJson(jsonObject,getActivity()).execute(UrlStatic.URLApplicant+applicantID+".json").get();
-                        if(Utilities.isCreatePostSuccess(jsresult)){
-                            Toast.makeText(getActivity().getApplicationContext(), "Success", Toast.LENGTH_SHORT).show();
-                        }
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    } catch (ExecutionException e) {
-                        e.printStackTrace();
-                    }
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
                 }
             }
         });

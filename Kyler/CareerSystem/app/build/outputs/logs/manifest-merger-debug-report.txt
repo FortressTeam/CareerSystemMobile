@@ -1,6 +1,6 @@
 -- Merging decision tree log ---
 manifest
-ADDED from /home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/src/main/AndroidManifest.xml:2:1-58:12
+ADDED from /home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/src/main/AndroidManifest.xml:2:1-60:12
 	package
 		ADDED from /home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/src/main/AndroidManifest.xml:2:11-51
 		INJECTED from /home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/src/main/AndroidManifest.xml
@@ -30,7 +30,7 @@ ADDED from /home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/src/main
 	android:name
 		ADDED from /home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/src/main/AndroidManifest.xml:9:9-60
 application
-ADDED from /home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/src/main/AndroidManifest.xml:13:5-56:19
+ADDED from /home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/src/main/AndroidManifest.xml:13:5-58:19
 MERGED from [com.android.support:appcompat-v7:23.1.1] /home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/AndroidManifest.xml:22:5-20
 MERGED from [com.android.support:support-v4:23.1.1] /home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.1.1/AndroidManifest.xml:22:5-20
 MERGED from [com.android.support:design:23.1.1] /home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/build/intermediates/exploded-aar/com.android.support/design/23.1.1/AndroidManifest.xml:22:5-20
@@ -121,6 +121,10 @@ activity#com.example.kyler.careersystem.Applicant.ChildFragments.MyresumeEducati
 ADDED from /home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/src/main/AndroidManifest.xml:54:9-55:20
 	android:name
 		ADDED from /home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/src/main/AndroidManifest.xml:54:19-85
+activity#com.example.kyler.careersystem.Applicant.ChildFragments.MyresumeSkillsFragment
+ADDED from /home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/src/main/AndroidManifest.xml:56:9-57:20
+	android:name
+		ADDED from /home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/src/main/AndroidManifest.xml:56:19-82
 uses-sdk
 INJECTED from /home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
 MERGED from [com.android.support:appcompat-v7:23.1.1] /home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/AndroidManifest.xml:20:5-43

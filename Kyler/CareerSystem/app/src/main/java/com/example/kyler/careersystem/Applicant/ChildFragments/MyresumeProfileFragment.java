@@ -11,16 +11,26 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
+import com.example.kyler.careersystem.ApplicantMainActivity;
+import com.example.kyler.careersystem.GetDataFromService.PutDataWithJson;
 import com.example.kyler.careersystem.R;
+import com.example.kyler.careersystem.UrlStatic;
+import com.example.kyler.careersystem.Utilities;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.concurrent.ExecutionException;
 
 public class MyresumeProfileFragment extends Fragment implements View.OnClickListener{
     private EditText profileName,profileHometown,profileBirthday;
     private RadioButton rbMale,rbFemale;
     private Button profileSave;
     private JSONObject jsReceive = null;
+    private int applicantID=4;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -48,9 +58,13 @@ public class MyresumeProfileFragment extends Fragment implements View.OnClickLis
                 profileName.setText(jsonObject.getString("applicant_name"));
             if (jsonObject.has("applicant_date_of_birth"))
                 profileBirthday.setText(jsonObject.getString("applicant_date_of_birth"));
-            if(jsonObject.has("applicant_country"))
-                profileHometown.setText(jsonObject.getString("applicant_country"));
-            rbMale.setChecked(true);
+            if(jsonObject.has("applicant_address"))
+                profileHometown.setText(jsonObject.getString("applicant_address"));
+            if(jsonObject.has("applicant_sex"))
+                if(jsonObject.getBoolean("applicant_sex"))
+                    rbMale.setChecked(true);
+                else
+                    rbFemale.setChecked(true);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -58,14 +72,28 @@ public class MyresumeProfileFragment extends Fragment implements View.OnClickLis
 
     @Override
     public void onClick(View view) {
-        String userName=profileName.getText().toString();
-        String userHometown=profileHometown.getText().toString();
-        String userBirthday=profileBirthday.getText().toString();
-        String userSex="";
-        if(rbMale.isChecked())
-            userSex="Male";
-        else
-            userSex="Female";
-        Toast.makeText(getActivity().getApplicationContext(),userName + "\n" + userSex + "\n" + userHometown + "\n" + userBirthday,Toast.LENGTH_SHORT).show();
+        JSONObject jsonObject = new JSONObject();
+        try{
+            jsonObject.put("applicant_name",profileName.getText().toString());
+            jsonObject.put("applicant_address",profileHometown.getText().toString());
+            Date date = new SimpleDateFormat("dd - MMM - yyyy").parse(profileBirthday.getText().toString());
+            jsonObject.put("applicant_date_of_birth",new SimpleDateFormat("yyyy-MM-dd").format(date));
+            jsonObject.put("applicant_sex",rbMale.isChecked());
+            JSONObject jsresult =  new PutDataWithJson(jsonObject, getActivity()).execute(UrlStatic.URLApplicant + applicantID + ".json").get();
+            if(Utilities.isCreateUpdateSuccess(jsresult)){
+                Toast.makeText(getActivity(), "success", Toast.LENGTH_SHORT).show();
+                Utilities.startActivity(getActivity(), ApplicantMainActivity.class, 2);
+            }else{
+                Toast.makeText(getActivity(), "Something went wrong", Toast.LENGTH_SHORT).show();
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -15,4 +15,7 @@ public class UrlStatic {
     public static String URLCategories=service+"api/categories.json?limit=100&page=";
     public static String URLFeedbacks=service+"api/feedbacks.json";
     public static String URLApplicant=service+"api/applicants/";
+    public static String URLSkillTypes=service+"api/skill_types.json";
+    public static String URLSkillType=service+"api/skill_types/";
+    public static String URLSkills=service+"api/skills.json";
 }

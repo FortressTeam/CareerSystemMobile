@@ -221,14 +221,7 @@ public class Utilities {
         return result;
     }
 
-    public static boolean similarJson(JSONObject jsonObject1, JSONObject jsonObject2){
-        if(jsonObject1.toString().equals(jsonObject2.toString()))
-            return true;
-        else
-            return false;
-    }
-
-    public static boolean isCreatePostSuccess(JSONObject input){
+    public static boolean isCreateUpdateSuccess(JSONObject input){
         boolean result = false;
         try {
             if(input.getString("message").equals("Saved"))
@@ -237,5 +230,15 @@ public class Utilities {
             e.printStackTrace();
         }
         return result;
+    }
+
+    public static void startActivity(Activity fromActivity,Class endActivity,int id){
+        Intent intent = new Intent(fromActivity, endActivity);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        Bundle bundle = new Bundle();
+        bundle.putInt("itemID",2);
+        intent.putExtra("back", bundle);
+        fromActivity.startActivity(intent);
+        fromActivity.finish();
     }
 }

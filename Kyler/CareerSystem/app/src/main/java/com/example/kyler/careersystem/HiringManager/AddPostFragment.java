@@ -243,7 +243,7 @@ public class AddPostFragment extends Fragment implements View.OnClickListener,Sp
                     jsonObject.put("post_status", true);
                     jsonObject.put("category_id", categoryID);
                     jsonObject.put("hiring_manager_id", hiringManagerID);
-                    isSuccess = Utilities.isCreatePostSuccess(new PostDataWithJson(jsonObject, getActivity()).execute(UrlStatic.URLPosts).get());
+                    isSuccess = Utilities.isCreateUpdateSuccess(new PostDataWithJson(jsonObject, getActivity()).execute(UrlStatic.URLPosts).get());
                 } catch (JSONException e) {
                     e.printStackTrace();
                 } catch (InterruptedException e) {

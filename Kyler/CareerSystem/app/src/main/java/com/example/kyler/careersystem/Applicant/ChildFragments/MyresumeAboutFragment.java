@@ -11,15 +11,22 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.kyler.careersystem.ApplicantMainActivity;
+import com.example.kyler.careersystem.GetDataFromService.PutDataWithJson;
 import com.example.kyler.careersystem.R;
+import com.example.kyler.careersystem.UrlStatic;
+import com.example.kyler.careersystem.Utilities;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.concurrent.ExecutionException;
 
 public class MyresumeAboutFragment extends Fragment {
     private EditText aboutContent;
     private Button aboutSave;
     private JSONObject jsReceive=null;
+    private int applicantID = 4;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -37,7 +44,24 @@ public class MyresumeAboutFragment extends Fragment {
         aboutSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getActivity().getApplicationContext(),aboutContent.getText(),Toast.LENGTH_SHORT).show();
+                JSONObject jsonObject = new JSONObject();
+                try {
+                    jsonObject.put("applicant_about",aboutContent.getText().toString());
+                    JSONObject jsresult = new PutDataWithJson(jsonObject,getActivity()).execute(UrlStatic.URLApplicant+applicantID+".json").get();
+                    if(Utilities.isCreateUpdateSuccess(jsresult)){
+                        Utilities.startActivity(getActivity(), ApplicantMainActivity.class,2);
+                        Toast.makeText(getActivity().getApplicationContext(),"success",Toast.LENGTH_SHORT).show();
+                    }
+                    else{
+                        Toast.makeText(getActivity().getApplicationContext(),"Something went wrong!",Toast.LENGTH_SHORT).show();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                }
             }
         });
         return rootView;

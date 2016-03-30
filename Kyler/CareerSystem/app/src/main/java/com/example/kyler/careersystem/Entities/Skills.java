@@ -9,7 +9,7 @@ import org.json.JSONObject;
 public class Skills {
     private int ID;
     private String skillName;
-    private String skillDescription;
+    private int skillTypeID;
 
     public Skills(JSONObject jsonObject){
         try {
@@ -19,18 +19,18 @@ public class Skills {
             if (jsonObject.has("skill_name")) {
                 this.skillName = jsonObject.getString("skill_name");
             }
-            if (jsonObject.has("skill_description")) {
-                this.skillDescription = jsonObject.getString("skill_description");
+            if (jsonObject.has("skill_type_id")) {
+                this.skillTypeID = jsonObject.getInt("skill_type_id");
             }
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
 
-    public Skills(int ID, String skillName, String skillDescription) {
+    public Skills(int ID, String skillName, int skillTypeID) {
         this.ID = ID;
         this.skillName = skillName;
-        this.skillDescription = skillDescription;
+        this.skillTypeID = skillTypeID;
     }
 
     public int getID() {
@@ -49,11 +49,11 @@ public class Skills {
         this.skillName = skillName;
     }
 
-    public String getSkillDescription() {
-        return skillDescription;
+    public int getSkillTypeID() {
+        return skillTypeID;
     }
 
-    public void setSkillDescription(String skillDescription) {
-        this.skillDescription = skillDescription;
+    public void setSkillTypeID(int skillTypeID) {
+        this.skillTypeID = skillTypeID;
     }
 }

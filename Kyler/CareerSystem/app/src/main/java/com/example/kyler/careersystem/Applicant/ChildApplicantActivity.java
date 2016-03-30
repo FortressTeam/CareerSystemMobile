@@ -18,6 +18,7 @@ import com.example.kyler.careersystem.Applicant.ChildFragments.MyresumeAboutFrag
 import com.example.kyler.careersystem.Applicant.ChildFragments.MyresumeContactFragment;
 import com.example.kyler.careersystem.Applicant.ChildFragments.MyresumeEducationFragment;
 import com.example.kyler.careersystem.Applicant.ChildFragments.MyresumeProfileFragment;
+import com.example.kyler.careersystem.Applicant.ChildFragments.MyresumeSkillsFragment;
 import com.example.kyler.careersystem.ApplicantMainActivity;
 import com.example.kyler.careersystem.FeedbackFragment;
 import com.example.kyler.careersystem.R;
@@ -87,6 +88,11 @@ public class ChildApplicantActivity extends AppCompatActivity implements ListVie
                 bundle.putString("sendData",receiveData);
                 break;
 
+
+            case "myresumeaddskill":
+                fragment = new MyresumeSkillsFragment();
+                bundle.putString("sendData",receiveData);
+                break;
             case "Feedback":
                 fragment = new FeedbackFragment();
                 break;

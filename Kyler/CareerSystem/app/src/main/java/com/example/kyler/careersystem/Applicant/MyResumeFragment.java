@@ -153,6 +153,7 @@ public class MyResumeFragment extends Fragment implements ObservableScrollViewCa
         else
             myresumeSex.setText("Female");
         myresumeHometown.setText(applicant.getApplicantAddress());
+        myresumeBirthday.setText(applicant.getApplicantDateOfBirth());
         myresumePhone.setText(applicant.getApplicantPhone());
         myresumeEmail.setText(user.getUserEmail());
         myresumeAddress.setText(applicant.getApplicantAddress());
@@ -210,20 +211,27 @@ public class MyResumeFragment extends Fragment implements ObservableScrollViewCa
         JSONObject jsSendData = jsData;
         switch (view.getId()){
             case R.id.myresume_editprofile:
-                jsSendData.remove("user");
-                jsSendData.remove("personal_history");
-                Utilities.startFragWith(getActivity(),ChildApplicantActivity.class,"myresumeeditprofile",jsSendData.toString());
-                break;
-            case R.id.myresume_editcontact:
-                JSONObject jsonObject = new JSONObject();
-                try {
-                    jsonObject.put("applicant_phone_number",applicant.getApplicantPhone());
-                    jsonObject.put("user_email",user.getUserEmail());
-                    jsonObject.put("applicant_address",applicant.getApplicantAddress());
+                JSONObject jsEditProfile = new JSONObject();
+                try{
+                    jsEditProfile.put("applicant_name",applicant.getApplicantName());
+                    jsEditProfile.put("applicant_sex",applicant.isApplicantSex());
+                    jsEditProfile.put("applicant_address",applicant.getApplicantAddress());
+                    jsEditProfile.put("applicant_date_of_birth",applicant.getApplicantDateOfBirth());
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                Utilities.startFragWith(getActivity(),ChildApplicantActivity.class,"myresumeeditcontact",jsonObject.toString());
+                Utilities.startFragWith(getActivity(),ChildApplicantActivity.class,"myresumeeditprofile",jsEditProfile.toString());
+                break;
+            case R.id.myresume_editcontact:
+                JSONObject jsEditContact = new JSONObject();
+                try {
+                    jsEditContact.put("applicant_phone_number",applicant.getApplicantPhone());
+                    jsEditContact.put("user_email",user.getUserEmail());
+                    jsEditContact.put("applicant_address",applicant.getApplicantAddress());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                Utilities.startFragWith(getActivity(),ChildApplicantActivity.class,"myresumeeditcontact",jsEditContact.toString());
                 break;
             case R.id.myresume_editabout:
                 jsSendData.remove("user");
@@ -238,6 +246,11 @@ public class MyResumeFragment extends Fragment implements ObservableScrollViewCa
             case R.id.myresume_addactivity:
                 break;
             case R.id.myresume_addaward:
+                break;
+            case R.id.myresume_addskill:
+                Utilities.startFragWith(getActivity(),ChildApplicantActivity.class,"myresumeaddskill","");
+                break;
+            case R.id.myresume_addhobbie:
                 break;
             default :
                 break;
