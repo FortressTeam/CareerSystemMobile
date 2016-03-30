@@ -55,6 +55,10 @@
         </activity>
         <activity android:name=".Applicant.ChildFragments.MyresumeSkillsFragment">
         </activity>
+        <activity android:name=".Applicant.ChildFragments.MyresumeHobbieFragment">
+        </activity>
+        <activity android:name=".Applicant.ChildFragments.MyresumeExperienceFragment">
+        </activity>
     </application>
 
 </manifest>
