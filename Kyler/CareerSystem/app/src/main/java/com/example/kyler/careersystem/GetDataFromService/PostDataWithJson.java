@@ -60,7 +60,7 @@ public class PostDataWithJson extends AsyncTask<String,Void,JSONObject> {
             out.close();
             int HttpResult =connection.getResponseCode();
             //"message": "Saved"
-            if(HttpResult ==HttpURLConnection.HTTP_OK){
+            if(HttpResult == HttpURLConnection.HTTP_OK){
                 BufferedReader reader = new BufferedReader(new InputStreamReader(
                         connection.getInputStream(),"utf-8"));
                 String line = null;

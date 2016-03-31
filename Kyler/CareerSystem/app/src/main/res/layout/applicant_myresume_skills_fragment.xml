@@ -4,97 +4,115 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingLeft="10dp"
-    android:paddingRight="10dp"
-    android:paddingTop="10dp"
+    android:paddingLeft="5dp"
+    android:paddingRight="5dp"
+    android:paddingTop="5dp"
+    android:paddingBottom="5dp"
     android:orientation="vertical"
+    android:background="@color/background"
     tools:context="com.example.kyler.careersystem.Applicant.ChildFragments.MyresumeSkillsFragment">
-
     <LinearLayout
-        android:weightSum="1"
-        android:orientation="horizontal"
+        android:orientation="vertical"
+        android:paddingLeft="5dp"
+        android:paddingTop="5dp"
+        android:paddingRight="5dp"
+        android:background="@drawable/customborder"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:weightSum="1"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:textSize="@dimen/activity_content_medium"
+                android:text="Major"
+                android:textStyle="bold"
+                android:layout_weight="0.2"
+                android:textColor="@color/Black"
+                android:layout_gravity="center_vertical"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"/>
+            <Spinner
+                android:layout_weight="0.8"
+                android:id="@+id/myresume_skill_major_spinner"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"></Spinner>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginTop="10dp"
+            android:weightSum="1"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:textSize="@dimen/activity_content_medium"
+                android:text="Skill"
+                android:textStyle="bold"
+                android:textColor="@color/Black"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="0.2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"/>
+            <Spinner
+                android:layout_weight="0.8"
+                android:id="@+id/myresume_skill_skill_spinner"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"></Spinner>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+            <ImageView
+                android:id="@+id/myresume_skill_ratestar1"
+                android:layout_marginLeft="10dp"
+                android:src="@drawable/ratestar"
+                android:layout_width="50dp"
+                android:layout_height="50dp"/>
+            <ImageView
+                android:id="@+id/myresume_skill_ratestar2"
+                android:layout_marginLeft="10dp"
+                android:src="@drawable/ratestar"
+                android:layout_width="50dp"
+                android:layout_height="50dp"/>
+            <ImageView
+                android:id="@+id/myresume_skill_ratestar3"
+                android:layout_marginLeft="10dp"
+                android:src="@drawable/ratestar"
+                android:layout_width="50dp"
+                android:layout_height="50dp"/>
+            <ImageView
+                android:id="@+id/myresume_skill_ratestar4"
+                android:layout_marginLeft="10dp"
+                android:src="@drawable/ratestar"
+                android:layout_width="50dp"
+                android:layout_height="50dp"/>
+            <ImageView
+                android:id="@+id/myresume_skill_ratestar5"
+                android:layout_marginLeft="10dp"
+                android:src="@drawable/ratestar"
+                android:layout_width="50dp"
+                android:layout_height="50dp"/>
+        </LinearLayout>
         <TextView
+            android:visibility="gone"
             android:textSize="@dimen/activity_title_medium"
-            android:text="Major"
-            android:textStyle="bold"
-            android:layout_weight="0.2"
+            android:id="@+id/myresume_skill_rate_textview"
             android:textColor="@color/Black"
-            android:layout_gravity="center_vertical"
-            android:layout_width="0dp"
+            android:gravity="center"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
-        <Spinner
-            android:layout_weight="0.8"
-            android:id="@+id/myresume_skill_major_spinner"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"></Spinner>
-    </LinearLayout>
 
-    <LinearLayout
-        android:layout_marginTop="10dp"
-        android:weightSum="1"
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <TextView
-            android:textSize="@dimen/activity_title_medium"
-            android:text="Skill"
-            android:textStyle="bold"
-            android:textColor="@color/Black"
-            android:layout_gravity="center_vertical"
-            android:layout_weight="0.2"
-            android:layout_width="0dp"
+        <Button
+            android:text="@string/Save"
+            android:layout_marginTop="10dp"
+            android:layout_gravity="center"
+            android:id="@+id/myresume_skill_save"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
-        <Spinner
-            android:layout_weight="0.8"
-            android:id="@+id/myresume_skill_skill_spinner"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"></Spinner>
     </LinearLayout>
-    <LinearLayout
-        android:layout_marginTop="10dp"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="50dp">
-        <ImageView
-            android:id="@+id/myresume_skill_ratestar1"
-            android:layout_marginLeft="10dp"
-            android:src="@drawable/ratestar"
-            android:layout_width="50dp"
-            android:layout_height="50dp"/>
-        <ImageView
-            android:id="@+id/myresume_skill_ratestar2"
-            android:layout_marginLeft="10dp"
-            android:src="@drawable/ratestar"
-            android:layout_width="50dp"
-            android:layout_height="50dp"/>
-        <ImageView
-            android:id="@+id/myresume_skill_ratestar3"
-            android:layout_marginLeft="10dp"
-            android:src="@drawable/ratestar"
-            android:layout_width="50dp"
-            android:layout_height="50dp"/>
-        <ImageView
-            android:id="@+id/myresume_skill_ratestar4"
-            android:layout_marginLeft="10dp"
-            android:src="@drawable/ratestar"
-            android:layout_width="50dp"
-            android:layout_height="50dp"/>
-        <ImageView
-            android:id="@+id/myresume_skill_ratestar5"
-            android:layout_marginLeft="10dp"
-            android:src="@drawable/ratestar"
-            android:layout_width="50dp"
-            android:layout_height="50dp"/>
-    </LinearLayout>
-
-    <Button
-        android:text="@string/Save"
-        android:layout_marginTop="10dp"
-        android:layout_gravity="center"
-        android:id="@+id/myresume_skill_save"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
 </LinearLayout>

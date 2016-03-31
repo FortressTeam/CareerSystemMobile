@@ -1,7 +1,9 @@
 package com.example.kyler.careersystem.Controller;
 
 import com.example.kyler.careersystem.Entities.Applicants;
+import com.example.kyler.careersystem.Entities.ApplicantsHasSkills;
 import com.example.kyler.careersystem.Entities.PersonalHistory;
+import com.example.kyler.careersystem.Entities.Skills;
 import com.example.kyler.careersystem.Entities.Users;
 
 import org.json.JSONArray;
@@ -28,6 +30,36 @@ public class Applicantcontroller {
         try {
             for (int i = 0; i < jsonArray.length(); i++) {
                 result.add(new PersonalHistory(jsonArray.getJSONObject(i)));
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        if(result.size()>0)
+            return result;
+        else
+            return null;
+    }
+
+    public ArrayList<ApplicantsHasSkills> getApplicantsHasSkills(JSONArray jsonArray) {
+        ArrayList<ApplicantsHasSkills> result = new ArrayList<>();
+        try {
+            for (int i = 0; i < jsonArray.length(); i++) {
+                result.add(new ApplicantsHasSkills(jsonArray.getJSONObject(i).getJSONObject("_joinData")));
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        if(result.size()>0)
+            return result;
+        else
+            return null;
+    }
+
+    public ArrayList<Skills> getSkills(JSONArray jsonArray) {
+        ArrayList<Skills> result = new ArrayList<>();
+        try {
+            for (int i = 0; i < jsonArray.length(); i++) {
+                result.add(new Skills(jsonArray.getJSONObject(i)));
             }
         } catch (JSONException e) {
             e.printStackTrace();

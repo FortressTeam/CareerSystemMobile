@@ -5,70 +5,95 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingLeft="5dp"
+    android:paddingRight="5dp"
+    android:paddingTop="5dp"
+    android:paddingBottom="5dp"
+    android:background="@color/background"
     tools:context="com.example.kyler.careersystem.Applicant.ChildFragments.MyresumeEducationFragment">
-    <android.support.design.widget.TextInputLayout
+    <LinearLayout
+        android:background="@drawable/customborder"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:paddingTop="5dp"
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <EditText
-            android:singleLine="true"
-            android:textSize="@dimen/activity_content_medium"
-            android:id="@+id/myresume_experience_companyname"
-            android:textColorHint="#727272"
-            android:hint="Company Name"
-            android:layout_marginBottom="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-    </android.support.design.widget.TextInputLayout>
+        android:layout_height="match_parent">
 
-    <android.support.design.widget.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <EditText
-            android:singleLine="true"
-            android:textSize="@dimen/activity_content_medium"
-            android:id="@+id/myresume_education_major"
-            android:textColorHint="#727272"
-            android:hint="Position"
-            android:layout_marginBottom="10dp"
+        <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-    </android.support.design.widget.TextInputLayout>
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+            android:layout_height="wrap_content">
+            <EditText
+                android:singleLine="true"
+                android:textSize="@dimen/activity_content_medium"
+                android:id="@+id/myresume_experience_companyname"
+                android:textColorHint="#727272"
+                android:hint="Company Name"
+                android:layout_marginBottom="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <EditText
+                android:singleLine="true"
+                android:textSize="@dimen/activity_content_medium"
+                android:id="@+id/myresume_experience_position"
+                android:textColorHint="#727272"
+                android:hint="Position"
+                android:layout_marginBottom="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </android.support.design.widget.TextInputLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <Button
+                android:text="@string/Start"
+                android:id="@+id/myresume_experience_start_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:gravity="center_horizontal"
+                android:id="@+id/myresume_experience_start_textview"
+                android:textColor="@color/hint"
+                android:textSize="@dimen/activity_content_medium"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <Button
+                android:text="@string/End"
+                android:id="@+id/myresume_experience_end_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:gravity="center_horizontal"
+                android:id="@+id/myresume_experience_end_textview"
+                android:textColor="@color/hint"
+                android:textSize="@dimen/activity_content_medium"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+        <Switch
+            android:paddingLeft="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Current Job"
+            android:id="@+id/myresume_experience_currentjob"/>
+
         <Button
-            android:id="@+id/myresume_experience_start_button"
+            android:id="@+id/myresume_education_save"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-        <TextView
-            android:id="@+id/myresume_experience_start_textview"
-            android:textColor="@color/hint"
-            android:textSize="@dimen/activity_content_medium"
-            android:layout_width="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/Save"
             android:layout_height="wrap_content"/>
     </LinearLayout>
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <Button
-            android:id="@+id/myresume_experience_end_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-        <TextView
-            android:id="@+id/myresume_experience_end_textview"
-            android:textColor="@color/hint"
-            android:textSize="@dimen/activity_content_medium"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-    </LinearLayout>
-    <Button
-        android:id="@+id/myresume_education_save"
-        android:layout_width="wrap_content"
-        android:layout_gravity="center"
-        android:text="@string/Save"
-        android:layout_height="wrap_content"/>
 </LinearLayout>

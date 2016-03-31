@@ -9,18 +9,24 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.kyler.careersystem.ApplicantMainActivity;
 import com.example.kyler.careersystem.Entities.SkillTypes;
 import com.example.kyler.careersystem.Entities.Skills;
 import com.example.kyler.careersystem.GetDataFromService.GetJsonArray;
+import com.example.kyler.careersystem.GetDataFromService.PostDataWithJson;
 import com.example.kyler.careersystem.R;
 import com.example.kyler.careersystem.UrlStatic;
+import com.example.kyler.careersystem.Utilities;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
@@ -28,12 +34,17 @@ import java.util.concurrent.ExecutionException;
 public class MyresumeSkillsFragment extends Fragment implements View.OnClickListener, AdapterView.OnItemSelectedListener{
     private Spinner skillMajor,skillSkills;
     private ImageView skillRateStar1,skillRateStar2,skillRateStar3,skillRateStar4,skillRateStar5;
+    private Button skillSave;
+    private TextView skillRateTextView;
     private ArrayList<SkillTypes> majors;
     private ArrayList<Skills> skills;
+    private int applicantID = 4;
+    private int skillLevel = 0;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.applicant_myresume_skills_fragment,container,false);
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Skills");
         skillMajor = (Spinner) rootView.findViewById(R.id.myresume_skill_major_spinner);
         skillSkills = (Spinner) rootView.findViewById(R.id.myresume_skill_skill_spinner);
         skillRateStar1 = (ImageView) rootView.findViewById(R.id.myresume_skill_ratestar1);
@@ -41,11 +52,13 @@ public class MyresumeSkillsFragment extends Fragment implements View.OnClickList
         skillRateStar3 = (ImageView) rootView.findViewById(R.id.myresume_skill_ratestar3);
         skillRateStar4 = (ImageView) rootView.findViewById(R.id.myresume_skill_ratestar4);
         skillRateStar5 = (ImageView) rootView.findViewById(R.id.myresume_skill_ratestar5);
+        skillRateTextView = (TextView) rootView.findViewById(R.id.myresume_skill_rate_textview);
+        skillSave = (Button) rootView.findViewById(R.id.myresume_skill_save);
         loadMajorSpinner();
         skillMajor.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                Toast.makeText(getActivity().getApplicationContext(), "ID = "+majors.get(i).getID(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity().getApplicationContext(), "ID = " + majors.get(i).getID(), Toast.LENGTH_SHORT).show();
                 loadSkillsSpinner(majors.get(i).getID());
             }
 
@@ -60,6 +73,7 @@ public class MyresumeSkillsFragment extends Fragment implements View.OnClickList
         skillRateStar3.setOnClickListener(this);
         skillRateStar4.setOnClickListener(this);
         skillRateStar5.setOnClickListener(this);
+        skillSave.setOnClickListener(this);
         return rootView;
     }
 
@@ -87,7 +101,7 @@ public class MyresumeSkillsFragment extends Fragment implements View.OnClickList
     private void loadSkillsSpinner(int id){
         JSONArray jsonArray;
         try {
-            jsonArray = new GetJsonArray(getActivity(),"skills").execute(UrlStatic.URLSkillType+id+"/skills.json").get();
+            jsonArray = new GetJsonArray(getActivity(),"skills").execute(UrlStatic.URLSkills+"?limit=1000&skill_type_id="+id).get();
             skills = new ArrayList<>();
             ArrayList<String> arrSkills = new ArrayList<>();
             for(int i=0;i<jsonArray.length();i++){
@@ -119,29 +133,80 @@ public class MyresumeSkillsFragment extends Fragment implements View.OnClickList
         for(int i=0;i<input;i++){
             arr.get(i).setImageResource(R.drawable.starfollow);
         }
+        skillRateTextView.setVisibility(View.VISIBLE);
+        switch (input){
+            case 1:
+                skillRateTextView.setText("Newbie");
+                break;
+            case 2:
+                skillRateTextView.setText("Beginner");
+                break;
+            case 3:
+                skillRateTextView.setText("Experience");
+                break;
+            case 4:
+                skillRateTextView.setText("Senior");
+                break;
+            case 5:
+                skillRateTextView.setText("Master");
+                break;
+        }
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.myresume_skill_ratestar1:
-                ratingstar(1);
+                skillLevel = 1;
+                ratingstar(skillLevel);
                 break;
             case R.id.myresume_skill_ratestar2:
-                ratingstar(2);
+                skillLevel = 2;
+                ratingstar(skillLevel);
                 break;
             case R.id.myresume_skill_ratestar3:
-                ratingstar(3);
+                skillLevel = 3;
+                ratingstar(skillLevel);
                 break;
             case R.id.myresume_skill_ratestar4:
-                ratingstar(4);
+                skillLevel = 4;
+                ratingstar(skillLevel);
                 break;
             case R.id.myresume_skill_ratestar5:
-                ratingstar(5);
+                skillLevel = 5;
+                ratingstar(skillLevel);
                 break;
-
+            case R.id.myresume_skill_save:
+                doSave();
+                break;
+            default:
+                break;
         }
 
+    }
+
+    private void doSave(){
+        if(skillLevel!=0) {
+            JSONObject jsSendData = new JSONObject();
+            try {
+                jsSendData.put("applicant_id", applicantID);
+                jsSendData.put("skill_id", skills.get(skillSkills.getSelectedItemPosition()).getID());
+                jsSendData.put("skill_level", skillLevel);
+                JSONObject jsResponse = new PostDataWithJson(jsSendData,getActivity()).execute(UrlStatic.URLApplicantsHasSkills).get();
+                if(Utilities.isCreateUpdateSuccess(jsResponse)){
+                    Utilities.startActivity(getActivity(), ApplicantMainActivity.class,2);
+                    Toast.makeText(getActivity().getApplicationContext(),"success",Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(getActivity().getApplicationContext(),"Something went wrong!",Toast.LENGTH_SHORT).show();
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @Override
@@ -151,7 +216,7 @@ public class MyresumeSkillsFragment extends Fragment implements View.OnClickList
                 loadSkillsSpinner(majors.get(i).getID());
                 break;
             case R.id.myresume_skill_skill_spinner:
-
+                Toast.makeText(getActivity().getApplicationContext(),"skill_id : "+skills.get(i).getID(),Toast.LENGTH_SHORT).show();
                 break;
         }
     }

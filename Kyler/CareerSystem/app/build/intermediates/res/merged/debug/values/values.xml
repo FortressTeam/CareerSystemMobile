@@ -320,7 +320,9 @@
     <string name="Apply">Apply</string>
     <string name="CancelAddPost">Cancel</string>
     <string name="Delete">Delete</string>
+    <string name="End">End</string>
     <string name="Save">Save</string>
+    <string name="Start">Start</string>
     <string name="Submit">Submit</string>
     <string name="Subscribe">Subscribe</string>
     <string name="abc_action_bar_home_description">Navigate home</string>

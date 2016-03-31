@@ -61,6 +61,12 @@
         </activity>
         <activity android:name="com.example.kyler.careersystem.Applicant.ChildFragments.MyresumeSkillsFragment" >
         </activity>
+        <activity android:name="com.example.kyler.careersystem.Applicant.ChildFragments.MyresumeHobbieFragment" >
+        </activity>
+        <activity android:name="com.example.kyler.careersystem.Applicant.ChildFragments.MyresumeExperienceFragment" >
+        </activity>
+        <activity android:name="com.example.kyler.careersystem.Applicant.ChildFragments.MyresumeFuturegoalFragment" >
+        </activity>
     </application>
 
 </manifest>

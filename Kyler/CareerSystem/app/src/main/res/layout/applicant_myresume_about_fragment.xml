@@ -5,31 +5,43 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingLeft="5dp"
+    android:paddingRight="5dp"
+    android:paddingTop="5dp"
+    android:paddingBottom="5dp"
+    android:background="@color/background"
     tools:context="com.example.kyler.careersystem.Applicant.ChildFragments.MyresumeAboutFragment">
-    <android.support.design.widget.TextInputLayout
+    <LinearLayout
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:paddingTop="5dp"
+        android:orientation="vertical"
+        android:background="@drawable/customborder"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <EditText
-            android:minLines="7"
-            android:gravity="top"
-            android:singleLine="true"
-            android:textSize="@dimen/activity_content_medium"
-            android:id="@+id/myresume_about_content"
-            android:textColorHint="#727272"
-            android:hint="About"
-            android:inputType="textMultiLine"
-            android:layout_marginBottom="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-    </android.support.design.widget.TextInputLayout>
+        android:layout_height="match_parent">
 
-    <Button
-        android:layout_gravity="center"
-        android:id="@+id/myresume_about_save"
-        android:text="@string/Save"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <EditText
+                android:minLines="7"
+                android:gravity="top"
+                android:singleLine="true"
+                android:textSize="@dimen/activity_content_medium"
+                android:id="@+id/myresume_about_content"
+                android:textColorHint="#727272"
+                android:hint="About"
+                android:inputType="textMultiLine"
+                android:layout_marginBottom="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </android.support.design.widget.TextInputLayout>
+
+        <Button
+            android:layout_gravity="center"
+            android:id="@+id/myresume_about_save"
+            android:text="@string/Save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
 </LinearLayout>

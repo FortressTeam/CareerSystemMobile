@@ -46,7 +46,7 @@ public class MyresumeAboutFragment extends Fragment {
             public void onClick(View view) {
                 JSONObject jsonObject = new JSONObject();
                 try {
-                    jsonObject.put("applicant_about",aboutContent.getText().toString());
+                    jsonObject.put("applicant_about",aboutContent.getText().toString().trim());
                     JSONObject jsresult = new PutDataWithJson(jsonObject,getActivity()).execute(UrlStatic.URLApplicant+applicantID+".json").get();
                     if(Utilities.isCreateUpdateSuccess(jsresult)){
                         Utilities.startActivity(getActivity(), ApplicantMainActivity.class,2);

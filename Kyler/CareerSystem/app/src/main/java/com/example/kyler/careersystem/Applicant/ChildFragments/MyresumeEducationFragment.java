@@ -15,6 +15,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.kyler.careersystem.R;
 import com.example.kyler.careersystem.Utilities;
@@ -35,6 +36,7 @@ public class MyresumeEducationFragment extends Fragment implements View.OnClickL
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.applicant_myresume_education_fragment,container,false);
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Education");
         educationUniversity = (EditText) rootView.findViewById(R.id.myresume_education_university);
         educationMajor = (EditText) rootView.findViewById(R.id.myresume_education_major);
         educationDegree = (Spinner) rootView.findViewById(R.id.myresume_education_degree_spinner);
@@ -48,6 +50,7 @@ public class MyresumeEducationFragment extends Fragment implements View.OnClickL
         educationDegree.setAdapter(adapter);
         educationStart.setOnClickListener(this);
         educationEnd.setOnClickListener(this);
+        educationSave.setOnClickListener(this);
         return rootView;
     }
 
@@ -62,7 +65,7 @@ public class MyresumeEducationFragment extends Fragment implements View.OnClickL
                 if(Utilities.validDatepicker(startDate,endDate))
                     educationStartTextView.setText(startDate);
                 else
-                    new AlertDialog.Builder(getActivity()).setMessage("Invalid Date").show();
+                    new AlertDialog.Builder(getActivity()).setMessage("Invalid Date").setPositiveButton("OK",null).show();
             }
         }
     };
@@ -78,11 +81,19 @@ public class MyresumeEducationFragment extends Fragment implements View.OnClickL
                 if(Utilities.validDatepicker(startDate,endDate))
                     educationEndTextView.setText(endDate);
                 else
-                    new AlertDialog.Builder(getActivity()).setMessage("Invalid Date").show();
+                    new AlertDialog.Builder(getActivity()).setMessage("Invalid Date").setPositiveButton("OK",null).show();
             }
         }
     };
 
+    private boolean isValid(){
+        if(educationUniversity.getText().toString().trim().equals("")||educationMajor.getText().toString().trim().equals("")||educationStartTextView.getText().toString().equals("")||educationEndTextView.getText().toString().equals("")) {
+            new AlertDialog.Builder(getActivity()).setMessage("You missed something").setPositiveButton("OK",null).show();
+            return false;
+        }
+        else
+            return true;
+    }
 
     @Override
     public void onClick(View view) {
@@ -94,6 +105,8 @@ public class MyresumeEducationFragment extends Fragment implements View.OnClickL
                 new DatePickerDialog(getActivity(),endListener,calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH),calendar.get(Calendar.DAY_OF_MONTH)).show();
                 break;
             case R.id.myresume_education_save:
+                if(isValid())
+                    Toast.makeText(getActivity().getApplicationContext(),"University : "+ educationUniversity.getText()+"\n"+educationDegree.getSelectedItem().toString()+" - "+educationMajor.getText()+"\nFrom "+educationStartTextView.getText()+" to "+educationEndTextView.getText(),Toast.LENGTH_SHORT).show();
                 break;
             default:
                 break;

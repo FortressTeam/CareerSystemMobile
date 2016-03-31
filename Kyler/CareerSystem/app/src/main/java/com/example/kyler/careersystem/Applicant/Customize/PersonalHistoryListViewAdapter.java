@@ -47,10 +47,10 @@ public class PersonalHistoryListViewAdapter extends BaseAdapter {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
             view = inflater.inflate(R.layout.applicant_myresume_personal_history_listviewitem,null);
         }
-        TextView myresume_history_title = (TextView) view.findViewById(R.id.myresume_history_title);
-        TextView myresume_history_detail = (TextView) view.findViewById(R.id.myresume_history_detail);
-        TextView myresume_history_time = (TextView) view.findViewById(R.id.myresume_history_time);
-        ImageView myresume_history_edit = (ImageView) view.findViewById(R.id.myresumer_history_edit);
+        TextView myresume_history_title = (TextView) view.findViewById(R.id.myresume_history_title_listviewitem);
+        TextView myresume_history_detail = (TextView) view.findViewById(R.id.myresume_history_detail_listviewitem);
+        TextView myresume_history_time = (TextView) view.findViewById(R.id.myresume_history_time_listviewitem);
+        ImageView myresume_history_edit = (ImageView) view.findViewById(R.id.myresumer_history_edit_listviewitem);
         myresume_history_title.setText(personalHistoryListViewItems.get(i).getHistoryTitle());
         myresume_history_detail.setText(personalHistoryListViewItems.get(i).getHistoryDetail());
         myresume_history_time.setText("From "+personalHistoryListViewItems.get(i).getHistoryStart().toString()+" to "+personalHistoryListViewItems.get(i).getHistoryEnd().toString());

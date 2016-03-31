@@ -4,58 +4,68 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginLeft="10dp"
-    android:layout_marginRight="10dp"
+    android:paddingLeft="5dp"
+    android:paddingRight="5dp"
+    android:paddingTop="5dp"
+    android:paddingBottom="5dp"
+    android:background="@color/background"
     android:orientation="vertical"
     tools:context=".Applicant.ChildFragments.MyresumeContactFragment">
-
-    <android.support.design.widget.TextInputLayout
+    <LinearLayout
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:paddingTop="5dp"
+        android:background="@drawable/customborder"
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <EditText
-            android:singleLine="true"
-            android:textSize="@dimen/activity_content_medium"
-            android:id="@+id/myresume_contact_phone"
-            android:textColorHint="#727272"
-            android:hint="Phone"
-            android:layout_marginBottom="10dp"
+        android:layout_height="match_parent">
+        <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-    </android.support.design.widget.TextInputLayout>
+            android:layout_height="wrap_content">
+            <EditText
+                android:singleLine="true"
+                android:textSize="@dimen/activity_content_medium"
+                android:id="@+id/myresume_contact_phone"
+                android:textColorHint="#727272"
+                android:hint="Phone"
+                android:layout_marginBottom="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </android.support.design.widget.TextInputLayout>
 
-    <android.support.design.widget.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <EditText
-            android:singleLine="true"
-            android:textSize="@dimen/activity_content_medium"
-            android:id="@+id/myresume_contact_email"
-            android:textColorHint="#727272"
-            android:hint="Email"
-            android:layout_marginBottom="10dp"
+        <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-    </android.support.design.widget.TextInputLayout>
+            android:layout_height="wrap_content">
+            <EditText
+                android:singleLine="true"
+                android:textSize="@dimen/activity_content_medium"
+                android:id="@+id/myresume_contact_email"
+                android:textColorHint="#727272"
+                android:hint="Email"
+                android:layout_marginBottom="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </android.support.design.widget.TextInputLayout>
 
-    <android.support.design.widget.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <EditText
-            android:singleLine="true"
-            android:textSize="@dimen/activity_content_medium"
-            android:id="@+id/myresume_contact_Address"
-            android:textColorHint="#727272"
-            android:hint="Address"
-            android:layout_marginBottom="10dp"
+        <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <EditText
+                android:singleLine="true"
+                android:textSize="@dimen/activity_content_medium"
+                android:id="@+id/myresume_contact_Address"
+                android:textColorHint="#727272"
+                android:hint="Address"
+                android:layout_marginBottom="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </android.support.design.widget.TextInputLayout>
+
+        <Button
+            android:id="@+id/myresume_contact_save"
+            android:layout_gravity="center"
+            android:text="@string/Save"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
-    </android.support.design.widget.TextInputLayout>
-
-    <Button
-        android:id="@+id/myresume_contact_save"
-        android:layout_gravity="center"
-        android:text="@string/Save"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-
+    </LinearLayout>
 </LinearLayout>

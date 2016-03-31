@@ -1,714 +1,729 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:paddingLeft="5dp"
-              android:paddingRight="5dp"
-              android:layout_height="match_parent">
-    <com.github.ksoichiro.android.observablescrollview.ObservableScrollView
-        android:scrollbars="none"
-        android:id="@+id/myresume_fragment"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <LinearLayout
-            android:orientation="vertical"
-            android:background="@color/background"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  android:layout_width="match_parent"
+                  android:paddingLeft="5dp"
+                  android:paddingRight="5dp"
+                  android:layout_height="match_parent">
+        <com.github.ksoichiro.android.observablescrollview.ObservableScrollView
+            android:scrollbars="none"
+            android:id="@+id/myresume_fragment_observablescrollview"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <LinearLayout
-                android:id="@+id/myresume_editprofile"
-                android:elevation="2dp"
-                android:background="@drawable/customborder"
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/myresume_user_image"
-                    android:layout_margin="5dp"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"/>
-                <LinearLayout
-                    android:paddingTop="3dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-                    <LinearLayout
-                        android:orientation="horizontal"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Name: "
-                            android:textColor="@color/Black"
-                            android:textSize="@dimen/activity_title_medium"
-                            android:textStyle="bold"/>
-                        <TextView
-                            android:id="@+id/myresume_name"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="abc"
-                            android:textSize="@dimen/activity_content_big"
-                            android:textColor="@color/Black"/>
-                    </LinearLayout>
-                    <LinearLayout
-                        android:paddingTop="3dp"
-                        android:orientation="horizontal"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Sex: "
-                            android:textColor="@color/Black"
-                            android:textSize="@dimen/activity_title_small"
-                            android:textStyle="bold"/>
-                        <TextView
-                            android:id="@+id/myresume_sex"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="abc"
-                            android:textSize="@dimen/activity_content_medium"
-                            android:textColor="@color/Black"/>
-                    </LinearLayout>
-                    <LinearLayout
-                        android:paddingTop="3dp"
-                        android:orientation="horizontal"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Hometown: "
-                            android:textColor="@color/Black"
-                            android:textSize="@dimen/activity_title_small"
-                            android:textStyle="bold"/>
-                        <TextView
-                            android:id="@+id/myresume_hometown"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="abc"
-                            android:textSize="@dimen/activity_content_medium"
-                            android:textColor="@color/Black"/>
-                    </LinearLayout>
-                    <LinearLayout
-                        android:paddingTop="3dp"
-                        android:orientation="horizontal"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Birthday: "
-                            android:textColor="@color/Black"
-                            android:textSize="@dimen/activity_title_small"
-                            android:textStyle="bold"/>
-                        <TextView
-                            android:id="@+id/myresume_birthday"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="abc"
-                            android:textSize="@dimen/activity_content_medium"
-                            android:textColor="@color/Black"/>
-                    </LinearLayout>
-                </LinearLayout>
-            </LinearLayout>
-
-            <TextView
+                android:orientation="vertical"
                 android:background="@color/background"
                 android:layout_width="match_parent"
-                android:layout_height="3dp"/>
-
-            <LinearLayout
-                android:elevation="2dp"
-                android:paddingBottom="5dp"
-                android:orientation="vertical"
-                android:background="@drawable/customborder"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="match_parent">
                 <LinearLayout
-                    android:paddingLeft="5dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="35dp"
-                    android:weightSum="1"
-                    android:orientation="horizontal">
-                    <ImageView
-                        android:layout_gravity="center_vertical"
-                        android:layout_width="25dp"
-                        android:background="@drawable/resumecontacticon"
-                        android:layout_height="25dp"/>
-                    <TextView
-                        android:textStyle="bold"
-                        android:textColor="@color/Black"
-                        android:textSize="@dimen/activity_title_medium"
-                        android:paddingLeft="5dp"
-                        android:text="Contact"
-                        android:gravity="center_vertical"
-                        android:layout_weight="1"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"/>
-                    <ImageView
-                        android:id="@+id/myresume_editcontact"
-                        android:background="@drawable/editicon"
-                        android:layout_width="35dp"
-                        android:layout_height="match_parent"/>
-                </LinearLayout>
-                <TableLayout
+                    android:id="@+id/myresume_editprofile"
+                    android:elevation="2dp"
+                    android:background="@drawable/customborder"
+                    android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
-                    <TableRow
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/myresume_user_image"
+                        android:layout_margin="5dp"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"/>
+                    <LinearLayout
                         android:paddingTop="3dp"
-                        android:paddingLeft="20dp">
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Name: "
+                                android:textColor="@color/Black"
+                                android:textSize="@dimen/activity_title_medium"
+                                android:textStyle="bold"/>
+                            <TextView
+                                android:id="@+id/myresume_name"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="abc"
+                                android:textSize="@dimen/activity_content_big"
+                                android:textColor="@color/Black"/>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:paddingTop="3dp"
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Sex: "
+                                android:textColor="@color/Black"
+                                android:textSize="@dimen/activity_title_small"
+                                android:textStyle="bold"/>
+                            <TextView
+                                android:id="@+id/myresume_sex"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="abc"
+                                android:textSize="@dimen/activity_content_medium"
+                                android:textColor="@color/Black"/>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:paddingTop="3dp"
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Hometown: "
+                                android:textColor="@color/Black"
+                                android:textSize="@dimen/activity_title_small"
+                                android:textStyle="bold"/>
+                            <TextView
+                                android:id="@+id/myresume_hometown"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="abc"
+                                android:textSize="@dimen/activity_content_medium"
+                                android:textColor="@color/Black"/>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:paddingTop="3dp"
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Birthday: "
+                                android:textColor="@color/Black"
+                                android:textSize="@dimen/activity_title_small"
+                                android:textStyle="bold"/>
+                            <TextView
+                                android:id="@+id/myresume_birthday"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="abc"
+                                android:textSize="@dimen/activity_content_medium"
+                                android:textColor="@color/Black"/>
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <TextView
+                    android:background="@color/background"
+                    android:layout_width="match_parent"
+                    android:layout_height="3dp"/>
+
+                <LinearLayout
+                    android:elevation="2dp"
+                    android:paddingBottom="5dp"
+                    android:orientation="vertical"
+                    android:background="@drawable/customborder"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <LinearLayout
+                        android:paddingLeft="5dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="35dp"
+                        android:weightSum="1"
+                        android:orientation="horizontal">
+                        <ImageView
+                            android:layout_gravity="center_vertical"
+                            android:layout_width="25dp"
+                            android:background="@drawable/resumecontacticon"
+                            android:layout_height="25dp"/>
                         <TextView
-                            android:text="Phone "
-                            android:textSize="@dimen/activity_title_small"
-                            android:textColor="@color/Black"
                             android:textStyle="bold"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
+                            android:textColor="@color/Black"
+                            android:textSize="@dimen/activity_title_medium"
+                            android:paddingLeft="5dp"
+                            android:text="Contact"
+                            android:gravity="center_vertical"
+                            android:layout_weight="1"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"/>
+                        <ImageView
+                            android:id="@+id/myresume_editcontact"
+                            android:background="@drawable/editicon"
+                            android:layout_width="35dp"
+                            android:layout_height="match_parent"/>
+                    </LinearLayout>
+                    <TableLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TableRow
+                            android:paddingTop="3dp"
+                            android:paddingLeft="20dp">
+                            <TextView
+                                android:text="Phone "
+                                android:textSize="@dimen/activity_title_small"
+                                android:textColor="@color/Black"
+                                android:textStyle="bold"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+                            <TextView
+                                android:id="@+id/myresume_phone"
+                                android:paddingLeft="10dp"
+                                android:text="abc "
+                                android:textSize="@dimen/activity_content_medium"
+                                android:textColor="@color/Black"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+                        </TableRow>
+                        <TableRow
+                            android:paddingTop="3dp"
+                            android:paddingLeft="20dp">
+                            <TextView
+                                android:text="Email "
+                                android:textSize="@dimen/activity_title_small"
+                                android:textColor="@color/Black"
+                                android:textStyle="bold"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+                            <TextView
+                                android:id="@+id/myresume_email"
+                                android:paddingLeft="10dp"
+                                android:text="abc "
+                                android:textSize="@dimen/activity_content_medium"
+                                android:textColor="@color/Black"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+                        </TableRow>
+                        <TableRow
+                            android:paddingTop="3dp"
+                            android:paddingLeft="20dp">
+                            <TextView
+                                android:text="Address "
+                                android:textSize="@dimen/activity_title_small"
+                                android:textColor="@color/Black"
+                                android:textStyle="bold"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+                            <TextView
+                                android:id="@+id/myresume_address"
+                                android:paddingLeft="10dp"
+                                android:paddingRight="70dp"
+                                android:text="abc "
+                                android:textSize="@dimen/activity_content_medium"
+                                android:textColor="@color/Black"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+                        </TableRow>
+                    </TableLayout>
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="3dp"
+                    android:background="@color/background"/>
+
+                <LinearLayout
+                    android:elevation="2dp"
+                    android:paddingBottom="5dp"
+                    android:background="@drawable/customborder"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <LinearLayout
+                        android:paddingLeft="5dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="35dp"
+                        android:weightSum="1"
+                        android:orientation="horizontal">
+                        <ImageView
+                            android:layout_gravity="center_vertical"
+                            android:layout_width="25dp"
+                            android:background="@drawable/resumeabouticon"
+                            android:layout_height="25dp"/>
                         <TextView
-                            android:id="@+id/myresume_phone"
+                            android:textStyle="bold"
+                            android:textColor="@color/Black"
+                            android:textSize="@dimen/activity_title_medium"
+                            android:paddingLeft="5dp"
+                            android:text="About"
+                            android:gravity="center_vertical"
+                            android:layout_weight="1"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"/>
+                        <ImageView
+                            android:id="@+id/myresume_editabout"
+                            android:background="@drawable/editicon"
+                            android:layout_width="35dp"
+                            android:layout_height="match_parent"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:minHeight="55dp"
+                            android:paddingTop="3dp"
+                            android:id="@+id/myresume_about"
                             android:paddingLeft="10dp"
-                            android:text="abc "
+                            android:text="Write something about you."
                             android:textSize="@dimen/activity_content_medium"
                             android:textColor="@color/Black"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"/>
-                    </TableRow>
-                    <TableRow
-                        android:paddingTop="3dp"
-                        android:paddingLeft="20dp">
+                    </LinearLayout>
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="3dp"
+                    android:background="@color/background"/>
+
+                <LinearLayout
+                    android:elevation="2dp"
+                    android:paddingBottom="5dp"
+                    android:background="@drawable/customborder"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <LinearLayout
+                        android:paddingLeft="5dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="35dp"
+                        android:weightSum="1"
+                        android:orientation="horizontal">
+                        <ImageView
+                            android:layout_gravity="center_vertical"
+                            android:layout_width="25dp"
+                            android:background="@drawable/resumeeducationicon"
+                            android:layout_height="25dp"/>
                         <TextView
-                            android:text="Email "
-                            android:textSize="@dimen/activity_title_small"
-                            android:textColor="@color/Black"
                             android:textStyle="bold"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
+                            android:textColor="@color/Black"
+                            android:textSize="@dimen/activity_title_medium"
+                            android:paddingLeft="5dp"
+                            android:text="Education"
+                            android:gravity="center_vertical"
+                            android:layout_weight="1"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"/>
+                        <ImageView
+                            android:id="@+id/myresume_addeducation"
+                            android:background="@drawable/addicon"
+                            android:layout_width="35dp"
+                            android:layout_height="match_parent"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
                         <TextView
-                            android:id="@+id/myresume_email"
+                            android:minHeight="55dp"
+                            android:paddingTop="3dp"
+                            android:id="@+id/myresume_education"
                             android:paddingLeft="10dp"
-                            android:text="abc "
+                            android:text="Where did you study at?"
                             android:textSize="@dimen/activity_content_medium"
                             android:textColor="@color/Black"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"/>
-                    </TableRow>
-                    <TableRow
-                        android:paddingTop="3dp"
-                        android:paddingLeft="20dp">
+                    </LinearLayout>
+                    <com.example.kyler.careersystem.Applicant.Customize.NonScrollListView
+                        android:id="@+id/myresume_listview_education"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:cacheColorHint="@android:color/transparent"
+                        android:listSelector="@android:color/transparent"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                    </com.example.kyler.careersystem.Applicant.Customize.NonScrollListView>
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="3dp"
+                    android:background="@color/background"/>
+
+                <LinearLayout
+                    android:elevation="2dp"
+                    android:paddingBottom="5dp"
+                    android:background="@drawable/customborder"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <LinearLayout
+                        android:paddingLeft="5dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="35dp"
+                        android:weightSum="1"
+                        android:orientation="horizontal">
+                        <ImageView
+                            android:layout_gravity="center_vertical"
+                            android:layout_width="25dp"
+                            android:background="@drawable/resumeexperienceicon"
+                            android:layout_height="25dp"/>
                         <TextView
-                            android:text="Address "
-                            android:textSize="@dimen/activity_title_small"
-                            android:textColor="@color/Black"
                             android:textStyle="bold"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
+                            android:textColor="@color/Black"
+                            android:textSize="@dimen/activity_title_medium"
+                            android:paddingLeft="5dp"
+                            android:text="Experience"
+                            android:gravity="center_vertical"
+                            android:layout_weight="1"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"/>
+                        <ImageView
+                            android:id="@+id/myresume_addexperience"
+                            android:background="@drawable/addicon"
+                            android:layout_width="35dp"
+                            android:layout_height="match_parent"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
                         <TextView
-                            android:id="@+id/myresume_address"
-                            android:paddingLeft="10dp"
-                            android:paddingRight="70dp"
-                            android:text="abc "
+                            android:minHeight="30dp"
+                            android:paddingTop="3dp"
+                            android:id="@+id/myresume_experience"
+                            android:paddingLeft="15dp"
+                            android:text="Don't have information."
                             android:textSize="@dimen/activity_content_medium"
                             android:textColor="@color/Black"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"/>
-                    </TableRow>
-                </TableLayout>
-            </LinearLayout>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="3dp"
-                android:background="@color/background"/>
-
-            <LinearLayout
-                android:elevation="2dp"
-                android:paddingBottom="5dp"
-                android:background="@drawable/customborder"
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <LinearLayout
-                    android:paddingLeft="5dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="35dp"
-                    android:weightSum="1"
-                    android:orientation="horizontal">
-                    <ImageView
-                        android:layout_gravity="center_vertical"
-                        android:layout_width="25dp"
-                        android:background="@drawable/resumeabouticon"
-                        android:layout_height="25dp"/>
-                    <TextView
-                        android:textStyle="bold"
-                        android:textColor="@color/Black"
-                        android:textSize="@dimen/activity_title_medium"
+                    </LinearLayout>
+                    <com.example.kyler.careersystem.Applicant.Customize.NonScrollListView
+                        android:id="@+id/myresume_listview_experience"
                         android:paddingLeft="5dp"
-                        android:text="About"
-                        android:gravity="center_vertical"
-                        android:layout_weight="1"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"/>
-                    <ImageView
-                        android:id="@+id/myresume_editabout"
-                        android:background="@drawable/editicon"
-                        android:layout_width="35dp"
-                        android:layout_height="match_parent"/>
+                        android:paddingRight="5dp"
+                        android:cacheColorHint="@android:color/transparent"
+                        android:listSelector="@android:color/transparent"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                    </com.example.kyler.careersystem.Applicant.Customize.NonScrollListView>
                 </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="3dp"
+                    android:background="@color/background"/>
+
                 <LinearLayout
+                    android:elevation="2dp"
+                    android:paddingBottom="5dp"
+                    android:background="@drawable/customborder"
+                    android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
-                    <TextView
-                        android:minHeight="55dp"
-                        android:paddingTop="3dp"
-                        android:id="@+id/myresume_about"
-                        android:paddingLeft="10dp"
-                        android:text="Write something about you."
-                        android:textSize="@dimen/activity_content_medium"
-                        android:textColor="@color/Black"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-                </LinearLayout>
-            </LinearLayout>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="3dp"
-                android:background="@color/background"/>
-
-            <LinearLayout
-                android:elevation="2dp"
-                android:paddingBottom="5dp"
-                android:background="@drawable/customborder"
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <LinearLayout
-                    android:paddingLeft="5dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="35dp"
-                    android:weightSum="1"
-                    android:orientation="horizontal">
-                    <ImageView
-                        android:layout_gravity="center_vertical"
-                        android:layout_width="25dp"
-                        android:background="@drawable/resumeeducationicon"
-                        android:layout_height="25dp"/>
-                    <TextView
-                        android:textStyle="bold"
-                        android:textColor="@color/Black"
-                        android:textSize="@dimen/activity_title_medium"
+                    <LinearLayout
                         android:paddingLeft="5dp"
-                        android:text="Education"
-                        android:gravity="center_vertical"
-                        android:layout_weight="1"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"/>
-                    <ImageView
-                        android:id="@+id/myresume_addeducation"
-                        android:background="@drawable/addicon"
-                        android:layout_width="35dp"
-                        android:layout_height="match_parent"/>
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <TextView
-                        android:minHeight="55dp"
-                        android:paddingTop="3dp"
-                        android:id="@+id/myresume_education"
-                        android:paddingLeft="10dp"
-                        android:text="Where did you study at?"
-                        android:textSize="@dimen/activity_content_medium"
-                        android:textColor="@color/Black"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-                </LinearLayout>
-                <com.example.kyler.careersystem.Applicant.Customize.NonScrollListView
-                    android:id="@+id/myresume_listview_education"
-                    android:paddingLeft="5dp"
-                    android:paddingRight="5dp"
-                    android:cacheColorHint="@android:color/transparent"
-                    android:listSelector="@android:color/transparent"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                </com.example.kyler.careersystem.Applicant.Customize.NonScrollListView>
-            </LinearLayout>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="3dp"
-                android:background="@color/background"/>
-
-            <LinearLayout
-                android:elevation="2dp"
-                android:paddingBottom="5dp"
-                android:background="@drawable/customborder"
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <LinearLayout
-                    android:paddingLeft="5dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="35dp"
-                    android:weightSum="1"
-                    android:orientation="horizontal">
-                    <ImageView
-                        android:layout_gravity="center_vertical"
-                        android:layout_width="25dp"
-                        android:background="@drawable/resumeexperienceicon"
-                        android:layout_height="25dp"/>
-                    <TextView
-                        android:textStyle="bold"
-                        android:textColor="@color/Black"
-                        android:textSize="@dimen/activity_title_medium"
+                        android:layout_width="match_parent"
+                        android:layout_height="35dp"
+                        android:weightSum="1"
+                        android:orientation="horizontal">
+                        <ImageView
+                            android:layout_gravity="center_vertical"
+                            android:layout_width="25dp"
+                            android:background="@drawable/resumeactivityicon"
+                            android:layout_height="25dp"/>
+                        <TextView
+                            android:textStyle="bold"
+                            android:textColor="@color/Black"
+                            android:textSize="@dimen/activity_title_medium"
+                            android:paddingLeft="5dp"
+                            android:text="Activities"
+                            android:gravity="center_vertical"
+                            android:layout_weight="1"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"/>
+                        <ImageView
+                            android:id="@+id/myresume_addactivity"
+                            android:background="@drawable/addicon"
+                            android:layout_width="35dp"
+                            android:layout_height="match_parent"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:minHeight="30dp"
+                            android:paddingTop="3dp"
+                            android:id="@+id/myresume_activity"
+                            android:paddingLeft="10dp"
+                            android:text="Don't have information."
+                            android:textSize="@dimen/activity_content_medium"
+                            android:textColor="@color/Black"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                    </LinearLayout>
+                    <com.example.kyler.careersystem.Applicant.Customize.NonScrollListView
+                        android:id="@+id/myresume_listview_activity"
                         android:paddingLeft="5dp"
-                        android:text="Experience"
-                        android:gravity="center_vertical"
-                        android:layout_weight="1"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"/>
-                    <ImageView
-                        android:id="@+id/myresume_addexperience"
-                        android:background="@drawable/addicon"
-                        android:layout_width="35dp"
-                        android:layout_height="match_parent"/>
+                        android:paddingRight="5dp"
+                        android:cacheColorHint="@android:color/transparent"
+                        android:listSelector="@android:color/transparent"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                    </com.example.kyler.careersystem.Applicant.Customize.NonScrollListView>
                 </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="3dp"
+                    android:background="@color/background"/>
+
                 <LinearLayout
+                    android:elevation="2dp"
+                    android:paddingBottom="5dp"
+                    android:background="@drawable/customborder"
+                    android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
-                    <TextView
-                        android:minHeight="30dp"
-                        android:paddingTop="3dp"
-                        android:id="@+id/myresume_experience"
-                        android:paddingLeft="15dp"
-                        android:text="Don't have information."
-                        android:textSize="@dimen/activity_content_medium"
-                        android:textColor="@color/Black"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-                </LinearLayout>
-                <com.example.kyler.careersystem.Applicant.Customize.NonScrollListView
-                    android:id="@+id/myresume_listview_experience"
-                    android:paddingLeft="5dp"
-                    android:paddingRight="5dp"
-                    android:cacheColorHint="@android:color/transparent"
-                    android:listSelector="@android:color/transparent"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                </com.example.kyler.careersystem.Applicant.Customize.NonScrollListView>
-            </LinearLayout>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="3dp"
-                android:background="@color/background"/>
-
-            <LinearLayout
-                android:elevation="2dp"
-                android:paddingBottom="5dp"
-                android:background="@drawable/customborder"
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <LinearLayout
-                    android:paddingLeft="5dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="35dp"
-                    android:weightSum="1"
-                    android:orientation="horizontal">
-                    <ImageView
-                        android:layout_gravity="center_vertical"
-                        android:layout_width="25dp"
-                        android:background="@drawable/resumeactivityicon"
-                        android:layout_height="25dp"/>
-                    <TextView
-                        android:textStyle="bold"
-                        android:textColor="@color/Black"
-                        android:textSize="@dimen/activity_title_medium"
+                    <LinearLayout
                         android:paddingLeft="5dp"
-                        android:text="Activities"
-                        android:gravity="center_vertical"
-                        android:layout_weight="1"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"/>
-                    <ImageView
-                        android:id="@+id/myresume_addactivity"
-                        android:background="@drawable/addicon"
-                        android:layout_width="35dp"
-                        android:layout_height="match_parent"/>
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <TextView
-                        android:minHeight="30dp"
-                        android:paddingTop="3dp"
-                        android:id="@+id/myresume_activity"
-                        android:paddingLeft="10dp"
-                        android:text="Don't have information."
-                        android:textSize="@dimen/activity_content_medium"
-                        android:textColor="@color/Black"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-                </LinearLayout>
-                <com.example.kyler.careersystem.Applicant.Customize.NonScrollListView
-                    android:id="@+id/myresume_listview_activity"
-                    android:paddingLeft="5dp"
-                    android:paddingRight="5dp"
-                    android:cacheColorHint="@android:color/transparent"
-                    android:listSelector="@android:color/transparent"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                </com.example.kyler.careersystem.Applicant.Customize.NonScrollListView>
-            </LinearLayout>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="3dp"
-                android:background="@color/background"/>
-
-            <LinearLayout
-                android:elevation="2dp"
-                android:paddingBottom="5dp"
-                android:background="@drawable/customborder"
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <LinearLayout
-                    android:paddingLeft="5dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="35dp"
-                    android:weightSum="1"
-                    android:orientation="horizontal">
-                    <ImageView
-                        android:layout_gravity="center_vertical"
-                        android:layout_width="25dp"
-                        android:background="@drawable/resumeawardicon"
-                        android:layout_height="25dp"/>
-                    <TextView
-                        android:textStyle="bold"
-                        android:textColor="@color/Black"
-                        android:textSize="@dimen/activity_title_medium"
+                        android:layout_width="match_parent"
+                        android:layout_height="35dp"
+                        android:weightSum="1"
+                        android:orientation="horizontal">
+                        <ImageView
+                            android:layout_gravity="center_vertical"
+                            android:layout_width="25dp"
+                            android:background="@drawable/resumeawardicon"
+                            android:layout_height="25dp"/>
+                        <TextView
+                            android:textStyle="bold"
+                            android:textColor="@color/Black"
+                            android:textSize="@dimen/activity_title_medium"
+                            android:paddingLeft="5dp"
+                            android:text="Awards"
+                            android:gravity="center_vertical"
+                            android:layout_weight="1"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"/>
+                        <ImageView
+                            android:id="@+id/myresume_addaward"
+                            android:background="@drawable/addicon"
+                            android:layout_width="35dp"
+                            android:layout_height="match_parent"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:minHeight="30dp"
+                            android:paddingTop="3dp"
+                            android:id="@+id/myresume_award"
+                            android:paddingLeft="10dp"
+                            android:text="Don't have information."
+                            android:textSize="@dimen/activity_content_medium"
+                            android:textColor="@color/Black"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                    </LinearLayout>
+                    <com.example.kyler.careersystem.Applicant.Customize.NonScrollListView
+                        android:id="@+id/myresume_listview_award"
                         android:paddingLeft="5dp"
-                        android:text="Awards"
-                        android:gravity="center_vertical"
-                        android:layout_weight="1"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"/>
-                    <ImageView
-                        android:id="@+id/myresume_addaward"
-                        android:background="@drawable/addicon"
-                        android:layout_width="35dp"
-                        android:layout_height="match_parent"/>
+                        android:paddingRight="5dp"
+                        android:cacheColorHint="@android:color/transparent"
+                        android:listSelector="@android:color/transparent"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                    </com.example.kyler.careersystem.Applicant.Customize.NonScrollListView>
                 </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="3dp"
+                    android:background="@color/background"/>
+
                 <LinearLayout
+                    android:elevation="2dp"
+                    android:paddingBottom="5dp"
+                    android:background="@drawable/customborder"
+                    android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
-                    <TextView
-                        android:minHeight="30dp"
-                        android:paddingTop="3dp"
-                        android:id="@+id/myresume_award"
-                        android:paddingLeft="10dp"
-                        android:text="Don't have information."
-                        android:textSize="@dimen/activity_content_medium"
-                        android:textColor="@color/Black"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-                </LinearLayout>
-                <com.example.kyler.careersystem.Applicant.Customize.NonScrollListView
-                    android:id="@+id/myresume_listview_award"
-                    android:paddingLeft="5dp"
-                    android:paddingRight="5dp"
-                    android:cacheColorHint="@android:color/transparent"
-                    android:listSelector="@android:color/transparent"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                </com.example.kyler.careersystem.Applicant.Customize.NonScrollListView>
-            </LinearLayout>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="3dp"
-                android:background="@color/background"/>
-
-            <LinearLayout
-                android:elevation="2dp"
-                android:paddingBottom="5dp"
-                android:background="@drawable/customborder"
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <LinearLayout
-                    android:paddingLeft="5dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="35dp"
-                    android:weightSum="1"
-                    android:orientation="horizontal">
-                    <ImageView
-                        android:layout_gravity="center_vertical"
-                        android:layout_width="25dp"
-                        android:background="@drawable/resumeskillicon"
-                        android:layout_height="25dp"/>
-                    <TextView
-                        android:textStyle="bold"
-                        android:textColor="@color/Black"
-                        android:textSize="@dimen/activity_title_medium"
+                    <LinearLayout
                         android:paddingLeft="5dp"
-                        android:text="Skills"
-                        android:gravity="center_vertical"
-                        android:layout_weight="1"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"/>
-                    <ImageView
-                        android:id="@+id/myresume_addskill"
-                        android:background="@drawable/addicon"
-                        android:layout_width="35dp"
-                        android:layout_height="match_parent"/>
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <TextView
-                        android:minHeight="30dp"
-                        android:paddingTop="3dp"
-                        android:id="@+id/myresume_skill"
-                        android:paddingLeft="10dp"
-                        android:text="Don't have information."
-                        android:textSize="@dimen/activity_content_medium"
-                        android:textColor="@color/Black"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-                </LinearLayout>
-                <com.example.kyler.careersystem.Applicant.Customize.NonScrollListView
-                    android:id="@+id/myresume_listview_skill"
-                    android:paddingLeft="5dp"
-                    android:paddingRight="5dp"
-                    android:cacheColorHint="@android:color/transparent"
-                    android:listSelector="@android:color/transparent"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                </com.example.kyler.careersystem.Applicant.Customize.NonScrollListView>
-            </LinearLayout>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="3dp"
-                android:background="@color/background"/>
-
-            <LinearLayout
-                android:elevation="2dp"
-                android:paddingBottom="5dp"
-                android:background="@drawable/customborder"
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <LinearLayout
-                    android:paddingLeft="5dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="35dp"
-                    android:weightSum="1"
-                    android:orientation="horizontal">
-                    <ImageView
-                        android:layout_gravity="center_vertical"
-                        android:layout_width="25dp"
-                        android:background="@drawable/resumehobbieicon"
-                        android:layout_height="25dp"/>
-                    <TextView
-                        android:textStyle="bold"
-                        android:textColor="@color/Black"
-                        android:textSize="@dimen/activity_title_medium"
+                        android:layout_width="match_parent"
+                        android:layout_height="35dp"
+                        android:weightSum="1"
+                        android:orientation="horizontal">
+                        <ImageView
+                            android:layout_gravity="center_vertical"
+                            android:layout_width="25dp"
+                            android:background="@drawable/resumeskillicon"
+                            android:layout_height="25dp"/>
+                        <TextView
+                            android:textStyle="bold"
+                            android:textColor="@color/Black"
+                            android:textSize="@dimen/activity_title_medium"
+                            android:paddingLeft="5dp"
+                            android:text="Skills"
+                            android:gravity="center_vertical"
+                            android:layout_weight="1"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"/>
+                        <ImageView
+                            android:id="@+id/myresume_addskill"
+                            android:background="@drawable/addicon"
+                            android:layout_width="35dp"
+                            android:layout_height="match_parent"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:minHeight="30dp"
+                            android:paddingTop="3dp"
+                            android:id="@+id/myresume_skill"
+                            android:paddingLeft="10dp"
+                            android:text="Don't have information."
+                            android:textSize="@dimen/activity_content_medium"
+                            android:textColor="@color/Black"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                    </LinearLayout>
+                    <com.example.kyler.careersystem.Applicant.Customize.NonScrollListView
+                        android:id="@+id/myresume_listview_skill"
                         android:paddingLeft="5dp"
-                        android:text="Hobbies"
-                        android:gravity="center_vertical"
-                        android:layout_weight="1"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"/>
-                    <ImageView
-                        android:id="@+id/myresume_addhobbie"
-                        android:background="@drawable/addicon"
-                        android:layout_width="35dp"
-                        android:layout_height="match_parent"/>
+                        android:paddingRight="5dp"
+                        android:dividerHeight="0dp"
+                        android:cacheColorHint="@android:color/transparent"
+                        android:listSelector="@android:color/transparent"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                    </com.example.kyler.careersystem.Applicant.Customize.NonScrollListView>
                 </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="3dp"
+                    android:background="@color/background"/>
+
                 <LinearLayout
+                    android:elevation="2dp"
+                    android:paddingBottom="5dp"
+                    android:background="@drawable/customborder"
+                    android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
-                    <TextView
-                        android:minHeight="30dp"
-                        android:paddingTop="3dp"
-                        android:id="@+id/myresume_hobbie"
-                        android:paddingLeft="10dp"
-                        android:text="Don't have information."
-                        android:textSize="@dimen/activity_content_medium"
-                        android:textColor="@color/Black"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-                </LinearLayout>
-                <com.example.kyler.careersystem.Applicant.Customize.NonScrollListView
-                    android:id="@+id/myresume_listview_hobbie"
-                    android:paddingLeft="5dp"
-                    android:paddingRight="5dp"
-                    android:cacheColorHint="@android:color/transparent"
-                    android:listSelector="@android:color/transparent"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                </com.example.kyler.careersystem.Applicant.Customize.NonScrollListView>
-            </LinearLayout>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="3dp"
-                android:background="@color/background"/>
-
-            <LinearLayout
-                android:elevation="2dp"
-                android:paddingBottom="5dp"
-                android:background="@drawable/customborder"
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <LinearLayout
-                    android:paddingLeft="5dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="35dp"
-                    android:weightSum="1"
-                    android:orientation="horizontal">
-                    <ImageView
-                        android:layout_gravity="center_vertical"
-                        android:layout_width="25dp"
-                        android:background="@drawable/resumefuturegoalicon"
-                        android:layout_height="25dp"/>
-                    <TextView
-                        android:textStyle="bold"
-                        android:textColor="@color/Black"
-                        android:textSize="@dimen/activity_title_medium"
+                    <LinearLayout
                         android:paddingLeft="5dp"
-                        android:text="Future Goal"
-                        android:gravity="center_vertical"
-                        android:layout_weight="1"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"/>
-                    <ImageView
-                        android:id="@+id/myresume_futuregoaledit"
-                        android:background="@drawable/editicon"
-                        android:layout_width="35dp"
-                        android:layout_height="match_parent"/>
+                        android:layout_width="match_parent"
+                        android:layout_height="35dp"
+                        android:weightSum="1"
+                        android:orientation="horizontal">
+                        <ImageView
+                            android:layout_gravity="center_vertical"
+                            android:layout_width="25dp"
+                            android:background="@drawable/resumehobbieicon"
+                            android:layout_height="25dp"/>
+                        <TextView
+                            android:textStyle="bold"
+                            android:textColor="@color/Black"
+                            android:textSize="@dimen/activity_title_medium"
+                            android:paddingLeft="5dp"
+                            android:text="Hobbies"
+                            android:gravity="center_vertical"
+                            android:layout_weight="1"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"/>
+                        <ImageView
+                            android:id="@+id/myresume_addhobbie"
+                            android:background="@drawable/addicon"
+                            android:layout_width="35dp"
+                            android:layout_height="match_parent"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:minHeight="30dp"
+                            android:paddingTop="3dp"
+                            android:id="@+id/myresume_hobbie"
+                            android:paddingLeft="10dp"
+                            android:text="Don't have information."
+                            android:textSize="@dimen/activity_content_medium"
+                            android:textColor="@color/Black"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                    </LinearLayout>
+                    <com.example.kyler.careersystem.Applicant.Customize.NonScrollListView
+                        android:id="@+id/myresume_listview_hobbie"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:cacheColorHint="@android:color/transparent"
+                        android:listSelector="@android:color/transparent"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                    </com.example.kyler.careersystem.Applicant.Customize.NonScrollListView>
                 </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="3dp"
+                    android:background="@color/background"/>
+
                 <LinearLayout
+                    android:layout_marginBottom="10dp"
+                    android:elevation="2dp"
+                    android:paddingBottom="5dp"
+                    android:background="@drawable/customborder"
+                    android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
-                    <TextView
-                        android:minHeight="30dp"
-                        android:paddingTop="3dp"
-                        android:id="@+id/myresume_futuregoal"
-                        android:paddingLeft="10dp"
-                        android:text="Don't have information."
-                        android:textSize="@dimen/activity_content_medium"
-                        android:textColor="@color/Black"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                    <LinearLayout
+                        android:paddingLeft="5dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="35dp"
+                        android:weightSum="1"
+                        android:orientation="horizontal">
+                        <ImageView
+                            android:layout_gravity="center_vertical"
+                            android:layout_width="25dp"
+                            android:background="@drawable/resumefuturegoalicon"
+                            android:layout_height="25dp"/>
+                        <TextView
+                            android:textStyle="bold"
+                            android:textColor="@color/Black"
+                            android:textSize="@dimen/activity_title_medium"
+                            android:paddingLeft="5dp"
+                            android:text="Future Goal"
+                            android:gravity="center_vertical"
+                            android:layout_weight="1"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"/>
+                        <ImageView
+                            android:id="@+id/myresume_editfuturegoal"
+                            android:background="@drawable/editicon"
+                            android:layout_width="35dp"
+                            android:layout_height="match_parent"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:minHeight="30dp"
+                            android:paddingTop="3dp"
+                            android:id="@+id/myresume_futuregoal"
+                            android:paddingLeft="10dp"
+                            android:text="Don't have information."
+                            android:textSize="@dimen/activity_content_medium"
+                            android:textColor="@color/Black"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                    </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
-        </LinearLayout>
-    </com.github.ksoichiro.android.observablescrollview.ObservableScrollView>
-</LinearLayout>
+        </com.github.ksoichiro.android.observablescrollview.ObservableScrollView>
+    </LinearLayout>
+    <android.support.design.widget.FloatingActionButton
+        android:layout_margin="15dp"
+        android:id="@+id/myresume_editbutton"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+</RelativeLayout>
