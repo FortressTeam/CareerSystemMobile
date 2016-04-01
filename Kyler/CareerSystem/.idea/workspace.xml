@@ -20,6 +20,11 @@
           <theme>@style/AppTheme</theme>
         </config>
       </layout>
+      <layout url="file://$PROJECT_DIR$/app/src/main/res/layout/applicant_myresume_hobbie_customdialogadd.xml">
+        <config>
+          <theme>@style/AppTheme</theme>
+        </config>
+      </layout>
     </layouts>
   </component>
   <component name="AndroidLogFilters">
@@ -46,33 +51,117 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="SkillListViewAdapter.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/kyler/careersystem/Applicant/Customize/SkillListViewAdapter.java">
+      <file leaf-file-name="MyResumeFragment.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/kyler/careersystem/Applicant/MyResumeFragment.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="68" column="12" selection-start-line="68" selection-start-column="12" selection-end-line="68" selection-end-column="12" />
+              <caret line="297" column="53" selection-start-line="297" selection-start-column="53" selection-end-line="297" selection-end-column="53" />
               <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#1187#1188#0" expanded="true" />
-                <element signature="e#1239#1240#0" expanded="true" />
-                <element signature="e#1289#1290#0" expanded="true" />
-                <element signature="e#1341#1342#0" expanded="true" />
-                <element signature="e#1391#1392#0" expanded="true" />
-                <element signature="e#1415#1416#0" expanded="true" />
-                <element signature="e#2767#3031#0" expanded="true" />
-                <element signature="e#3030#3031#0" expanded="true" />
+                <element signature="e#15544#16011#0" expanded="true" />
+                <element signature="e#16010#16011#0" expanded="true" />
+                <element signature="e#16652#16653#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MyResumeFragment.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/kyler/careersystem/Applicant/MyResumeFragment.java">
+      <file leaf-file-name="colors.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/values/colors.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.5714286">
-              <caret line="286" column="43" selection-start-line="286" selection-start-column="43" selection-end-line="286" selection-end-column="43" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="25" column="23" selection-start-line="25" selection-start-column="23" selection-end-line="25" selection-end-column="23" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="closeicon.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/closeicon.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="6" column="9" selection-start-line="6" selection-start-column="9" selection-end-line="6" selection-end-column="9" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PostController.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/kyler/careersystem/Controller/PostController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="16" column="56" selection-start-line="16" selection-start-column="56" selection-end-line="16" selection-end-column="56" />
               <folding>
-                <element signature="imports" expanded="true" />
+                <element signature="imports" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="UrlStatic.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/kyler/careersystem/UrlStatic.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.35643566">
+              <caret line="4" column="3" selection-start-line="4" selection-start-column="3" selection-end-line="4" selection-end-column="3" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Utilities.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/kyler/careersystem/Utilities.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="175" column="50" selection-start-line="175" selection-start-column="50" selection-end-line="175" selection-end-column="50" />
+              <folding>
+                <element signature="imports" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Applicants.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/kyler/careersystem/Entities/Applicants.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="41" column="25" selection-start-line="41" selection-start-column="25" selection-end-line="41" selection-end-column="25" />
+              <folding>
+                <element signature="imports" expanded="false" />
+                <element signature="e#3731#3732#0" expanded="false" />
+                <element signature="e#3756#3757#0" expanded="false" />
+                <element signature="e#3789#3790#0" expanded="false" />
+                <element signature="e#3817#3818#0" expanded="false" />
+                <element signature="e#3857#3858#0" expanded="false" />
+                <element signature="e#3893#3894#0" expanded="false" />
+                <element signature="e#3951#3952#0" expanded="false" />
+                <element signature="e#4001#4002#0" expanded="false" />
+                <element signature="e#4042#4043#0" expanded="false" />
+                <element signature="e#4079#4080#0" expanded="false" />
+                <element signature="e#4139#4140#0" expanded="false" />
+                <element signature="e#4191#4192#0" expanded="false" />
+                <element signature="e#4238#4239#0" expanded="false" />
+                <element signature="e#4281#4282#0" expanded="false" />
+                <element signature="e#4456#4457#0" expanded="false" />
+                <element signature="e#4491#4492#0" expanded="false" />
+                <element signature="e#4548#4549#0" expanded="false" />
+                <element signature="e#4596#4597#0" expanded="false" />
+                <element signature="e#4639#4640#0" expanded="false" />
+                <element signature="e#4678#4679#0" expanded="false" />
+                <element signature="e#4839#4840#0" expanded="false" />
+                <element signature="e#4876#4877#0" expanded="false" />
+                <element signature="e#4936#4937#0" expanded="false" />
+                <element signature="e#4988#4989#0" expanded="false" />
+                <element signature="e#5037#5038#0" expanded="false" />
+                <element signature="e#5082#5083#0" expanded="false" />
+                <element signature="e#5273#5274#0" expanded="false" />
+                <element signature="e#5315#5316#0" expanded="false" />
+                <element signature="e#5490#5491#0" expanded="false" />
+                <element signature="e#5529#5530#0" expanded="false" />
+                <element signature="e#5691#5692#0" expanded="false" />
+                <element signature="e#5729#5730#0" expanded="false" />
+                <element signature="e#5882#5883#0" expanded="false" />
+                <element signature="e#5917#5918#0" expanded="false" />
+                <element signature="e#5970#5971#0" expanded="false" />
+                <element signature="e#6018#6019#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -82,123 +171,37 @@
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/kyler/careersystem/Applicant/ChildFragments/JobDetailFragment.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="36" column="88" selection-start-line="36" selection-start-column="59" selection-end-line="36" selection-end-column="88" />
+              <caret line="78" column="25" selection-start-line="78" selection-start-column="25" selection-end-line="78" selection-end-column="25" />
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="NavigationListViewAdapter.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/kyler/careersystem/Applicant/NavigationListViewAdapter.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="18" column="13" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="13" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="HomeFragment.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/kyler/careersystem/Applicant/HomeFragment.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="39" column="82" selection-start-line="39" selection-start-column="54" selection-end-line="39" selection-end-column="82" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="applicant_myresume_skill_listviewitem.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/applicant_myresume_skill_listviewitem.xml">
-          <provider editor-type-id="android-designer">
-            <state />
-          </provider>
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-3.8064516">
-              <caret line="27" column="12" selection-start-line="27" selection-start-column="12" selection-end-line="27" selection-end-column="12" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SkillListViewItem.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/kyler/careersystem/Applicant/Customize/SkillListViewItem.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="14" column="34" selection-start-line="14" selection-start-column="34" selection-end-line="14" selection-end-column="34" />
-              <folding>
-                <element signature="e#407#408#0" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file leaf-file-name="applicant_myresume_fragment.xml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/applicant_myresume_fragment.xml">
-          <provider editor-type-id="android-designer">
-            <state />
-          </provider>
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="32.774193">
-              <caret line="323" column="20" selection-start-line="323" selection-start-column="20" selection-end-line="323" selection-end-column="20" />
-              <folding>
-                <element signature="e#2537#2567#0" expanded="true" />
-                <element signature="e#2966#2995#0" expanded="true" />
-                <element signature="e#3727#3756#0" expanded="true" />
-                <element signature="e#4154#4186#0" expanded="true" />
-                <element signature="e#4923#4952#0" expanded="true" />
-                <element signature="e#5355#5387#0" expanded="true" />
-                <element signature="e#6124#6153#0" expanded="true" />
-                <element signature="e#6556#6588#0" expanded="true" />
-                <element signature="e#8098#8128#0" expanded="true" />
-                <element signature="e#9240#9269#0" expanded="true" />
-                <element signature="e#9794#9826#0" expanded="true" />
-                <element signature="e#10351#10380#0" expanded="true" />
-                <element signature="e#10905#10937#0" expanded="true" />
-                <element signature="e#11464#11493#0" expanded="true" />
-                <element signature="e#12080#12112#0" expanded="true" />
-                <element signature="e#13752#13782#0" expanded="true" />
-                <element signature="e#14978#15010#0" expanded="true" />
-                <element signature="e#16607#16637#0" expanded="true" />
-                <element signature="e#17840#17872#0" expanded="true" />
-                <element signature="e#20095#20125#0" expanded="true" />
-                <element signature="e#21331#21363#0" expanded="true" />
-                <element signature="e#23585#23615#0" expanded="true" />
-                <element signature="e#24817#24849#0" expanded="true" />
-                <element signature="e#25943#29201#0" expanded="false" />
-                <element signature="e#27066#27096#0" expanded="true" />
-                <element signature="e#28288#28320#0" expanded="true" />
-                <element signature="e#30534#30564#0" expanded="true" />
-                <element signature="e#31756#31788#0" expanded="true" />
-                <element signature="e#32931#36194#0" expanded="false" />
-                <element signature="e#34055#34085#0" expanded="true" />
-                <element signature="e#35280#35312#0" expanded="true" />
-                <element signature="e#37587#37617#0" expanded="true" />
-                <element signature="e#38826#38858#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="applicant_job_detail_fragment.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/applicant_job_detail_fragment.xml">
-          <provider editor-type-id="android-designer">
-            <state />
-          </provider>
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-4.064516">
-              <caret line="7" column="47" selection-start-line="7" selection-start-column="47" selection-end-line="7" selection-end-column="47" />
+            <state vertical-scroll-proportion="-7.0">
+              <caret line="626" column="18" selection-start-line="626" selection-start-column="18" selection-end-line="626" selection-end-column="18" />
               <folding />
             </state>
           </provider>
+          <provider editor-type-id="android-designer">
+            <state />
+          </provider>
         </entry>
       </file>
-      <file leaf-file-name="HiringManagerFragment.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/kyler/careersystem/HiringManagerFragment.java">
+      <file leaf-file-name="Applicantcontroller.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/kyler/careersystem/Controller/Applicantcontroller.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="16" column="36" selection-start-line="16" selection-start-column="36" selection-end-line="16" selection-end-column="36" />
-              <folding />
+              <caret line="59" column="13" selection-start-line="59" selection-start-column="13" selection-end-line="59" selection-end-column="13" />
+              <folding>
+                <element signature="imports" expanded="false" />
+                <element signature="e#594#595#0" expanded="false" />
+                <element signature="e#638#639#0" expanded="false" />
+                <element signature="e#697#698#0" expanded="false" />
+                <element signature="e#746#747#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -670,6 +673,11 @@
                 <option name="description" value="Prepare com.github.ksoichiro:android-observablescrollview:1.6.0" />
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
                 <option name="name" value="prepareComGithubKsoichiroAndroidObservablescrollview160Library" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Prepare com.toptoche.searchablespinner:searchablespinnerlibrary:1.1.0" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="prepareComToptocheSearchablespinnerSearchablespinnerlibrary110Library" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
                 <option name="description" value="Prepare de.hdodenhof:circleimageview:2.0.0" />
@@ -1249,6 +1257,11 @@
                 <option name="name" value="prepareComGithubKsoichiroAndroidObservablescrollview160Library" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
+                <option name="description" value="Prepare com.toptoche.searchablespinner:searchablespinnerlibrary:1.1.0" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/app" />
+                <option name="name" value="prepareComToptocheSearchablespinnerSearchablespinnerlibrary110Library" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
                 <option name="description" value="Prepare de.hdodenhof:circleimageview:2.0.0" />
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/app" />
                 <option name="name" value="prepareDeHdodenhofCircleimageview200Library" />
@@ -1436,7 +1449,7 @@
     </option>
     <option name="modificationStamps">
       <map>
-        <entry key="$PROJECT_DIR$" value="4376273415364" />
+        <entry key="$PROJECT_DIR$" value="4376874046227" />
       </map>
     </option>
     <option name="projectBuildClasspath">
@@ -1659,6 +1672,7 @@
                             <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/de.hdodenhof/circleimageview/2.0.0/24c2714c9107b98d3b7113332b70e3245b2405bf/circleimageview-2.0.0.aar" />
                             <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.facebook.android/facebook-android-sdk/4.0.0/f8cc454e2454e4a8b990222647bf976cf0290d9b/facebook-android-sdk-4.0.0.aar" />
                             <option value="$USER_HOME$/workspace/Android/android-sdk-linux/extras/android/m2repository/com/android/support/support-v4/23.1.1/support-v4-23.1.1.aar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.toptoche.searchablespinner/searchablespinnerlibrary/1.1.0/a088638464dbe3074e9d1a0fadd983be5ac8047/searchablespinnerlibrary-1.1.0.aar" />
                             <option value="$USER_HOME$/workspace/Android/android-sdk-linux/extras/android/m2repository/com/android/support/recyclerview-v7/23.1.1/recyclerview-v7-23.1.1.aar" />
                             <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.parse.bolts/bolts-android/1.1.4/129874135e6081269ace2312092031558865de12/bolts-android-1.1.4.jar" />
                             <option value="$USER_HOME$/workspace/Android/android-sdk-linux/extras/android/m2repository/com/android/support/support-annotations/23.1.1/support-annotations-23.1.1.jar" />
@@ -1802,27 +1816,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/app/src/main/res/drawable/resumecontacticon.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/drawable/resumeeducationicon.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/drawable/resumeexperienceicon.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/drawable/resumehobbieicon.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/drawable/resumemoreinforicon.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/drawable/resumeskillicon.xml" />
-        <option value="$PROJECT_DIR$/app/build/generated/res/pngs/debug/drawable-anydpi-v21/resumelanguageicon.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/drawable/resumelanguageicon.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/example/kyler/careersystem/Entities/Applicants.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/example/kyler/careersystem/Entities/PersonalHistory.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/example/kyler/careersystem/Entities/Users.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/example/kyler/careersystem/ApplicantFragment.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/values/dimens.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/example/kyler/careersystem/GetDataFromService/PutDataWithJson.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/example/kyler/careersystem/Applicant/Customize/JobListViewAdapterLoadInfinite.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/example/kyler/careersystem/HiringManager/AddPostFragment.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/example/kyler/careersystem/Utilities.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/example/kyler/careersystem/Applicant/ChildFragments/MyresumeContactFragment.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/example/kyler/careersystem/Applicant/ChildFragments/MyresumeProfileFragment.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/drawable/ratestar.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/example/kyler/careersystem/Entities/Skills.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/kyler/careersystem/Entities/SkillTypes.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/kyler/careersystem/Applicant/ChildFragments/MyresumeHobbieFragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
@@ -1842,17 +1835,38 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/kyler/careersystem/Applicant/ChildFragments/MyresumeAboutFragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/kyler/careersystem/GetDataFromService/PostDataWithJson.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/kyler/careersystem/Applicant/ChildFragments/MyresumeSkillsFragment.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/applicant_myresume_personal_history_listviewitem.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/example/kyler/careersystem/Applicant/Customize/PersonalHistoryListViewAdapter.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/kyler/careersystem/Applicant/Customize/SkillListViewItemItem.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/example/kyler/careersystem/UrlStatic.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/kyler/careersystem/Controller/Applicantcontroller.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/kyler/careersystem/Applicant/Customize/SkillListViewItem.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/applicant_myresume_skill_listviewitem.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/example/kyler/careersystem/Applicant/HomeFragment.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/applicant_myresume_fragment.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/kyler/careersystem/Applicant/Customize/SkillListViewAdapter.java" />
+        <option value="$PROJECT_DIR$/app/build.gradle" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/applicant_myresume_hobbie_fragment.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/applicant_myresume_hobbie_customdialogadd.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/kyler/careersystem/Applicant/HomeFragment.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/kyler/careersystem/Entities/Posts.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/kyler/careersystem/Applicant/ChildFragments/JobDetailFragment.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/applicant_company_information_fragment.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/drawable/iconedit2.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/kyler/careersystem/Applicant/Customize/PersonalHistoryListViewAdapter.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/kyler/careersystem/Utilities.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/drawable/resumeabouticon.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/drawable/resumeactivityicon.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/kyler/careersystem/ApplicantMainActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/applicant_myresume_skill_listviewitem.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/drawable/resumecontacticon.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/drawable/addicon.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/drawable/editicon.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/drawable/deleteicon.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/values/dimens.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/applicant_myresume_personal_history_listviewitem.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/applicant_jobapplied_listviewitem.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/applicant_job_listviewitem.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/kyler/careersystem/Entities/Applicants.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/applicant_myresume_fragment.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/drawable/closeicon.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/kyler/careersystem/Applicant/MyResumeFragment.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/values/colors.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/kyler/careersystem/UrlStatic.java" />
       </list>
     </option>
   </component>
@@ -1888,12 +1902,19 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="Scope" />
+      <pane id="ProjectPane" />
+      <pane id="Scratches" />
       <pane id="AndroidView">
         <subPane>
           <PATH>
             <PATH_ELEMENT>
               <option name="myItemId" value="CareerSystem" />
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Gradle Scripts" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidBuildScriptsGroupNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
@@ -1956,6 +1977,24 @@
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="res" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="drawable" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderTypeNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="CareerSystem" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="java" />
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
             </PATH_ELEMENT>
@@ -1976,50 +2015,6 @@
             <PATH_ELEMENT>
               <option name="myItemId" value="careersystem" />
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="CareerSystem" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="careersystem" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="HiringManager" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="CareerSystem" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="careersystem" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="GetDataFromService" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
@@ -2041,58 +2036,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="Applicant" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="CareerSystem" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="careersystem" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Applicant" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Customize" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="CareerSystem" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="careersystem" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Applicant" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ChildFragments" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -2108,10 +2051,7 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
       <pane id="PackagesPane" />
-      <pane id="ProjectPane" />
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -2124,6 +2064,7 @@
     <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_AVD" value="Nexus_S_Edited_API_21" />
     <property name="FullScreen" value="false" />
     <property name="last_directory_selection" value="$PROJECT_DIR$/app/src/main/res/drawable" />
+    <property name="SearchEverywhereHistoryKey" value="&#9;FILE&#9;file:///home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/src/main/res/layout/applicant_myresume_personal_history_listviewitem.xml" />
   </component>
   <component name="RecentsManager">
     <key name="android.template.packageName">
@@ -2304,8 +2245,8 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="47" y="24" width="1233" height="696" extended-state="7" />
-    <editor active="true" />
+    <frame x="47" y="24" width="1233" height="696" extended-state="6" />
+    <editor active="false" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32984293" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -2314,7 +2255,7 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2757417" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Android Monitor" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.59511346" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2881213" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.23385689" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -2323,13 +2264,13 @@
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24768324" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2881213" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24936816" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Android Model" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.14310646" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.09075043" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -2351,414 +2292,28 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="53" />
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/example/kyler/careersystem/Entities/Applicants.java</url>
+          <line>39</line>
+          <properties />
+          <option name="timeStamp" value="68" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/app/src/main/res/layout/applicant_myresume_fragment.xml</url>
+          <line>407</line>
+          <option name="timeStamp" value="66" />
+        </line-breakpoint>
+      </breakpoints>
+      <option name="time" value="69" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/kyler/careersystem/GetDataFromService/PutDataWithJson.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="48" column="41" selection-start-line="48" selection-start-column="41" selection-end-line="48" selection-end-column="41" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/kyler/careersystem/Applicant/Customize/JobAppliedListViewAdapterLoadInfinite.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="55" column="23" selection-start-line="55" selection-start-column="23" selection-end-line="55" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/kyler/careersystem/Applicant/Customize/JobListViewAdapterLoadInfinite.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="85" column="5" selection-start-line="85" selection-start-column="5" selection-end-line="85" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/feedback_fragment.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/ratestar.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="7" column="9" selection-start-line="7" selection-start-column="9" selection-end-line="7" selection-end-column="9" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/star.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="7" column="9" selection-start-line="0" selection-start-column="0" selection-end-line="7" selection-end-column="9" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/starfollow.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/kyler/careersystem/GetDataFromService/GetJsonLoadMore.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="23" column="13" selection-start-line="23" selection-start-column="13" selection-end-line="23" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/workspace/Android/android-sdk-linux/platforms/android-23/android.jar!/java/net/HttpURLConnection.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.28198433">
-          <caret line="14" column="22" selection-start-line="14" selection-start-column="22" selection-end-line="14" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-9.310345">
-          <caret line="15" column="26" selection-start-line="15" selection-start-column="26" selection-end-line="15" selection-end-column="26" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/applicant_myresume_contact_fragment.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-5.225806">
-          <caret line="9" column="30" selection-start-line="9" selection-start-column="30" selection-end-line="9" selection-end-column="30" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/applicant_myresume_education_fragment.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-5.774194">
-          <caret line="15" column="32" selection-start-line="15" selection-start-column="32" selection-end-line="15" selection-end-column="32" />
-          <folding>
-            <element signature="e#1102#1134#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/applicant_myresume_experience_fragment.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-9.290322">
-          <caret line="16" column="6" selection-start-line="16" selection-start-column="6" selection-end-line="16" selection-end-column="6" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/kyler/careersystem/HiringManager/AddPostFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="79" column="121" selection-start-line="79" selection-start-column="121" selection-end-line="79" selection-end-column="121" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/kyler/careersystem/Applicant/ChildFragments/CompanyInformationFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.3265306">
-          <caret line="22" column="13" selection-start-line="22" selection-start-column="13" selection-end-line="22" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/applicant_myresume_hobbie_fragment.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-5.225806">
-          <caret line="9" column="56" selection-start-line="9" selection-start-column="56" selection-end-line="9" selection-end-column="56" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/applicant_myresume_about_fragment.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-5.806452">
-          <caret line="10" column="31" selection-start-line="0" selection-start-column="0" selection-end-line="47" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/applicant_myresume_futuregoal_fragment.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-12.774194">
-          <caret line="22" column="8" selection-start-line="22" selection-start-column="8" selection-end-line="22" selection-end-column="8" />
-          <folding>
-            <element signature="e#1174#1206#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/kyler/careersystem/Applicant/ChildFragments/MyresumeContactFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="56" column="20" selection-start-line="56" selection-start-column="20" selection-end-line="56" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/kyler/careersystem/Applicant/ChildFragments/MyresumeExperienceFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="34" column="85" selection-start-line="34" selection-start-column="85" selection-end-line="34" selection-end-column="85" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/kyler/careersystem/Applicant/ChildApplicantActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="114" column="74" selection-start-line="114" selection-start-column="74" selection-end-line="114" selection-end-column="74" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/kyler/careersystem/GetDataFromService/GetJsonObject.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="21" column="13" selection-start-line="21" selection-start-column="13" selection-end-line="21" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/kyler/careersystem/GetDataFromService/GetJsonArray.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="79" column="21" selection-start-line="79" selection-start-column="21" selection-end-line="79" selection-end-column="21" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/kyler/careersystem/GetDataFromService/PostDataWithJson.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="74" column="16" selection-start-line="74" selection-start-column="16" selection-end-line="74" selection-end-column="16" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/kyler/careersystem/Applicant/ChildFragments/MyresumeHobbieFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="12" column="24" selection-start-line="12" selection-start-column="24" selection-end-line="12" selection-end-column="24" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/kyler/careersystem/Applicant/ChildFragments/MyresumeFuturegoalFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="51" column="36" selection-start-line="51" selection-start-column="36" selection-end-line="51" selection-end-column="36" />
-          <folding>
-            <element signature="e#1819#3036#0" expanded="false" />
-            <element signature="e#3035#3036#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/kyler/careersystem/Applicant/ChildFragments/MyresumeEducationFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="95" column="5" selection-start-line="88" selection-start-column="4" selection-end-line="95" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/kyler/careersystem/Applicant/ChildFragments/MyresumeProfileFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="81" column="7" selection-start-line="81" selection-start-column="7" selection-end-line="81" selection-end-column="7" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/kyler/careersystem/Applicant/ChildFragments/MyresumeAboutFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="53" column="0" selection-start-line="51" selection-start-column="24" selection-end-line="53" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/kyler/careersystem/Utilities.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.07174888">
-          <caret line="215" column="56" selection-start-line="215" selection-start-column="56" selection-end-line="215" selection-end-column="56" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/applicant_myresume_profile_fragment.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-1.7741935">
-          <caret line="77" column="10" selection-start-line="77" selection-start-column="10" selection-end-line="77" selection-end-column="10" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/applicant_myresume_personal_history_listviewitem.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-4.451613">
-          <caret line="13" column="8" selection-start-line="13" selection-start-column="8" selection-end-line="13" selection-end-column="8" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/kyler/careersystem/Applicant/ChildFragments/MyresumeSkillsFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="216" column="22" selection-start-line="216" selection-start-column="22" selection-end-line="216" selection-end-column="22" />
-          <folding>
-            <element signature="e#4235#4243#0" expanded="true" />
-            <element signature="e#5169#5177#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/kyler/careersystem/Applicant/Customize/PersonalHistoryListViewAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="52" column="25" selection-start-line="52" selection-start-column="25" selection-end-line="52" selection-end-column="25" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/kyler/careersystem/Entities/SkillTypes.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="15" column="40" selection-start-line="15" selection-start-column="40" selection-end-line="15" selection-end-column="40" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/kyler/careersystem/Applicant/Customize/PersonalHistoryListViewItem.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="16" column="5" selection-start-line="16" selection-start-column="5" selection-end-line="16" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/kyler/careersystem/UrlStatic.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="19" column="47" selection-start-line="19" selection-start-column="25" selection-end-line="19" selection-end-column="47" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/kyler/careersystem/Entities/Skills.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="27" column="5" selection-start-line="27" selection-start-column="5" selection-end-line="27" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/kyler/careersystem/Controller/Applicantcontroller.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="59" column="13" selection-start-line="59" selection-start-column="13" selection-end-line="59" selection-end-column="13" />
-          <folding>
-            <element signature="e#697#698#0" expanded="true" />
-            <element signature="e#746#747#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/applicant_myresume_skills_fragment.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-6.419355">
-          <caret line="112" column="19" selection-start-line="112" selection-start-column="19" selection-end-line="112" selection-end-column="19" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/kyler/careersystem/HiringManagerFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="16" column="36" selection-start-line="16" selection-start-column="36" selection-end-line="16" selection-end-column="36" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/applicant_job_detail_fragment.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-4.064516">
-          <caret line="7" column="47" selection-start-line="7" selection-start-column="47" selection-end-line="7" selection-end-column="47" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.ksoichiro/android-observablescrollview/1.6.0/e1d8541d72ed39d8bde519cb291ebb92ddfcffd3/android-observablescrollview-1.6.0-sources.jar!/com/github/ksoichiro/android/observablescrollview/ObservableScrollViewCallbacks.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.2825112">
           <caret line="21" column="17" selection-start-line="21" selection-start-column="17" selection-end-line="21" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/kyler/careersystem/Applicant/HomeFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="39" column="82" selection-start-line="39" selection-start-column="54" selection-end-line="39" selection-end-column="82" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/kyler/careersystem/Applicant/ChildFragments/JobDetailFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="36" column="88" selection-start-line="36" selection-start-column="59" selection-end-line="36" selection-end-column="88" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2766,18 +2321,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="18" column="13" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/applicant_myresume_skill_listviewitem.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-3.8064516">
-          <caret line="27" column="12" selection-start-line="27" selection-start-column="12" selection-end-line="27" selection-end-column="12" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2786,81 +2329,498 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="14" column="34" selection-start-line="14" selection-start-column="34" selection-end-line="14" selection-end-column="34" />
           <folding>
-            <element signature="e#407#408#0" expanded="true" />
+            <element signature="e#457#458#0" expanded="false" />
+            <element signature="e#499#500#0" expanded="false" />
+            <element signature="e#533#534#0" expanded="false" />
+            <element signature="e#566#567#0" expanded="false" />
+            <element signature="e#615#616#0" expanded="false" />
+            <element signature="e#659#660#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/applicant_myresume_fragment.xml">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/kyler/careersystem/Applicant/ChildFragments/MyresumeHobbieFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="12" column="24" selection-start-line="12" selection-start-column="24" selection-end-line="12" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/build.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="32" column="4" selection-start-line="32" selection-start-column="4" selection-end-line="32" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/applicant_myresume_experience_fragment.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-17.419355">
+          <caret line="30" column="41" selection-start-line="0" selection-start-column="0" selection-end-line="99" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
       <provider editor-type-id="android-designer">
         <state />
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/applicant_myresume_skills_fragment.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="32.774193">
-          <caret line="323" column="20" selection-start-line="323" selection-start-column="20" selection-end-line="323" selection-end-column="20" />
+        <state vertical-scroll-proportion="-8.709678">
+          <caret line="118" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="118" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/applicant_myresume_hobbie_fragment.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-9.290322">
+          <caret line="22" column="12" selection-start-line="22" selection-start-column="12" selection-end-line="22" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.toptoche.searchablespinner/searchablespinnerlibrary/1.1.0/3c193adc800e91e2faf53d8183a2cba41a377629/searchablespinnerlibrary-1.1.0-sources.jar!/com/toptoche/searchablespinnerlibrary/SearchableSpinner.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-1.4083129">
+          <caret line="14" column="13" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/applicant_myresume_hobbie_customdialogadd.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-8.709678">
+          <caret line="15" column="31" selection-start-line="15" selection-start-column="31" selection-end-line="15" selection-end-column="31" />
           <folding>
-            <element signature="e#2537#2567#0" expanded="true" />
-            <element signature="e#2966#2995#0" expanded="true" />
-            <element signature="e#3727#3756#0" expanded="true" />
-            <element signature="e#4154#4186#0" expanded="true" />
-            <element signature="e#4923#4952#0" expanded="true" />
-            <element signature="e#5355#5387#0" expanded="true" />
-            <element signature="e#6124#6153#0" expanded="true" />
-            <element signature="e#6556#6588#0" expanded="true" />
-            <element signature="e#8098#8128#0" expanded="true" />
-            <element signature="e#9240#9269#0" expanded="true" />
-            <element signature="e#9794#9826#0" expanded="true" />
-            <element signature="e#10351#10380#0" expanded="true" />
-            <element signature="e#10905#10937#0" expanded="true" />
-            <element signature="e#11464#11493#0" expanded="true" />
-            <element signature="e#12080#12112#0" expanded="true" />
-            <element signature="e#13752#13782#0" expanded="true" />
-            <element signature="e#14978#15010#0" expanded="true" />
-            <element signature="e#16607#16637#0" expanded="true" />
-            <element signature="e#17840#17872#0" expanded="true" />
-            <element signature="e#20095#20125#0" expanded="true" />
-            <element signature="e#21331#21363#0" expanded="true" />
-            <element signature="e#23585#23615#0" expanded="true" />
-            <element signature="e#24817#24849#0" expanded="true" />
-            <element signature="e#25943#29201#0" expanded="false" />
-            <element signature="e#27066#27096#0" expanded="true" />
-            <element signature="e#28288#28320#0" expanded="true" />
-            <element signature="e#30534#30564#0" expanded="true" />
-            <element signature="e#31756#31788#0" expanded="true" />
-            <element signature="e#32931#36194#0" expanded="false" />
-            <element signature="e#34055#34085#0" expanded="true" />
-            <element signature="e#35280#35312#0" expanded="true" />
-            <element signature="e#37587#37617#0" expanded="true" />
-            <element signature="e#38826#38858#0" expanded="true" />
+            <element signature="e#597#611#0" expanded="true" />
           </folding>
         </state>
+      </provider>
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/hiringmanager_addpost_fragment.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="20.903225">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/kyler/careersystem/Applicant/ChildApplicantActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="63" column="33" selection-start-line="63" selection-start-column="33" selection-end-line="63" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/kyler/careersystem/Applicant/JobappliedFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="25" column="13" selection-start-line="25" selection-start-column="13" selection-end-line="25" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/kyler/careersystem/Applicant/Customize/JobListViewAdapterLoadInfinite.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-5.096774">
+          <caret line="63" column="73" selection-start-line="63" selection-start-column="67" selection-end-line="63" selection-end-column="73" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/kyler/careersystem/HiringManager/AddPostFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="247" column="27" selection-start-line="247" selection-start-column="27" selection-end-line="247" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/kyler/careersystem/Entities/Posts.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="61" column="9" selection-start-line="61" selection-start-column="9" selection-end-line="61" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/applicant_company_information_fragment.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-6.709677">
+          <caret line="154" column="0" selection-start-line="154" selection-start-column="0" selection-end-line="154" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer">
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/kyler/careersystem/Applicant/Customize/SkillListViewAdapter.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="68" column="12" selection-start-line="68" selection-start-column="12" selection-end-line="68" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/iconedit2.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="5" column="32" selection-start-line="5" selection-start-column="32" selection-end-line="5" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/kyler/careersystem/GetDataFromService/GetJsonObject.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="21" column="13" selection-start-line="21" selection-start-column="13" selection-end-line="21" selection-end-column="13" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1187#1188#0" expanded="true" />
-            <element signature="e#1239#1240#0" expanded="true" />
-            <element signature="e#1289#1290#0" expanded="true" />
-            <element signature="e#1341#1342#0" expanded="true" />
-            <element signature="e#1391#1392#0" expanded="true" />
-            <element signature="e#1415#1416#0" expanded="true" />
-            <element signature="e#2767#3031#0" expanded="true" />
-            <element signature="e#3030#3031#0" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/icon_title2.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="3" column="33" selection-start-line="3" selection-start-column="31" selection-end-line="3" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/resumeawardicon.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="5" column="38" selection-start-line="5" selection-start-column="30" selection-end-line="5" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/resumeabouticon.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="9" column="0" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/kyler/careersystem/ApplicantFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="24" column="13" selection-start-line="24" selection-start-column="13" selection-end-line="24" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/kyler/careersystem/ApplicantMainActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="106" column="22" selection-start-line="106" selection-start-column="22" selection-end-line="106" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/values-w820dp/dimens.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/kyler/careersystem/Applicant/HomeFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-3.387097">
+          <caret line="70" column="0" selection-start-line="70" selection-start-column="0" selection-end-line="70" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/styles.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/customborder.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/applicant_myresume_skill_listviewitem.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-4.645161">
+          <caret line="8" column="17" selection-start-line="8" selection-start-column="17" selection-end-line="8" selection-end-column="17" />
+          <folding>
+            <element signature="e#216#241#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/resumeactivityicon.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="5" column="38" selection-start-line="5" selection-start-column="30" selection-end-line="5" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/resumecontacticon.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="6" column="9" selection-start-line="6" selection-start-column="9" selection-end-line="6" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/addicon.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="6" column="36" selection-start-line="6" selection-start-column="36" selection-end-line="6" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/editicon.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="9" column="0" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/deleteicon.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="7" column="9" selection-start-line="7" selection-start-column="9" selection-end-line="7" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/dimens.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="20" column="35" selection-start-line="20" selection-start-column="35" selection-end-line="20" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/applicant_myresume_personal_history_listviewitem.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.58064514">
+          <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+          <folding>
+            <element signature="e#216#241#0" expanded="true" />
+            <element signature="e#268#293#0" expanded="true" />
+            <element signature="e#935#964#0" expanded="true" />
+            <element signature="e#1253#1285#0" expanded="true" />
+            <element signature="e#1572#1604#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/applicant_home_fragment.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/applicant_jobapplied_listviewitem.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-3.483871">
+          <caret line="12" column="52" selection-start-line="12" selection-start-column="52" selection-end-line="13" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/applicant_job_listviewitem.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="52" column="51" selection-start-line="52" selection-start-column="51" selection-end-line="52" selection-end-column="51" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/kyler/careersystem/Applicant/Customize/PersonalHistoryListViewAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="62" column="161" selection-start-line="62" selection-start-column="161" selection-end-line="62" selection-end-column="161" />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#1252#1253#0" expanded="false" />
+            <element signature="e#1310#1311#0" expanded="false" />
+            <element signature="e#1360#1361#0" expanded="false" />
+            <element signature="e#1418#1419#0" expanded="false" />
+            <element signature="e#1468#1469#0" expanded="false" />
+            <element signature="e#1492#1493#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/kyler/careersystem/Controller/PostController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="16" column="56" selection-start-line="16" selection-start-column="56" selection-end-line="16" selection-end-column="56" />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/kyler/careersystem/Controller/Applicantcontroller.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="59" column="13" selection-start-line="59" selection-start-column="13" selection-end-line="59" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#594#595#0" expanded="false" />
+            <element signature="e#638#639#0" expanded="false" />
+            <element signature="e#697#698#0" expanded="false" />
+            <element signature="e#746#747#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/kyler/careersystem/Utilities.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="175" column="50" selection-start-line="175" selection-start-column="50" selection-end-line="175" selection-end-column="50" />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/kyler/careersystem/Entities/Applicants.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="41" column="25" selection-start-line="41" selection-start-column="25" selection-end-line="41" selection-end-column="25" />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#3731#3732#0" expanded="false" />
+            <element signature="e#3756#3757#0" expanded="false" />
+            <element signature="e#3789#3790#0" expanded="false" />
+            <element signature="e#3817#3818#0" expanded="false" />
+            <element signature="e#3857#3858#0" expanded="false" />
+            <element signature="e#3893#3894#0" expanded="false" />
+            <element signature="e#3951#3952#0" expanded="false" />
+            <element signature="e#4001#4002#0" expanded="false" />
+            <element signature="e#4042#4043#0" expanded="false" />
+            <element signature="e#4079#4080#0" expanded="false" />
+            <element signature="e#4139#4140#0" expanded="false" />
+            <element signature="e#4191#4192#0" expanded="false" />
+            <element signature="e#4238#4239#0" expanded="false" />
+            <element signature="e#4281#4282#0" expanded="false" />
+            <element signature="e#4456#4457#0" expanded="false" />
+            <element signature="e#4491#4492#0" expanded="false" />
+            <element signature="e#4548#4549#0" expanded="false" />
+            <element signature="e#4596#4597#0" expanded="false" />
+            <element signature="e#4639#4640#0" expanded="false" />
+            <element signature="e#4678#4679#0" expanded="false" />
+            <element signature="e#4839#4840#0" expanded="false" />
+            <element signature="e#4876#4877#0" expanded="false" />
+            <element signature="e#4936#4937#0" expanded="false" />
+            <element signature="e#4988#4989#0" expanded="false" />
+            <element signature="e#5037#5038#0" expanded="false" />
+            <element signature="e#5082#5083#0" expanded="false" />
+            <element signature="e#5273#5274#0" expanded="false" />
+            <element signature="e#5315#5316#0" expanded="false" />
+            <element signature="e#5490#5491#0" expanded="false" />
+            <element signature="e#5529#5530#0" expanded="false" />
+            <element signature="e#5691#5692#0" expanded="false" />
+            <element signature="e#5729#5730#0" expanded="false" />
+            <element signature="e#5882#5883#0" expanded="false" />
+            <element signature="e#5917#5918#0" expanded="false" />
+            <element signature="e#5970#5971#0" expanded="false" />
+            <element signature="e#6018#6019#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/kyler/careersystem/Applicant/ChildFragments/JobDetailFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="78" column="25" selection-start-line="78" selection-start-column="25" selection-end-line="78" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/applicant_myresume_fragment.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-7.0">
+          <caret line="626" column="18" selection-start-line="626" selection-start-column="18" selection-end-line="626" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/closeicon.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="6" column="9" selection-start-line="6" selection-start-column="9" selection-end-line="6" selection-end-column="9" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/kyler/careersystem/Applicant/MyResumeFragment.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5714286">
-          <caret line="286" column="43" selection-start-line="286" selection-start-column="43" selection-end-line="286" selection-end-column="43" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="297" column="53" selection-start-line="297" selection-start-column="53" selection-end-line="297" selection-end-column="53" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="e#15544#16011#0" expanded="true" />
+            <element signature="e#16010#16011#0" expanded="true" />
+            <element signature="e#16652#16653#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/colors.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="25" column="23" selection-start-line="25" selection-start-column="23" selection-end-line="25" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/kyler/careersystem/UrlStatic.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.35643566">
+          <caret line="4" column="3" selection-start-line="4" selection-start-column="3" selection-end-line="4" selection-end-column="3" />
+          <folding />
         </state>
       </provider>
     </entry>

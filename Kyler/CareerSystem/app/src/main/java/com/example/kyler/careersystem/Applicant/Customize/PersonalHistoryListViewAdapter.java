@@ -20,10 +20,17 @@ import java.util.ArrayList;
 public class PersonalHistoryListViewAdapter extends BaseAdapter {
     private Context context;
     private ArrayList<PersonalHistoryListViewItem> personalHistoryListViewItems;
+    private boolean hideButton;
 
     public PersonalHistoryListViewAdapter(Context context, ArrayList<PersonalHistoryListViewItem> personalHistoryListViewItems) {
         this.context = context;
         this.personalHistoryListViewItems = personalHistoryListViewItems;
+    }
+
+    public PersonalHistoryListViewAdapter(Context context, ArrayList<PersonalHistoryListViewItem> personalHistoryListViewItems, boolean hideButton) {
+        this.context = context;
+        this.personalHistoryListViewItems = personalHistoryListViewItems;
+        this.hideButton = hideButton;
     }
 
     @Override
@@ -53,7 +60,11 @@ public class PersonalHistoryListViewAdapter extends BaseAdapter {
         ImageView myresume_history_edit = (ImageView) view.findViewById(R.id.myresumer_history_edit_listviewitem);
         myresume_history_title.setText(personalHistoryListViewItems.get(i).getHistoryTitle());
         myresume_history_detail.setText(personalHistoryListViewItems.get(i).getHistoryDetail());
-        myresume_history_time.setText("From "+personalHistoryListViewItems.get(i).getHistoryStart().toString()+" to "+personalHistoryListViewItems.get(i).getHistoryEnd().toString());
+        myresume_history_time.setText("From " + personalHistoryListViewItems.get(i).getHistoryStart().toString() + " to " + personalHistoryListViewItems.get(i).getHistoryEnd().toString());
+        if(hideButton)
+            myresume_history_edit.setVisibility(View.INVISIBLE);
+        else
+            myresume_history_edit.setVisibility(View.VISIBLE);
         myresume_history_edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

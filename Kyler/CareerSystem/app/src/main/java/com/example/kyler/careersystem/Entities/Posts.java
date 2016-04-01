@@ -1,5 +1,7 @@
 package com.example.kyler.careersystem.Entities;
 
+import com.example.kyler.careersystem.Utilities;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -32,9 +34,6 @@ public class Posts {
             if(jsonObject.has("post_content")){
                 this.postContent=jsonObject.getString("post_content");
             }
-            if(jsonObject.has("post_salary")){
-                this.postSalary=jsonObject.getInt("post_salary");
-            }
             if(jsonObject.has("post_location")){
                 this.postLocation=jsonObject.getString("post_location");
             }
@@ -51,9 +50,14 @@ public class Posts {
             if(jsonObject.has("post_content")){
                 this.hiringManagerID=jsonObject.getInt("hiring_manager_id");
             }
+            if(jsonObject.has("post_salary")){
+                this.postSalary=jsonObject.getInt("post_salary");
+            }
         } catch (JSONException e) {
             e.printStackTrace();
         } catch (ParseException e) {
+            e.printStackTrace();
+        } catch (Exception e){
             e.printStackTrace();
         }
     }

@@ -72,12 +72,20 @@
         "source": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/build/generated/res/pngs/debug/drawable-xxxhdpi/resumeskillicon.png"
     },
     {
+        "merged": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/build/intermediates/res/merged/debug/drawable-xxxhdpi-v4/closeicon.png",
+        "source": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/build/generated/res/pngs/debug/drawable-xxxhdpi/closeicon.png"
+    },
+    {
         "merged": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/build/intermediates/res/merged/debug/drawable-xxxhdpi-v4/abc_btn_switch_to_on_mtrl_00012.9.png",
         "source": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/drawable-xxxhdpi/abc_btn_switch_to_on_mtrl_00012.9.png"
     },
     {
         "merged": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/build/intermediates/res/merged/debug/drawable-xxxhdpi-v4/navjobappliedicon.png",
         "source": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/build/generated/res/pngs/debug/drawable-xxxhdpi/navjobappliedicon.png"
+    },
+    {
+        "merged": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/build/intermediates/res/merged/debug/drawable-xxxhdpi-v4/iconedit2.png",
+        "source": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/build/generated/res/pngs/debug/drawable-xxxhdpi/iconedit2.png"
     },
     {
         "merged": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/build/intermediates/res/merged/debug/drawable-xxxhdpi-v4/abc_btn_switch_to_on_mtrl_00001.9.png",

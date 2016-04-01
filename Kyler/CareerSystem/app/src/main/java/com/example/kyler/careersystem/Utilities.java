@@ -133,7 +133,7 @@ public class Utilities {
             if(days ==0)
                 return "today";
             else
-                return "error";
+                return "invalid";
         }
     }
 

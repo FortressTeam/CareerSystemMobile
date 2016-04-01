@@ -33,4 +33,5 @@ dependencies {
     compile 'de.hdodenhof:circleimageview:2.0.0'
     compile 'com.facebook.android:facebook-android-sdk:4.0.0'
     compile 'com.android.support:support-v4:23.1.1'
+    compile 'com.toptoche.searchablespinner:searchablespinnerlibrary:1.1.0'
 }

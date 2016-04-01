@@ -6,8 +6,10 @@
     android:layout_height="150dp"
     android:orientation="vertical">
     <LinearLayout
+        android:paddingBottom="@dimen/padding_card"
+        android:paddingLeft="@dimen/padding_card"
+        android:paddingRight="@dimen/padding_card"
         android:background="@color/White"
-        android:paddingLeft="5dp"
         android:layout_marginTop="27sp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -20,14 +22,32 @@
             android:id="@+id/job_listviewitem_image"
             app:civ_border_width="1dp"
             app:civ_border_color="#FFFFFFFF"
-            android:layout_width="70dp"
-            android:layout_height="70dp"/>
+            android:layout_width="56dp"
+            android:layout_height="56dp"/>
         <LinearLayout
-            android:paddingLeft="5dp"
+            android:paddingLeft="@dimen/padding_card"
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Created: "
+                    android:textStyle="bold"
+                    android:textSize="@dimen/activity_title_small"
+                    android:textColor="@color/Black"/>
+            <TextView
+                android:id="@+id/job_listviewitem_title_time"
+                android:textColor="@color/colorContent"
+                android:textSize="@dimen/activity_content_medium"
+                android:text="2 days ago"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -39,27 +59,9 @@
                     android:layout_height="wrap_content"
                     android:text="Salary: "/>
                 <TextView
-                    android:textSize="@dimen/activity_content_small"
-                    android:textColor="@color/Black"
+                    android:textSize="@dimen/activity_content_medium"
+                    android:textColor="@color/colorContent"
                     android:id="@+id/job_listviewitem_salary"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:textSize="@dimen/activity_title_small"
-                    android:textColor="@color/Black"
-                    android:textStyle="bold|normal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Company: "/>
-                <TextView
-                    android:textSize="@dimen/activity_content_small"
-                    android:textColor="@color/Black"
-                    android:id="@+id/job_listviewitem_company"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
             </LinearLayout>
@@ -75,59 +77,64 @@
                     android:layout_height="wrap_content"
                     android:text="Major: "/>
                 <TextView
-                    android:textSize="@dimen/activity_content_small"
-                    android:textColor="@color/Black"
+                    android:textSize="@dimen/activity_content_medium"
+                    android:textColor="@color/colorContent"
                     android:id="@+id/job_listviewitem_major"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
             </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:textSize="@dimen/activity_title_small"
+                    android:textColor="@color/Black"
+                    android:textStyle="bold|normal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Company: "/>
+                <TextView
+                    android:textSize="@dimen/activity_content_medium"
+                    android:textColor="@color/colorContent"
+                    android:id="@+id/job_listviewitem_company"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+
             <TextView
-                android:textSize="@dimen/activity_title_small"
-                android:textColor="@color/Black"
-                android:textStyle="bold|normal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Description: "/>
-            <TextView
+                android:ellipsize="end"
                 android:textSize="@dimen/activity_content_small"
-                android:textColor="@color/Black"
+                android:textColor="@color/colorContent"
                 android:id="@+id/job_listviewitem_description"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:maxLines="4"
+                android:maxLines="2"
                 />
         </LinearLayout>
     </LinearLayout>
     <LinearLayout
+        android:paddingLeft="@dimen/padding_card"
+        android:paddingRight="@dimen/padding_card"
         android:background="@color/White"
         android:id="@+id/job_listviewitem_holderview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:weightSum="1"
         >
         <TextView
+            android:layout_gravity="center_vertical"
             android:textColor="@color/Black"
             android:id="@+id/job_listviewitem_title"
-            android:gravity="left"
-            android:paddingLeft="5dp"
+            android:gravity="left|center_vertical"
             android:textSize="@dimen/activity_content_big"
             android:text="example"
             android:ellipsize="end"
             android:maxLines="1"
             android:textStyle="bold|normal"
-            android:layout_width="0dp"
-            android:layout_weight="0.75"
-            android:layout_height="wrap_content"/>
-        <TextView
-            android:id="@+id/job_listviewitem_title_time"
-            android:paddingRight="8dp"
-            android:layout_weight="0.25"
-            android:textColor="#424242"
-            android:gravity="right"
-            android:textSize="@dimen/activity_title_small"
-            android:text="abc"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
             android:layout_height="wrap_content"/>
     </LinearLayout>
 </RelativeLayout>

@@ -9,7 +9,8 @@
     <color name="selector_unactived">#EEEEEE</color>
 
     <color name="listviewitemexperiencebackground">#e8e9e9</color>
-    <color name="Black">#000000</color>
+    <color name="Black">#343434</color>
+    <color name="colorContent">#727272</color>
     <color name="White">#FFFFFF</color>
     <color name="hint">#727272</color>
     <color name="grey">#121212</color>
@@ -21,6 +22,8 @@
     <color name="background">#E5E6E6</color>
     <color name="barbackground">#1178AB</color>
     <color name="systembarbackground">#263238</color>
+    <color name="floatbutton">#388E3C</color>
+    <color name="floatbuttonclose">#FF5252</color>
 
 
     <color name="jobappliedaccepted">#DCEDC8</color>

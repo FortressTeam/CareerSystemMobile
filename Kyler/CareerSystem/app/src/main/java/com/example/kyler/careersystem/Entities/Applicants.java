@@ -37,7 +37,7 @@ public class Applicants {
             }
             if (jsonObject.has("applicant_date_of_birth")) {
                 Date date = new SimpleDateFormat("yyyy-MM-dd").parse(jsonObject.getString("applicant_date_of_birth"));
-                this.applicantDateOfBirth = new SimpleDateFormat("d - LLL - yyyy").format(date);
+                this.applicantDateOfBirth = new SimpleDateFormat("dd - LLL - yyyy").format(date);
             }
             if (jsonObject.has("applicant_sex")) {
                 this.applicantSex = jsonObject.getBoolean("applicant_sex");

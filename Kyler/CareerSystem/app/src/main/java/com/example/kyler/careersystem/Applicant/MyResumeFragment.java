@@ -1,16 +1,24 @@
 package com.example.kyler.careersystem.Applicant;
 
+import android.app.Dialog;
 import android.app.Fragment;
+import android.content.res.ColorStateList;
+import android.graphics.drawable.Icon;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,10 +31,12 @@ import com.example.kyler.careersystem.Applicant.Customize.SkillListViewItem;
 import com.example.kyler.careersystem.Controller.Applicantcontroller;
 import com.example.kyler.careersystem.Entities.Applicants;
 import com.example.kyler.careersystem.Entities.ApplicantsHasSkills;
+import com.example.kyler.careersystem.Entities.Categories;
 import com.example.kyler.careersystem.Entities.Hobbies;
 import com.example.kyler.careersystem.Entities.PersonalHistory;
 import com.example.kyler.careersystem.Entities.Skills;
 import com.example.kyler.careersystem.Entities.Users;
+import com.example.kyler.careersystem.GetDataFromService.GetJsonArray;
 import com.example.kyler.careersystem.GetDataFromService.GetJsonObject;
 import com.example.kyler.careersystem.R;
 import com.example.kyler.careersystem.UrlStatic;
@@ -36,6 +46,7 @@ import com.github.ksoichiro.android.observablescrollview.ObservableScrollViewCal
 import com.github.ksoichiro.android.observablescrollview.ScrollState;
 import com.squareup.picasso.Picasso;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -54,7 +65,7 @@ public class MyResumeFragment extends Fragment implements View.OnClickListener,O
     private NonScrollListView myresume_listview_education,myresume_listview_experience,myresume_listview_activity,myresume_listview_award,myresume_listview_skill,myresume_listview_hobbie;
     private ObservableScrollView myresumeFragmentObservableScrollView;
     private TextView myresumeEducation,myresumeExperience,myresumeActivity,myresumeAward,myresumeSkill,myresumeHobbie;
-    private TextView myresumeName,myresumeSex,myresumeHometown,myresumeBirthday,myresumePhone,myresumeEmail,myresumeAddress,myresumeAbout,myresumeFutureGoal;
+    private TextView myresumeSex,myresumeHometown,myresumeBirthday,myresumePhone,myresumeEmail,myresumeAddress,myresumeAbout,myresumeFutureGoal;
     private ImageView myresumeUserImage,myresumeEditContact,myresumeEditAbout,myresumeAddEducation,myresumeAddExperience,myresumeAddActivity,myresumeAddAward,myresumeAddSkills,myresumeAddHobbies,myresumeEditFutureGoals;
     private LinearLayout myresumeEditProfile;
     private FloatingActionButton myresumeEditButton;
@@ -75,15 +86,28 @@ public class MyResumeFragment extends Fragment implements View.OnClickListener,O
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView=inflater.inflate(R.layout.applicant_myresume_fragment,container,false);
-        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("My Resumes");
         applicantcontroller = new Applicantcontroller();
+        try{
+            jsData = new GetJsonObject(getActivity(),"applicant").execute(UrlStatic.URLApplicant+applicantID+".json").get();
+            applicant = applicantcontroller.getApplicant(jsData);
+            user = applicantcontroller.getUser(jsData.getJSONObject("user"));
+            personalHistories = applicantcontroller.getPersonalHistories(jsData.getJSONArray("personal_history"));
+            skills = applicantcontroller.getSkills(jsData.getJSONArray("skills"));
+            applicantsHasSkills = applicantcontroller.getApplicantsHasSkills(jsData.getJSONArray("skills"));
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        View rootView=inflater.inflate(R.layout.applicant_myresume_fragment,container,false);
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(applicant.getApplicantName());
         myresumeFragmentObservableScrollView = (ObservableScrollView) rootView.findViewById(R.id.myresume_fragment_observablescrollview);
         myresumeFragmentObservableScrollView.setScrollViewCallbacks(this);
 
         myresumeEditButton = (FloatingActionButton) rootView.findViewById(R.id.myresume_editbutton);
         myresumeUserImage = (ImageView) rootView.findViewById(R.id.myresume_user_image);
-        myresumeName = (TextView) rootView.findViewById(R.id.myresume_name);
         myresumeSex = (TextView) rootView.findViewById(R.id.myresume_sex);
         myresumeHometown = (TextView) rootView.findViewById(R.id.myresume_hometown);
         myresumeBirthday = (TextView) rootView.findViewById(R.id.myresume_birthday);
@@ -114,21 +138,6 @@ public class MyResumeFragment extends Fragment implements View.OnClickListener,O
         myresume_listview_activity = (NonScrollListView) rootView.findViewById(R.id.myresume_listview_activity);
         myresume_listview_award = (NonScrollListView) rootView.findViewById(R.id.myresume_listview_award);
         myresume_listview_skill = (NonScrollListView) rootView.findViewById(R.id.myresume_listview_skill);
-
-        try{
-            jsData = new GetJsonObject(getActivity(),"applicant").execute(UrlStatic.URLApplicant+applicantID+".json").get();
-            applicant = applicantcontroller.getApplicant(jsData);
-            user = applicantcontroller.getUser(jsData.getJSONObject("user"));
-            personalHistories = applicantcontroller.getPersonalHistories(jsData.getJSONArray("personal_history"));
-            skills = applicantcontroller.getSkills(jsData.getJSONArray("skills"));
-            applicantsHasSkills = applicantcontroller.getApplicantsHasSkills(jsData.getJSONArray("skills"));
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
         loadInfo();
         return rootView;
     }
@@ -156,7 +165,7 @@ public class MyResumeFragment extends Fragment implements View.OnClickListener,O
                 String historyEnd = personalHistories.get(i).getPersonalHistoryEnd();
                 listViewItems.add(new PersonalHistoryListViewItem(historyTitle,historyDetail,historyStart,historyEnd));
             }
-            listViewAdapter = new PersonalHistoryListViewAdapter(getActivity().getApplicationContext(),listViewItems);
+            listViewAdapter = new PersonalHistoryListViewAdapter(getActivity().getApplicationContext(),listViewItems,hideButton);
             nonScrollListView.setAdapter(listViewAdapter);
         } else{
             personalHistorytv.setVisibility(View.VISIBLE);
@@ -184,7 +193,6 @@ public class MyResumeFragment extends Fragment implements View.OnClickListener,O
     private void loadInfo(){
         myresumeEditButton.setOnClickListener(this);
         Picasso.with(getActivity().getApplicationContext()).load(UrlStatic.URLimg+"user_img/"+user.getUserAvatar()).into(myresumeUserImage);
-        myresumeName.setText(applicant.getApplicantName());
         if(applicant.isApplicantSex())
             myresumeSex.setText("Male");
         else
@@ -200,10 +208,7 @@ public class MyResumeFragment extends Fragment implements View.OnClickListener,O
         arrayExperience = getListPersonalHistory(personalHistories,2);
         arrayActivity = getListPersonalHistory(personalHistories,3);
         arrayAward = getListPersonalHistory(personalHistories,4);
-        loadPersonalHistory(arrayEducation,educationListViewItems,educationListViewAdapter,myresume_listview_education,myresumeEducation);
-        loadPersonalHistory(arrayExperience,experienceListViewItems,experienceListViewAdapter,myresume_listview_experience,myresumeExperience);
-        loadPersonalHistory(arrayActivity,activityListViewItems,activityListViewAdapter,myresume_listview_activity,myresumeActivity);
-        loadPersonalHistory(arrayAward,awardListViewItems,awardListViewAdapter,myresume_listview_award,myresumeAward);
+        loadAllPersonalHistory();
         loadApplicantSkills(hideButton);
         myresumeEditProfile.setOnClickListener(this);
         myresumeEditProfile.setOnClickListener(this);
@@ -218,15 +223,21 @@ public class MyResumeFragment extends Fragment implements View.OnClickListener,O
         myresumeEditFutureGoals.setOnClickListener(this);
         setVisibleButton(hideButton);
     }
+    private void loadAllPersonalHistory(){
+        loadPersonalHistory(arrayEducation,educationListViewItems,educationListViewAdapter,myresume_listview_education,myresumeEducation);
+        loadPersonalHistory(arrayExperience,experienceListViewItems,experienceListViewAdapter,myresume_listview_experience,myresumeExperience);
+        loadPersonalHistory(arrayActivity,activityListViewItems,activityListViewAdapter,myresume_listview_activity,myresumeActivity);
+        loadPersonalHistory(arrayAward,awardListViewItems,awardListViewAdapter,myresume_listview_award,myresumeAward);
+    }
 
     @Override
     public void onScrollChanged(int scrollY, boolean firstScroll, boolean dragging) {
         View view = (View) myresumeFragmentObservableScrollView.getChildAt(myresumeFragmentObservableScrollView.getChildCount()-1);
         int diff = (view.getHeight()-(myresumeFragmentObservableScrollView.getHeight()+myresumeFragmentObservableScrollView.getScrollY()));
         if(diff == 0){
-            myresumeEditButton.setVisibility(View.GONE);
+            myresumeEditButton.hide();
         }else
-            myresumeEditButton.setVisibility(View.VISIBLE);
+            myresumeEditButton.show();
 
     }
 
@@ -237,19 +248,7 @@ public class MyResumeFragment extends Fragment implements View.OnClickListener,O
 
     @Override
     public void onUpOrCancelMotionEvent(ScrollState scrollState) {
-//        ActionBar ab = ((AppCompatActivity)getActivity()).getSupportActionBar();
-//        if (ab == null) {
-//            return;
-//        }
-//        if (scrollState == ScrollState.UP) {
-//            if (ab.isShowing()) {
-//                ab.hide();
-//            }
-//        } else if (scrollState == ScrollState.DOWN) {
-//            if (!ab.isShowing()) {
-//                ab.show();
-//            }
-//        }
+
     }
 
     private void setVisibleButton(boolean flat){
@@ -281,11 +280,33 @@ public class MyResumeFragment extends Fragment implements View.OnClickListener,O
         JSONObject jsSendData = jsData;
         switch (view.getId()){
             case R.id.myresume_editbutton:
-                if(hideButton)
+                Handler handler = new Handler();
+                if(hideButton) {
+                    myresumeEditButton.hide();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            myresumeEditButton.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(getActivity().getApplicationContext(), R.color.floatbuttonclose)));
+                            myresumeEditButton.setImageResource(R.drawable.closeicon);
+                            myresumeEditButton.show();
+                        }
+                    },400);
+                    hideButton = !hideButton;
+                }
+                else{
+                    myresumeEditButton.hide();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            myresumeEditButton.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(getActivity().getApplicationContext(), R.color.floatbutton)));
+                            myresumeEditButton.setImageResource(R.drawable.iconedit2);
+                            myresumeEditButton.show();
+                        }
+                    },400);
                     hideButton=!hideButton;
-                else
-                    hideButton=!hideButton;
+                }
                 loadApplicantSkills(hideButton);
+                loadAllPersonalHistory();
                 setVisibleButton(hideButton);
                 break;
             case R.id.myresume_editprofile:
@@ -330,6 +351,7 @@ public class MyResumeFragment extends Fragment implements View.OnClickListener,O
                 Utilities.startFragWith(getActivity(),ChildApplicantActivity.class,"myresumeaddskill","");
                 break;
             case R.id.myresume_addhobbie:
+
                 break;
             case R.id.myresume_editfuturegoal:
                 jsSendData.remove("user");

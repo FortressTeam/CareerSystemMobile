@@ -1,8 +1,10 @@
 package com.example.kyler.careersystem;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -19,6 +21,7 @@ import com.example.kyler.careersystem.Applicant.ChildApplicantActivity;
 
 public class ApplicantMainActivity extends AppCompatActivity implements ListView.OnItemClickListener,View.OnClickListener{
     ListView navigationViewMenu;
+    private Handler mhHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +29,7 @@ public class ApplicantMainActivity extends AppCompatActivity implements ListView
         setContentView(R.layout.activity_applicant_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        mhHandler = new Handler();
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -83,7 +87,16 @@ public class ApplicantMainActivity extends AppCompatActivity implements ListView
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-        Utilities.displayView(this, i);
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        final int id = i;
+        final Activity activity = this;
+        mhHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Utilities.displayView(activity, id);
+            }
+        },300);
     }
 
     @Override

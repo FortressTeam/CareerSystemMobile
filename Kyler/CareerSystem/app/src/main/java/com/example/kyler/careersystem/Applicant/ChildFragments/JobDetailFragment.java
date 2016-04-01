@@ -49,7 +49,7 @@ public class JobDetailFragment extends Fragment implements ObservableScrollViewC
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.applicant_job_detail_fragment, container, false);
-        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Edit Profile");
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Job Detail");
         Bundle bundle = getArguments();
         String url = UrlStatic.URLtest1+bundle.getString("sendData")+".json";
         companyLogo = (ImageView) rootView.findViewById(R.id.job_detail_company_logo);
@@ -58,8 +58,8 @@ public class JobDetailFragment extends Fragment implements ObservableScrollViewC
         companyLogo.setOnClickListener(this);
         jobDetailFloatactionbuttonFavorite.setOnClickListener(this);
 
-            btApply.setVisibility(View.VISIBLE);
-            btApply.setOnClickListener(this);
+        btApply.setVisibility(View.VISIBLE);
+        btApply.setOnClickListener(this);
 
         jobDetailCompanyName = (TextView) rootView.findViewById(R.id.job_detail_company_name);
         jobDetailCompanyAddress = (TextView) rootView.findViewById(R.id.job_detail_company_address);
@@ -81,12 +81,17 @@ public class JobDetailFragment extends Fragment implements ObservableScrollViewC
             HiringManagers hiringManager = new HiringManagers(jsonSendData);
             jobDetailCompanyName.setText(hiringManager.getCompanyName());
             jobDetailCompanyAddress.setText(hiringManager.getCompanyAddress());
-            jobDetailCompanySize.setText(hiringManager.getCompanySize()+"");
+            jobDetailCompanySize.setText(hiringManager.getCompanySize() + "");
             jobDetailHiringManagerName.setText(hiringManager.getHiringManagerName());
             jobDetailHiringManagerPhone.setText(hiringManager.getHiringManagerPhone());
             Picasso.with(getActivity().getApplicationContext()).load(UrlStatic.URLimg+"/company_img/"+hiringManager.getCompanyLogo()).into(companyLogo);
             jobDetailPostTitle.setText(post.getPostTitle());
-            jobDetailPostSalary.setText("VND "+post.getPostSalary());
+            if(post.getPostSalary()!=0){
+                jobDetailPostSalary.setText("VND "+post.getPostSalary());
+            }
+            else{
+                jobDetailPostSalary.setText("Negotiable");
+            }
             jobDetailPostLocation.setText(post.getPostLocation());
             jobDetailPostDate.setText(post.getPostDate());
             jobDetailPostContent.setText(Html.fromHtml(post.getPostContent()));
@@ -97,37 +102,6 @@ public class JobDetailFragment extends Fragment implements ObservableScrollViewC
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
-//        try {
-//            jsJob1= new JSONObject("{ \"post_id\": \"1\"," +
-//                    " \"post_title\": \"Job xxxx\"," +
-//                    " \"post_required\": \"5 years experience\"," +
-//                    " \"post_moreinfo\": \"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.\"," +
-//                    "  \"post_content\": \"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.\",\n" +
-//                    " \"post_salary\": 300," +
-//                    " \"post_image\": \"https://cdn1.iconfinder.com/data/icons/avatar-3/512/Pilot-128.png\"," +
-//                    " \"post_date\": \"12/12/2016\"," +
-//                    " \"post_status\": 1," +
-//                    " \"category_name\": \"Information Technology\"," +
-//                    " \"company_overview\": \"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.\"," +
-//                    " \"company_name\": \"Enclave\" }");
-//            if(jsJob1.has("post_image"))
-//                Picasso.with(getActivity().getApplicationContext()).load((jsJob1.getString("post_image"))).into(companyLogo);
-//            if(jsJob1.has("company_overview"))
-//                jobDetailCompanyInfo.setText(jsJob1.getString("company_overview"));
-//            if(jsJob1.has("post_title"))
-//                jobDetailPostTitle.setText(jsJob1.getString("post_title"));
-//            if(jsJob1.has("post_salary"))
-//                jobDetailPostSalary.setText(jsJob1.getString("post_salary"));
-//            if(jsJob1.has("post_required"))
-//                jobDetailPostLocation.setText(jsJob1.getString("post_required"));
-//            if(jsJob1.has("post_content"))
-//                jobDetailPostContent.setText(jsJob1.getString("post_content"));
-//            if(jsJob1.has("post_moreinfo"))
-//                jobDetailPostMoreInfo.setText(jsJob1.getString("post_moreinfo"));
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//        }
         scrollView = (ObservableScrollView) rootView.findViewById(R.id.job_detail_scrollview);
         scrollView.setScrollViewCallbacks(this);
         return rootView;
