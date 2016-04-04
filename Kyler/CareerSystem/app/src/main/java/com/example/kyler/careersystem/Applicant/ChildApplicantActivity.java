@@ -15,6 +15,8 @@ import android.widget.ListView;
 import com.example.kyler.careersystem.Applicant.ChildFragments.CompanyInformationFragment;
 import com.example.kyler.careersystem.Applicant.ChildFragments.JobDetailFragment;
 import com.example.kyler.careersystem.Applicant.ChildFragments.MyresumeAboutFragment;
+import com.example.kyler.careersystem.Applicant.ChildFragments.MyresumeActivityFragment;
+import com.example.kyler.careersystem.Applicant.ChildFragments.MyresumeAwardFragment;
 import com.example.kyler.careersystem.Applicant.ChildFragments.MyresumeContactFragment;
 import com.example.kyler.careersystem.Applicant.ChildFragments.MyresumeEducationFragment;
 import com.example.kyler.careersystem.Applicant.ChildFragments.MyresumeExperienceFragment;
@@ -93,8 +95,14 @@ public class ChildApplicantActivity extends AppCompatActivity implements ListVie
                 fragment = new MyresumeExperienceFragment();
                 bundle.putString("sendData",receiveData);
                 break;
-
-
+            case "myresumeaddactivity":
+                fragment = new MyresumeActivityFragment();
+                bundle.putString("sendData",receiveData);
+                break;
+            case "myresumeaddaward":
+                fragment = new MyresumeAwardFragment();
+                bundle.putString("sendData",receiveData);
+                break;
             case "myresumeaddskill":
                 fragment = new MyresumeSkillsFragment();
                 bundle.putString("sendData",receiveData);

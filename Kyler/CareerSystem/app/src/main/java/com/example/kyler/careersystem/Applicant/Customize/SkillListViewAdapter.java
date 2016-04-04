@@ -1,7 +1,9 @@
 package com.example.kyler.careersystem.Applicant.Customize;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,24 +14,30 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.kyler.careersystem.R;
+import com.example.kyler.careersystem.UrlStatic;
+import com.example.kyler.careersystem.WorkWithService.DeleteDataWithJson;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 /**
  * Created by kyler on 31/03/2016.
  */
 public class SkillListViewAdapter extends BaseAdapter {
 
-    private Context context;
+    private Activity context;
     private ArrayList<SkillListViewItem> skillListViewItemItems;
     private boolean hideButton;
 
-    public SkillListViewAdapter(Context context, ArrayList<SkillListViewItem> skillListViewItemItems) {
+    public SkillListViewAdapter(Activity context, ArrayList<SkillListViewItem> skillListViewItemItems) {
         this.context = context;
         this.skillListViewItemItems = skillListViewItemItems;
     }
 
-    public SkillListViewAdapter(Context context, ArrayList<SkillListViewItem> skillListViewItemItems, boolean hideButton) {
+    public SkillListViewAdapter(Activity context, ArrayList<SkillListViewItem> skillListViewItemItems, boolean hideButton) {
         this.context = context;
         this.skillListViewItemItems = skillListViewItemItems;
         this.hideButton = hideButton;
@@ -72,8 +80,31 @@ public class SkillListViewAdapter extends BaseAdapter {
             @Override
             public void onClick(View view) {
                 //do delete job
-
-                Toast.makeText(context,skillListViewItemItems.get(i).getSkillName(),Toast.LENGTH_SHORT).show();
+                final int applicantID=skillListViewItemItems.get(i).getApplicantID();
+                final int skillID=skillListViewItemItems.get(i).getSkillID();
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setMessage("Do you want to delete?")
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                try {
+                                    JSONObject jsResult = new DeleteDataWithJson(context).execute(UrlStatic.URLApplicantsHasSkills+"applicant_id="+applicantID+"&skill_id="+skillID).get();
+                                    if(jsResult.getString("message").equals("Deleted")){
+                                        Toast.makeText(context.getApplicationContext(),"Delete success",Toast.LENGTH_SHORT).show();
+                                    }
+                                    else{
+                                        Toast.makeText(context.getApplicationContext(),"Something went wrong",Toast.LENGTH_SHORT).show();
+                                    }
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                } catch (ExecutionException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        })
+                        .setNegativeButton("No",null).show();
             }
         });
         return view;

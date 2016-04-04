@@ -1,10 +1,8 @@
 package com.example.kyler.careersystem;
 
-import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.app.Fragment;
 import android.os.Build;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -15,7 +13,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import com.example.kyler.careersystem.GetDataFromService.PostDataWithJson;
+import com.example.kyler.careersystem.WorkWithService.PostDataWithJson;
 import com.github.ksoichiro.android.observablescrollview.ObservableScrollView;
 import com.github.ksoichiro.android.observablescrollview.ObservableScrollViewCallbacks;
 import com.github.ksoichiro.android.observablescrollview.ScrollState;

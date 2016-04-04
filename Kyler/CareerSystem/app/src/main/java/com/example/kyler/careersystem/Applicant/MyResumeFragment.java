@@ -1,24 +1,17 @@
 package com.example.kyler.careersystem.Applicant;
 
-import android.app.Dialog;
 import android.app.Fragment;
 import android.content.res.ColorStateList;
-import android.graphics.drawable.Icon;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,13 +24,11 @@ import com.example.kyler.careersystem.Applicant.Customize.SkillListViewItem;
 import com.example.kyler.careersystem.Controller.Applicantcontroller;
 import com.example.kyler.careersystem.Entities.Applicants;
 import com.example.kyler.careersystem.Entities.ApplicantsHasSkills;
-import com.example.kyler.careersystem.Entities.Categories;
 import com.example.kyler.careersystem.Entities.Hobbies;
 import com.example.kyler.careersystem.Entities.PersonalHistory;
 import com.example.kyler.careersystem.Entities.Skills;
 import com.example.kyler.careersystem.Entities.Users;
-import com.example.kyler.careersystem.GetDataFromService.GetJsonArray;
-import com.example.kyler.careersystem.GetDataFromService.GetJsonObject;
+import com.example.kyler.careersystem.WorkWithService.GetJsonObject;
 import com.example.kyler.careersystem.R;
 import com.example.kyler.careersystem.UrlStatic;
 import com.example.kyler.careersystem.Utilities;
@@ -46,7 +37,6 @@ import com.github.ksoichiro.android.observablescrollview.ObservableScrollViewCal
 import com.github.ksoichiro.android.observablescrollview.ScrollState;
 import com.squareup.picasso.Picasso;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -81,28 +71,40 @@ public class MyResumeFragment extends Fragment implements View.OnClickListener,O
     private Applicants applicant;
     private Users user;
     private boolean hideButton=true;
+    private Handler mHandler;
 
     public MyResumeFragment() {}
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        applicantcontroller = new Applicantcontroller();
-        try{
-            jsData = new GetJsonObject(getActivity(),"applicant").execute(UrlStatic.URLApplicant+applicantID+".json").get();
-            applicant = applicantcontroller.getApplicant(jsData);
-            user = applicantcontroller.getUser(jsData.getJSONObject("user"));
-            personalHistories = applicantcontroller.getPersonalHistories(jsData.getJSONArray("personal_history"));
-            skills = applicantcontroller.getSkills(jsData.getJSONArray("skills"));
-            applicantsHasSkills = applicantcontroller.getApplicantsHasSkills(jsData.getJSONArray("skills"));
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        mHandler = new Handler();
+        mHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                applicantcontroller = new Applicantcontroller();
+                try {
+                    jsData = new GetJsonObject(getActivity(), "applicant").execute(UrlStatic.URLApplicant + applicantID + ".json").get();
+                    if(Utilities.checkConnect(jsData)) {
+                        applicant = applicantcontroller.getApplicant(jsData);
+                        user = applicantcontroller.getUser(jsData.getJSONObject("user"));
+                        personalHistories = applicantcontroller.getPersonalHistories(jsData.getJSONArray("personal_history"));
+                        skills = applicantcontroller.getSkills(jsData.getJSONArray("skills"));
+                        applicantsHasSkills = applicantcontroller.getApplicantsHasSkills(jsData.getJSONArray("skills"));
+                        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(applicant.getApplicantName());
+                        loadInfo();
+                    }
+                    else
+                        Toast.makeText(getActivity().getApplicationContext(),"Connection got problem!",Toast.LENGTH_SHORT).show();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, 300);
         View rootView=inflater.inflate(R.layout.applicant_myresume_fragment,container,false);
-        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle(applicant.getApplicantName());
         myresumeFragmentObservableScrollView = (ObservableScrollView) rootView.findViewById(R.id.myresume_fragment_observablescrollview);
         myresumeFragmentObservableScrollView.setScrollViewCallbacks(this);
 
@@ -138,7 +140,6 @@ public class MyResumeFragment extends Fragment implements View.OnClickListener,O
         myresume_listview_activity = (NonScrollListView) rootView.findViewById(R.id.myresume_listview_activity);
         myresume_listview_award = (NonScrollListView) rootView.findViewById(R.id.myresume_listview_award);
         myresume_listview_skill = (NonScrollListView) rootView.findViewById(R.id.myresume_listview_skill);
-        loadInfo();
         return rootView;
     }
 
@@ -177,11 +178,12 @@ public class MyResumeFragment extends Fragment implements View.OnClickListener,O
             myresumeSkill.setVisibility(View.GONE);
             skillListViewItems = new ArrayList<>();
             for(int i=0;i<skills.size();i++){
+                int skillID = skills.get(i).getID();
                 String skillName = skills.get(i).getSkillName();
                 int skillLevel = applicantsHasSkills.get(i).getSkillLevel();
-                skillListViewItems.add(new SkillListViewItem(skillName,skillLevel));
+                skillListViewItems.add(new SkillListViewItem(applicantID,skillID,skillName,skillLevel));
             }
-            skillListViewAdapter = new SkillListViewAdapter(getActivity().getApplicationContext(),skillListViewItems,flat);
+            skillListViewAdapter = new SkillListViewAdapter(getActivity(),skillListViewItems,flat);
             myresume_listview_skill.setAdapter(skillListViewAdapter);
         }
         else{
@@ -222,6 +224,12 @@ public class MyResumeFragment extends Fragment implements View.OnClickListener,O
         myresumeAddHobbies.setOnClickListener(this);
         myresumeEditFutureGoals.setOnClickListener(this);
         setVisibleButton(hideButton);
+        mHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                myresumeFragmentObservableScrollView.scrollTo(0, 0);
+            }
+        },100);
     }
     private void loadAllPersonalHistory(){
         loadPersonalHistory(arrayEducation,educationListViewItems,educationListViewAdapter,myresume_listview_education,myresumeEducation);
@@ -344,8 +352,10 @@ public class MyResumeFragment extends Fragment implements View.OnClickListener,O
                 Utilities.startFragWith(getActivity(),ChildApplicantActivity.class,"myresumeaddexperience","");
                 break;
             case R.id.myresume_addactivity:
+                Utilities.startFragWith(getActivity(),ChildApplicantActivity.class,"myresumeaddactivity","");
                 break;
             case R.id.myresume_addaward:
+                Utilities.startFragWith(getActivity(),ChildApplicantActivity.class,"myresumeaddaward","");
                 break;
             case R.id.myresume_addskill:
                 Utilities.startFragWith(getActivity(),ChildApplicantActivity.class,"myresumeaddskill","");

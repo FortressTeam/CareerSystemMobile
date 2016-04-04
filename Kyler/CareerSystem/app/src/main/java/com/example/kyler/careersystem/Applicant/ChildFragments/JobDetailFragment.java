@@ -17,7 +17,7 @@ import android.widget.Toast;
 import com.example.kyler.careersystem.Applicant.ChildApplicantActivity;
 import com.example.kyler.careersystem.Entities.HiringManagers;
 import com.example.kyler.careersystem.Entities.Posts;
-import com.example.kyler.careersystem.GetDataFromService.GetJsonObject;
+import com.example.kyler.careersystem.WorkWithService.GetJsonObject;
 import com.example.kyler.careersystem.UrlStatic;
 import com.example.kyler.careersystem.R;
 import com.example.kyler.careersystem.Utilities;

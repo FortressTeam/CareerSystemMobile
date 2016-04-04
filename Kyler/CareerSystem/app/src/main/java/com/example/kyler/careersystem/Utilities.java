@@ -25,9 +25,14 @@ import com.example.kyler.careersystem.Entities.HiringManagers;
 import com.example.kyler.careersystem.Entities.Posts;
 import com.example.kyler.careersystem.HiringManager.AddPostFragment;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -241,4 +246,19 @@ public class Utilities {
         fromActivity.startActivity(intent);
         fromActivity.finish();
     }
+
+    public static boolean checkConnect(JSONObject jsonObject){
+        if(jsonObject!=null)
+            return true;
+        else
+            return false;
+    }
+
+    public static boolean checkConnect(JSONArray jsonArray){
+        if(jsonArray!=null)
+            return true;
+        else
+            return false;
+    }
+
 }

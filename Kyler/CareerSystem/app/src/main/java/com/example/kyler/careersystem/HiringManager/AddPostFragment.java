@@ -2,10 +2,7 @@ package com.example.kyler.careersystem.HiringManager;
 
 import android.app.AlertDialog;
 import android.app.Fragment;
-import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.DialogInterface;
-import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -15,16 +12,14 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.kyler.careersystem.Entities.Categories;
-import com.example.kyler.careersystem.GetDataFromService.GetJsonArray;
-import com.example.kyler.careersystem.GetDataFromService.PostDataWithJson;
+import com.example.kyler.careersystem.WorkWithService.GetJsonArray;
+import com.example.kyler.careersystem.WorkWithService.PostDataWithJson;
 import com.example.kyler.careersystem.R;
 import com.example.kyler.careersystem.UrlStatic;
 import com.example.kyler.careersystem.Utilities;
@@ -39,7 +34,6 @@ import org.json.JSONObject;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.concurrent.ExecutionException;
 
 public class AddPostFragment extends Fragment implements View.OnClickListener,Spinner.OnItemSelectedListener,ObservableScrollViewCallbacks,View.OnFocusChangeListener {

@@ -45,21 +45,7 @@
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/app_name"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
-        <activity android:name=".Applicant.ChildFragments.MyresumeProfileFragment">
-        </activity>
-        <activity android:name=".Applicant.ChildFragments.MyresumeContactFragment">
-        </activity>
-        <activity android:name=".Applicant.ChildFragments.MyresumeAboutFragment">
-        </activity>
-        <activity android:name=".Applicant.ChildFragments.MyresumeEducationFragment">
-        </activity>
-        <activity android:name=".Applicant.ChildFragments.MyresumeSkillsFragment">
-        </activity>
         <activity android:name=".Applicant.ChildFragments.MyresumeHobbieFragment">
-        </activity>
-        <activity android:name=".Applicant.ChildFragments.MyresumeExperienceFragment">
-        </activity>
-        <activity android:name=".Applicant.ChildFragments.MyresumeFuturegoalFragment">
         </activity>
     </application>
 

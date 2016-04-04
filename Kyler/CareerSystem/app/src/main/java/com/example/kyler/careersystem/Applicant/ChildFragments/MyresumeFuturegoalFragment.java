@@ -1,7 +1,6 @@
 package com.example.kyler.careersystem.Applicant.ChildFragments;
 
 import android.app.Fragment;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,7 +11,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.kyler.careersystem.ApplicantMainActivity;
-import com.example.kyler.careersystem.GetDataFromService.PutDataWithJson;
+import com.example.kyler.careersystem.WorkWithService.PutDataWithJson;
 import com.example.kyler.careersystem.R;
 import com.example.kyler.careersystem.UrlStatic;
 import com.example.kyler.careersystem.Utilities;
