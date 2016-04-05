@@ -100,6 +100,10 @@
         "source": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/build/intermediates/exploded-aar/com.facebook.android/facebook-android-sdk/4.0.0/res/drawable/messenger_button_white_bg_selector.xml"
     },
     {
+        "merged": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/build/intermediates/res/merged/debug/drawable/tagbackground.xml",
+        "source": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/src/main/res/drawable/tagbackground.xml"
+    },
+    {
         "merged": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/build/intermediates/res/merged/debug/drawable/abc_text_cursor_material.xml",
         "source": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/drawable/abc_text_cursor_material.xml"
     },
@@ -122,6 +126,10 @@
     {
         "merged": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/build/intermediates/res/merged/debug/drawable/customline.xml",
         "source": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/src/main/res/drawable/customline.xml"
+    },
+    {
+        "merged": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/build/intermediates/res/merged/debug/drawable/failedconnection.png",
+        "source": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/src/main/res/drawable/failedconnection.png"
     },
     {
         "merged": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/build/intermediates/res/merged/debug/drawable/abc_seekbar_track_material.xml",

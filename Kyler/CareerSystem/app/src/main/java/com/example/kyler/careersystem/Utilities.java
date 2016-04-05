@@ -193,6 +193,7 @@ public class Utilities {
             case 6://notifications
                 break;
             default:
+                fragment = new FailedConnectionFragment();
                 break;
         }
         if(fragment != null){

@@ -92,6 +92,10 @@
         "source": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_activity_chooser_view_list_item.xml"
     },
     {
+        "merged": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/build/intermediates/res/merged/debug/layout/failconnection_fragment.xml",
+        "source": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/src/main/res/layout/failconnection_fragment.xml"
+    },
+    {
         "merged": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/build/intermediates/res/merged/debug/layout/messenger_button_send_blue_large.xml",
         "source": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/build/intermediates/exploded-aar/com.facebook.android/facebook-android-sdk/4.0.0/res/layout/messenger_button_send_blue_large.xml"
     },
@@ -222,6 +226,10 @@
     {
         "merged": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/build/intermediates/res/merged/debug/layout/nav_footer_applicant_main.xml",
         "source": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/src/main/res/layout/nav_footer_applicant_main.xml"
+    },
+    {
+        "merged": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/build/intermediates/res/merged/debug/layout/applicant_myresume_hobbie_listviewitem.xml",
+        "source": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/src/main/res/layout/applicant_myresume_hobbie_listviewitem.xml"
     },
     {
         "merged": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/build/intermediates/res/merged/debug/layout/abc_screen_simple.xml",

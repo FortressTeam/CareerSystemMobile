@@ -9,20 +9,22 @@
     <com.github.ksoichiro.android.observablescrollview.ObservableScrollView
         android:scrollbars="none"
         android:layout_width="match_parent"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
+        android:layout_marginBottom="50dp"
+        android:layout_marginLeft="@dimen/magrin_card"
+        android:layout_marginRight="@dimen/magrin_card"
         android:layout_alignBottom="@+id/company_information_subscribe_layout"
         android:layout_height="match_parent">
         <LinearLayout
             android:background="@color/background"
             android:orientation="vertical"
-            android:paddingBottom="50dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <LinearLayout
-                android:paddingLeft="5dp"
+                android:elevation="2dp"
+                android:padding="@dimen/padding_card"
                 android:background="@drawable/customborder"
                 android:orientation="vertical"
+                android:layout_marginBottom="@dimen/magrin_card"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <de.hdodenhof.circleimageview.CircleImageView
@@ -74,7 +76,7 @@
                         android:paddingLeft="5dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/Black"
+                        android:textColor="@color/colorContent"
                         android:textSize="@dimen/activity_content_medium"
                         android:text="abc"
                         android:gravity="bottom"
@@ -98,7 +100,7 @@
                         android:paddingLeft="5dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/Black"
+                        android:textColor="@color/colorContent"
                         android:textSize="@dimen/activity_content_medium"
                         android:text="abc"
                         android:gravity="bottom"
@@ -122,7 +124,7 @@
                         android:id="@+id/company_information_companyaddress"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/Black"
+                        android:textColor="@color/colorContent"
                         android:textSize="@dimen/activity_content_medium"
                         android:text="abc"
                         android:gravity="bottom"
@@ -130,18 +132,13 @@
                 </LinearLayout>
             </LinearLayout>
 
-            <TextView
-                android:background="@color/background"
-                android:layout_width="match_parent"
-                android:layout_height="3dp"/>
-
             <LinearLayout
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp"
+                android:elevation="2dp"
+                android:padding="@dimen/padding_card"
                 android:orientation="vertical"
                 android:background="@drawable/customborder"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="match_parent">
                 <TextView
                     android:textColor="@color/Black"
                     android:textStyle="bold"
@@ -152,11 +149,11 @@
                 <TextView
                     android:id="@+id/company_information_companyabout"
                     android:paddingTop="5dp"
-                    android:textColor="@color/Black"
+                    android:textColor="@color/colorContent"
                     android:textSize="@dimen/activity_content_small"
                     android:text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="match_parent"/>
             </LinearLayout>
         </LinearLayout>
     </com.github.ksoichiro.android.observablescrollview.ObservableScrollView>

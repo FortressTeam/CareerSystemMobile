@@ -91,12 +91,12 @@
                         android:layout_gravity="center_vertical"
                         android:layout_height="25dp"
                         />
-                    <Spinner
+                    <com.toptoche.searchablespinnerlibrary.SearchableSpinner
                         android:scrollbars="none"
                         android:id="@+id/hiringmanager_addpost_category_spinner"
                         android:layout_marginLeft="5dp"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"></Spinner>
+                        android:layout_height="wrap_content"></com.toptoche.searchablespinnerlibrary.SearchableSpinner>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_marginTop="5dp"

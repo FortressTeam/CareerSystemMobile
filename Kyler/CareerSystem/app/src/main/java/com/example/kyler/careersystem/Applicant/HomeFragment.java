@@ -70,12 +70,13 @@ public class HomeFragment extends Fragment implements AbsListView.OnScrollListen
                             Categories category = new Categories(jsonObject.getJSONObject("category"));
                             jobListViewItems.add(postController.getJobListView(post, hiringManager, category));
                         }
-
                         jobListViewAdapterLoadInfinite = new JobListViewAdapterLoadInfinite(getActivity().getApplicationContext(), jobListViewItems, 10, 5);
                         home_job_listview.setAdapter(jobListViewAdapterLoadInfinite);
                     }
-                    else
-                        Toast.makeText(getActivity().getApplicationContext(),"Connection got problem!",Toast.LENGTH_SHORT).show();
+                    else {
+                        Toast.makeText(getActivity().getApplicationContext(), "Connection got problem!", Toast.LENGTH_SHORT).show();
+                        Utilities.displayView(getActivity(),404);
+                    }
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 } catch (ExecutionException e) {
@@ -140,7 +141,6 @@ public class HomeFragment extends Fragment implements AbsListView.OnScrollListen
 
         //Load more
         if(firstVisibleItem + visibleItemCount == totalItemCount && !nomoreData && !hasCallback){ //check if we've reached the bottom
-            Toast.makeText(getActivity().getApplicationContext(), "Loading", Toast.LENGTH_SHORT).show();
             mHandler.post(showMore);
             hasCallback = true;
         }
@@ -175,9 +175,8 @@ public class HomeFragment extends Fragment implements AbsListView.OnScrollListen
                         e.printStackTrace();
                     }
                 }
-                boolean noMoreToShow = jobListViewAdapterLoadInfinite.showMore(); //show more views and find out if
-                hasCallback = false;
             }
+            hasCallback = false;
         }
     };
 

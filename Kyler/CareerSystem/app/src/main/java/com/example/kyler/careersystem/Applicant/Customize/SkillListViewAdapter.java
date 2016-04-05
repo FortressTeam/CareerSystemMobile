@@ -82,14 +82,17 @@ public class SkillListViewAdapter extends BaseAdapter {
                 //do delete job
                 final int applicantID=skillListViewItemItems.get(i).getApplicantID();
                 final int skillID=skillListViewItemItems.get(i).getSkillID();
+                final int listViewID=i;
                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
                 builder.setMessage("Do you want to delete?")
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 try {
-                                    JSONObject jsResult = new DeleteDataWithJson(context).execute(UrlStatic.URLApplicantsHasSkills+"applicant_id="+applicantID+"&skill_id="+skillID).get();
+                                    JSONObject jsResult = new DeleteDataWithJson(context).execute(UrlStatic.URLApplicantsHasSkills+"?applicant_id="+applicantID+"&skill_id="+skillID).get();
                                     if(jsResult.getString("message").equals("Deleted")){
+                                        skillListViewItemItems.remove(listViewID);
+                                        notifyDataSetChanged();
                                         Toast.makeText(context.getApplicationContext(),"Delete success",Toast.LENGTH_SHORT).show();
                                     }
                                     else{

@@ -16,6 +16,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.example.kyler.careersystem.Applicant.Customize.HobbieListViewAdapter;
+import com.example.kyler.careersystem.Applicant.Customize.HobbieListViewItem;
 import com.example.kyler.careersystem.Applicant.Customize.NonScrollListView;
 import com.example.kyler.careersystem.Applicant.Customize.PersonalHistoryListViewAdapter;
 import com.example.kyler.careersystem.Applicant.Customize.PersonalHistoryListViewItem;
@@ -51,6 +53,8 @@ public class MyResumeFragment extends Fragment implements View.OnClickListener,O
     private ArrayList<PersonalHistoryListViewItem> educationListViewItems,experienceListViewItems,activityListViewItems,awardListViewItems;
     private SkillListViewAdapter skillListViewAdapter;
     private ArrayList<SkillListViewItem> skillListViewItems;
+    private HobbieListViewAdapter hobbieListViewAdapter;
+    private ArrayList<HobbieListViewItem> hobbieListViewItems;
 
     private NonScrollListView myresume_listview_education,myresume_listview_experience,myresume_listview_activity,myresume_listview_award,myresume_listview_skill,myresume_listview_hobbie;
     private ObservableScrollView myresumeFragmentObservableScrollView;
@@ -89,12 +93,15 @@ public class MyResumeFragment extends Fragment implements View.OnClickListener,O
                         user = applicantcontroller.getUser(jsData.getJSONObject("user"));
                         personalHistories = applicantcontroller.getPersonalHistories(jsData.getJSONArray("personal_history"));
                         skills = applicantcontroller.getSkills(jsData.getJSONArray("skills"));
+//                        hobbies = applicantcontroller.getHobbies(jsData.getJSONArray("hobbies"));
                         applicantsHasSkills = applicantcontroller.getApplicantsHasSkills(jsData.getJSONArray("skills"));
                         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(applicant.getApplicantName());
                         loadInfo();
                     }
-                    else
+                    else{
                         Toast.makeText(getActivity().getApplicationContext(),"Connection got problem!",Toast.LENGTH_SHORT).show();
+                        Utilities.displayView(getActivity(),404);
+                    }
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 } catch (ExecutionException e) {
@@ -191,6 +198,20 @@ public class MyResumeFragment extends Fragment implements View.OnClickListener,O
         }
     }
 
+    private void loadApplicantHobbies(boolean flat){
+        if(hobbies!=null){
+            myresumeHobbie.setVisibility(View.GONE);
+            hobbieListViewItems = new ArrayList<>();
+            for(int i=0;i<hobbies.size();i++){
+                int hobbieID = hobbies.get(i).getID();
+                String hobbieName = hobbies.get(i).getHobbyName();
+                hobbieListViewItems.add(new HobbieListViewItem(applicantID,hobbieID,hobbieName));
+            }
+            hobbieListViewAdapter = new HobbieListViewAdapter(getActivity(),hobbieListViewItems,flat);
+            myresume_listview_hobbie.setAdapter(hobbieListViewAdapter);
+        }
+    }
+
 
     private void loadInfo(){
         myresumeEditButton.setOnClickListener(this);
@@ -212,6 +233,7 @@ public class MyResumeFragment extends Fragment implements View.OnClickListener,O
         arrayAward = getListPersonalHistory(personalHistories,4);
         loadAllPersonalHistory();
         loadApplicantSkills(hideButton);
+//        loadApplicantHobbies(hideButton);
         myresumeEditProfile.setOnClickListener(this);
         myresumeEditProfile.setOnClickListener(this);
         myresumeEditContact.setOnClickListener(this);
@@ -314,6 +336,7 @@ public class MyResumeFragment extends Fragment implements View.OnClickListener,O
                     hideButton=!hideButton;
                 }
                 loadApplicantSkills(hideButton);
+//                loadApplicantHobbies(hideButton);
                 loadAllPersonalHistory();
                 setVisibleButton(hideButton);
                 break;

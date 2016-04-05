@@ -2,6 +2,7 @@ package com.example.kyler.careersystem.Controller;
 
 import com.example.kyler.careersystem.Entities.Applicants;
 import com.example.kyler.careersystem.Entities.ApplicantsHasSkills;
+import com.example.kyler.careersystem.Entities.Hobbies;
 import com.example.kyler.careersystem.Entities.PersonalHistory;
 import com.example.kyler.careersystem.Entities.Skills;
 import com.example.kyler.careersystem.Entities.Users;
@@ -60,6 +61,21 @@ public class Applicantcontroller {
         try {
             for (int i = 0; i < jsonArray.length(); i++) {
                 result.add(new Skills(jsonArray.getJSONObject(i)));
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        if(result.size()>0)
+            return result;
+        else
+            return null;
+    }
+
+    public ArrayList<Hobbies> getHobbies(JSONArray jsonArray){
+        ArrayList<Hobbies> result = new ArrayList<>();
+        try {
+            for (int i = 0; i < jsonArray.length(); i++) {
+                result.add(new Hobbies(jsonArray.getJSONObject(i)));
             }
         } catch (JSONException e) {
             e.printStackTrace();

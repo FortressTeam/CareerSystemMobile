@@ -18,4 +18,6 @@ public class UrlStatic {
     public static String URLSkillTypes=service+"api/skill_types.json";
     public static String URLSkills=service+"api/skills.json";
     public static String URLApplicantsHasSkills=service+"api/applicants_has_skills.json";
+    public static String URLApplicantsHasHobbies=service+"api/applicants_has_hobbies.json";
+
 }
