@@ -20,23 +20,17 @@ import java.net.URL;
  * Created by kyler on 21/03/2016.
  */
 public class GetJsonArray extends AsyncTask<String,Void,JSONArray> {
-    private Activity activity;
     private String key;
     private ProgressDialog pDialog;
 
-    public GetJsonArray(Activity activity,String key) {
-        this.activity = activity;
+    public GetJsonArray(ProgressDialog pDialog, String key) {
+        this.pDialog = pDialog;
         this.key = key;
     }
 
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-        pDialog = new ProgressDialog(activity);
-        pDialog.setMessage("Loading... ");
-        pDialog.setIndeterminate(false);
-        pDialog.setCancelable(false);
-        pDialog.show();
     }
 
     @Override

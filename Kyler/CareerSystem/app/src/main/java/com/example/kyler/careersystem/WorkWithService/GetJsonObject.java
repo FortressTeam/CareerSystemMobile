@@ -19,23 +19,17 @@ import java.net.URL;
  * Created by kyler on 21/03/2016.
  */
 public class GetJsonObject extends AsyncTask<String,Void,JSONObject> {
-    private Activity activity;
-    private String key;
     private ProgressDialog pDialog;
+    private String key;
 
-    public GetJsonObject(Activity activity,String key) {
-        this.activity = activity;
+    public GetJsonObject(ProgressDialog pDialog, String key) {
+        this.pDialog = pDialog;
         this.key = key;
     }
 
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-        pDialog = new ProgressDialog(activity);
-        pDialog.setMessage("Loading... ");
-        pDialog.setIndeterminate(false);
-        pDialog.setCancelable(false);
-        pDialog.show();
     }
 
     @Override

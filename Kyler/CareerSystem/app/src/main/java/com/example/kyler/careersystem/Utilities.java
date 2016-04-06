@@ -3,8 +3,8 @@ package com.example.kyler.careersystem;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.GravityCompat;
@@ -29,10 +29,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -238,7 +234,7 @@ public class Utilities {
         return result;
     }
 
-    public static void startActivity(Activity fromActivity,Class endActivity,int id){
+    public static void startActivity(Activity fromActivity, Class endActivity, int id){
         Intent intent = new Intent(fromActivity, endActivity);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         Bundle bundle = new Bundle();

@@ -328,6 +328,7 @@
     <string name="CancelAddPost">Cancel</string>
     <string name="Delete">Delete</string>
     <string name="End">End</string>
+    <string name="Login">Login</string>
     <string name="Save">Save</string>
     <string name="Start">Start</string>
     <string name="Submit">Submit</string>

@@ -2,6 +2,7 @@ package com.example.kyler.careersystem.HiringManager;
 
 import android.app.AlertDialog;
 import android.app.Fragment;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
@@ -46,6 +47,7 @@ public class AddPostFragment extends Fragment implements View.OnClickListener,Sp
     private int page=1;
     private boolean noMoreData = false;
     private int categoryID,hiringManagerID=1;
+    private ProgressDialog pDialog;
 
     private ArrayList<Categories> arrayListCategories=null;
 
@@ -69,9 +71,13 @@ public class AddPostFragment extends Fragment implements View.OnClickListener,Sp
         arrayListCategories = new ArrayList<>();
         ArrayList<String> arr = new ArrayList<>();
         arr.add("Category");
+        pDialog = new ProgressDialog(getActivity());
+        pDialog.setMessage("Loading...");
+        pDialog.setCancelable(false);
+        pDialog.show();
         try {
             do {
-                JSONArray jsonArrayCategories = new GetJsonArray(getActivity(), "categories").execute(UrlStatic.URLCategories + page).get();
+                JSONArray jsonArrayCategories = new GetJsonArray(pDialog, "categories").execute(UrlStatic.URLCategories + page).get();
                 if(jsonArrayCategories!=null){
                     for(int i=0;i<jsonArrayCategories.length();i++){
                         JSONObject jsonObjectCategories = jsonArrayCategories.getJSONObject(i);

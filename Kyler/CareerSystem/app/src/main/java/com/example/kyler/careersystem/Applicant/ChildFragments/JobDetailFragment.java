@@ -1,6 +1,7 @@
 package com.example.kyler.careersystem.Applicant.ChildFragments;
 
 import android.app.Fragment;
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
@@ -42,6 +43,7 @@ public class JobDetailFragment extends Fragment implements ObservableScrollViewC
     private Button btApply;
     private ImageView companyLogo;
     private FloatingActionButton jobDetailFloatactionbuttonFavorite;
+    private ProgressDialog pDialog;
 
     private JSONObject jsonSendData;
     private Handler mHandler;
@@ -77,12 +79,15 @@ public class JobDetailFragment extends Fragment implements ObservableScrollViewC
         jobDetailPostLocation = (TextView) rootView.findViewById(R.id.job_detail_post_location);
         jobDetailPostDate = (TextView) rootView.findViewById(R.id.job_detail_post_date);
         jobDetailPostContent = (TextView) rootView.findViewById(R.id.job_detail_post_content);
-
+        pDialog = new ProgressDialog(getActivity());
+        pDialog.setMessage("Loading... ");
+        pDialog.setCancelable(false);
+        pDialog.show();
         mHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
                 try {
-                    JSONObject jsonObject = new GetJsonObject(getActivity(),"post").execute(url).get();
+                    JSONObject jsonObject = new GetJsonObject(pDialog, "post").execute(url).get();
                     if(Utilities.checkConnect(jsonObject)) {
                         Posts post = new Posts(jsonObject);
                         jsonSendData = new JSONObject(jsonObject.getString("hiring_manager"));

@@ -1,6 +1,7 @@
 package com.example.kyler.careersystem.Applicant;
 
 import android.app.Fragment;
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -42,6 +43,7 @@ public class HomeFragment extends Fragment implements AbsListView.OnScrollListen
     private ArrayList<Posts> arrPost;
     private Handler mHandler;
     private ProgressBar progressBar;
+    private ProgressDialog pDialog;
 
     private PostController postController;
 
@@ -55,12 +57,16 @@ public class HomeFragment extends Fragment implements AbsListView.OnScrollListen
         mHandler = new Handler();
         arrPost = new ArrayList<>();
         jobListViewItems = new ArrayList<JobListViewItem>();
+        pDialog = new ProgressDialog(getActivity());
+        pDialog.setMessage("Loading...");
+        pDialog.setCancelable(false);
+        pDialog.show();
         mHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
                 JSONArray jsonArray = null;
                 try {
-                    jsonArray = new GetJsonArray(getActivity(), "posts").execute(UrlStatic.URLHomefragment + page).get();
+                    jsonArray = new GetJsonArray(pDialog, "posts").execute(UrlStatic.URLHomefragment + page).get();
                     if(Utilities.checkConnect(jsonArray)){
                         for (int i = 0; i < jsonArray.length(); i++) {
                             JSONObject jsonObject = jsonArray.getJSONObject(i);
@@ -141,7 +147,8 @@ public class HomeFragment extends Fragment implements AbsListView.OnScrollListen
 
         //Load more
         if(firstVisibleItem + visibleItemCount == totalItemCount && !nomoreData && !hasCallback){ //check if we've reached the bottom
-            mHandler.post(showMore);
+            progressBar.setVisibility(View.VISIBLE);
+            mHandler.postDelayed(showMore,200);
             hasCallback = true;
         }
     }
@@ -162,7 +169,7 @@ public class HomeFragment extends Fragment implements AbsListView.OnScrollListen
                                 arrPost.add(post);
                                 HiringManagers hiringManager = new HiringManagers(new JSONObject(jsonObject.getString("hiring_manager")));
                                 Categories category = new Categories(new JSONObject(jsonObject.getString("category")));
-                                jobListViewItems.add(postController.getJobListView(post,hiringManager,category));
+                                jobListViewItems.add(postController.getJobListView(post, hiringManager, category));
                                 jobListViewAdapterLoadInfinite.setJobListViewItems(jobListViewItems);
                             }
                         }else
@@ -175,6 +182,7 @@ public class HomeFragment extends Fragment implements AbsListView.OnScrollListen
                         e.printStackTrace();
                     }
                 }
+                boolean noMoreToShow = jobListViewAdapterLoadInfinite.showMore();
             }
             hasCallback = false;
         }

@@ -1,6 +1,7 @@
 package com.example.kyler.careersystem.Applicant;
 
 import android.app.Fragment;
+import android.app.ProgressDialog;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.os.Handler;
@@ -76,18 +77,23 @@ public class MyResumeFragment extends Fragment implements View.OnClickListener,O
     private Users user;
     private boolean hideButton=true;
     private Handler mHandler;
+    private ProgressDialog pDialog;
 
     public MyResumeFragment() {}
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mHandler = new Handler();
+        pDialog = new ProgressDialog(getActivity());
+        pDialog.setMessage("Loading... ");
+        pDialog.setCancelable(false);
+        pDialog.show();
         mHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
                 applicantcontroller = new Applicantcontroller();
                 try {
-                    jsData = new GetJsonObject(getActivity(), "applicant").execute(UrlStatic.URLApplicant + applicantID + ".json").get();
+                    jsData = new GetJsonObject(pDialog, "applicant").execute(UrlStatic.URLApplicant + applicantID + ".json").get();
                     if(Utilities.checkConnect(jsData)) {
                         applicant = applicantcontroller.getApplicant(jsData);
                         user = applicantcontroller.getUser(jsData.getJSONObject("user"));

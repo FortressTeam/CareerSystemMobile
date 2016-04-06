@@ -1,6 +1,7 @@
 package com.example.kyler.careersystem.Applicant.ChildFragments;
 
 import android.app.Fragment;
+import android.app.ProgressDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -22,6 +23,7 @@ import com.example.kyler.careersystem.WorkWithService.PostDataWithJson;
 import com.example.kyler.careersystem.R;
 import com.example.kyler.careersystem.UrlStatic;
 import com.example.kyler.careersystem.Utilities;
+import com.toptoche.searchablespinnerlibrary.SearchableSpinner;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -31,7 +33,8 @@ import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
 public class MyresumeSkillsFragment extends Fragment implements View.OnClickListener, AdapterView.OnItemSelectedListener{
-    private Spinner skillMajor,skillSkills;
+    private SearchableSpinner skillMajor,skillSkills;
+    private ArrayAdapter<String> adapterSkill;
     private ImageView skillRateStar1,skillRateStar2,skillRateStar3,skillRateStar4,skillRateStar5;
     private Button skillSave;
     private TextView skillRateTextView;
@@ -39,13 +42,14 @@ public class MyresumeSkillsFragment extends Fragment implements View.OnClickList
     private ArrayList<Skills> skills;
     private int applicantID = 4;
     private int skillLevel = 0;
+    private ProgressDialog pDialog;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.applicant_myresume_skills_fragment,container,false);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Skills");
-        skillMajor = (Spinner) rootView.findViewById(R.id.myresume_skill_major_spinner);
-        skillSkills = (Spinner) rootView.findViewById(R.id.myresume_skill_skill_spinner);
+        skillMajor = (SearchableSpinner) rootView.findViewById(R.id.myresume_skill_major_spinner);
+        skillSkills = (SearchableSpinner) rootView.findViewById(R.id.myresume_skill_skill_spinner);
         skillRateStar1 = (ImageView) rootView.findViewById(R.id.myresume_skill_ratestar1);
         skillRateStar2 = (ImageView) rootView.findViewById(R.id.myresume_skill_ratestar2);
         skillRateStar3 = (ImageView) rootView.findViewById(R.id.myresume_skill_ratestar3);
@@ -77,9 +81,13 @@ public class MyresumeSkillsFragment extends Fragment implements View.OnClickList
     }
 
     private void loadMajorSpinner(){
+        pDialog = new ProgressDialog(getActivity());
+        pDialog.setMessage("Loading...");
+        pDialog.setCancelable(false);
+        pDialog.show();
         JSONArray jsonArray;
         try {
-            jsonArray = new GetJsonArray(getActivity(),"skillTypes").execute(UrlStatic.URLSkillTypes).get();
+            jsonArray = new GetJsonArray(pDialog, "skillTypes").execute(UrlStatic.URLSkillTypes).get();
             majors = new ArrayList<>();
             ArrayList<String> arrMajor = new ArrayList<>();
             for(int i=0;i<jsonArray.length();i++){
@@ -98,18 +106,22 @@ public class MyresumeSkillsFragment extends Fragment implements View.OnClickList
     }
 
     private void loadSkillsSpinner(int id){
+        pDialog = new ProgressDialog(getActivity());
+        pDialog.setMessage("Loading...");
+        pDialog.setCancelable(false);
+        pDialog.show();
         JSONArray jsonArray;
         try {
-            jsonArray = new GetJsonArray(getActivity(),"skills").execute(UrlStatic.URLSkills+"?limit=1000&skill_type_id="+id).get();
+            jsonArray = new GetJsonArray(pDialog, "skills").execute(UrlStatic.URLSkills+"?limit=1000&skill_type_id="+id).get();
             skills = new ArrayList<>();
             ArrayList<String> arrSkills = new ArrayList<>();
             for(int i=0;i<jsonArray.length();i++){
                 skills.add(new Skills(jsonArray.getJSONObject(i)));
                 arrSkills.add(skills.get(i).getSkillName());
             }
-            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity().getApplicationContext(),R.layout.spinner_item,arrSkills);
-            adapter.notifyDataSetChanged();
-            skillSkills.setAdapter(adapter);
+            adapterSkill = new ArrayAdapter<String>(getActivity().getApplicationContext(),R.layout.spinner_item,arrSkills);
+            adapterSkill.notifyDataSetChanged();
+            skillSkills.setAdapter(adapterSkill);
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
