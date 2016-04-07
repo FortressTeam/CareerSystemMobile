@@ -10,19 +10,23 @@
         android:weightSum="1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/myresume_hobbie_icon_listviewitem"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/listviewitemicon"
+            android:layout_weight="0.1"
+            android:layout_width="20dp"
+            android:layout_height="20dp"/>
         <LinearLayout
+            android:paddingLeft="@dimen/magrin_card"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
-            android:layout_weight="0.9"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:background="@drawable/tagbackground"
-            android:elevation="2dp"
+            android:layout_weight="0.8  "
             android:layout_width="match_parent"
-            android:layout_height="30dp">
+            android:layout_height="37dp">
             <TextView
                 android:id="@+id/myresume_hobbie_name_listviewitem"
-                android:gravity="center"
+                android:gravity="center_vertical"
                 android:textStyle="bold"
                 android:textSize="@dimen/activity_title_small"
                 android:textColor="@color/Black"
@@ -32,7 +36,7 @@
         </LinearLayout>
         <ImageView
             android:layout_gravity="center|right"
-            android:id="@+id/myresumer_hobbie_delete_listviewitem"
+            android:id="@+id/myresume_hobbie_delete_listviewitem"
             android:src="@drawable/deleteicon"
             android:layout_weight="0.1"
             android:layout_width="25dp"

@@ -27,11 +27,13 @@ import java.util.concurrent.ExecutionException;
 public class HobbieListViewAdapter extends BaseAdapter {
     private Activity context;
     private ArrayList<HobbieListViewItem> hobbieListViewItems;
+    private boolean isDialogMode;
     private boolean hideButton;
 
-    public HobbieListViewAdapter(Activity context, ArrayList<HobbieListViewItem> hobbieListViewItems, boolean hideButton) {
+    public HobbieListViewAdapter(Activity context, ArrayList<HobbieListViewItem> hobbieListViewItems, boolean isDialogMode, boolean hideButton) {
         this.context = context;
         this.hobbieListViewItems = hobbieListViewItems;
+        this.isDialogMode = isDialogMode;
         this.hideButton = hideButton;
     }
 
@@ -57,7 +59,12 @@ public class HobbieListViewAdapter extends BaseAdapter {
             view = inflater.inflate(R.layout.applicant_myresume_hobbie_listviewitem,null);
         }
         TextView myresume_hobbie_name_listviewitem = (TextView) view.findViewById(R.id.myresume_hobbie_name_listviewitem);
-        ImageView myresume_hobbie_delete_listviewitem = (ImageView) view.findViewById(R.id.myresumer_hobbie_delete_listviewitem);
+        ImageView myresume_hobbie_delete_listviewitem = (ImageView) view.findViewById(R.id.myresume_hobbie_delete_listviewitem);
+        ImageView myresume_hobbie_icon_listviewitem = (ImageView) view.findViewById(R.id.myresume_hobbie_icon_listviewitem);
+        if(isDialogMode)
+            myresume_hobbie_icon_listviewitem.setVisibility(View.VISIBLE);
+        else
+            myresume_hobbie_icon_listviewitem.setVisibility(View.INVISIBLE);
         myresume_hobbie_name_listviewitem.setText(hobbieListViewItems.get(i).getHobbieName());
         if(hideButton)
             myresume_hobbie_delete_listviewitem.setVisibility(View.INVISIBLE);
@@ -75,7 +82,7 @@ public class HobbieListViewAdapter extends BaseAdapter {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 try {
-                                    JSONObject jsResult = new DeleteDataWithJson(context).execute(UrlStatic.URLApplicantsHasHobbies+"?applicant_id="+applicantID+"&hobbie_id="+hobbieID).get();
+                                    JSONObject jsResult = new DeleteDataWithJson(context).execute(UrlStatic.URLApplicantsHasHobbies+"?applicant_id="+applicantID+"&hobby_id="+hobbieID).get();
                                     if(jsResult.getString("message").equals("Deleted")){
                                         hobbieListViewItems.remove(listViewID);
                                         notifyDataSetChanged();

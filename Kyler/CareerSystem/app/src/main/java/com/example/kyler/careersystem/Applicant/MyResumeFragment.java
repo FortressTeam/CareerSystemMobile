@@ -1,5 +1,6 @@
 package com.example.kyler.careersystem.Applicant;
 
+import android.app.Dialog;
 import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.content.res.ColorStateList;
@@ -8,11 +9,18 @@ import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,22 +32,26 @@ import com.example.kyler.careersystem.Applicant.Customize.PersonalHistoryListVie
 import com.example.kyler.careersystem.Applicant.Customize.PersonalHistoryListViewItem;
 import com.example.kyler.careersystem.Applicant.Customize.SkillListViewAdapter;
 import com.example.kyler.careersystem.Applicant.Customize.SkillListViewItem;
-import com.example.kyler.careersystem.Controller.Applicantcontroller;
+import com.example.kyler.careersystem.Controller.MyresumeController;
 import com.example.kyler.careersystem.Entities.Applicants;
 import com.example.kyler.careersystem.Entities.ApplicantsHasSkills;
 import com.example.kyler.careersystem.Entities.Hobbies;
 import com.example.kyler.careersystem.Entities.PersonalHistory;
+import com.example.kyler.careersystem.Entities.SkillTypes;
 import com.example.kyler.careersystem.Entities.Skills;
 import com.example.kyler.careersystem.Entities.Users;
+import com.example.kyler.careersystem.WorkWithService.GetJsonArray;
 import com.example.kyler.careersystem.WorkWithService.GetJsonObject;
 import com.example.kyler.careersystem.R;
 import com.example.kyler.careersystem.UrlStatic;
 import com.example.kyler.careersystem.Utilities;
+import com.example.kyler.careersystem.WorkWithService.PostDataWithJson;
 import com.github.ksoichiro.android.observablescrollview.ObservableScrollView;
 import com.github.ksoichiro.android.observablescrollview.ObservableScrollViewCallbacks;
 import com.github.ksoichiro.android.observablescrollview.ScrollState;
 import com.squareup.picasso.Picasso;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -67,17 +79,19 @@ public class MyResumeFragment extends Fragment implements View.OnClickListener,O
 
     private ArrayList<PersonalHistory> arrayEducation,arrayExperience,arrayActivity,arrayAward,personalHistories;
     private ArrayList<ApplicantsHasSkills> applicantsHasSkills;
-    private ArrayList<Hobbies> hobbies;
-    private ArrayList<Skills> skills;
+    private ArrayList<Hobbies> hobbies,listhobbies;
+    private ArrayList<SkillTypes> listSkillTypes;
+    private ArrayList<Skills> skills,listskills;
     private JSONObject jsData;
     private int applicantID=4;
-    private Applicantcontroller applicantcontroller;
+    private MyresumeController myresumeController;
 
     private Applicants applicant;
     private Users user;
     private boolean hideButton=true;
     private Handler mHandler;
     private ProgressDialog pDialog;
+    private Dialog addHobbieDialog,addSkillDialog;
 
     public MyResumeFragment() {}
 
@@ -91,16 +105,21 @@ public class MyResumeFragment extends Fragment implements View.OnClickListener,O
         mHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                applicantcontroller = new Applicantcontroller();
+                myresumeController = new MyresumeController();
                 try {
                     jsData = new GetJsonObject(pDialog, "applicant").execute(UrlStatic.URLApplicant + applicantID + ".json").get();
+                    JSONArray jshobbies = new GetJsonArray(pDialog,"hobbies").execute(UrlStatic.URLHobbies).get();
+                    JSONArray jsSkillTypes = new GetJsonArray(pDialog, "skillTypes").execute(UrlStatic.URLSkillTypes).get();
                     if(Utilities.checkConnect(jsData)) {
-                        applicant = applicantcontroller.getApplicant(jsData);
-                        user = applicantcontroller.getUser(jsData.getJSONObject("user"));
-                        personalHistories = applicantcontroller.getPersonalHistories(jsData.getJSONArray("personal_history"));
-                        skills = applicantcontroller.getSkills(jsData.getJSONArray("skills"));
-//                        hobbies = applicantcontroller.getHobbies(jsData.getJSONArray("hobbies"));
-                        applicantsHasSkills = applicantcontroller.getApplicantsHasSkills(jsData.getJSONArray("skills"));
+                        applicant = myresumeController.getApplicant(jsData);
+                        user = myresumeController.getUser(jsData.getJSONObject("user"));
+                        personalHistories = myresumeController.getPersonalHistories(jsData.getJSONArray("personal_history"));
+                        listSkillTypes = myresumeController.getSkillTypes(jsSkillTypes);
+                        skills = myresumeController.getSkills(jsData.getJSONArray("skills"));
+//                        listskills = myresumeController.getSkills();
+                        hobbies = myresumeController.getHobbies(jsData.getJSONArray("hobbies"));
+                        listhobbies = myresumeController.getHobbies(jshobbies);
+                        applicantsHasSkills = myresumeController.getApplicantsHasSkills(jsData.getJSONArray("skills"));
                         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(applicant.getApplicantName());
                         loadInfo();
                     }
@@ -147,13 +166,146 @@ public class MyResumeFragment extends Fragment implements View.OnClickListener,O
         myresumeActivity = (TextView) rootView.findViewById(R.id.myresume_activity);
         myresumeAward = (TextView) rootView.findViewById(R.id.myresume_award);
         myresumeSkill = (TextView) rootView.findViewById(R.id.myresume_skill);
-
+        myresumeHobbie = (TextView) rootView.findViewById(R.id.myresume_hobbie);
         myresume_listview_education = (NonScrollListView) rootView.findViewById(R.id.myresume_listview_education);
         myresume_listview_experience = (NonScrollListView) rootView.findViewById(R.id.myresume_listview_experience);
         myresume_listview_activity = (NonScrollListView) rootView.findViewById(R.id.myresume_listview_activity);
         myresume_listview_award = (NonScrollListView) rootView.findViewById(R.id.myresume_listview_award);
         myresume_listview_skill = (NonScrollListView) rootView.findViewById(R.id.myresume_listview_skill);
+        myresume_listview_hobbie = (NonScrollListView) rootView.findViewById(R.id.myresume_listview_hobbie);
         return rootView;
+    }
+
+    private void createAddSkillDialog(ArrayList<SkillTypes> listSkillTypes){
+        addSkillDialog = new Dialog(getActivity());
+        addSkillDialog.setContentView(R.layout.applicant_myresume_skill_customdialog);
+        addSkillDialog.setTitle("Skills");
+        skillListViewItemsAddSkill = new ArrayList<>();
+        for(int i=0;i<skills.size();i++){
+            skillListViewItemsAddSkill.add(new SkillListViewItem(applicantID,skills.get(i).getID(),skills.get(i).getSkillName(),1));
+        }
+        adapterAddSkill = new SkillListViewAdapter(getActivity(),skillListViewItemsAddSkill,false,true);
+        Spinner addSkillMajorSpinner = (Spinner) addSkillDialog.findViewById(R.id.dialog_myresume_skill_major_spinner);
+        addSkillSearch = (EditText) addSkillDialog.findViewById(R.id.dialog_myresume_skill_search);
+        addSkillListView = (ListView) addSkillDialog.findViewById(R.id.dialog_myresume_skill_listview);
+        LinearLayout votePlace = (LinearLayout) addSkillDialog.findViewById(R.id.dialog_myresume_skill_rateplace);
+        ImageView star1 = (ImageView) addSkillDialog.findViewById(R.id.dialog_myresume_skill_ratestar1);
+        ImageView star2 = (ImageView) addSkillDialog.findViewById(R.id.dialog_myresume_skill_ratestar2);
+        ImageView star3 = (ImageView) addSkillDialog.findViewById(R.id.dialog_myresume_skill_ratestar3);
+        ImageView star4 = (ImageView) addSkillDialog.findViewById(R.id.dialog_myresume_skill_ratestar4);
+        ImageView star5 = (ImageView) addSkillDialog.findViewById(R.id.dialog_myresume_skill_ratestar5);
+        View.OnClickListener rate = new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                switch (view.getId()){
+                    case R.id.dialog_myresume_skill_ratestar1:
+                        break;
+                    case R.id.dialog_myresume_skill_ratestar2:
+                        break;
+                    case R.id.dialog_myresume_skill_ratestar3:
+                        break;
+                    case R.id.dialog_myresume_skill_ratestar4:
+                        break;
+                    case R.id.dialog_myresume_skill_ratestar5:
+                        break;
+                    default:
+                        break;
+                }
+            }
+        };
+        Button addSkillCancel = (Button) addSkillDialog.findViewById(R.id.dialog_myresume_skill_cancel);
+
+        addSkillListView.setAdapter(adapterAddSkill);
+        addSkillCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                addSkillDialog.dismiss();
+            }
+        });
+
+    }
+
+    private ArrayList<SkillListViewItem> skillListViewItemsAddSkill,skillListViewItemsAddSkillSearch;
+    private SkillListViewAdapter adapterAddSkill;
+    private EditText addSkillSearch;
+    private ListView addSkillListView;
+
+
+    private void createAddHobbieDialog(ArrayList<Hobbies> hobbies){
+        addHobbieDialog = new Dialog(getActivity());
+        addHobbieDialog.setContentView(R.layout.applicant_myresume_hobbie_customdialogadd);
+        addHobbieDialog.setTitle("Hobbies");
+        hobbieListViewItemsAddHobbie = new ArrayList<>();
+        for(int i=0;i<hobbies.size();i++){
+            hobbieListViewItemsAddHobbie.add(new HobbieListViewItem(applicantID,hobbies.get(i).getID(),hobbies.get(i).getHobbyName()));
+        }
+        adapterAddHobbie = new HobbieListViewAdapter(getActivity(),hobbieListViewItemsAddHobbie,false,true);
+        addHobbieSearch = (EditText) addHobbieDialog.findViewById(R.id.dialog_myresume_hobbie_search);
+        addHobbieListView = (ListView) addHobbieDialog.findViewById(R.id.dialog_myresume_hobbie_listview);
+        addHobbieListView.setAdapter(adapterAddHobbie);
+        Button addHobbieCancel = (Button) addHobbieDialog.findViewById(R.id.dialog_myresume_hobbie_cancel);
+        addHobbieCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                addHobbieDialog.dismiss();
+            }
+        });
+        addHobbieListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                if(addHobbieSearch.getText().toString().equals(""))
+                    doSaveAddHobbie(hobbieListViewItemsAddHobbie.get(i));
+                else
+                    doSaveAddHobbie(hobbieListViewItemsAddHobbieSearch.get(i));
+                myresume_listview_hobbie.setAdapter(hobbieListViewAdapter);
+            }
+        });
+        addHobbieSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if(!charSequence.toString().equals("")){
+                    hobbieListViewItemsAddHobbieSearch = resultSearch(charSequence.toString());
+                    adapterAddHobbie = new HobbieListViewAdapter(getActivity(),hobbieListViewItemsAddHobbieSearch,false,true);
+                    adapterAddHobbie.notifyDataSetChanged();
+                }else{
+                    adapterAddHobbie = new HobbieListViewAdapter(getActivity(),hobbieListViewItemsAddHobbie,false,true);
+                    adapterAddHobbie.notifyDataSetChanged();
+                }
+                addHobbieListView.setAdapter(adapterAddHobbie);
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+    }
+
+    private EditText addHobbieSearch;
+    private HobbieListViewAdapter adapterAddHobbie;
+    private ArrayList<HobbieListViewItem> hobbieListViewItemsAddHobbie,hobbieListViewItemsAddHobbieSearch;
+    private ListView addHobbieListView;
+    private ArrayList<HobbieListViewItem> resultSearch(String input){
+        ArrayList<HobbieListViewItem> resultSearch = new ArrayList<>();
+        if(!input.equals("")){
+            for(int i=0;i<listhobbies.size();i++){
+                String hobbyName = listhobbies.get(i).getHobbyName();
+                String inputSearch[] = hobbyName.split(" ");
+                for(int j=0;j<inputSearch.length;j++) {
+                    inputSearch[j] = inputSearch[j].length() >= input.length() ? inputSearch[j].substring(0, input.length()) : "";
+                    if (inputSearch[j].equalsIgnoreCase(input)) {
+                        resultSearch.add(new HobbieListViewItem(applicantID, listhobbies.get(i).getID(), hobbyName));
+                        break;
+                    }
+                }
+            }
+        }
+        return resultSearch;
     }
 
     private ArrayList<PersonalHistory> getListPersonalHistory(ArrayList<PersonalHistory> personalHistories,int condition){
@@ -196,14 +348,22 @@ public class MyResumeFragment extends Fragment implements View.OnClickListener,O
                 int skillLevel = applicantsHasSkills.get(i).getSkillLevel();
                 skillListViewItems.add(new SkillListViewItem(applicantID,skillID,skillName,skillLevel));
             }
-            skillListViewAdapter = new SkillListViewAdapter(getActivity(),skillListViewItems,flat);
+            skillListViewAdapter = new SkillListViewAdapter(getActivity(),skillListViewItems,false,flat);
             myresume_listview_skill.setAdapter(skillListViewAdapter);
-        }
-        else{
+        } else{
             myresumeSkill.setVisibility(View.VISIBLE);
         }
     }
 
+    private void reloadApplicantSkills(boolean flat){
+        skillListViewAdapter = new SkillListViewAdapter(getActivity(),skillListViewItems,false,flat);
+        myresume_listview_skill.setAdapter(skillListViewAdapter);
+    }
+
+    private void reloadApplicantHobbies(boolean flat){
+        hobbieListViewAdapter = new HobbieListViewAdapter(getActivity(),hobbieListViewItems,true,flat);
+        myresume_listview_hobbie.setAdapter(hobbieListViewAdapter);
+    }
     private void loadApplicantHobbies(boolean flat){
         if(hobbies!=null){
             myresumeHobbie.setVisibility(View.GONE);
@@ -213,7 +373,7 @@ public class MyResumeFragment extends Fragment implements View.OnClickListener,O
                 String hobbieName = hobbies.get(i).getHobbyName();
                 hobbieListViewItems.add(new HobbieListViewItem(applicantID,hobbieID,hobbieName));
             }
-            hobbieListViewAdapter = new HobbieListViewAdapter(getActivity(),hobbieListViewItems,flat);
+            hobbieListViewAdapter = new HobbieListViewAdapter(getActivity(),hobbieListViewItems,true,flat);
             myresume_listview_hobbie.setAdapter(hobbieListViewAdapter);
         }
     }
@@ -239,7 +399,7 @@ public class MyResumeFragment extends Fragment implements View.OnClickListener,O
         arrayAward = getListPersonalHistory(personalHistories,4);
         loadAllPersonalHistory();
         loadApplicantSkills(hideButton);
-//        loadApplicantHobbies(hideButton);
+        loadApplicantHobbies(hideButton);
         myresumeEditProfile.setOnClickListener(this);
         myresumeEditProfile.setOnClickListener(this);
         myresumeEditContact.setOnClickListener(this);
@@ -252,6 +412,7 @@ public class MyResumeFragment extends Fragment implements View.OnClickListener,O
         myresumeAddHobbies.setOnClickListener(this);
         myresumeEditFutureGoals.setOnClickListener(this);
         setVisibleButton(hideButton);
+        createAddHobbieDialog(listhobbies);
         mHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -341,8 +502,8 @@ public class MyResumeFragment extends Fragment implements View.OnClickListener,O
                     },400);
                     hideButton=!hideButton;
                 }
-                loadApplicantSkills(hideButton);
-//                loadApplicantHobbies(hideButton);
+                reloadApplicantSkills(hideButton);
+                reloadApplicantHobbies(hideButton);
                 loadAllPersonalHistory();
                 setVisibleButton(hideButton);
                 break;
@@ -390,15 +551,53 @@ public class MyResumeFragment extends Fragment implements View.OnClickListener,O
                 Utilities.startFragWith(getActivity(),ChildApplicantActivity.class,"myresumeaddskill","");
                 break;
             case R.id.myresume_addhobbie:
-
+                addHobbieDialog.show();
                 break;
             case R.id.myresume_editfuturegoal:
                 jsSendData.remove("user");
                 jsSendData.remove("personal_history");
                 Utilities.startFragWith(getActivity(),ChildApplicantActivity.class,"myresumeeditfuturegoal",jsSendData.toString());
                 break;
+            case R.id.dialog_myresume_hobbie_save:
+
+                break;
             default :
                 break;
+        }
+    }
+
+    private void doSaveAddHobbie(HobbieListViewItem hobbieListViewItem){
+        JSONObject jsSend = new JSONObject();
+        boolean check=true;
+        for(int i=0;i<hobbieListViewItems.size();i++){
+            if(hobbieListViewItems.get(i).getHobbieID() == hobbieListViewItem.getHobbieID()) {
+                check = false;
+                return;
+            }
+        }
+        if(check) {
+            try {
+                jsSend.put("applicant_id", applicantID);
+                jsSend.put("hobby_id", hobbieListViewItem.getHobbieID());
+                JSONObject result = new PostDataWithJson(jsSend, getActivity()).execute(UrlStatic.URLApplicantsHasHobbies).get();
+                if (Utilities.isCreateUpdateSuccess(result)) {
+                    addHobbieDialog.dismiss();
+                    hobbieListViewItems.add(hobbieListViewItem);
+                    hobbieListViewAdapter = new HobbieListViewAdapter(getActivity(), hobbieListViewItems, true, hideButton);
+                    hobbieListViewAdapter.notifyDataSetChanged();
+                    Toast.makeText(getActivity().getApplicationContext(), "Add Success", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getActivity().getApplicationContext(), "Something went wrong!", Toast.LENGTH_SHORT).show();
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
+        }else{
+            Toast.makeText(getActivity().getApplicationContext(), "You choosed it already", Toast.LENGTH_SHORT).show();
         }
     }
 }

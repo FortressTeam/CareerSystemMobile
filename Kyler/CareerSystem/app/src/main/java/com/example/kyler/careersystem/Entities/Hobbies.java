@@ -9,7 +9,6 @@ import org.json.JSONObject;
 public class Hobbies {
     private int ID;
     private String hobbyName;
-    private String hobbyDescription;
 
     public Hobbies(JSONObject jsonObject){
         try {
@@ -19,18 +18,14 @@ public class Hobbies {
             if (jsonObject.has("hobby_name")) {
                 this.hobbyName = jsonObject.getString("hobby_name");
             }
-            if (jsonObject.has("hobby_description")) {
-                this.hobbyDescription = jsonObject.getString("hobby_description");
-            }
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
 
-    public Hobbies(int ID, String hobbyName, String hobbyDescription) {
+    public Hobbies(int ID, String hobbyName) {
         this.ID = ID;
         this.hobbyName = hobbyName;
-        this.hobbyDescription = hobbyDescription;
     }
 
     public int getID() {
@@ -47,13 +42,5 @@ public class Hobbies {
 
     public void setHobbyName(String hobbyName) {
         this.hobbyName = hobbyName;
-    }
-
-    public String getHobbyDescription() {
-        return hobbyDescription;
-    }
-
-    public void setHobbyDescription(String hobbyDescription) {
-        this.hobbyDescription = hobbyDescription;
     }
 }

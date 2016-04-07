@@ -3,15 +3,36 @@
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="match_parent">
-    <com.toptoche.searchablespinnerlibrary.SearchableSpinner
-        android:id="@+id/dialog_myresume_hobbie_spinner"
+    <LinearLayout
+        android:weightSum="1"
+        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content">
+        <ImageView
+            android:layout_gravity="center"
+            android:src="@drawable/searchicon"
+            android:layout_weight="0.1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"/>
+        <EditText
+            android:id="@+id/dialog_myresume_hobbie_search"
+            android:padding="@dimen/magrin_card"
+            android:textSize="@dimen/activity_content_big"
+            android:textColor="@color/Black"
+            android:layout_weight="0.9"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+    <ListView
+        android:id="@+id/dialog_myresume_hobbie_listview"
+        android:layout_width="match_parent"
+        android:layout_height="250dp">
+    </ListView>
 
     <Button
-        android:id="@+id/dialog_myresume_hobbie_save"
+        android:id="@+id/dialog_myresume_hobbie_cancel"
         android:layout_marginTop="10dp"
-        android:text="@string/Save"
+        android:text="@string/Cancel"
         android:layout_gravity="center_horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>

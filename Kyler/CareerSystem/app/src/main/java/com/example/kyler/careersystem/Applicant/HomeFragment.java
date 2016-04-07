@@ -107,8 +107,6 @@ public class HomeFragment extends Fragment implements AbsListView.OnScrollListen
         swipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                //refresh code here:
-
                 Toast.makeText(getActivity().getApplicationContext(), "Hello", Toast.LENGTH_SHORT).show();
                 swipeLayout.setRefreshing(false);
             }

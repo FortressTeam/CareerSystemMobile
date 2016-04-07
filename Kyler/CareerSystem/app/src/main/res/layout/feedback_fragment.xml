@@ -182,7 +182,7 @@
             android:layout_height="50dp"/>
         <Button
             android:textSize="@dimen/activity_title_medium"
-            android:text="@string/CancelAddPost"
+            android:text="@string/Cancel"
             android:id="@+id/feedback_cancel_button"
             android:layout_width="0dp"
             android:layout_weight="0.5"

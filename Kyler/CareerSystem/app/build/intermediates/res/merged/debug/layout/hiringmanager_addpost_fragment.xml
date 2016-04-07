@@ -169,7 +169,7 @@
             android:layout_height="match_parent"/>
         <Button
             android:textSize="@dimen/activity_title_medium"
-            android:text="@string/CancelAddPost"
+            android:text="@string/Cancel"
             android:id="@+id/hiringmanager_addpost_cancel"
             android:layout_width="0dp"
             android:layout_weight="0.5"

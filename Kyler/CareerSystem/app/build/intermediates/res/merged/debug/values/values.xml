@@ -325,7 +325,7 @@
     <integer name="status_bar_notification_info_maxnum">999</integer>
     <string name="AddPost">Add New</string>
     <string name="Apply">Apply</string>
-    <string name="CancelAddPost">Cancel</string>
+    <string name="Cancel">Cancel</string>
     <string name="Delete">Delete</string>
     <string name="End">End</string>
     <string name="Login">Login</string>

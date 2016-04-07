@@ -44,7 +44,7 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent">
         <ImageView
-            android:id="@+id/myresumer_skill_delete_listviewitem"
+            android:id="@+id/myresume_skill_delete_listviewitem"
             android:src="@drawable/deleteicon"
             android:layout_weight="0.1"
             android:layout_width="25dp"

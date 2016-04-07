@@ -30,16 +30,13 @@ public class SkillListViewAdapter extends BaseAdapter {
 
     private Activity context;
     private ArrayList<SkillListViewItem> skillListViewItemItems;
+    private boolean isDialogMode;
     private boolean hideButton;
 
-    public SkillListViewAdapter(Activity context, ArrayList<SkillListViewItem> skillListViewItemItems) {
+    public SkillListViewAdapter(Activity context, ArrayList<SkillListViewItem> skillListViewItemItems, boolean isDialogMode, boolean hideButton) {
         this.context = context;
         this.skillListViewItemItems = skillListViewItemItems;
-    }
-
-    public SkillListViewAdapter(Activity context, ArrayList<SkillListViewItem> skillListViewItemItems, boolean hideButton) {
-        this.context = context;
-        this.skillListViewItemItems = skillListViewItemItems;
+        this.isDialogMode = isDialogMode;
         this.hideButton = hideButton;
     }
 
@@ -66,12 +63,16 @@ public class SkillListViewAdapter extends BaseAdapter {
         }
         TextView myresume_skill_name_listviewitem = (TextView) view.findViewById(R.id.myresume_skill_name_listviewitem);
         TextView myresume_skill_level_listviewitem = (TextView) view.findViewById(R.id.myresume_skill_level_listviewitem);
-        ImageView myresume_skill_delete_listviewitem = (ImageView) view.findViewById(R.id.myresumer_skill_delete_listviewitem);
+        ImageView myresume_skill_delete_listviewitem = (ImageView) view.findViewById(R.id.myresume_skill_delete_listviewitem);
         myresume_skill_name_listviewitem.setText(skillListViewItemItems.get(i).getSkillName());
         float weight = (float) skillListViewItemItems.get(i).getSkillLevel()/5;
         LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) myresume_skill_level_listviewitem.getLayoutParams();
         params.weight = weight;
         myresume_skill_level_listviewitem.setLayoutParams(params);
+        if(isDialogMode)
+            myresume_skill_level_listviewitem.setVisibility(View.GONE);
+        else
+            myresume_skill_level_listviewitem.setVisibility(View.VISIBLE);
         if(hideButton)
             myresume_skill_delete_listviewitem.setVisibility(View.INVISIBLE);
         else
