@@ -10,7 +10,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.kyler.careersystem.Applicant.ChildApplicantActivity;
+import com.example.kyler.careersystem.Entities.PersonalHistory;
 import com.example.kyler.careersystem.R;
+import com.example.kyler.careersystem.Utilities;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -18,16 +24,11 @@ import java.util.ArrayList;
  * Created by kyler on 28/03/2016.
  */
 public class PersonalHistoryListViewAdapter extends BaseAdapter {
-    private Context context;
-    private ArrayList<PersonalHistoryListViewItem> personalHistoryListViewItems;
+    private Activity context;
+    private ArrayList<PersonalHistory> personalHistoryListViewItems;
     private boolean hideButton;
 
-    public PersonalHistoryListViewAdapter(Context context, ArrayList<PersonalHistoryListViewItem> personalHistoryListViewItems) {
-        this.context = context;
-        this.personalHistoryListViewItems = personalHistoryListViewItems;
-    }
-
-    public PersonalHistoryListViewAdapter(Context context, ArrayList<PersonalHistoryListViewItem> personalHistoryListViewItems, boolean hideButton) {
+    public PersonalHistoryListViewAdapter(Activity context, ArrayList<PersonalHistory> personalHistoryListViewItems, boolean hideButton) {
         this.context = context;
         this.personalHistoryListViewItems = personalHistoryListViewItems;
         this.hideButton = hideButton;
@@ -58,9 +59,16 @@ public class PersonalHistoryListViewAdapter extends BaseAdapter {
         TextView myresume_history_detail = (TextView) view.findViewById(R.id.myresume_history_detail_listviewitem);
         TextView myresume_history_time = (TextView) view.findViewById(R.id.myresume_history_time_listviewitem);
         ImageView myresume_history_edit = (ImageView) view.findViewById(R.id.myresumer_history_edit_listviewitem);
-        myresume_history_title.setText(personalHistoryListViewItems.get(i).getHistoryTitle());
-        myresume_history_detail.setText(personalHistoryListViewItems.get(i).getHistoryDetail());
-        myresume_history_time.setText("From " + personalHistoryListViewItems.get(i).getHistoryStart().toString() + " to " + personalHistoryListViewItems.get(i).getHistoryEnd().toString());
+        myresume_history_title.setText(personalHistoryListViewItems.get(i).getPersonalHistoryTitle());
+        myresume_history_detail.setText(personalHistoryListViewItems.get(i).getPersonalHistoryDetail());
+        if(personalHistoryListViewItems.get(i).getPersonalHistoryEnd()!=null) {
+            String startEvent = Utilities.convertTimeShorten(personalHistoryListViewItems.get(i).getPersonalHistoryStart().toString());
+            String EndEvent = Utilities.convertTimeShorten(personalHistoryListViewItems.get(i).getPersonalHistoryEnd().toString());
+            myresume_history_time.setText(startEvent + " - " + EndEvent);
+        }else{
+            String startEvent = Utilities.convertTimeShorten(personalHistoryListViewItems.get(i).getPersonalHistoryStart().toString());
+            myresume_history_time.setText(startEvent + " - Now");
+        }
         if(hideButton)
             myresume_history_edit.setVisibility(View.INVISIBLE);
         else
@@ -69,7 +77,22 @@ public class PersonalHistoryListViewAdapter extends BaseAdapter {
             @Override
             public void onClick(View view) {
                 //do edit thing in here;
-                Toast.makeText(context.getApplicationContext(),personalHistoryListViewItems.get(i).getHistoryTitle()+"\n"+personalHistoryListViewItems.get(i).getHistoryStart(),Toast.LENGTH_SHORT).show();
+                JSONObject sendData = new JSONObject();
+                JSONObject jsPersonalHistory = new JSONObject();
+                try {
+                    jsPersonalHistory.put("personal_history_title", personalHistoryListViewItems.get(i).getPersonalHistoryTitle());
+                    jsPersonalHistory.put("personal_history_detail",personalHistoryListViewItems.get(i).getPersonalHistoryDetail());
+                    jsPersonalHistory.put("personal_history_start", Utilities.convertTimePost(personalHistoryListViewItems.get(i).getPersonalHistoryStart()));
+                    jsPersonalHistory.put("personal_history_end", Utilities.convertTimePost(personalHistoryListViewItems.get(i).getPersonalHistoryEnd()));
+                    jsPersonalHistory.put("personal_history_type_id",personalHistoryListViewItems.get(i).getPersonalHistoryTypeID());
+                    jsPersonalHistory.put("applicant_id",personalHistoryListViewItems.get(i).getApplicantID());
+                    sendData.put("personalHistoryID",personalHistoryListViewItems.get(i).getPersonalHistoryTypeID());
+                    sendData.put("personalHistoryData",jsPersonalHistory);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                Utilities.startFragWith(context,ChildApplicantActivity.class,"myresumeaddeducation",sendData.toString());
+                Toast.makeText(context.getApplicationContext(),personalHistoryListViewItems.get(i).getPersonalHistoryTitle()+"\n"+personalHistoryListViewItems.get(i).getPersonalHistoryStart(),Toast.LENGTH_SHORT).show();
             }
         });
         return view;

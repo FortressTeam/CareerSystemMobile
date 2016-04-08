@@ -15,22 +15,40 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.kyler.careersystem.ApplicantMainActivity;
 import com.example.kyler.careersystem.R;
+import com.example.kyler.careersystem.UrlStatic;
 import com.example.kyler.careersystem.Utilities;
+import com.example.kyler.careersystem.WorkWithService.PostDataWithJson;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.Calendar;
+import java.util.concurrent.ExecutionException;
 
 public class MyresumeAwardFragment extends Fragment implements View.OnClickListener {
     private Calendar calendar = Calendar.getInstance();
-    private EditText awardName,awardCompetition;
+    private EditText awardName,awardDescription;
     private Button awardStart,awardEnd,awardSave;
     private TextView awardStartTextView,awardEndTextView;
+    private int applicantID=4;
+    private int historyTypeID;
+    private JSONObject jsonData;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.applicant_myresume_award_fragment,container,false);
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Add Award");
+        Bundle bundle = getArguments();
+        try {
+            jsonData = new JSONObject(bundle.getString("sendData"));
+            historyTypeID = jsonData.getInt("personalHistoryID");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         awardName = (EditText) rootView.findViewById(R.id.myresume_award_name);
-        awardCompetition = (EditText) rootView.findViewById(R.id.myresume_award_description);
+        awardDescription = (EditText) rootView.findViewById(R.id.myresume_award_description);
         awardStart = (Button) rootView.findViewById(R.id.myresume_award_start_button);
         awardEnd = (Button) rootView.findViewById(R.id.myresume_award_end_button);
         awardSave = (Button) rootView.findViewById(R.id.myresume_award_save);
@@ -74,7 +92,7 @@ public class MyresumeAwardFragment extends Fragment implements View.OnClickListe
     };
 
     private boolean isValid(){
-        if(awardName.getText().toString().trim().equals("")||awardCompetition.getText().toString().trim().equals("")||awardStartTextView.getText().toString().trim().equals("")||awardEndTextView.getText().toString().trim().equals("")){
+        if(awardName.getText().toString().trim().equals("")||awardDescription.getText().toString().trim().equals("")||awardStartTextView.getText().toString().trim().equals("")||awardEndTextView.getText().toString().trim().equals("")){
             new AlertDialog.Builder(getActivity()).setMessage("You missed something").setPositiveButton("OK",null).show();
             return false;
         }
@@ -92,10 +110,34 @@ public class MyresumeAwardFragment extends Fragment implements View.OnClickListe
                 new DatePickerDialog(getActivity(),startListener,calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH),calendar.get(Calendar.DAY_OF_MONTH)).show();
                 break;
             case R.id.myresume_award_save:
-                if(isValid()){
-                    Toast.makeText(getActivity().getApplicationContext(),"Fine!",Toast.LENGTH_SHORT).show();
-                }
+                if(isValid())
+                    doSave();
                 break;
+        }
+    }
+
+    private void doSave(){
+        JSONObject sendData = new JSONObject();
+        try {
+            sendData.put("personal_history_title",awardName.getText());
+            sendData.put("personal_history_detail",awardDescription.getText());
+            sendData.put("personal_history_start",Utilities.convertTimePost(awardStartTextView.getText().toString()));
+            sendData.put("personal_history_end",Utilities.convertTimePost(awardEndTextView.getText().toString()));
+            sendData.put("personal_history_type_id",historyTypeID);
+            sendData.put("applicant_id",applicantID);
+            JSONObject jsResult = new PostDataWithJson(sendData,getActivity()).execute(UrlStatic.URLPersonalHistory).get();
+            if(Utilities.isCreateUpdateSuccess(jsResult)){
+                Utilities.startActivity(getActivity(), ApplicantMainActivity.class,2);
+                Toast.makeText(getActivity().getApplicationContext(),"success",Toast.LENGTH_SHORT).show();
+            }else{
+                Toast.makeText(getActivity().getApplicationContext(),"Something went wrong!",Toast.LENGTH_SHORT).show();
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
         }
     }
 }

@@ -26,11 +26,6 @@
             android:allowClearUserData="true"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
         </activity>
         <activity
             android:name=".Applicant.ChildApplicantActivity"
@@ -50,9 +45,12 @@
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/app_name"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
-        <activity android:name=".Applicant.ChildFragments.MyresumeHobbieFragment">
-        </activity>
-        <activity android:name=".HiringManager.HomeFragment">
+        <activity android:name=".Applicant.ApplicantData">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
         </activity>
     </application>
 

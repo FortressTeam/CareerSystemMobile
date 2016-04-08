@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
@@ -32,35 +32,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
         </android.support.design.widget.TextInputLayout>
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                android:layout_gravity="center"
-                android:textColor="@color/grey"
-                android:text="Degree"
-                android:textStyle="bold"
-                android:textSize="@dimen/activity_content_medium"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-            <Spinner
-                android:layout_marginLeft="10dp"
-                android:scrollbars="none"
-                android:id="@+id/myresume_education_degree_spinner"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-            </Spinner>
-        </LinearLayout>
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <EditText
                 android:singleLine="true"
                 android:textSize="@dimen/activity_content_medium"
-                android:id="@+id/myresume_education_major"
+                android:id="@+id/myresume_education_description"
                 android:textColorHint="#727272"
-                android:hint="Major"
+                android:hint="Description"
+                android:inputType="textMultiLine"
+                android:minLines="5"
+                android:gravity="top"
+                android:maxLength="255"
                 android:layout_marginBottom="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
@@ -99,11 +83,32 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
         </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:weightSum="1"
+        android:layout_alignParentBottom="true"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
         <Button
+            android:layout_marginRight="@dimen/padding_card"
             android:id="@+id/myresume_education_save"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="0.3"
             android:layout_gravity="center"
             android:text="@string/Save"
             android:layout_height="wrap_content"/>
+
+        <Button
+            android:visibility="invisible"
+            android:layout_marginLeft="@dimen/padding_card"
+            android:layout_weight="0.3"
+            android:id="@+id/myresume_education_delete"
+            android:layout_width="0dp"
+            android:layout_gravity="center"
+            android:text="@string/Delete"
+            android:layout_height="wrap_content"/>
     </LinearLayout>
-</LinearLayout>
+</RelativeLayout>

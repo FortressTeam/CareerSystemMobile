@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
@@ -45,7 +45,8 @@
                 android:hint="Description"
                 android:inputType="textMultiLine"
                 android:gravity="top|left"
-                android:minLines="3"
+                android:minLines="5"
+                android:maxLength="255"
                 android:layout_marginBottom="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
@@ -85,11 +86,16 @@
                 android:layout_height="wrap_content"/>
         </LinearLayout>
 
+    </LinearLayout>
+    <LinearLayout
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:layout_height="wrap_content">
         <Button
             android:id="@+id/myresume_activity_save"
             android:layout_width="wrap_content"
-            android:layout_gravity="center"
             android:text="@string/Save"
             android:layout_height="wrap_content"/>
     </LinearLayout>
-</LinearLayout>
+</RelativeLayout>

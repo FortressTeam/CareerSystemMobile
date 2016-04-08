@@ -35,8 +35,12 @@ public class PersonalHistory {
                 this.personalHistoryStart = new SimpleDateFormat("d - LLL - yyyy").format(date);
             }
             if (jsonObject.has("personal_history_end")) {
-                Date date = new SimpleDateFormat("yyyy-MM-dd").parse(jsonObject.getString("personal_history_end"));
-                this.personalHistoryEnd = new SimpleDateFormat("d - LLL - yyyy").format(date);
+                if(jsonObject.getString("personal_history_end").equals("null"))
+                    this.personalHistoryEnd = null;
+                else {
+                    Date date = new SimpleDateFormat("yyyy-MM-dd").parse(jsonObject.getString("personal_history_end"));
+                    this.personalHistoryEnd = new SimpleDateFormat("d - LLL - yyyy").format(date);
+                }
             }
             if (jsonObject.has("personal_history_type_id")) {
                 this.personalHistoryTypeID = jsonObject.getInt("personal_history_type_id");

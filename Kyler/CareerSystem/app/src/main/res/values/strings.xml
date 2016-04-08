@@ -15,7 +15,7 @@
     <string name="Start">Start</string>
     <string name="End">End</string>
     <string name="Login">Login</string>
-
+    <string name="notConnection">Try Again</string>
 
     <string name="facebook_app_id">238547153159730</string>
 

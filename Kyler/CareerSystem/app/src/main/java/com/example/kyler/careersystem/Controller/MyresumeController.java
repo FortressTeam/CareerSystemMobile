@@ -3,7 +3,9 @@ package com.example.kyler.careersystem.Controller;
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -120,73 +122,4 @@ public class MyresumeController {
         else
             return null;
     }
-
-//    public void createDialogAddSkill(Dialog dialog, AddSkillObject addSkillObject, ListView myresume_listview_skill,  ArrayList<Skills> skills){
-//        dialog.setContentView(R.layout.applicant_myresume_skill_customdialog);
-//        addSkillObject.dialogAddSkillMajor = (Spinner) dialog.findViewById(R.id.dialog_myresume_skill_major_spinner);
-//        addSkillObject.dialogAddSkillSearch = (EditText) dialog.findViewById(R.id.dialog_myresume_skill_search);
-//        addSkillObject.dialogAddSkillSkills = (ListView) dialog.findViewById(R.id.dialog_myresume_skill_listview);
-//        addSkillObject.dialogRatePlace = (LinearLayout) dialog.findViewById(R.id.dialog_myresume_skill_rateplace);
-//        addSkillObject.dialogRateStar1 = (ImageView) dialog.findViewById(R.id.dialog_myresume_skill_ratestar1);
-//        addSkillObject.dialogRateStar2 = (ImageView) dialog.findViewById(R.id.dialog_myresume_skill_ratestar2);
-//        addSkillObject.dialogRateStar3 = (ImageView) dialog.findViewById(R.id.dialog_myresume_skill_ratestar3);
-//        addSkillObject.dialogRateStar4 = (ImageView) dialog.findViewById(R.id.dialog_myresume_skill_ratestar4);
-//        addSkillObject.dialogRateStar5 = (ImageView) dialog.findViewById(R.id.dialog_myresume_skill_ratestar5);
-//        addSkillObject.dialogRateText = (TextView) dialog.findViewById(R.id.dialog_myresume_skill_rate_textview);
-//        addSkillObject.dialogAddSkillCancel = (Button) dialog.findViewById(R.id.dialog_myresume_skill_cancel);
-//
-//
-//    }
-
-    public void ratingstar(int input, ArrayList<ImageView> arr, TextView rateText){
-        for(int i=0;i<arr.size();i++){
-            arr.get(i).setImageResource(R.drawable.ratestar);
-        }
-        for(int i=0;i<input;i++){
-            arr.get(i).setImageResource(R.drawable.starfollow);
-        }
-        rateText.setVisibility(View.VISIBLE);
-        switch (input){
-            case 1:
-                rateText.setText("Newbie");
-                break;
-            case 2:
-                rateText.setText("Beginner");
-                break;
-            case 3:
-                rateText.setText("Experience");
-                break;
-            case 4:
-                rateText.setText("Senior");
-                break;
-            case 5:
-                rateText.setText("Master");
-                break;
-        }
-    }
-
-
-//    public class AddSkillObject{
-//        private Spinner dialogAddSkillMajor;
-//        private EditText dialogAddSkillSearch;
-//        private ListView dialogAddSkillSkills;
-//        private LinearLayout dialogRatePlace;
-//        private ImageView dialogRateStar1,dialogRateStar2,dialogRateStar3,dialogRateStar4,dialogRateStar5;
-//        private TextView dialogRateText;
-//        private Button dialogAddSkillCancel;
-//
-//        public AddSkillObject(Spinner dialogAddSkillMajor, EditText dialogAddSkillSearch, ListView dialogAddSkillSkills, LinearLayout dialogRatePlace, ImageView dialogRateStar1, ImageView dialogRateStar2, ImageView dialogRateStar3, ImageView dialogRateStar4, ImageView dialogRateStar5, TextView dialogRateText, Button dialogAddSkillCancel) {
-//            this.dialogAddSkillMajor = dialogAddSkillMajor;
-//            this.dialogAddSkillSearch = dialogAddSkillSearch;
-//            this.dialogAddSkillSkills = dialogAddSkillSkills;
-//            this.dialogRatePlace = dialogRatePlace;
-//            this.dialogRateStar1 = dialogRateStar1;
-//            this.dialogRateStar2 = dialogRateStar2;
-//            this.dialogRateStar3 = dialogRateStar3;
-//            this.dialogRateStar4 = dialogRateStar4;
-//            this.dialogRateStar5 = dialogRateStar5;
-//            this.dialogRateText = dialogRateText;
-//            this.dialogAddSkillCancel = dialogAddSkillCancel;
-//        }
-//    }
 }

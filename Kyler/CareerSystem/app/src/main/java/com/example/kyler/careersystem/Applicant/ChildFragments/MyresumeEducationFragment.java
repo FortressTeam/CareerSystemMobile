@@ -3,51 +3,75 @@ package com.example.kyler.careersystem.Applicant.ChildFragments;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Fragment;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.kyler.careersystem.ApplicantMainActivity;
+import com.example.kyler.careersystem.Entities.PersonalHistory;
 import com.example.kyler.careersystem.R;
+import com.example.kyler.careersystem.UrlStatic;
 import com.example.kyler.careersystem.Utilities;
+import com.example.kyler.careersystem.WorkWithService.DeleteDataWithJson;
+import com.example.kyler.careersystem.WorkWithService.PostDataWithJson;
+import com.example.kyler.careersystem.WorkWithService.PutDataWithJson;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.Calendar;
-import java.util.Date;
+import java.util.concurrent.ExecutionException;
 
 public class MyresumeEducationFragment extends Fragment implements View.OnClickListener {
     private Calendar calendar = Calendar.getInstance();
-    private EditText educationUniversity,educationMajor;
-    private Spinner educationDegree;
-    private Button educationStart,educationEnd,educationSave;
+    private EditText educationUniversity,educationDescription;
+    private Button educationStart,educationEnd,educationSave,educationDelete;
     private TextView educationStartTextView,educationEndTextView;
+    private int applicantID=4;
+    private int historyTypeID;
+    private JSONObject jsonData;
+    private PersonalHistory personalHistory = null;
+    private boolean editMode = false;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.applicant_myresume_education_fragment,container,false);
+        View rootView = inflater.inflate(R.layout.applicant_myresume_education_fragment, container, false);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Education");
+        Bundle bundle = getArguments();
+        try {
+            jsonData = new JSONObject(bundle.getString("sendData"));
+            historyTypeID = jsonData.getInt("personalHistoryID");
+            if(jsonData.has("personalHistoryData")){
+                editMode = true;
+                personalHistory = new PersonalHistory(jsonData.getJSONObject("personalHistoryData"));
+                educationDelete = (Button) rootView.findViewById(R.id.myresume_education_delete);
+                educationDelete.setVisibility(View.VISIBLE);
+                educationDelete.setOnClickListener(this);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         educationUniversity = (EditText) rootView.findViewById(R.id.myresume_education_university);
-        educationMajor = (EditText) rootView.findViewById(R.id.myresume_education_major);
-        educationDegree = (Spinner) rootView.findViewById(R.id.myresume_education_degree_spinner);
+        educationDescription = (EditText) rootView.findViewById(R.id.myresume_education_description);
         educationStart = (Button) rootView.findViewById(R.id.myresume_education_start_button);
         educationEnd = (Button) rootView.findViewById(R.id.myresume_education_end_button);
         educationStartTextView = (TextView) rootView.findViewById(R.id.myresume_education_start_textview);
         educationEndTextView = (TextView) rootView.findViewById(R.id.myresume_education_end_textview);
         educationSave = (Button) rootView.findViewById(R.id.myresume_education_save);
-        String[] arr = {"Colege","Bachelog","Master"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity().getApplicationContext(),R.layout.spinner_item,arr);
-        educationDegree.setAdapter(adapter);
+        if(personalHistory!=null){
+            educationUniversity.setText(personalHistory.getPersonalHistoryTitle());
+            educationDescription.setText(personalHistory.getPersonalHistoryDetail());
+            educationStartTextView.setText(personalHistory.getPersonalHistoryStart());
+            educationStartTextView.setText(personalHistory.getPersonalHistoryEnd());
+        }
         educationStart.setOnClickListener(this);
         educationEnd.setOnClickListener(this);
         educationSave.setOnClickListener(this);
@@ -87,7 +111,7 @@ public class MyresumeEducationFragment extends Fragment implements View.OnClickL
     };
 
     private boolean isValid(){
-        if(educationUniversity.getText().toString().trim().equals("")||educationMajor.getText().toString().trim().equals("")||educationStartTextView.getText().toString().equals("")||educationEndTextView.getText().toString().equals("")) {
+        if(educationUniversity.getText().toString().trim().equals("")||educationDescription.getText().toString().trim().equals("")||educationStartTextView.getText().toString().equals("")||educationEndTextView.getText().toString().equals("")) {
             new AlertDialog.Builder(getActivity()).setMessage("You missed something").setPositiveButton("OK",null).show();
             return false;
         }
@@ -105,11 +129,82 @@ public class MyresumeEducationFragment extends Fragment implements View.OnClickL
                 new DatePickerDialog(getActivity(),endListener,calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH),calendar.get(Calendar.DAY_OF_MONTH)).show();
                 break;
             case R.id.myresume_education_save:
-                if(isValid())
-                    Toast.makeText(getActivity().getApplicationContext(),"University : "+ educationUniversity.getText()+"\n"+educationDegree.getSelectedItem().toString()+" - "+educationMajor.getText()+"\nFrom "+educationStartTextView.getText()+" to "+educationEndTextView.getText(),Toast.LENGTH_SHORT).show();
+                if(isValid()) {
+                    if (!editMode)
+                        doEdit();
+                    else
+                        doSave();
+                }
+                break;
+            case R.id.myresume_education_delete:
+                doDelete();
                 break;
             default:
                 break;
+        }
+    }
+
+    private void doSave(){
+        JSONObject sendData = new JSONObject();
+        try {
+            sendData.put("personal_history_title",educationUniversity.getText());
+            sendData.put("personal_history_detail",educationDescription.getText());
+            sendData.put("personal_history_start",Utilities.convertTimePost(educationStartTextView.getText().toString()));
+            sendData.put("personal_history_end",Utilities.convertTimePost(educationEndTextView.getText().toString()));
+            sendData.put("personal_history_type_id",historyTypeID);
+            sendData.put("applicant_id",applicantID);
+            JSONObject jsResult = new PostDataWithJson(sendData,getActivity()).execute(UrlStatic.URLPersonalHistory).get();
+            if(Utilities.isCreateUpdateSuccess(jsResult)){
+                Utilities.startActivity(getActivity(), ApplicantMainActivity.class,2);
+                Toast.makeText(getActivity().getApplicationContext(),"success",Toast.LENGTH_SHORT).show();
+            }else{
+                Toast.makeText(getActivity().getApplicationContext(),"Something went wrong!",Toast.LENGTH_SHORT).show();
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void doEdit(){
+        JSONObject jsEdit = new JSONObject();
+        try {
+            jsEdit.put("personal_history_title",educationUniversity.getText());
+            jsEdit.put("personal_history_detail",educationDescription.getText());
+            jsEdit.put("personal_history_start",Utilities.convertTimePost(educationStartTextView.getText().toString()));
+            jsEdit.put("personal_history_end",Utilities.convertTimePost(educationEndTextView.getText().toString()));
+            JSONObject jsResult = new PutDataWithJson(jsEdit,getActivity()).execute(UrlStatic.URLPersonalHistory2+personalHistory.getID()+".json").get();
+            if(Utilities.isCreateUpdateSuccess(jsResult)){
+                Utilities.startActivity(getActivity(), ApplicantMainActivity.class,2);
+                Toast.makeText(getActivity().getApplicationContext(),"success",Toast.LENGTH_SHORT).show();
+            }else{
+                Toast.makeText(getActivity().getApplicationContext(),"Something went wrong!",Toast.LENGTH_SHORT).show();
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void doDelete(){
+        try {
+            JSONObject jsDelete = new DeleteDataWithJson(getActivity()).execute(UrlStatic.URLPersonalHistory2+personalHistory.getID()+".json").get();
+            if(Utilities.isDeleteSuccess(jsDelete)){
+                Utilities.startActivity(getActivity(), ApplicantMainActivity.class,2);
+                Toast.makeText(getActivity().getApplicationContext(),"Deleted success",Toast.LENGTH_SHORT).show();
+            }else{
+                Toast.makeText(getActivity().getApplicationContext(),"Something went wrong!",Toast.LENGTH_SHORT).show();
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
         }
     }
 }

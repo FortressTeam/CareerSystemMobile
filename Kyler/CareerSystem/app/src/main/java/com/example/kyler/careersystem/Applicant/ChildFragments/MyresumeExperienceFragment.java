@@ -15,38 +15,60 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.kyler.careersystem.ApplicantMainActivity;
 import com.example.kyler.careersystem.R;
+import com.example.kyler.careersystem.UrlStatic;
 import com.example.kyler.careersystem.Utilities;
+import com.example.kyler.careersystem.WorkWithService.PostDataWithJson;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.Calendar;
+import java.util.concurrent.ExecutionException;
 
 public class MyresumeExperienceFragment extends Fragment implements View.OnClickListener {
 
     private Calendar calendar = Calendar.getInstance();
-    private EditText experienceCompany,experiencePosition;
-    private Button experienceStart,experienceEnd;
+    private EditText experienceCompany,experienceDescription;
+    private Button experienceStart,experienceEnd,experienceSave;
     private Switch experienceCurrentJob;
     private TextView experienceStartTextview,experienceEndTextview;
+    private int applicantID=4;
+    private int historyTypeID;
+    private boolean currentJob=false;
+    private JSONObject jsonData;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.applicant_myresume_experience_fragment,container,false);
+        View rootView = inflater.inflate(R.layout.applicant_myresume_experience_fragment, container, false);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Experience");
+        Bundle bundle = getArguments();
+        try {
+            jsonData = new JSONObject(bundle.getString("sendData"));
+            historyTypeID = jsonData.getInt("personalHistoryID");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         experienceCompany = (EditText) rootView.findViewById(R.id.myresume_experience_companyname);
-        experiencePosition = (EditText) rootView.findViewById(R.id.myresume_experience_position);
+        experienceDescription = (EditText) rootView.findViewById(R.id.myresume_experience_description);
         experienceStartTextview = (TextView) rootView.findViewById(R.id.myresume_experience_start_textview);
         experienceEndTextview = (TextView) rootView.findViewById(R.id.myresume_experience_end_textview);
         experienceStart = (Button) rootView.findViewById(R.id.myresume_experience_start_button);
         experienceEnd = (Button) rootView.findViewById(R.id.myresume_experience_end_button);
+        experienceSave = (Button) rootView.findViewById(R.id.myresume_experience_save);
         experienceCurrentJob = (Switch) rootView.findViewById(R.id.myresume_experience_currentjob);
         experienceCurrentJob.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if(b){
+                    currentJob=true;
                     experienceEnd.setVisibility(View.GONE);
                     experienceEndTextview.setVisibility(View.GONE);
                 }else{
+                    currentJob=false;
                     experienceEnd.setVisibility(View.VISIBLE);
                     experienceEndTextview.setVisibility(View.VISIBLE);
                 }
@@ -54,6 +76,7 @@ public class MyresumeExperienceFragment extends Fragment implements View.OnClick
         });
         experienceStart.setOnClickListener(this);
         experienceEnd.setOnClickListener(this);
+        experienceSave.setOnClickListener(this);
         return rootView;
     }
 
@@ -88,6 +111,28 @@ public class MyresumeExperienceFragment extends Fragment implements View.OnClick
         }
     };
 
+    private boolean isValid(){
+        boolean result = false;
+        if(experienceCompany.getText().toString().trim().equals("") || experienceDescription.getText().toString().trim().equals("")||experienceStartTextview.getText().toString().equals("")) {
+            result = false;
+        }
+        else {
+            if(!experienceEndTextview.getText().toString().equals("")) {
+                result = true;
+            }else {
+                if (currentJob){
+                    result = true;
+                }else {
+                    result = false;
+                }
+            }
+        }
+        if(!result){
+            new AlertDialog.Builder(getActivity()).setMessage("You missed something").setPositiveButton("OK",null).show();
+        }
+        return result;
+    }
+
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
@@ -97,10 +142,38 @@ public class MyresumeExperienceFragment extends Fragment implements View.OnClick
             case R.id.myresume_experience_end_button:
                 new DatePickerDialog(getActivity(), endListener, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show();
                 break;
-            case R.id.myresume_education_save:
+            case R.id.myresume_experience_save:
+                if(isValid())
+                    doSave();
                 break;
             default:
                 break;
+        }
+    }
+
+    private void doSave(){
+        JSONObject sendData = new JSONObject();
+        try {
+            sendData.put("personal_history_title", experienceCompany.getText());
+            sendData.put("personal_history_detail",experienceDescription.getText());
+            sendData.put("personal_history_start",Utilities.convertTimePost(experienceStartTextview.getText().toString()));
+            if(!currentJob)
+                sendData.put("personal_history_end",Utilities.convertTimePost(experienceEndTextview.getText().toString()));
+            sendData.put("personal_history_type_id",historyTypeID);
+            sendData.put("applicant_id",applicantID);
+            JSONObject jsResult = new PostDataWithJson(sendData,getActivity()).execute(UrlStatic.URLPersonalHistory).get();
+            if(Utilities.isCreateUpdateSuccess(jsResult)){
+                Utilities.startActivity(getActivity(), ApplicantMainActivity.class,2);
+                Toast.makeText(getActivity().getApplicationContext(), "success", Toast.LENGTH_SHORT).show();
+            }else{
+                Toast.makeText(getActivity().getApplicationContext(),"Something went wrong!",Toast.LENGTH_SHORT).show();
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
         }
     }
 }

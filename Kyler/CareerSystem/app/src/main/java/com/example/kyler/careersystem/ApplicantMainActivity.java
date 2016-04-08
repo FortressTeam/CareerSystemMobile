@@ -2,9 +2,12 @@ package com.example.kyler.careersystem;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -14,18 +17,31 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 
+import com.example.kyler.careersystem.Applicant.ApplicantData;
 import com.example.kyler.careersystem.Applicant.ChildApplicantActivity;
+import com.example.kyler.careersystem.Entities.Applicants;
+import com.example.kyler.careersystem.Entities.Users;
+import com.example.kyler.careersystem.WorkWithService.GetJsonObject;
+import com.squareup.picasso.Picasso;
+
+import org.json.JSONObject;
 
 public class ApplicantMainActivity extends AppCompatActivity implements ListView.OnItemClickListener,View.OnClickListener{
     ListView navigationViewMenu;
     private Handler mhHandler;
+    private int applicantID=4;
+    private Users users = ApplicantData.users;
+    private Applicants applicants = ApplicantData.applicants;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ProgressDialog pDialog = new ProgressDialog(this);
         setContentView(R.layout.activity_applicant_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -41,6 +57,12 @@ public class ApplicantMainActivity extends AppCompatActivity implements ListView
         navigationViewMenu.addHeaderView(navigationViewHeader);
         navigationViewMenu.addFooterView(navigationViewFooter);
         Utilities.loadNavigationView(this, navigationViewMenu);
+        ImageView applicantImage = (ImageView) findViewById(R.id.nav_header_applicant_image);
+        TextView applicantName = (TextView) findViewById(R.id.nav_header_applicant_name);
+        TextView applicantEmail = (TextView) findViewById(R.id.nav_header_applicant_email);
+        Picasso.with(this).load(UrlStatic.URLimg+"user_img/"+users.getUserAvatar()).into(applicantImage);
+        applicantName.setText(applicants.getApplicantName());
+        applicantEmail.setText(users.getUserEmail());
         LinearLayout navSettingControl = (LinearLayout) findViewById(R.id.nav_setting_control);
         navSettingControl.setOnClickListener(this);
         navigationViewMenu.setOnItemClickListener(this);

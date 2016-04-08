@@ -81,7 +81,7 @@
                         android:text="abc"
                         android:gravity="bottom"
                         />
-                </LinearLayout>
+                </LinearLayout>.
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -91,13 +91,13 @@
                         android:layout_height="wrap_content"
                         android:textColor="@color/Black"
                         android:textSize="@dimen/activity_title_small"
-                        android:text="Phone :"
+                        android:text="Address :"
                         android:gravity="bottom"
                         android:textStyle="bold"
                         />
                     <TextView
-                        android:id="@+id/company_information_companyphone"
                         android:paddingLeft="5dp"
+                        android:id="@+id/company_information_companyaddress"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/colorContent"
@@ -121,7 +121,31 @@
                         />
                     <TextView
                         android:paddingLeft="5dp"
-                        android:id="@+id/company_information_companyaddress"
+                        android:id="@+id/company_information_hiringmanagername"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/colorContent"
+                        android:textSize="@dimen/activity_content_medium"
+                        android:text="abc"
+                        android:gravity="bottom"
+                        />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/Black"
+                        android:textSize="@dimen/activity_title_small"
+                        android:text="Phone :"
+                        android:gravity="bottom"
+                        android:textStyle="bold"
+                        />
+                    <TextView
+                        android:id="@+id/company_information_companyphone"
+                        android:paddingLeft="5dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/colorContent"

@@ -22,7 +22,7 @@ import org.json.JSONObject;
 
 public class CompanyInformationFragment extends Fragment implements View.OnClickListener{
     private ImageView companyImage;
-    private TextView companyName,companySize,companyAdress,companyPhone,companyAbout;
+    private TextView companyName,companySize,companyAdress,companyPhone,companyAbout,hiringManagerName;
     private Button subscribe;
 
     @Override
@@ -36,6 +36,7 @@ public class CompanyInformationFragment extends Fragment implements View.OnClick
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        hiringManagerName =(TextView) rootView.findViewById(R.id.company_information_hiringmanagername);
         companyImage = (ImageView) rootView.findViewById(R.id.company_information_image);
         companyName = (TextView) rootView.findViewById(R.id.company_information_companyname);
         companySize = (TextView) rootView.findViewById(R.id.company_information_companysize);
@@ -44,6 +45,7 @@ public class CompanyInformationFragment extends Fragment implements View.OnClick
         companyAbout = (TextView) rootView.findViewById(R.id.company_information_companyabout);
         HiringManagers hiringManager = new HiringManagers(jsonreceive);
         Picasso.with(getActivity().getApplicationContext()).load(UrlStatic.URLimg+"company_img/"+hiringManager.getCompanyLogo()).into(companyImage);
+        hiringManagerName.setText(hiringManager.getHiringManagerName());
         companyName.setText(hiringManager.getCompanyName());
         companySize.setText(hiringManager.getCompanySize()+"");
         companyAdress.setText(hiringManager.getCompanyAddress());

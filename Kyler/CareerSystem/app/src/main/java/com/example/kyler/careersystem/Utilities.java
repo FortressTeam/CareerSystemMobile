@@ -222,11 +222,42 @@ public class Utilities {
         }
         return result;
     }
+    public static String convertTimeShorten(String date){
+        String result = "";
+        try {
+            Date resultDate = new SimpleDateFormat("dd - LLL - yyyy").parse(date);
+            result = new SimpleDateFormat("LLL yyyy").format(resultDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+    public static String convertTimePost(String date){
+        String result = "";
+        try {
+            Date resultDate = new SimpleDateFormat("dd - LLL - yyyy").parse(date);
+            result = new SimpleDateFormat("yyyy-MM-dd").format(resultDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
 
     public static boolean isCreateUpdateSuccess(JSONObject input){
         boolean result = false;
         try {
             if(input.getString("message").equals("Saved"))
+                result = true;
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    public static boolean isDeleteSuccess(JSONObject input){
+        boolean result =false;
+        try{
+            if(input.getString("message").equals("Deleted"))
                 result = true;
         } catch (JSONException e) {
             e.printStackTrace();

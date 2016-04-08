@@ -15,24 +15,38 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.kyler.careersystem.ApplicantMainActivity;
 import com.example.kyler.careersystem.R;
+import com.example.kyler.careersystem.UrlStatic;
 import com.example.kyler.careersystem.Utilities;
+import com.example.kyler.careersystem.WorkWithService.PostDataWithJson;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Calendar;
+import java.util.concurrent.ExecutionException;
 
 public class MyresumeActivityFragment extends Fragment implements View.OnClickListener{
     private Calendar calendar = Calendar.getInstance();
     private EditText activityName,activityDescription;
     private Button activityStart,activityEnd,activitySave;
     private TextView activityStartTextView,activityEndTextView;
+    private int applicantID=4;
+    private int historyTypeID;
+    private JSONObject jsonData;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.applicant_myresume_activity_fragment, container, false);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Add Activity");
         Bundle bundle = getArguments();
+        try {
+            jsonData = new JSONObject(bundle.getString("sendData"));
+            historyTypeID = jsonData.getInt("personalHistoryID");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         activityName = (EditText) rootView.findViewById(R.id.myresume_activity_name);
         activityDescription = (EditText) rootView.findViewById(R.id.myresume_activity_description);
         activityStart = (Button) rootView.findViewById(R.id.myresume_activity_start_button);
@@ -95,11 +109,35 @@ public class MyresumeActivityFragment extends Fragment implements View.OnClickLi
                 new DatePickerDialog(getActivity(),endListener,calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH),calendar.get(Calendar.DAY_OF_MONTH)).show();
                 break;
             case R.id.myresume_activity_save:
-                if(isValid()){
-                    Toast.makeText(getActivity().getApplicationContext(),"Activity Name : "+ activityName.getText()+"\n"+activityDescription.getText()+"\nFrom "+activityStartTextView.getText()+" to "+activityEndTextView.getText(),Toast.LENGTH_SHORT).show();
-                }
+                if(isValid())
+                    doSave();
                 break;
 
+        }
+    }
+
+    private void doSave(){
+        JSONObject sendData = new JSONObject();
+        try {
+            sendData.put("personal_history_title",activityName.getText());
+            sendData.put("personal_history_detail",activityDescription.getText());
+            sendData.put("personal_history_start",Utilities.convertTimePost(activityStartTextView.getText().toString()));
+            sendData.put("personal_history_end",Utilities.convertTimePost(activityEndTextView.getText().toString()));
+            sendData.put("personal_history_type_id",historyTypeID);
+            sendData.put("applicant_id",applicantID);
+            JSONObject jsResult = new PostDataWithJson(sendData,getActivity()).execute(UrlStatic.URLPersonalHistory).get();
+            if(Utilities.isCreateUpdateSuccess(jsResult)){
+                Utilities.startActivity(getActivity(), ApplicantMainActivity.class,2);
+                Toast.makeText(getActivity().getApplicationContext(),"success",Toast.LENGTH_SHORT).show();
+            }else{
+                Toast.makeText(getActivity().getApplicationContext(),"Something went wrong!",Toast.LENGTH_SHORT).show();
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
         }
     }
 }

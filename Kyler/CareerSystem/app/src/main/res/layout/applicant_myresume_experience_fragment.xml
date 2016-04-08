@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
@@ -40,9 +40,13 @@
             <EditText
                 android:singleLine="true"
                 android:textSize="@dimen/activity_content_medium"
-                android:id="@+id/myresume_experience_position"
+                android:id="@+id/myresume_experience_description"
                 android:textColorHint="#727272"
                 android:hint="Position"
+                android:minLines="5"
+                android:inputType="textMultiLine"
+                android:gravity="top"
+                android:maxLength="255"
                 android:layout_marginBottom="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
@@ -88,12 +92,18 @@
             android:layout_height="wrap_content"
             android:text="Current Job"
             android:id="@+id/myresume_experience_currentjob"/>
-
+    </LinearLayout>
+    <LinearLayout
+        android:layout_alignParentBottom="true"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
         <Button
-            android:id="@+id/myresume_education_save"
+            android:id="@+id/myresume_experience_save"
             android:layout_width="wrap_content"
             android:layout_gravity="center"
             android:text="@string/Save"
             android:layout_height="wrap_content"/>
     </LinearLayout>
-</LinearLayout>
+
+</RelativeLayout>

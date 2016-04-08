@@ -62,9 +62,9 @@ public class HobbieListViewAdapter extends BaseAdapter {
         ImageView myresume_hobbie_delete_listviewitem = (ImageView) view.findViewById(R.id.myresume_hobbie_delete_listviewitem);
         ImageView myresume_hobbie_icon_listviewitem = (ImageView) view.findViewById(R.id.myresume_hobbie_icon_listviewitem);
         if(isDialogMode)
-            myresume_hobbie_icon_listviewitem.setVisibility(View.VISIBLE);
-        else
             myresume_hobbie_icon_listviewitem.setVisibility(View.INVISIBLE);
+        else
+            myresume_hobbie_icon_listviewitem.setVisibility(View.VISIBLE);
         myresume_hobbie_name_listviewitem.setText(hobbieListViewItems.get(i).getHobbieName());
         if(hideButton)
             myresume_hobbie_delete_listviewitem.setVisibility(View.INVISIBLE);
