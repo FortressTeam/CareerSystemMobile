@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 
 import com.facebook.CallbackManager;
@@ -24,6 +25,7 @@ import com.facebook.login.widget.LoginButton;
  */
 public class ApplicantFragment extends Fragment {
     private EditText username;
+    private Button loginNormal;
     CallbackManager callbackManager;
     LoginButton loginButton;
     ProfileTracker profileTracker;
@@ -33,6 +35,14 @@ public class ApplicantFragment extends Fragment {
         FacebookSdk.sdkInitialize(getActivity().getApplicationContext());
         View view = inflater.inflate(R.layout.fragment_applicant,container,false);
         username = (EditText) view.findViewById(R.id.applicant_login_username);
+        loginNormal = (Button) view.findViewById(R.id.applicant_loginnormal);
+        loginNormal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), LoginData.class).putExtra("key",1);
+                startActivity(intent);
+            }
+        });
         callbackManager = CallbackManager.Factory.create();
         loginButton = (LoginButton) view.findViewById(R.id.applicant_loginbutton);
         loginButton.setReadPermissions("user_friends");

@@ -6,8 +6,8 @@
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
                   android:orientation="vertical"
                   android:weightSum="1"
-                  android:paddingLeft="@dimen/magrin_card"
-                  android:paddingRight="@dimen/magrin_card"
+                  android:paddingLeft="@dimen/margin_card"
+                  android:paddingRight="@dimen/margin_card"
                   android:layout_width="match_parent"
                   android:layout_height="match_parent">
         <LinearLayout
@@ -52,7 +52,7 @@
                 android:layout_height="wrap_content"/>
             <EditText
                 android:id="@+id/dialog_myresume_skill_search"
-                android:padding="@dimen/magrin_card"
+                android:padding="@dimen/margin_card"
                 android:textSize="@dimen/activity_content_big"
                 android:textColor="@color/Black"
                 android:layout_weight="0.9"
@@ -84,7 +84,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
             <LinearLayout
-                android:layout_marginTop="@dimen/magrin_card"
+                android:layout_marginTop="@dimen/margin_card"
                 android:gravity="center"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"

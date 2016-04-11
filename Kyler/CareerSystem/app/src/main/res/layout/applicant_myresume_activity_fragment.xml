@@ -86,16 +86,36 @@
                 android:layout_height="wrap_content"/>
         </LinearLayout>
 
+        <Switch
+            android:paddingLeft="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Current Event"
+            android:id="@+id/myresume_activity_currentactivity"/>
     </LinearLayout>
     <LinearLayout
+        android:weightSum="1"
         android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
         android:gravity="center"
         android:layout_height="wrap_content">
+
+        <Button
+            android:layout_marginRight="@dimen/padding_card"
+            android:visibility="gone"
+            android:layout_weight="0.3"
+            android:id="@+id/myresume_activity_delete"
+            android:layout_width="0dp"
+            android:layout_gravity="center"
+            android:text="@string/Delete"
+            android:layout_height="wrap_content"
+            android:theme="@style/MyButtonDelete"/>
         <Button
             android:id="@+id/myresume_activity_save"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="0.3"
+            android:layout_height="wrap_content"
             android:text="@string/Save"
-            android:layout_height="wrap_content"/>
+            android:theme="@style/MyButton"/>
     </LinearLayout>
 </RelativeLayout>

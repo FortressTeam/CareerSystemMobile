@@ -40,6 +40,11 @@
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
         <activity android:name="com.example.kyler.careersystem.LoginActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
 
         <meta-data
@@ -51,12 +56,14 @@
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/app_name"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-        <activity android:name="com.example.kyler.careersystem.Applicant.ApplicantData" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+        <activity
+            android:name="com.example.kyler.careersystem.LoginData"
+            android:allowClearUserData="true"
+            android:theme="@style/AppTheme.NoActionBar" >
+        </activity>
+        <activity
+            android:name="com.example.kyler.careersystem.HiringManagerMainActivity"
+            android:theme="@style/AppTheme.NoActionBar" >
         </activity>
     </application>
 

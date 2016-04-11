@@ -5,7 +5,6 @@ import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
 import android.view.LayoutInflater;
@@ -19,10 +18,10 @@ import android.widget.Toast;
 import com.example.kyler.careersystem.Applicant.ChildApplicantActivity;
 import com.example.kyler.careersystem.Entities.HiringManagers;
 import com.example.kyler.careersystem.Entities.Posts;
-import com.example.kyler.careersystem.WorkWithService.GetJsonObject;
-import com.example.kyler.careersystem.UrlStatic;
 import com.example.kyler.careersystem.R;
+import com.example.kyler.careersystem.UrlStatic;
 import com.example.kyler.careersystem.Utilities;
+import com.example.kyler.careersystem.WorkWithService.GetJsonObject;
 import com.github.ksoichiro.android.observablescrollview.ObservableScrollView;
 import com.github.ksoichiro.android.observablescrollview.ObservableScrollViewCallbacks;
 import com.github.ksoichiro.android.observablescrollview.ScrollState;
@@ -36,10 +35,10 @@ import java.util.concurrent.ExecutionException;
 /**
  * Created by kyler on 09/03/2016.
  */
-public class JobDetailFragment extends Fragment implements ObservableScrollViewCallbacks,Button.OnClickListener {
+public class JobDetailFragment extends Fragment implements ObservableScrollViewCallbacks, Button.OnClickListener, View.OnLayoutChangeListener {
     private ObservableScrollView scrollView;
-    private TextView jobDetailPostTitle,jobDetailPostSalary,jobDetailPostLocation,jobDetailPostDate,jobDetailPostContent;
-    private TextView jobDetailCompanyName,jobDetailCompanyAddress,jobDetailCompanySize,jobDetailHiringManagerName,jobDetailHiringManagerPhone;
+    private TextView jobDetailPostTitle, jobDetailPostSalary, jobDetailPostLocation, jobDetailPostDate, jobDetailPostContent;
+    private TextView jobDetailCompanyName, jobDetailCompanyAddress, jobDetailCompanySize, jobDetailHiringManagerName, jobDetailHiringManagerPhone;
     private Button btApply;
     private ImageView companyLogo;
     private FloatingActionButton jobDetailFloatactionbuttonFavorite;
@@ -49,15 +48,16 @@ public class JobDetailFragment extends Fragment implements ObservableScrollViewC
     private Handler mHandler;
     private String url;
 
-    public JobDetailFragment(){}
+    public JobDetailFragment() {
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mHandler = new Handler();
         View rootView = inflater.inflate(R.layout.applicant_job_detail_fragment, container, false);
-        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Job Detail");
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Job Detail");
         Bundle bundle = getArguments();
-        url = UrlStatic.URLPost+bundle.getString("sendData")+".json";
+        url = UrlStatic.URLPost + bundle.getString("sendData") + ".json";
 
         companyLogo = (ImageView) rootView.findViewById(R.id.job_detail_company_logo);
         btApply = (Button) rootView.findViewById(R.id.job_detail_btapply);
@@ -65,9 +65,7 @@ public class JobDetailFragment extends Fragment implements ObservableScrollViewC
         companyLogo.setOnClickListener(this);
         jobDetailFloatactionbuttonFavorite.setOnClickListener(this);
 
-        btApply.setVisibility(View.VISIBLE);
-        btApply.setOnClickListener(this);
-
+        scrollView = (ObservableScrollView) rootView.findViewById(R.id.job_detail_scrollview);
         jobDetailCompanyName = (TextView) rootView.findViewById(R.id.job_detail_company_name);
         jobDetailCompanyAddress = (TextView) rootView.findViewById(R.id.job_detail_company_address);
         jobDetailCompanySize = (TextView) rootView.findViewById(R.id.job_detail_company_size);
@@ -79,16 +77,20 @@ public class JobDetailFragment extends Fragment implements ObservableScrollViewC
         jobDetailPostLocation = (TextView) rootView.findViewById(R.id.job_detail_post_location);
         jobDetailPostDate = (TextView) rootView.findViewById(R.id.job_detail_post_date);
         jobDetailPostContent = (TextView) rootView.findViewById(R.id.job_detail_post_content);
+        
         pDialog = new ProgressDialog(getActivity());
         pDialog.setMessage("Loading... ");
         pDialog.setCancelable(false);
         pDialog.show();
+        scrollView.setScrollViewCallbacks(this);
+        jobDetailPostContent.addOnLayoutChangeListener(this);
+        btApply.setOnClickListener(this);
         mHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
                 try {
                     JSONObject jsonObject = new GetJsonObject(pDialog, "post").execute(url).get();
-                    if(Utilities.checkConnect(jsonObject)) {
+                    if (Utilities.checkConnect(jsonObject)) {
                         Posts post = new Posts(jsonObject);
                         jsonSendData = new JSONObject(jsonObject.getString("hiring_manager"));
                         HiringManagers hiringManager = new HiringManagers(jsonSendData);
@@ -107,9 +109,9 @@ public class JobDetailFragment extends Fragment implements ObservableScrollViewC
                         jobDetailPostLocation.setText(post.getPostLocation());
                         jobDetailPostDate.setText(post.getPostDate());
                         jobDetailPostContent.setText(Html.fromHtml(post.getPostContent()));
-                    }else{
+                    } else {
                         Toast.makeText(getActivity().getApplicationContext(), "Connection got problem!", Toast.LENGTH_SHORT).show();
-                        Utilities.displayView(getActivity(),404);
+                        Utilities.displayViewApplicant(getActivity(), 404);
                     }
                 } catch (InterruptedException e) {
                     e.printStackTrace();
@@ -119,15 +121,26 @@ public class JobDetailFragment extends Fragment implements ObservableScrollViewC
                     e.printStackTrace();
                 }
             }
-        },200);
-        scrollView = (ObservableScrollView) rootView.findViewById(R.id.job_detail_scrollview);
-        scrollView.setScrollViewCallbacks(this);
+        }, 200);
         return rootView;
+    }
+    private boolean canScroll(){
+        View child = (View) scrollView.getChildAt(scrollView.getChildCount()-1);
+        if (child != null) {
+            int childHeight = (child).getHeight();
+            return scrollView.getHeight() < childHeight + scrollView.getPaddingTop() + scrollView.getPaddingBottom();
+        }
+        return false;
     }
 
     @Override
     public void onScrollChanged(int scrollY, boolean firstScroll, boolean dragging) {
-
+        View view = (View) scrollView.getChildAt(scrollView.getChildCount() - 1);
+        int diff = (view.getHeight() - (scrollView.getHeight() + scrollView.getScrollY()));
+        if (diff <= 0) {
+            btApply.setVisibility(View.VISIBLE);
+        } else
+            btApply.setVisibility(View.INVISIBLE);
     }
 
     @Override
@@ -168,5 +181,11 @@ public class JobDetailFragment extends Fragment implements ObservableScrollViewC
             default:
                 break;
         }
+    }
+
+    @Override
+    public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
+        if(canScroll())
+            btApply.setVisibility(View.INVISIBLE);
     }
 }

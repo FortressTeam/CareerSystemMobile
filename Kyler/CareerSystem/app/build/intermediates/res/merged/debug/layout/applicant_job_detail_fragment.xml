@@ -2,14 +2,15 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginLeft="@dimen/margin_layout"
+    android:layout_marginRight="@dimen/margin_layout"
     android:background="@color/background"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <com.github.ksoichiro.android.observablescrollview.ObservableScrollView
+        android:background="@color/White"
         android:id="@+id/job_detail_scrollview"
         android:scrollbars="none"
-        android:background="@color/White"
-        android:layout_marginBottom="50dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <LinearLayout
@@ -19,7 +20,7 @@
             android:layout_height="match_parent">
             <LinearLayout
                 android:elevation="2dp"
-                android:layout_marginBottom="@dimen/magrin_card"
+                android:layout_marginBottom="@dimen/margin_card"
                 android:padding="@dimen/padding_card"
                 android:background="@drawable/customborder"
                 android:orientation="vertical"
@@ -152,9 +153,10 @@
             </LinearLayout>
             <LinearLayout
                 android:elevation="2dp"
-                android:padding="@dimen/padding_card"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp"
+                android:paddingLeft="@dimen/padding_card"
+                android:paddingRight="@dimen/padding_card"
+                android:paddingTop="@dimen/padding_card"
+                android:paddingBottom="60dp"
                 android:background="@drawable/customborder"
                 android:orientation="vertical"
                 android:layout_width="match_parent"
@@ -267,27 +269,26 @@
                     android:id="@+id/job_detail_post_content"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="abc"
                     android:textColor="@color/colorContent"
                     android:textSize="@dimen/activity_content_medium"/>
+
             </LinearLayout>
         </LinearLayout>
     </com.github.ksoichiro.android.observablescrollview.ObservableScrollView>
     <LinearLayout
         android:layout_alignParentBottom="true"
-        android:paddingTop="5dp"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:background="@color/background"
         android:orientation="horizontal"
-        android:gravity="center_horizontal"
+        android:gravity="center"
         >
         <Button
+            android:visibility="visible"
             android:id="@+id/job_detail_btapply"
             android:layout_width="150dp"
             android:text="@string/Apply"
-            android:textColor="@color/Black"
-            android:layout_height="50dp" />
+            android:layout_height="50dp"
+            android:theme="@style/MyButton"/>
     </LinearLayout>
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/job_detail_floatactionbutton_favorite"
@@ -296,7 +297,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_marginRight="13dp"
-        android:layout_marginBottom="@dimen/magrin_card"
+        android:layout_marginBottom="@dimen/margin_card"
         app:fabSize="mini"
         app:backgroundTint="@color/navigationviewbackground"
         android:src="@drawable/star"

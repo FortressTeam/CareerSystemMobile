@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"/>
         <EditText
             android:id="@+id/dialog_myresume_hobbie_search"
-            android:padding="@dimen/magrin_card"
+            android:padding="@dimen/margin_card"
             android:textSize="@dimen/activity_content_big"
             android:textColor="@color/Black"
             android:layout_weight="0.9"

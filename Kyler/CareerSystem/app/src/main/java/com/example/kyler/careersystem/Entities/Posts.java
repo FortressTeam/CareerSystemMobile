@@ -1,7 +1,5 @@
 package com.example.kyler.careersystem.Entities;
 
-import com.example.kyler.careersystem.Utilities;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -41,13 +39,13 @@ public class Posts {
                 Date date = new SimpleDateFormat("yyyy-MM-dd").parse(jsonObject.getString("post_date"));
                 this.postDate=new SimpleDateFormat("d - LLL - yyyy").format(date);
             }
-            if(jsonObject.has("post_content")){
+            if(jsonObject.has("post_status")){
                 this.postStatus=jsonObject.getInt("post_status");
             }
-            if(jsonObject.has("post_content")){
+            if(jsonObject.has("category_id")){
                 this.categoryID=jsonObject.getInt("category_id");
             }
-            if(jsonObject.has("post_content")){
+            if(jsonObject.has("hiring_manager_id")){
                 this.hiringManagerID=jsonObject.getInt("hiring_manager_id");
             }
             if(jsonObject.has("post_salary")){

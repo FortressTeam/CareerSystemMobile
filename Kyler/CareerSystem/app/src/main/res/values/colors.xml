@@ -4,6 +4,15 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#1178AB</color>
 
+    <color name="colorAccentPress">#2ca4df</color>
+
+    <color name="colorButtonDelete">#FF5252</color>
+    <color name="colorButtonDeletePress">#ff8e8e</color>
+
+    <color name="colorButtonSubscribe">#388E3C</color>
+    <color name="colorButtonSubscribePress">#68c46d</color>
+
+
     <color name="selector_actived">#D2D7D3</color>
     <color name="selector_pressed">#D35400</color>
     <color name="selector_unactived">#EEEEEE</color>

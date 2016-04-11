@@ -12,10 +12,10 @@ import android.widget.RadioButton;
 import android.widget.Toast;
 
 import com.example.kyler.careersystem.ApplicantMainActivity;
-import com.example.kyler.careersystem.WorkWithService.PutDataWithJson;
 import com.example.kyler.careersystem.R;
 import com.example.kyler.careersystem.UrlStatic;
 import com.example.kyler.careersystem.Utilities;
+import com.example.kyler.careersystem.WorkWithService.PutDataWithJson;
 
 import org.json.JSONException;
 import org.json.JSONObject;

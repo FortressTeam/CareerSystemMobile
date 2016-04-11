@@ -18,7 +18,7 @@
             android:layout_width="20dp"
             android:layout_height="20dp"/>
         <LinearLayout
-            android:paddingLeft="@dimen/magrin_card"
+            android:paddingLeft="@dimen/margin_card"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
             android:layout_weight="0.8  "

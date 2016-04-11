@@ -7,7 +7,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -22,26 +21,21 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.example.kyler.careersystem.Applicant.ApplicantData;
 import com.example.kyler.careersystem.Applicant.ChildApplicantActivity;
 import com.example.kyler.careersystem.Entities.Applicants;
 import com.example.kyler.careersystem.Entities.Users;
-import com.example.kyler.careersystem.WorkWithService.GetJsonObject;
 import com.squareup.picasso.Picasso;
-
-import org.json.JSONObject;
 
 public class ApplicantMainActivity extends AppCompatActivity implements ListView.OnItemClickListener,View.OnClickListener{
     ListView navigationViewMenu;
     private Handler mhHandler;
     private int applicantID=4;
-    private Users users = ApplicantData.users;
-    private Applicants applicants = ApplicantData.applicants;
+    private Users users = LoginData.users;
+    private Applicants applicants = LoginData.applicants;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ProgressDialog pDialog = new ProgressDialog(this);
         setContentView(R.layout.activity_applicant_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -52,14 +46,14 @@ public class ApplicantMainActivity extends AppCompatActivity implements ListView
         drawer.setDrawerListener(toggle);
         toggle.syncState();
         navigationViewMenu = (ListView) findViewById(R.id.navigation_view_menu);
-        View navigationViewHeader = getLayoutInflater().inflate(R.layout.nav_header_applicant_main, null);
-        View navigationViewFooter = getLayoutInflater().inflate(R.layout.nav_footer_applicant_main, null);
+        View navigationViewHeader = getLayoutInflater().inflate(R.layout.nav_header_main, null);
+        View navigationViewFooter = getLayoutInflater().inflate(R.layout.nav_footer_main, null);
         navigationViewMenu.addHeaderView(navigationViewHeader);
         navigationViewMenu.addFooterView(navigationViewFooter);
-        Utilities.loadNavigationView(this, navigationViewMenu);
-        ImageView applicantImage = (ImageView) findViewById(R.id.nav_header_applicant_image);
-        TextView applicantName = (TextView) findViewById(R.id.nav_header_applicant_name);
-        TextView applicantEmail = (TextView) findViewById(R.id.nav_header_applicant_email);
+        Utilities.loadNavigationViewApplicant(this, navigationViewMenu);
+        ImageView applicantImage = (ImageView) findViewById(R.id.nav_header_image);
+        TextView applicantName = (TextView) findViewById(R.id.nav_header_name);
+        TextView applicantEmail = (TextView) findViewById(R.id.nav_header_email);
         Picasso.with(this).load(UrlStatic.URLimg+"user_img/"+users.getUserAvatar()).into(applicantImage);
         applicantName.setText(applicants.getApplicantName());
         applicantEmail.setText(users.getUserEmail());
@@ -69,10 +63,10 @@ public class ApplicantMainActivity extends AppCompatActivity implements ListView
         Bundle bundle = getIntent().getBundleExtra("back");
         if(bundle!=null){
             int id = bundle.getInt("itemID");
-            Utilities.displayView(this, id);
+            Utilities.displayViewApplicant(this, id);
         }
         else
-            Utilities.displayView(this, 1);
+            Utilities.displayViewApplicant(this, 1);
     }
 
     @Override
@@ -116,7 +110,7 @@ public class ApplicantMainActivity extends AppCompatActivity implements ListView
         mhHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                Utilities.displayView(activity, id);
+                Utilities.displayViewApplicant(activity, id);
             }
         },300);
     }
@@ -133,7 +127,7 @@ public class ApplicantMainActivity extends AppCompatActivity implements ListView
     }
 
     private void showSettings(){
-        final String[] items = {"Settings","Feedback"};
+        final String[] items = {"Log out","Settings","Feedback"};
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Setting").setItems(items, new DialogInterface.OnClickListener() {
             @Override
@@ -141,6 +135,10 @@ public class ApplicantMainActivity extends AppCompatActivity implements ListView
                 DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
                 drawer.closeDrawer(GravityCompat.START);
                 switch(items[i]){
+                    case "Log out":
+                        startActivity(new Intent(ApplicantMainActivity.this,LoginActivity.class));
+                        finish();
+                        break;
                     case "Settings":
                         break;
                     case "Feedback":

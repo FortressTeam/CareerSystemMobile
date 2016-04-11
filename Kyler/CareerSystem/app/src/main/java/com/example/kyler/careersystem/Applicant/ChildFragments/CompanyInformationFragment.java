@@ -11,16 +11,19 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
 import com.example.kyler.careersystem.Entities.HiringManagers;
 import com.example.kyler.careersystem.R;
 import com.example.kyler.careersystem.UrlStatic;
+import com.github.ksoichiro.android.observablescrollview.ObservableScrollView;
+import com.github.ksoichiro.android.observablescrollview.ObservableScrollViewCallbacks;
+import com.github.ksoichiro.android.observablescrollview.ScrollState;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class CompanyInformationFragment extends Fragment implements View.OnClickListener{
+public class CompanyInformationFragment extends Fragment implements View.OnClickListener,ObservableScrollViewCallbacks,View.OnLayoutChangeListener{
+    private ObservableScrollView scrollView;
     private ImageView companyImage;
     private TextView companyName,companySize,companyAdress,companyPhone,companyAbout,hiringManagerName;
     private Button subscribe;
@@ -36,6 +39,7 @@ public class CompanyInformationFragment extends Fragment implements View.OnClick
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        scrollView = (ObservableScrollView) rootView.findViewById(R.id.company_information_scrollview);
         hiringManagerName =(TextView) rootView.findViewById(R.id.company_information_hiringmanagername);
         companyImage = (ImageView) rootView.findViewById(R.id.company_information_image);
         companyName = (TextView) rootView.findViewById(R.id.company_information_companyname);
@@ -43,6 +47,9 @@ public class CompanyInformationFragment extends Fragment implements View.OnClick
         companyAdress = (TextView) rootView.findViewById(R.id.company_information_companyaddress);
         companyPhone = (TextView) rootView.findViewById(R.id.company_information_companyphone);
         companyAbout = (TextView) rootView.findViewById(R.id.company_information_companyabout);
+        subscribe = (Button) rootView.findViewById(R.id.company_information_subscribe);
+        subscribe.setOnClickListener(this);
+        companyAbout.addOnLayoutChangeListener(this);
         HiringManagers hiringManager = new HiringManagers(jsonreceive);
         Picasso.with(getActivity().getApplicationContext()).load(UrlStatic.URLimg+"company_img/"+hiringManager.getCompanyLogo()).into(companyImage);
         hiringManagerName.setText(hiringManager.getHiringManagerName());
@@ -51,10 +58,17 @@ public class CompanyInformationFragment extends Fragment implements View.OnClick
         companyAdress.setText(hiringManager.getCompanyAddress());
         companyAbout.setText(hiringManager.getCompanyAbout());
         companyPhone.setText(hiringManager.getHiringManagerPhone());
-
-        subscribe = (Button) rootView.findViewById(R.id.company_information_subscribe);
-        subscribe.setOnClickListener(this);
+        scrollView.setScrollViewCallbacks(this);
         return rootView;
+    }
+
+    private boolean canScroll(){
+        View child = (View) scrollView.getChildAt(scrollView.getChildCount()-1);
+        if (child != null) {
+            int childHeight = (child).getHeight();
+            return scrollView.getHeight() < childHeight + scrollView.getPaddingTop() + scrollView.getPaddingBottom();
+        }
+        return false;
     }
 
     @Override
@@ -65,5 +79,31 @@ public class CompanyInformationFragment extends Fragment implements View.OnClick
                 break;
             default:break;
         }
+    }
+
+    @Override
+    public void onScrollChanged(int scrollY, boolean firstScroll, boolean dragging) {
+        View view = (View) scrollView.getChildAt(scrollView.getChildCount()-1);
+        int diff = (view.getHeight()-(scrollView.getHeight()+scrollView.getScrollY()));
+        if(diff <= 0){
+            subscribe.setVisibility(View.VISIBLE);
+        }else
+            subscribe.setVisibility(View.INVISIBLE);
+    }
+
+    @Override
+    public void onDownMotionEvent() {
+
+    }
+
+    @Override
+    public void onUpOrCancelMotionEvent(ScrollState scrollState) {
+
+    }
+
+    @Override
+    public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
+        if(canScroll())
+            subscribe.setVisibility(View.INVISIBLE);
     }
 }

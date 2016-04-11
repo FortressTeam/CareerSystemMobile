@@ -1641,9 +1641,72 @@
                     "startLine": 219,
                     "startColumn": 4,
                     "startOffset": 16339,
-                    "endLine": 225,
+                    "endLine": 223,
                     "endColumn": 12,
-                    "endOffset": 16687
+                    "endOffset": 16604
+                },
+                "from": {
+                    "file": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/src/main/res/values-v21/styles.xml",
+                    "position": {
+                        "startLine": 14,
+                        "startColumn": 4,
+                        "startOffset": 603,
+                        "endLine": 18,
+                        "endColumn": 12,
+                        "endOffset": 868
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 224,
+                    "startColumn": 4,
+                    "startOffset": 16609,
+                    "endLine": 228,
+                    "endColumn": 12,
+                    "endOffset": 16892
+                },
+                "from": {
+                    "file": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/src/main/res/values-v21/styles.xml",
+                    "position": {
+                        "startLine": 20,
+                        "startColumn": 4,
+                        "startOffset": 874,
+                        "endLine": 24,
+                        "endColumn": 12,
+                        "endOffset": 1157
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 229,
+                    "startColumn": 4,
+                    "startOffset": 16897,
+                    "endLine": 233,
+                    "endColumn": 12,
+                    "endOffset": 17189
+                },
+                "from": {
+                    "file": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/src/main/res/values-v21/styles.xml",
+                    "position": {
+                        "startLine": 9,
+                        "startColumn": 4,
+                        "startOffset": 306,
+                        "endLine": 13,
+                        "endColumn": 12,
+                        "endOffset": 598
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 234,
+                    "startColumn": 4,
+                    "startOffset": 17194,
+                    "endLine": 240,
+                    "endColumn": 12,
+                    "endOffset": 17542
                 },
                 "from": {
                     "file": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/values-v21/values-v21.xml",
@@ -1659,12 +1722,12 @@
             },
             {
                 "to": {
-                    "startLine": 226,
+                    "startLine": 241,
                     "startColumn": 4,
-                    "startOffset": 16692,
-                    "endLine": 232,
+                    "startOffset": 17547,
+                    "endLine": 247,
                     "endColumn": 12,
-                    "endOffset": 17052
+                    "endOffset": 17907
                 },
                 "from": {
                     "file": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/values-v21/values-v21.xml",
@@ -1680,12 +1743,12 @@
             },
             {
                 "to": {
-                    "startLine": 233,
+                    "startLine": 248,
                     "startColumn": 4,
-                    "startOffset": 17057,
-                    "endLine": 242,
+                    "startOffset": 17912,
+                    "endLine": 257,
                     "endColumn": 12,
-                    "endOffset": 17732
+                    "endOffset": 18587
                 },
                 "from": {
                     "file": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/values-v21/values-v21.xml",
@@ -1701,11 +1764,11 @@
             },
             {
                 "to": {
-                    "startLine": 243,
+                    "startLine": 258,
                     "startColumn": 4,
-                    "startOffset": 17737,
+                    "startOffset": 18592,
                     "endColumn": 56,
-                    "endOffset": 17789
+                    "endOffset": 18644
                 },
                 "from": {
                     "file": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/values-v21/values-v21.xml",
@@ -1720,11 +1783,11 @@
             },
             {
                 "to": {
-                    "startLine": 244,
+                    "startLine": 259,
                     "startColumn": 4,
-                    "startOffset": 17794,
+                    "startOffset": 18649,
                     "endColumn": 57,
-                    "endOffset": 17847
+                    "endOffset": 18702
                 },
                 "from": {
                     "file": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/values-v21/values-v21.xml",

@@ -6,8 +6,8 @@
     android:layout_height="match_parent" >
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
                   android:layout_width="match_parent"
-                  android:paddingLeft="@dimen/magrin_card"
-                  android:paddingRight="@dimen/magrin_card"
+                  android:paddingLeft="@dimen/margin_card"
+                  android:paddingRight="@dimen/margin_card"
                   android:layout_height="match_parent">
         <com.github.ksoichiro.android.observablescrollview.ObservableScrollView
             android:scrollbars="none"
@@ -23,7 +23,7 @@
                     android:padding="@dimen/padding_card"
                     android:id="@+id/myresume_editprofile"
                     android:elevation="2dp"
-                    android:layout_marginBottom="@dimen/magrin_card"
+                    android:layout_marginBottom="@dimen/margin_card"
                     android:background="@drawable/customborder"
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
@@ -103,7 +103,7 @@
                     android:padding="@dimen/padding_card"
                     android:elevation="2dp"
                     android:orientation="vertical"
-                    android:layout_marginBottom="@dimen/magrin_card"
+                    android:layout_marginBottom="@dimen/margin_card"
                     android:background="@drawable/customborder"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
@@ -194,7 +194,7 @@
                 <LinearLayout
                     android:padding="@dimen/padding_card"
                     android:elevation="2dp"
-                    android:layout_marginBottom="@dimen/magrin_card"
+                    android:layout_marginBottom="@dimen/margin_card"
                     android:background="@drawable/customborder"
                     android:orientation="vertical"
                     android:layout_width="match_parent"
@@ -241,7 +241,7 @@
 
                 <LinearLayout
                     android:padding="@dimen/padding_card"
-                    android:layout_marginBottom="@dimen/magrin_card"
+                    android:layout_marginBottom="@dimen/margin_card"
                     android:elevation="2dp"
                     android:background="@drawable/customborder"
                     android:orientation="vertical"
@@ -296,7 +296,7 @@
 
                 <LinearLayout
                     android:padding="@dimen/padding_card"
-                    android:layout_marginBottom="@dimen/magrin_card"
+                    android:layout_marginBottom="@dimen/margin_card"
                     android:elevation="2dp"
                     android:background="@drawable/customborder"
                     android:orientation="vertical"
@@ -351,7 +351,7 @@
 
                 <LinearLayout
                     android:padding="@dimen/padding_card"
-                    android:layout_marginBottom="@dimen/magrin_card"
+                    android:layout_marginBottom="@dimen/margin_card"
                     android:elevation="2dp"
                     android:background="@drawable/customborder"
                     android:orientation="vertical"
@@ -406,7 +406,7 @@
 
                 <LinearLayout
                     android:padding="@dimen/padding_card"
-                    android:layout_marginBottom="@dimen/magrin_card"
+                    android:layout_marginBottom="@dimen/margin_card"
                     android:elevation="2dp"
                     android:background="@drawable/customborder"
                     android:orientation="vertical"
@@ -461,7 +461,7 @@
 
                 <LinearLayout
                     android:padding="@dimen/padding_card"
-                    android:layout_marginBottom="@dimen/magrin_card"
+                    android:layout_marginBottom="@dimen/margin_card"
                     android:elevation="2dp"
                     android:background="@drawable/customborder"
                     android:orientation="vertical"
@@ -518,7 +518,7 @@
 
                 <LinearLayout
                     android:padding="@dimen/padding_card"
-                    android:layout_marginBottom="@dimen/magrin_card"
+                    android:layout_marginBottom="@dimen/margin_card"
                     android:elevation="2dp"
                     android:background="@drawable/customborder"
                     android:orientation="vertical"
@@ -575,7 +575,7 @@
 
                 <LinearLayout
                     android:padding="@dimen/padding_card"
-                    android:layout_marginBottom="@dimen/magrin_card"
+                    android:layout_marginBottom="@dimen/margin_card"
                     android:elevation="2dp"
                     android:background="@drawable/customborder"
                     android:orientation="vertical"
@@ -625,7 +625,7 @@
     </LinearLayout>
     <android.support.design.widget.FloatingActionButton
         android:layout_margin="15dp"
-        android:src="@drawable/iconedit2"
+        android:src="@drawable/editicon2"
         app:backgroundTint="@color/floatbutton"
         android:id="@+id/myresume_editbutton"
         android:layout_alignParentRight="true"

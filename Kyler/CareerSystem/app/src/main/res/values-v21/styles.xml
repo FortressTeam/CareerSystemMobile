@@ -6,4 +6,21 @@
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
         <item name="android:statusBarColor">@color/Black</item>
     </style>
+
+    <style name="MyButtonSubscribe" parent="Theme.AppCompat.Light">
+        <item name="android:textColor">@color/White</item>
+        <item name="colorControlHighlight">@color/colorButtonSubscribePress</item>
+        <item name="colorButtonNormal">@color/colorButtonSubscribe</item>
+    </style>
+    <style name="MyButton" parent="Theme.AppCompat.Light">
+        <item name="android:textColor">@color/White</item>
+        <item name="colorControlHighlight">@color/colorAccentPress</item>
+        <item name="colorButtonNormal">@color/colorAccent</item>
+    </style>
+
+    <style name="MyButtonDelete" parent="Theme.AppCompat.Light">
+        <item name="android:textColor">@color/White</item>
+        <item name="colorControlHighlight">@color/colorButtonDeletePress</item>
+        <item name="colorButtonNormal">@color/colorButtonDelete</item>
+    </style>
 </resources>

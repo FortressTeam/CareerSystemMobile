@@ -1,14 +1,12 @@
 package com.example.kyler.careersystem.Applicant.Customize;
 
 import android.app.Activity;
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.kyler.careersystem.Applicant.ChildApplicantActivity;
 import com.example.kyler.careersystem.Entities.PersonalHistory;
@@ -66,8 +64,13 @@ public class PersonalHistoryListViewAdapter extends BaseAdapter {
             String EndEvent = Utilities.convertTimeShorten(personalHistoryListViewItems.get(i).getPersonalHistoryEnd().toString());
             myresume_history_time.setText(startEvent + " - " + EndEvent);
         }else{
-            String startEvent = Utilities.convertTimeShorten(personalHistoryListViewItems.get(i).getPersonalHistoryStart().toString());
-            myresume_history_time.setText(startEvent + " - Now");
+            if(personalHistoryListViewItems.get(i).getPersonalHistoryTypeID()!=4) {
+                String startEvent = Utilities.convertTimeShorten(personalHistoryListViewItems.get(i).getPersonalHistoryStart().toString());
+                myresume_history_time.setText(startEvent + " - Now");
+            }else {
+                String timeAward = Utilities.convertTimeShorten(personalHistoryListViewItems.get(i).getPersonalHistoryStart().toString());
+                myresume_history_time.setText(timeAward);
+            }
         }
         if(hideButton)
             myresume_history_edit.setVisibility(View.INVISIBLE);
@@ -80,10 +83,12 @@ public class PersonalHistoryListViewAdapter extends BaseAdapter {
                 JSONObject sendData = new JSONObject();
                 JSONObject jsPersonalHistory = new JSONObject();
                 try {
+                    jsPersonalHistory.put("id",personalHistoryListViewItems.get(i).getID());
                     jsPersonalHistory.put("personal_history_title", personalHistoryListViewItems.get(i).getPersonalHistoryTitle());
                     jsPersonalHistory.put("personal_history_detail",personalHistoryListViewItems.get(i).getPersonalHistoryDetail());
                     jsPersonalHistory.put("personal_history_start", Utilities.convertTimePost(personalHistoryListViewItems.get(i).getPersonalHistoryStart()));
-                    jsPersonalHistory.put("personal_history_end", Utilities.convertTimePost(personalHistoryListViewItems.get(i).getPersonalHistoryEnd()));
+                    if(personalHistoryListViewItems.get(i).getPersonalHistoryEnd()!=null)
+                        jsPersonalHistory.put("personal_history_end", Utilities.convertTimePost(personalHistoryListViewItems.get(i).getPersonalHistoryEnd()));
                     jsPersonalHistory.put("personal_history_type_id",personalHistoryListViewItems.get(i).getPersonalHistoryTypeID());
                     jsPersonalHistory.put("applicant_id",personalHistoryListViewItems.get(i).getApplicantID());
                     sendData.put("personalHistoryID",personalHistoryListViewItems.get(i).getPersonalHistoryTypeID());
@@ -91,8 +96,20 @@ public class PersonalHistoryListViewAdapter extends BaseAdapter {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                Utilities.startFragWith(context,ChildApplicantActivity.class,"myresumeaddeducation",sendData.toString());
-                Toast.makeText(context.getApplicationContext(),personalHistoryListViewItems.get(i).getPersonalHistoryTitle()+"\n"+personalHistoryListViewItems.get(i).getPersonalHistoryStart(),Toast.LENGTH_SHORT).show();
+                switch (personalHistoryListViewItems.get(i).getPersonalHistoryTypeID()){
+                    case 1:
+                        Utilities.startFragWith(context, ChildApplicantActivity.class, "myresumeaddeducation", sendData.toString());
+                        break;
+                    case 2:
+                        Utilities.startFragWith(context, ChildApplicantActivity.class, "myresumeaddexperience", sendData.toString());
+                        break;
+                    case 3:
+                        Utilities.startFragWith(context, ChildApplicantActivity.class, "myresumeaddactivity", sendData.toString());
+                        break;
+                    case 4:
+                        Utilities.startFragWith(context, ChildApplicantActivity.class, "myresumeaddaward", sendData.toString());
+                        break;
+                }
             }
         });
         return view;

@@ -24,6 +24,7 @@ import com.example.kyler.careersystem.Entities.Categories;
 import com.example.kyler.careersystem.Entities.HiringManagers;
 import com.example.kyler.careersystem.Entities.Posts;
 import com.example.kyler.careersystem.HiringManager.AddPostFragment;
+import com.example.kyler.careersystem.HiringManager.ManagePost;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -40,7 +41,7 @@ import java.util.concurrent.TimeUnit;
  * Created by Duck_Ky on 3/5/2016.
  */
 public class Utilities {
-    public static void loadNavigationView(Context context,ListView lv){
+    public static void loadNavigationViewApplicant(Context context,ListView lv){
         ArrayList<NavigationListViewItem> listItem = new ArrayList<>();
         listItem.add(new NavigationListViewItem(R.drawable.navhomeicon,"Home"));
         listItem.add(new NavigationListViewItem(R.drawable.navmyresumeicon,"My Resume"));
@@ -50,6 +51,79 @@ public class Utilities {
         listItem.add(new NavigationListViewItem(R.drawable.navnotificationicon,"Notifications",15,true));
         NavigationListViewAdapter adapter = new NavigationListViewAdapter(context.getApplicationContext(),listItem);
         lv.setAdapter(adapter);
+    }
+
+    public static void displayViewApplicant(Activity context, int position){
+        Fragment fragment = null;
+        switch (position){
+            case 0://home
+                fragment = new MyResumeFragment();
+                break;
+            case 1://home
+                fragment = new HomeFragment();
+                break;
+            case 2://myresume
+                fragment = new MyResumeFragment();
+                break;
+            case 3://find
+                fragment = new FindFragment();
+                break;
+            case 4://favorite
+//                fragment = new HomeFragment();
+                fragment = new AddPostFragment();
+                break;
+            case 5://jobapplied
+                fragment = new JobappliedFragment();
+                break;
+            case 6://notifications
+                break;
+            default:
+                fragment = new FailedConnectionFragment();
+                break;
+        }
+        if(fragment != null){
+            FragmentManager fragmentManager = context.getFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.frame_main,fragment).commit();
+        } else{
+            Log.e("Applicant MainActivity", "Error in creating fragment");
+        }
+        DrawerLayout drawer = (DrawerLayout) context.findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+    }
+
+    public static void loadNavigationViewHiringManager(Context context,ListView lv){
+        ArrayList<NavigationListViewItem> listItem = new ArrayList<>();
+        listItem.add(new NavigationListViewItem(R.drawable.hiringmanagerpost,"Posts"));
+        listItem.add(new NavigationListViewItem(R.drawable.hiringmanagercvsubmitted,"Resume Submitted"));
+        listItem.add(new NavigationListViewItem(R.drawable.hiringmanagerfind,"Find"));
+        listItem.add(new NavigationListViewItem(R.drawable.hiringmanagercalendar,"Calendar"));
+        listItem.add(new NavigationListViewItem(R.drawable.navjobappliedicon,"Job Applied"));
+        listItem.add(new NavigationListViewItem(R.drawable.navnotificationicon,"Notifications",15,true));
+        NavigationListViewAdapter adapter = new NavigationListViewAdapter(context.getApplicationContext(),listItem);
+        lv.setAdapter(adapter);
+    }
+
+    public static void displayViewHiringManager(Activity context, int position){
+        Fragment fragment = null;
+        switch (position){
+            case 0://home
+                fragment = new com.example.kyler.careersystem.HiringManager.HomeFragment();
+                break;
+            case 1://home
+                fragment = new com.example.kyler.careersystem.HiringManager.ManagePost();
+                break;
+            default:
+                fragment = new FailedConnectionFragment();
+                break;
+        }
+        if(fragment != null){
+            FragmentManager fragmentManager = context.getFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.frame_main,fragment).commit();
+        } else{
+            Log.e("Applicant MainActivity", "Error in creating fragment");
+        }
+        DrawerLayout drawer = (DrawerLayout) context.findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
     }
 
     public static JobAppliedListViewItem getJobAppliedLVItemfrom(JSONObject jsonObject){
@@ -125,16 +199,24 @@ public class Utilities {
             e.printStackTrace();
         }
         if(days>0) {
-            if (days == 1)
+            if (days == 1) {
                 return "yesterday";
-            else
-                return days + " days ago";
+            }
+            else {
+                if(days > 30){
+                    return datetime;
+                }else {
+                    return days + " days ago";
+                }
+            }
         }
         else {
-            if(days ==0)
+            if(days ==0) {
                 return "today";
-            else
+            }
+            else {
                 return "invalid";
+            }
         }
     }
 
@@ -167,40 +249,6 @@ public class Utilities {
         return jobListViewItem;
     }
 
-    public static void displayView(Activity context,int position){
-        Fragment fragment = null;
-        switch (position){
-            case 1://home
-                fragment = new HomeFragment();
-                break;
-            case 2://myresume
-                fragment = new MyResumeFragment();
-                break;
-            case 3://find
-                fragment = new FindFragment();
-                break;
-            case 4://favorite
-//                fragment = new HomeFragment();
-                fragment = new AddPostFragment();
-                break;
-            case 5://jobapplied
-                fragment = new JobappliedFragment();
-                break;
-            case 6://notifications
-                break;
-            default:
-                fragment = new FailedConnectionFragment();
-                break;
-        }
-        if(fragment != null){
-            FragmentManager fragmentManager = context.getFragmentManager();
-            fragmentManager.beginTransaction().replace(R.id.frame_main,fragment).commit();
-        } else{
-            Log.e("Applicant MainActivity", "Error in creating fragment");
-        }
-        DrawerLayout drawer = (DrawerLayout) context.findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-    }
 
     public static void startFragWith(Activity activitySend,Class activityReceive,String key,String sendData){ // sendData could be an Object
         Intent intent = new Intent(activitySend,activityReceive);

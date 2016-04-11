@@ -18,15 +18,15 @@ import android.widget.Toast;
 import com.example.kyler.careersystem.Applicant.Customize.JobListViewAdapterLoadInfinite;
 import com.example.kyler.careersystem.Applicant.Customize.JobListViewItem;
 import com.example.kyler.careersystem.Applicant.Customize.ViewHolder;
-import com.example.kyler.careersystem.Controller.PostController;
+import com.example.kyler.careersystem.Bussiness.PostController;
 import com.example.kyler.careersystem.Entities.Categories;
 import com.example.kyler.careersystem.Entities.HiringManagers;
 import com.example.kyler.careersystem.Entities.Posts;
+import com.example.kyler.careersystem.R;
+import com.example.kyler.careersystem.UrlStatic;
+import com.example.kyler.careersystem.Utilities;
 import com.example.kyler.careersystem.WorkWithService.GetJsonArray;
 import com.example.kyler.careersystem.WorkWithService.GetJsonLoadMore;
-import com.example.kyler.careersystem.UrlStatic;
-import com.example.kyler.careersystem.R;
-import com.example.kyler.careersystem.Utilities;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -81,7 +81,7 @@ public class HomeFragment extends Fragment implements AbsListView.OnScrollListen
                     }
                     else {
                         Toast.makeText(getActivity().getApplicationContext(), "Connection got problem!", Toast.LENGTH_SHORT).show();
-                        Utilities.displayView(getActivity(),404);
+                        Utilities.displayViewApplicant(getActivity(), 404);
                     }
                 } catch (InterruptedException e) {
                     e.printStackTrace();
@@ -188,6 +188,6 @@ public class HomeFragment extends Fragment implements AbsListView.OnScrollListen
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-        Utilities.startFragWith(getActivity(), ChildApplicantActivity.class, "jobdetail", arrPost.get(i).getID()+"");
+        Utilities.startFragWith(getActivity(), ChildApplicantActivity.class, "jobdetail", arrPost.get(i).getID() + "");
     }
 }

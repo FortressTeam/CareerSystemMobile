@@ -1,6 +1,8 @@
 package com.example.kyler.careersystem.Applicant;
 
+import android.app.AlertDialog;
 import android.app.Fragment;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.GravityCompat;
@@ -10,7 +12,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.example.kyler.careersystem.Applicant.ChildFragments.CompanyInformationFragment;
 import com.example.kyler.careersystem.Applicant.ChildFragments.JobDetailFragment;
@@ -23,14 +28,22 @@ import com.example.kyler.careersystem.Applicant.ChildFragments.MyresumeExperienc
 import com.example.kyler.careersystem.Applicant.ChildFragments.MyresumeFuturegoalFragment;
 import com.example.kyler.careersystem.Applicant.ChildFragments.MyresumeProfileFragment;
 import com.example.kyler.careersystem.ApplicantMainActivity;
+import com.example.kyler.careersystem.Entities.Applicants;
+import com.example.kyler.careersystem.Entities.Users;
 import com.example.kyler.careersystem.FeedbackFragment;
+import com.example.kyler.careersystem.LoginActivity;
+import com.example.kyler.careersystem.LoginData;
 import com.example.kyler.careersystem.R;
+import com.example.kyler.careersystem.UrlStatic;
 import com.example.kyler.careersystem.Utilities;
+import com.squareup.picasso.Picasso;
 
-public class ChildApplicantActivity extends AppCompatActivity implements ListView.OnItemClickListener {
+public class ChildApplicantActivity extends AppCompatActivity implements ListView.OnItemClickListener,View.OnClickListener {
 
     private ListView navigationViewMenu;
     private String receiveData;
+    private Users users = LoginData.users;
+    private Applicants applicants = LoginData.applicants;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,9 +64,20 @@ public class ChildApplicantActivity extends AppCompatActivity implements ListVie
         });
         toolbar.setNavigationIcon(R.drawable.navigationbackicon);
         navigationViewMenu = (ListView) findViewById(R.id.navigation_view_menu);
-        View navigationViewHeader = getLayoutInflater().inflate(R.layout.nav_header_applicant_main, null);
+        View navigationViewHeader = getLayoutInflater().inflate(R.layout.nav_header_main, null);
+        View navigationViewFooter = getLayoutInflater().inflate(R.layout.nav_footer_main, null);
         navigationViewMenu.addHeaderView(navigationViewHeader);
-        Utilities.loadNavigationView(this, navigationViewMenu);
+        navigationViewMenu.addFooterView(navigationViewFooter);
+        Utilities.loadNavigationViewApplicant(this, navigationViewMenu);
+        ImageView hiringManagerImage = (ImageView) findViewById(R.id.nav_header_image);
+        TextView hiringManagerName = (TextView) findViewById(R.id.nav_header_name);
+        TextView hiringManagerEmail = (TextView) findViewById(R.id.nav_header_email);
+        Picasso.with(this).load(UrlStatic.URLimg+"user_img/"+users.getUserAvatar()).into(hiringManagerImage);
+        hiringManagerName.setText(applicants.getApplicantName());
+        hiringManagerEmail.setText(users.getUserEmail());
+        LinearLayout navSettingControl = (LinearLayout) findViewById(R.id.nav_setting_control);
+        navSettingControl.setOnClickListener(this);
+        navigationViewMenu.setOnItemClickListener(this);
         navigationViewMenu.setOnItemClickListener(this);
         Bundle bundle = getIntent().getBundleExtra("sendBundle");
         String key = bundle.getString("key");
@@ -141,5 +165,41 @@ public class ChildApplicantActivity extends AppCompatActivity implements ListVie
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
         startActivity(i);
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.nav_setting_control:
+                showSettings();
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void showSettings(){
+        final String[] items = {"Log out","Settings","Feedback"};
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Setting").setItems(items, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+                drawer.closeDrawer(GravityCompat.START);
+                switch(items[i]){
+                    case "Log out":
+                        startActivity(new Intent(ChildApplicantActivity.this,LoginActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+                        finish();
+                        break;
+                    case "Settings":
+                        break;
+                    case "Feedback":
+                        Utilities.startFragWith(ChildApplicantActivity.this, ChildApplicantActivity.class,"Feedback",null);
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }).show();
     }
 }

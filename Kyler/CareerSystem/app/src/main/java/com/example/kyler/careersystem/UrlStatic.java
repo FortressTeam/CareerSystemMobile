@@ -9,10 +9,12 @@ public class UrlStatic {
     public static String URLimg = service + "img/";
     public static String URLPosts = service + "api/posts.json";
     public static String URLPost = service + "api/posts/";
+    public static String URLManagePost = service + "api/posts.json?limite=20&page=";
     public static String URLHomefragment = service + "api/posts.json?limit=10&page=";
     public static String URLCategories = service + "api/categories.json?limit=100&page=";
     public static String URLFeedbacks = service + "api/feedbacks.json";
     public static String URLApplicant = service + "api/applicants/";
+    public static String URLHiringManager = service + "api/hiringmanagers/";
     public static String URLSkillTypes = service + "api/skill_types.json";
     public static String URLSkills = service + "api/skills.json";
     public static String URLPersonalHistory = service + "api/personal_history.json";

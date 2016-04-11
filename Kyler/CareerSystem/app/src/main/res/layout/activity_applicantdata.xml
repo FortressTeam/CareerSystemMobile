@@ -10,7 +10,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:orientation="vertical"
     android:gravity="center"
-    tools:context=".Applicant.ApplicantData">
+    tools:context=".LoginData">
 
     <TextView
         android:visibility="invisible"

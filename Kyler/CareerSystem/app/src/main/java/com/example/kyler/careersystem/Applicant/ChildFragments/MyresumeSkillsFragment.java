@@ -2,8 +2,8 @@ package com.example.kyler.careersystem.Applicant.ChildFragments;
 
 import android.app.Fragment;
 import android.app.ProgressDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,18 +11,17 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.kyler.careersystem.ApplicantMainActivity;
 import com.example.kyler.careersystem.Entities.SkillTypes;
 import com.example.kyler.careersystem.Entities.Skills;
-import com.example.kyler.careersystem.WorkWithService.GetJsonArray;
-import com.example.kyler.careersystem.WorkWithService.PostDataWithJson;
 import com.example.kyler.careersystem.R;
 import com.example.kyler.careersystem.UrlStatic;
 import com.example.kyler.careersystem.Utilities;
+import com.example.kyler.careersystem.WorkWithService.GetJsonArray;
+import com.example.kyler.careersystem.WorkWithService.PostDataWithJson;
 import com.toptoche.searchablespinnerlibrary.SearchableSpinner;
 
 import org.json.JSONArray;
@@ -94,7 +93,7 @@ public class MyresumeSkillsFragment extends Fragment implements View.OnClickList
                 majors.add(new SkillTypes(jsonArray.getJSONObject(i)));
                 arrMajor.add(majors.get(i).getSkillTypeName());
             }
-            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity().getApplicationContext(),R.layout.spinner_item,arrMajor);
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity().getApplicationContext(), R.layout.spinner_item,arrMajor);
             skillMajor.setAdapter(adapter);
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -119,7 +118,7 @@ public class MyresumeSkillsFragment extends Fragment implements View.OnClickList
                 skills.add(new Skills(jsonArray.getJSONObject(i)));
                 arrSkills.add(skills.get(i).getSkillName());
             }
-            adapterSkill = new ArrayAdapter<String>(getActivity().getApplicationContext(),R.layout.spinner_item,arrSkills);
+            adapterSkill = new ArrayAdapter<String>(getActivity().getApplicationContext(), R.layout.spinner_item,arrSkills);
             adapterSkill.notifyDataSetChanged();
             skillSkills.setAdapter(adapterSkill);
         } catch (InterruptedException e) {
@@ -205,7 +204,7 @@ public class MyresumeSkillsFragment extends Fragment implements View.OnClickList
                 jsSendData.put("skill_level", skillLevel);
                 JSONObject jsResponse = new PostDataWithJson(jsSendData,getActivity()).execute(UrlStatic.URLApplicantsHasSkills).get();
                 if(Utilities.isCreateUpdateSuccess(jsResponse)){
-                    Utilities.startActivity(getActivity(), ApplicantMainActivity.class,2);
+                    Utilities.startActivity(getActivity(), ApplicantMainActivity.class, 2);
                     Toast.makeText(getActivity().getApplicationContext(),"success",Toast.LENGTH_SHORT).show();
                 }else{
                     Toast.makeText(getActivity().getApplicationContext(),"Something went wrong!",Toast.LENGTH_SHORT).show();

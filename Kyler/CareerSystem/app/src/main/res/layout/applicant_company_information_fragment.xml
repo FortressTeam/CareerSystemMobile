@@ -7,12 +7,12 @@
     android:layout_height="match_parent"
     tools:context="com.example.kyler.careersystem.Applicant.ChildFragments.CompanyInformationFragment">
     <com.github.ksoichiro.android.observablescrollview.ObservableScrollView
+        android:id="@+id/company_information_scrollview"
         android:scrollbars="none"
+        android:background="@color/White"
         android:layout_width="match_parent"
-        android:layout_marginBottom="50dp"
-        android:layout_marginLeft="@dimen/magrin_card"
-        android:layout_marginRight="@dimen/magrin_card"
-        android:layout_alignBottom="@+id/company_information_subscribe_layout"
+        android:layout_marginLeft="@dimen/margin_layout"
+        android:layout_marginRight="@dimen/margin_layout"
         android:layout_height="match_parent">
         <LinearLayout
             android:background="@color/background"
@@ -24,7 +24,7 @@
                 android:padding="@dimen/padding_card"
                 android:background="@drawable/customborder"
                 android:orientation="vertical"
-                android:layout_marginBottom="@dimen/magrin_card"
+                android:layout_marginBottom="@dimen/margin_card"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <de.hdodenhof.circleimageview.CircleImageView
@@ -67,7 +67,7 @@
                         android:layout_height="wrap_content"
                         android:textColor="@color/Black"
                         android:textSize="@dimen/activity_title_small"
-                        android:text="Number of staff :"
+                        android:text="Size :"
                         android:gravity="bottom"
                         android:textStyle="bold"
                         />
@@ -115,7 +115,7 @@
                         android:layout_height="wrap_content"
                         android:textColor="@color/Black"
                         android:textSize="@dimen/activity_title_small"
-                        android:text="Address :"
+                        android:text="Manager :"
                         android:gravity="bottom"
                         android:textStyle="bold"
                         />
@@ -158,7 +158,10 @@
 
             <LinearLayout
                 android:elevation="2dp"
-                android:padding="@dimen/padding_card"
+                android:paddingLeft="@dimen/padding_card"
+                android:paddingRight="@dimen/padding_card"
+                android:paddingTop="@dimen/padding_card"
+                android:paddingBottom="60dp"
                 android:orientation="vertical"
                 android:background="@drawable/customborder"
                 android:layout_width="match_parent"
@@ -175,7 +178,6 @@
                     android:paddingTop="5dp"
                     android:textColor="@color/colorContent"
                     android:textSize="@dimen/activity_content_small"
-                    android:text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"/>
             </LinearLayout>
@@ -185,14 +187,15 @@
         android:id="@+id/company_information_subscribe_layout"
         android:layout_alignParentBottom="true"
         android:layout_marginTop="5dp"
-        android:gravity="center_horizontal"
+        android:gravity="center"
         android:layout_width="match_parent"
-        android:layout_height="50dp">
+        android:layout_height="60dp">
         <Button
+            android:visibility="visible"
             android:id="@+id/company_information_subscribe"
             android:text="@string/Subscribe"
-            android:textColor="@color/Black"
             android:layout_width="200dp"
-            android:layout_height="match_parent"/>
+            android:layout_height="50dp"
+            android:theme="@style/MyButton"/>
     </LinearLayout>
 </RelativeLayout>

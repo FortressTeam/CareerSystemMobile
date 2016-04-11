@@ -1,8 +1,8 @@
 package com.example.kyler.careersystem.Applicant.ChildFragments;
 
 import android.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,10 +11,10 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.kyler.careersystem.ApplicantMainActivity;
-import com.example.kyler.careersystem.WorkWithService.PutDataWithJson;
 import com.example.kyler.careersystem.R;
 import com.example.kyler.careersystem.UrlStatic;
 import com.example.kyler.careersystem.Utilities;
+import com.example.kyler.careersystem.WorkWithService.PutDataWithJson;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -48,7 +48,7 @@ public class MyresumeFuturegoalFragment extends Fragment {
                     jsonObject.put("applicant_future_goals",futuregoalContent.getText().toString().trim());
                     JSONObject jsresult = new PutDataWithJson(jsonObject,getActivity()).execute(UrlStatic.URLApplicant+applicantID+".json").get();
                     if(Utilities.isCreateUpdateSuccess(jsresult)){
-                        Utilities.startActivity(getActivity(), ApplicantMainActivity.class,2);
+                        Utilities.startActivity(getActivity(), ApplicantMainActivity.class, 2);
                         Toast.makeText(getActivity().getApplicationContext(), "success", Toast.LENGTH_SHORT).show();
                     }
                     else{

@@ -13,9 +13,20 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+    <style name="MyButtonSubscribe" parent="Theme.AppCompat.Light">
+        <item name="android:textColor">@color/White</item>
+        <item name="colorButtonNormal">@color/colorButtonSubscribe</item>
+    </style>
+    <style name="MyButton" parent="Theme.AppCompat.Light">
+        <item name="android:textColor">@color/White</item>
+        <item name="colorButtonNormal">@color/colorAccent</item>
+    </style>
+    <style name="MyButtonDelete" parent="Theme.AppCompat.Light">
+        <item name="android:textColor">@color/White</item>
+        <item name="colorButtonNormal">@color/colorButtonDelete</item>
+    </style>
+
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
-
-
 </resources>
