@@ -39,7 +39,7 @@ public class MyresumeExperienceFragment extends Fragment implements View.OnClick
     private Button experienceStart,experienceEnd,experienceSave,experienceDelete;
     private Switch experienceCurrentJob;
     private TextView experienceStartTextview,experienceEndTextview;
-    private int applicantID=4;
+    private int applicantID=Utilities.applicantID;
     private int historyTypeID;
     private boolean currentJob=false;
     private JSONObject jsonData;

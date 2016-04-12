@@ -1,12 +1,22 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:tools="http://schemas.android.com/tools"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             tools:context="com.example.kyler.careersystem.HiringManager.ManagePost">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                tools:context="com.example.kyler.careersystem.HiringManager.ManagePost">
 
     <com.baoyz.swipemenulistview.SwipeMenuListView
         android:id="@+id/hiringmanager_managepost_listview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
-
-</LinearLayout>
+    <android.support.design.widget.FloatingActionButton
+        android:layout_marginBottom="@dimen/padding_card"
+        android:layout_marginRight="@dimen/padding_card"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:id="@+id/hiringmanager_managepost_addpost"
+        android:src="@drawable/fabadd"
+        app:backgroundTint="@color/com_facebook_button_send_background_color_pressed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+</RelativeLayout>

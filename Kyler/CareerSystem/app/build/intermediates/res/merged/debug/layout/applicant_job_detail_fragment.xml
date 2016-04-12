@@ -26,14 +26,6 @@
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-                <TextView
-                    android:layout_marginLeft="5dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="@dimen/activity_title_medium"
-                    android:textStyle="bold|normal"
-                    android:text="Company Information :"
-                    android:textColor="@color/Black"/>
                 <LinearLayout
                     android:paddingTop="3dp"
                     android:layout_width="match_parent"
@@ -97,44 +89,6 @@
                             android:layout_height="wrap_content">
                             <TextView
                                 android:textStyle="bold"
-                                android:text="Size: "
-                                android:textColor="@color/Black"
-                                android:textSize="@dimen/activity_content_medium"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"/>
-                            <TextView
-                                android:id="@+id/job_detail_company_size"
-                                android:text="abc"
-                                android:textColor="@color/colorContent"
-                                android:textSize="@dimen/activity_content_medium"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"/>
-                        </LinearLayout>
-                        <LinearLayout
-                            android:layout_marginBottom="3dp"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content">
-                            <TextView
-                                android:textStyle="bold"
-                                android:text="Hiring Manager: "
-                                android:textColor="@color/Black"
-                                android:textSize="@dimen/activity_content_medium"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"/>
-                            <TextView
-                                android:id="@+id/job_detail_hiringmanager_name"
-                                android:text="abc"
-                                android:textColor="@color/colorContent"
-                                android:textSize="@dimen/activity_content_medium"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"/>
-                        </LinearLayout>
-                        <LinearLayout
-                            android:layout_marginBottom="3dp"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content">
-                            <TextView
-                                android:textStyle="bold"
                                 android:text="Phone: "
                                 android:textColor="@color/Black"
                                 android:textSize="@dimen/activity_content_medium"
@@ -142,6 +96,25 @@
                                 android:layout_height="wrap_content"/>
                             <TextView
                                 android:id="@+id/job_detail_hiringmanager_phone"
+                                android:text="abc"
+                                android:textColor="@color/colorContent"
+                                android:textSize="@dimen/activity_content_medium"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_marginBottom="3dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+                            <TextView
+                                android:textStyle="bold"
+                                android:text="Size: "
+                                android:textColor="@color/Black"
+                                android:textSize="@dimen/activity_content_medium"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+                            <TextView
+                                android:id="@+id/job_detail_company_size"
                                 android:text="abc"
                                 android:textColor="@color/colorContent"
                                 android:textSize="@dimen/activity_content_medium"
@@ -156,31 +129,16 @@
                 android:paddingLeft="@dimen/padding_card"
                 android:paddingRight="@dimen/padding_card"
                 android:paddingTop="@dimen/padding_card"
-                android:paddingBottom="60dp"
+                android:paddingBottom="72dp"
                 android:background="@drawable/customborder"
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
-                <TextView
-                    android:paddingTop="5dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="@dimen/activity_title_medium"
-                    android:textStyle="bold|normal"
-                    android:text="Job Information :"
-                    android:textColor="@color/Black"/>
                 <LinearLayout
                     android:paddingTop="2dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Title :"
-                        android:textSize="@dimen/activity_title_small"
-                        android:textColor="@color/Black"
-                        android:textStyle="bold"/>
                     <TextView
                         android:id="@+id/job_detail_post_title"
                         android:paddingLeft="5dp"
@@ -276,30 +234,77 @@
         </LinearLayout>
     </com.github.ksoichiro.android.observablescrollview.ObservableScrollView>
     <LinearLayout
+        android:gravity="right"
+        android:orientation="horizontal"
         android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:orientation="horizontal"
-        android:gravity="center"
-        >
-        <Button
-            android:visibility="visible"
-            android:id="@+id/job_detail_btapply"
-            android:layout_width="150dp"
-            android:text="@string/Apply"
-            android:layout_height="50dp"
-            android:theme="@style/MyButton"/>
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:gravity="center"
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_marginRight="@dimen/padding_card"
+            android:layout_height="match_parent">
+            <android.support.design.widget.FloatingActionButton
+                android:visibility="gone"
+                android:id="@+id/job_detail_floatactionbutton_apply"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                app:fabSize="mini"
+                app:backgroundTint="@color/colorAccent"
+                android:src="@drawable/hiringmanagercvsubmitted"/>
+            <TextView
+                android:background="@drawable/customborder"
+                android:visibility="gone"
+                android:id="@+id/job_detail_apply_textview"
+                android:textColor="@color/colorAccent"
+                android:textSize="@dimen/activity_content_medium"
+                android:textStyle="bold"
+                android:text="Apply"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+        <LinearLayout
+            android:gravity="center"
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_marginRight="@dimen/padding_card"
+            android:layout_height="match_parent">
+            <android.support.design.widget.FloatingActionButton
+                android:visibility="gone"
+                android:id="@+id/job_detail_floatactionbutton_favorite"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:layout_gravity="center"
+                app:fabSize="mini"
+                app:backgroundTint="@color/colorAccent"
+                android:src="@drawable/star"
+                />
+            <TextView
+                android:background="@drawable/customborder"
+                android:visibility="gone"
+                android:id="@+id/job_detail_favorite_textview"
+                android:textColor="@color/colorAccent"
+                android:textSize="@dimen/activity_content_medium"
+                android:textStyle="bold"
+                android:text="Favorite"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/job_detail_floatactionbutton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/margin_card"
+            android:layout_marginBottom="@dimen/margin_card"
+            app:backgroundTint="@color/colorAccent"
+            android:src="@drawable/fabadd"
+            />
     </LinearLayout>
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/job_detail_floatactionbutton_favorite"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="13dp"
-        android:layout_marginBottom="@dimen/margin_card"
-        app:fabSize="mini"
-        app:backgroundTint="@color/navigationviewbackground"
-        android:src="@drawable/star"
-        />
 </RelativeLayout>

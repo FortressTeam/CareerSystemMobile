@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 
+import com.example.kyler.careersystem.UrlStatic;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -52,6 +54,7 @@ public class PutDataWithJson extends AsyncTask<String,Void,JSONObject> {
             connection.setConnectTimeout(10000);
             connection.setReadTimeout(10000);
             connection.setRequestProperty("Content-Type", "application/json");
+//            connection.setRequestProperty("Authorization", "bearer "+ UrlStatic.tokenAccess);
             connection.connect();
 
             OutputStreamWriter out = new OutputStreamWriter(connection.getOutputStream());

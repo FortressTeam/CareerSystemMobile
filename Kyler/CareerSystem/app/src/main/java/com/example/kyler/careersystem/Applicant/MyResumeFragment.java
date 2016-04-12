@@ -82,8 +82,8 @@ public class MyResumeFragment extends Fragment implements View.OnClickListener,O
     private ArrayList<Hobbies> hobbies,listhobbies;
     private ArrayList<SkillTypes> listSkillTypes;
     private ArrayList<Skills> skills,listskills;
-    private JSONObject jsData = LoginData.jsApplicant;
-    private int applicantID=4;
+    private JSONObject jsData;
+    private int applicantID=Utilities.applicantID;
     private MyresumeController myresumeController;
 
     private Applicants applicant;
@@ -445,9 +445,11 @@ public class MyResumeFragment extends Fragment implements View.OnClickListener,O
     }
 
     private ArrayList<PersonalHistory> getListPersonalHistory(ArrayList<PersonalHistory> personalHistories,int condition){
+        if(personalHistories==null)
+            return null;
         ArrayList<PersonalHistory> result = new ArrayList<>();
-        for(int i=0;i<personalHistories.size();i++){
-            if(personalHistories.get(i).getPersonalHistoryTypeID()==condition)
+        for (int i = 0; i < personalHistories.size(); i++) {
+            if (personalHistories.get(i).getPersonalHistoryTypeID() == condition)
                 result.add(personalHistories.get(i));
         }
         if(result.size()>0)
@@ -484,13 +486,24 @@ public class MyResumeFragment extends Fragment implements View.OnClickListener,O
     }
 
     private void reloadApplicantSkills(boolean flat){
-        skillListViewAdapter = new SkillListViewAdapter(getActivity(),skillListViewItems,false,flat);
-        myresume_listview_skill.setAdapter(skillListViewAdapter);
+        if(skillListViewItems!=null) {
+            if(skillListViewItems.size()==0){
+                myresumeSkill.setVisibility(View.VISIBLE);
+            }
+            skillListViewAdapter = new SkillListViewAdapter(getActivity(), skillListViewItems, false, flat);
+            myresume_listview_skill.setAdapter(skillListViewAdapter);
+        }
     }
 
     private void reloadApplicantHobbies(boolean flat){
-        hobbieListViewAdapter = new HobbieListViewAdapter(getActivity(),hobbieListViewItems,false,flat);
-        myresume_listview_hobbie.setAdapter(hobbieListViewAdapter);
+        if(hobbieListViewItems!=null) {
+            if(hobbieListViewItems.size()==0){
+                myresumeHobbie.setVisibility(View.VISIBLE);
+            }
+            hobbieListViewAdapter = new HobbieListViewAdapter(getActivity(), hobbieListViewItems, false, flat);
+            myresume_listview_hobbie.setAdapter(hobbieListViewAdapter);
+
+        }
     }
     private void loadApplicantHobbies(boolean flat){
         if(hobbies!=null){
@@ -621,7 +634,7 @@ public class MyResumeFragment extends Fragment implements View.OnClickListener,O
                             myresumeEditButton.setImageResource(R.drawable.closeicon);
                             myresumeEditButton.show();
                         }
-                    },1000);
+                    },700);
                     hideButton = !hideButton;
                 }
                 else{
@@ -713,6 +726,8 @@ public class MyResumeFragment extends Fragment implements View.OnClickListener,O
 
     private boolean checkExist(SkillListViewItem skillListViewItem){
         boolean checkExist=true;
+        if(skillListViewItems==null)
+            skillListViewItems = new ArrayList<>();
         for(int i=0;i<skillListViewItems.size();i++){
             if(skillListViewItems.get(i).getSkillID() == skillListViewItem.getSkillID()){
                 checkExist = false;
@@ -724,11 +739,15 @@ public class MyResumeFragment extends Fragment implements View.OnClickListener,O
     private void doSaveAddSkill(SkillListViewItem skillListViewItem){
         JSONObject jsSend = new JSONObject();
         boolean checkExist=true;
-        for(int i=0;i<skillListViewItems.size();i++){
-            if(skillListViewItems.get(i).getSkillID() == skillListViewItem.getSkillID()){
-                checkExist = false;
-                break;
+        if(skillListViewItems!=null) {
+            for (int i = 0; i < skillListViewItems.size(); i++) {
+                if (skillListViewItems.get(i).getSkillID() == skillListViewItem.getSkillID()) {
+                    checkExist = false;
+                    break;
+                }
             }
+        }else{
+            skillListViewItems = new ArrayList<>();
         }
         if(checkExist){
             try{
@@ -742,6 +761,9 @@ public class MyResumeFragment extends Fragment implements View.OnClickListener,O
                     skillListViewAdapter = new SkillListViewAdapter(getActivity(),skillListViewItems,false,hideButton);
                     skillListViewAdapter.notifyDataSetChanged();
                     myresume_listview_skill.setAdapter(skillListViewAdapter);
+                    if(skillListViewItems.size()==1) {
+                        myresumeSkill.setVisibility(View.GONE);
+                    }
                     Toast.makeText(getActivity().getApplicationContext(), "Add Success", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(getActivity().getApplicationContext(), "Something went wrong!", Toast.LENGTH_SHORT).show();
@@ -761,11 +783,15 @@ public class MyResumeFragment extends Fragment implements View.OnClickListener,O
     private void doSaveAddHobbie(HobbieListViewItem hobbieListViewItem){
         JSONObject jsSend = new JSONObject();
         boolean checkExist=true;
-        for(int i=0;i<hobbieListViewItems.size();i++){
-            if(hobbieListViewItems.get(i).getHobbieID() == hobbieListViewItem.getHobbieID()) {
-                checkExist = false;
-                break;
+        if(hobbieListViewItems!=null) {
+            for (int i = 0; i < hobbieListViewItems.size(); i++) {
+                if (hobbieListViewItems.get(i).getHobbieID() == hobbieListViewItem.getHobbieID()) {
+                    checkExist = false;
+                    break;
+                }
             }
+        }else{
+            hobbieListViewItems = new ArrayList<>();
         }
         if(checkExist) {
             try {
@@ -778,6 +804,9 @@ public class MyResumeFragment extends Fragment implements View.OnClickListener,O
                     hobbieListViewAdapter = new HobbieListViewAdapter(getActivity(), hobbieListViewItems, false, hideButton);
                     hobbieListViewAdapter.notifyDataSetChanged();
                     myresume_listview_hobbie.setAdapter(hobbieListViewAdapter);
+                    if(hobbieListViewItems.size()==1) {
+                        myresumeHobbie.setVisibility(View.GONE);
+                    }
                     Toast.makeText(getActivity().getApplicationContext(), "Add Success", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(getActivity().getApplicationContext(), "Something went wrong!", Toast.LENGTH_SHORT).show();

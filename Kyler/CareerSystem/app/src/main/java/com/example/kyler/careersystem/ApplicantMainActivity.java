@@ -29,9 +29,8 @@ import com.squareup.picasso.Picasso;
 public class ApplicantMainActivity extends AppCompatActivity implements ListView.OnItemClickListener,View.OnClickListener{
     ListView navigationViewMenu;
     private Handler mhHandler;
-    private int applicantID=4;
-    private Users users = LoginData.users;
-    private Applicants applicants = LoginData.applicants;
+    private Users users = Utilities.users;
+    private Applicants applicants = Utilities.applicants;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -136,7 +135,8 @@ public class ApplicantMainActivity extends AppCompatActivity implements ListView
                 drawer.closeDrawer(GravityCompat.START);
                 switch(items[i]){
                     case "Log out":
-                        startActivity(new Intent(ApplicantMainActivity.this,LoginActivity.class));
+                        startActivity(new Intent(ApplicantMainActivity.this,LoginActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+//                        UrlStatic.tokenAccess="";
                         finish();
                         break;
                     case "Settings":

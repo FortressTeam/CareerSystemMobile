@@ -30,7 +30,7 @@ public class MyresumeProfileFragment extends Fragment implements View.OnClickLis
     private RadioButton rbMale,rbFemale;
     private Button profileSave;
     private JSONObject jsReceive = null;
-    private int applicantID=4;
+    private int applicantID=Utilities.applicantID;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

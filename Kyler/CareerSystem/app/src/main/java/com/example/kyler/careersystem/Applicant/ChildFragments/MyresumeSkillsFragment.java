@@ -39,7 +39,7 @@ public class MyresumeSkillsFragment extends Fragment implements View.OnClickList
     private TextView skillRateTextView;
     private ArrayList<SkillTypes> majors;
     private ArrayList<Skills> skills;
-    private int applicantID = 4;
+    private int applicantID = Utilities.applicantID;
     private int skillLevel = 0;
     private ProgressDialog pDialog;
 

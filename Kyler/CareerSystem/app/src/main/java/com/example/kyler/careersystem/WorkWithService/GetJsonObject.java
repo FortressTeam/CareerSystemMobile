@@ -5,6 +5,8 @@ import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.example.kyler.careersystem.UrlStatic;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -39,6 +41,7 @@ public class GetJsonObject extends AsyncTask<String,Void,JSONObject> {
         try {
             URL url = new URL(strings[0]);
             connection = (HttpURLConnection) url.openConnection();
+//            connection.setRequestProperty("Authorization", "bearer " + UrlStatic.tokenAccess);
             connection.connect();
             BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
             String line = "";

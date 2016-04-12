@@ -3,7 +3,6 @@ package com.example.kyler.careersystem;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -20,11 +19,12 @@ import com.example.kyler.careersystem.Applicant.JobappliedFragment;
 import com.example.kyler.careersystem.Applicant.MyResumeFragment;
 import com.example.kyler.careersystem.Applicant.NavigationListViewAdapter;
 import com.example.kyler.careersystem.Applicant.NavigationListViewItem;
+import com.example.kyler.careersystem.Entities.Applicants;
 import com.example.kyler.careersystem.Entities.Categories;
 import com.example.kyler.careersystem.Entities.HiringManagers;
 import com.example.kyler.careersystem.Entities.Posts;
-import com.example.kyler.careersystem.HiringManager.AddPostFragment;
-import com.example.kyler.careersystem.HiringManager.ManagePost;
+import com.example.kyler.careersystem.Entities.Users;
+import com.example.kyler.careersystem.HiringManager.ChildFragments.AddPostFragment;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -41,6 +41,13 @@ import java.util.concurrent.TimeUnit;
  * Created by Duck_Ky on 3/5/2016.
  */
 public class Utilities {
+    public static Users users=null;
+    public static Applicants applicants=null;
+    public static HiringManagers hiringManagers=null;
+    public static int applicantID=0;
+    public static int hiringmanagerID=0;
+    public static int userID=0;
+
     public static void loadNavigationViewApplicant(Context context,ListView lv){
         ArrayList<NavigationListViewItem> listItem = new ArrayList<>();
         listItem.add(new NavigationListViewItem(R.drawable.navhomeicon,"Home"));

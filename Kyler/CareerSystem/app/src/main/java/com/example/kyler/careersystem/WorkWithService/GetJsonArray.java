@@ -5,6 +5,8 @@ import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.example.kyler.careersystem.UrlStatic;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -40,6 +42,7 @@ public class GetJsonArray extends AsyncTask<String,Void,JSONArray> {
         try {
             URL url = new URL(strings[0]);
             connection = (HttpURLConnection) url.openConnection();
+//            connection.setRequestProperty("Authorization", "bearer "+ UrlStatic.tokenAccess);
             connection.connect();
             if(connection.getResponseCode()==404){
                 return null;

@@ -39,7 +39,7 @@ public class MyresumeActivityFragment extends Fragment implements View.OnClickLi
     private Button activityStart,activityEnd,activitySave,activityDelete;
     private TextView activityStartTextView,activityEndTextView;
     private boolean currentActivity=false;
-    private int applicantID=4;
+    private int applicantID=Utilities.applicantID;
     private int historyTypeID;
     private JSONObject jsonData;
     private PersonalHistory personalHistory = null;

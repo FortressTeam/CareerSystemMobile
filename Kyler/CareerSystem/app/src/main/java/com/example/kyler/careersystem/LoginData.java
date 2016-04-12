@@ -19,14 +19,12 @@ import org.json.JSONObject;
 import java.util.concurrent.ExecutionException;
 
 public class LoginData extends AppCompatActivity implements View.OnClickListener {
-    private int applicantID = 4;
-    private int hiringManagerID =1;
-    public static JSONObject jsApplicant,jsHiringManager;
-    public static Users users;
-    public static Applicants applicants;
-    public static HiringManagers hiringManagers;
+    private Users users;
+    private Applicants applicants;
+    private HiringManagers hiringManagers;
     private TextView checkDatatv;
     private Button checkDatabt;
+    private int loginas;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,57 +33,48 @@ public class LoginData extends AppCompatActivity implements View.OnClickListener
         checkDatatv = (TextView) findViewById(R.id.applicantData_textview);
         checkDatabt = (Button) findViewById(R.id.applicantData_button);
         checkDatabt.setOnClickListener(this);
-        ProgressDialog pDialog = new ProgressDialog(this);
-        pDialog.setMessage("Loading...");
-        pDialog.setCancelable(false);
-        pDialog.setIndeterminate(false);
-        pDialog.show();
-        int loginas = getIntent().getIntExtra("key",0);
+        loginas= getIntent().getIntExtra("key",0);
+        Bundle bundle = getIntent().getBundleExtra("sendData");
+        JSONObject jsUser=null;
+        try {
+            jsUser = new JSONObject(bundle.getString("jsuser"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        users = new Users(jsUser);
         switch (loginas){
             case 1:
                 try {
-                jsApplicant = new GetJsonObject(pDialog, "applicant").execute(UrlStatic.URLApplicant + applicantID + ".json").get();
-                if (Utilities.checkConnect(jsApplicant)) {
-                    startActivity(new Intent(this, ApplicantMainActivity.class));
-                    users = new Users(jsApplicant.getJSONObject("user"));
-                    applicants = new Applicants(jsApplicant);
-                } else {
-                    checkDatatv.setVisibility(View.VISIBLE);
-                    checkDatabt.setVisibility(View.VISIBLE);
+                    applicants = new Applicants(jsUser.getJSONObject("applicant"));
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            } catch (ExecutionException e) {
-                e.printStackTrace();
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
+                Utilities.userID = users.getID();
+                Utilities.applicantID = applicants.getID();
+                Utilities.users = users;
+                Utilities.applicants = applicants;
+                startActivity(new Intent(this, ApplicantMainActivity.class));
+                this.finish();
                 break;
             case 2:
-//                try {
-//                    jsHiringManager = new GetJsonObject(pDialog, "hiringmanager").execute(UrlStatic.URLHiringManager + hiringManagerID + ".json").get();
-//                    if (Utilities.checkConnect(jsHiringManager)) {
-                        startActivity(new Intent(this, HiringManagerMainActivity.class));
-//                        users = new Users(jsHiringManager.getJSONObject("user"));
-//                        hiringManagers = new HiringManagers(jsHiringManager);
-//                    } else {
-//                        checkDatatv.setVisibility(View.VISIBLE);
-//                        checkDatabt.setVisibility(View.VISIBLE);
-//                    }
-//                } catch (InterruptedException e) {
-//                    e.printStackTrace();
-//                } catch (ExecutionException e) {
-//                    e.printStackTrace();
-//                } catch (JSONException e) {
-//                    e.printStackTrace();
-//                }
+                try {
+                    hiringManagers = new HiringManagers(jsUser.getJSONObject("hiring_manager"));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                Utilities.userID = users.getID();
+                Utilities.hiringmanagerID = hiringManagers.getID();
+                Utilities.users = users;
+                Utilities.hiringManagers = hiringManagers;
+                startActivity(new Intent(this, HiringManagerMainActivity.class));
+                this.finish();
                 break;
         }
     }
 
     @Override
     public void onClick(View view) {
-        startActivity(new Intent(this, LoginData.class));
+        startActivity(new Intent(this, LoginData.class).putExtra("key",loginas));
         this.finish();
     }
 }

@@ -30,8 +30,8 @@ public class HiringManagerMainActivity extends AppCompatActivity implements View
     ListView navigationViewMenu;
     private Handler mhHandler;
     private int hiringManagerID=1;
-    private Users users = LoginData.users;
-    private HiringManagers hiringManagers = LoginData.hiringManagers;
+    private Users users = Utilities.users;
+    private HiringManagers hiringManagers = Utilities.hiringManagers;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -136,7 +136,8 @@ public class HiringManagerMainActivity extends AppCompatActivity implements View
                 drawer.closeDrawer(GravityCompat.START);
                 switch(items[i]){
                     case "Log out":
-                        startActivity(new Intent(HiringManagerMainActivity.this,LoginActivity.class));
+                        startActivity(new Intent(HiringManagerMainActivity.this,LoginActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+//                        UrlStatic.tokenAccess="";
                         finish();
                         break;
                     case "Settings":

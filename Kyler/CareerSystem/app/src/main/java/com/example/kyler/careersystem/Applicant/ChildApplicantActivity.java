@@ -42,8 +42,8 @@ public class ChildApplicantActivity extends AppCompatActivity implements ListVie
 
     private ListView navigationViewMenu;
     private String receiveData;
-    private Users users = LoginData.users;
-    private Applicants applicants = LoginData.applicants;
+    private Users users = Utilities.users;
+    private Applicants applicants = Utilities.applicants;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -189,6 +189,7 @@ public class ChildApplicantActivity extends AppCompatActivity implements ListVie
                 switch(items[i]){
                     case "Log out":
                         startActivity(new Intent(ChildApplicantActivity.this,LoginActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+//                        UrlStatic.tokenAccess="";
                         finish();
                         break;
                     case "Settings":

@@ -5,6 +5,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 
+import com.example.kyler.careersystem.UrlStatic;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -40,6 +42,7 @@ public class GetJsonLoadMore extends AsyncTask<String,Void,JSONArray> {
         try {
             URL url = new URL(strings[0]);
             connection = (HttpURLConnection) url.openConnection();
+//            connection.setRequestProperty("Authorization", "bearer " + UrlStatic.tokenAccess);
             connection.connect();
             BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
             String line = "";

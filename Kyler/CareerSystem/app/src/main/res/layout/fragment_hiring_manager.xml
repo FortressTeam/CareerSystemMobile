@@ -35,7 +35,7 @@
             android:layout_height="wrap_content">
             <EditText
                 android:textSize="@dimen/activity_title_big"
-                android:id="@+id/hiringmanager_passowrd_login_password"
+                android:id="@+id/hiringmanager_login_password"
                 android:textColorHint="#727272"
                 android:hint="Password"
                 android:inputType="textPassword"

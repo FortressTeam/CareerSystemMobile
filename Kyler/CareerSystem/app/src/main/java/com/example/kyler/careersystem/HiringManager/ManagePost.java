@@ -10,6 +10,7 @@ import android.graphics.Point;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.design.widget.FloatingActionButton;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,15 +25,15 @@ import com.baoyz.swipemenulistview.SwipeMenuCreator;
 import com.baoyz.swipemenulistview.SwipeMenuItem;
 import com.baoyz.swipemenulistview.SwipeMenuListView;
 import com.example.kyler.careersystem.Bussiness.PostController;
-import com.example.kyler.careersystem.Entities.Categories;
-import com.example.kyler.careersystem.Entities.HiringManagers;
 import com.example.kyler.careersystem.Entities.Posts;
 import com.example.kyler.careersystem.HiringManager.customize.ManagePostAdapter;
+import com.example.kyler.careersystem.HiringManagerMainActivity;
 import com.example.kyler.careersystem.R;
 import com.example.kyler.careersystem.UrlStatic;
-import com.example.kyler.careersystem.WorkWithService.DeleteDataWithJson;
+import com.example.kyler.careersystem.Utilities;
 import com.example.kyler.careersystem.WorkWithService.GetJsonArray;
 import com.example.kyler.careersystem.WorkWithService.GetJsonLoadMore;
+import com.example.kyler.careersystem.WorkWithService.PutDataWithJson;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -44,8 +45,9 @@ import java.util.concurrent.ExecutionException;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ManagePost extends Fragment implements AbsListView.OnScrollListener {
+public class ManagePost extends Fragment implements AbsListView.OnScrollListener,View.OnClickListener {
     private SwipeMenuListView managepost_listview;
+    private FloatingActionButton managePostAddPost;
     private Handler mHandler;
     private ProgressDialog pDialog;
     private ArrayList<Posts> posts,postsLoadMore;
@@ -53,6 +55,7 @@ public class ManagePost extends Fragment implements AbsListView.OnScrollListener
     private ManagePostAdapter managePostAdapter;
     private JSONArray jsPosts;
     private PostController postController;
+    private int hiringmanagerID=Utilities.hiringmanagerID;
     private int page=1;
     private boolean nomoreData=false;
 
@@ -63,6 +66,8 @@ public class ManagePost extends Fragment implements AbsListView.OnScrollListener
         posts = new ArrayList<>();
         postController = new PostController();
         managepost_listview = (SwipeMenuListView) rootView.findViewById(R.id.hiringmanager_managepost_listview);
+        managePostAddPost = (FloatingActionButton) rootView.findViewById(R.id.hiringmanager_managepost_addpost);
+        managePostAddPost.setOnClickListener(this);
         mHandler = new Handler();
         pDialog = new ProgressDialog(getActivity());
         pDialog.setMessage("Loading...");
@@ -79,7 +84,7 @@ public class ManagePost extends Fragment implements AbsListView.OnScrollListener
             @Override
             public void run() {
                 try {
-                    jsPosts = new GetJsonArray(pDialog, "posts").execute(UrlStatic.URLManagePost+page).get();
+                    jsPosts = new GetJsonArray(pDialog, "posts").execute(UrlStatic.URLManagePost +hiringmanagerID+"&page="+page).get();
                     posts = postController.getPosts(jsPosts);
                     managePostAdapter = new ManagePostAdapter(getActivity().getApplicationContext(), posts,20,10);
                     managepost_listview.setAdapter(managePostAdapter);
@@ -117,10 +122,10 @@ public class ManagePost extends Fragment implements AbsListView.OnScrollListener
             public boolean onMenuItemClick(int i, SwipeMenu menu, int index) {
                 switch (index) {
                     case 0:
-                        Toast.makeText(getActivity().getApplicationContext(),"Delete "+posts.get(i).getPostTitle(),Toast.LENGTH_SHORT).show();
+                        deletePost(i);
                         break;
                     case 1:
-                        Toast.makeText(getActivity().getApplicationContext(),"Edit "+posts.get(i).getPostTitle(),Toast.LENGTH_SHORT).show();
+                        editPost(posts.get(i));
                         break;
                     default:
                         break;
@@ -137,13 +142,50 @@ public class ManagePost extends Fragment implements AbsListView.OnScrollListener
         return rootView;
     }
 
-    private void deletePost(int i){
+    private void editPost(Posts post){
+        JSONObject jsSendData = new JSONObject();
+        try {
+            jsSendData.put("id",post.getID());
+            jsSendData.put("post_title",post.getPostTitle());
+            jsSendData.put("post_content",post.getPostContent());
+            jsSendData.put("post_salary",post.getPostSalary());
+            jsSendData.put("post_location",post.getPostLocation());
+            jsSendData.put("post_date",Utilities.convertTimePost(post.getPostDate()));
+            jsSendData.put("post_status",post.isPostStatus());
+            jsSendData.put("category_id",post.getCategoryID());
+            jsSendData.put("hiring_manager_id",post.getHiringManagerID());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        Utilities.startFragWith(getActivity(), ChildHiringManagerActivity.class,"editpost",jsSendData.toString());
+    }
+
+    private void deletePost(final int id){
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setMessage("Do you want to delete?")
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-//                        JSONObject result = new DeleteDataWithJson()
+                        JSONObject jssendData = new JSONObject();
+                        try {
+                            jssendData.put("id",posts.get(id).getID());
+                            jssendData.put("post_status",false);
+                            JSONObject result = new PutDataWithJson(jssendData,getActivity()).execute(UrlStatic.URLEditPost+posts.get(id).getID()+".json").get();
+                            if(Utilities.isCreateUpdateSuccess(result)){
+                                posts.remove(id);
+                                managePostAdapter.setPosts(posts);
+                                managePostAdapter.notifyDataSetChanged();
+                                Toast.makeText(getActivity().getApplicationContext(),"Deleted",Toast.LENGTH_SHORT).show();
+                            }else{
+                                Toast.makeText(getActivity().getApplicationContext(),"Something went wrong!",Toast.LENGTH_SHORT).show();
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        } catch (ExecutionException e) {
+                            e.printStackTrace();
+                        }
                     }
                 })
                 .setNegativeButton("No", null).show();
@@ -172,7 +214,7 @@ public class ManagePost extends Fragment implements AbsListView.OnScrollListener
                 if(managePostAdapter.endReached()){
                     page++;
                     try {
-                        JSONArray jsonArray = new GetJsonLoadMore(progressBar,"posts").execute(UrlStatic.URLManagePost+page).get();
+                        JSONArray jsonArray = new GetJsonLoadMore(progressBar,"posts").execute(UrlStatic.URLManagePost +hiringmanagerID+"&page="+page).get();
                         if(jsonArray!=null){
                             nomoreData=false;
                             for(int i=0;i<jsonArray.length();i++){
@@ -196,4 +238,15 @@ public class ManagePost extends Fragment implements AbsListView.OnScrollListener
             hasCallback = false;
         }
     };
+
+    @Override
+    public void onClick(View view) {
+        switch(view.getId()){
+            case R.id.hiringmanager_managepost_addpost:
+                Utilities.startFragWith(getActivity(),ChildHiringManagerActivity.class,"addpost","");
+                break;
+
+            default:break;
+        }
+    }
 }

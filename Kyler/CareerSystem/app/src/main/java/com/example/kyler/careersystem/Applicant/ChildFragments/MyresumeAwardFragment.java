@@ -35,7 +35,7 @@ public class MyresumeAwardFragment extends Fragment implements View.OnClickListe
     private EditText awardName,awardDescription;
     private Button awardTime,awardSave,awardDelete;
     private TextView awardTimeTextView;
-    private int applicantID=4;
+    private int applicantID=Utilities.applicantID;
     private int historyTypeID;
     private JSONObject jsonData;
     private PersonalHistory personalHistory = null;
