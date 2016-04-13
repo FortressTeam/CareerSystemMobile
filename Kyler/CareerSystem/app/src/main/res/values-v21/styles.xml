@@ -17,6 +17,16 @@
         <item name="colorControlHighlight">@color/colorAccentPress</item>
         <item name="colorButtonNormal">@color/colorAccent</item>
     </style>
+    <style name="ButtonLoginHiring" parent="Theme.AppCompat.Light">
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="colorControlHighlight">@color/hint</item>
+        <item name="colorButtonNormal">@color/White</item>
+    </style>
+    <style name="ButtonLoginApplicant" parent="Theme.AppCompat.Light">
+        <item name="android:textColor">@color/White</item>
+        <item name="colorControlHighlight">@color/colorAccentPress</item>
+        <item name="colorButtonNormal">@color/colorAccent</item>
+    </style>
 
     <style name="MyButtonDelete" parent="Theme.AppCompat.Light">
         <item name="android:textColor">@color/White</item>

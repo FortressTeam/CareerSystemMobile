@@ -3,26 +3,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background"
+    android:background="@color/colorAccent"
     android:orientation="vertical"
     tools:context="roy.tablayoutwithviewpager.GameFragment">
     <ImageView
-        android:layout_marginTop="15dp"
-        android:layout_marginBottom="15dp"
+        android:src="@drawable/logohiring"
         android:layout_gravity="center"
-        android:layout_width="120dp"
-        android:layout_height="120dp"/>
+        android:layout_width="200dp"
+        android:layout_height="200dp"/>
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <android.support.design.widget.TextInputLayout
+            android:theme="@style/EditTextLoginHiring"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <EditText
+                android:textColor="@color/White"
                 android:textSize="@dimen/activity_title_big"
                 android:id="@+id/hiringmanager_login_username"
-                android:textColorHint="#727272"
                 android:hint="Username"
                 android:layout_marginBottom="10dp"
                 android:layout_marginLeft="50dp"
@@ -32,8 +32,10 @@
         </android.support.design.widget.TextInputLayout>
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
+            android:theme="@style/EditTextLoginHiring"
             android:layout_height="wrap_content">
             <EditText
+                android:textColor="@color/White"
                 android:textSize="@dimen/activity_title_big"
                 android:id="@+id/hiringmanager_login_password"
                 android:textColorHint="#727272"
@@ -47,17 +49,16 @@
         </android.support.design.widget.TextInputLayout>
         <LinearLayout
             android:gravity="center"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:weightSum="1"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <Button
+                android:theme="@style/ButtonLoginHiring"
                 android:id="@+id/hiringmanager_loginnormal"
                 android:text="@string/Login"
-                android:layout_weight="0.5"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
         </LinearLayout>
 

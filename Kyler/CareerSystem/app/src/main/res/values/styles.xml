@@ -25,6 +25,33 @@
         <item name="android:textColor">@color/White</item>
         <item name="colorButtonNormal">@color/colorButtonDelete</item>
     </style>
+    <style name="ButtonLoginHiring" parent="Theme.AppCompat.Light">
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="colorButtonNormal">@color/White</item>
+    </style>
+    <style name="ButtonLoginApplicant" parent="Theme.AppCompat.Light">
+        <item name="android:textColor">@color/White</item>
+        <item name="colorButtonNormal">@color/colorAccent</item>
+    </style>
+
+    <style name="EditTextLoginHiring" parent="TextAppearance.AppCompat">
+        <!-- Hint color and label color in FALSE state -->
+        <item name="android:textColorHint">@color/White</item>
+        <item name="android:textSize">@dimen/activity_title_medium</item>
+        <!-- Label color in TRUE state and bar color FALSE and TRUE State -->
+        <item name="colorAccent">@color/White</item>
+        <item name="colorControlNormal">@color/White</item>
+        <item name="colorControlActivated">@color/White</item>
+    </style>
+    <style name="EditTextLoginApplicant" parent="TextAppearance.AppCompat">
+        <!-- Hint color and label color in FALSE state -->
+        <item name="android:textColorHint">@color/colorAccent</item>
+        <item name="android:textSize">@dimen/activity_title_medium</item>
+        <!-- Label color in TRUE state and bar color FALSE and TRUE State -->
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorControlNormal">@color/colorAccent</item>
+        <item name="colorControlActivated">@color/colorAccent</item>
+    </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
 

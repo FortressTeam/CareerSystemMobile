@@ -217,6 +217,16 @@
     <style name="Base.Widget.AppCompat.TextView.SpinnerItem" parent="android:Widget.Material.TextView.SpinnerItem"/>
     <style name="Base.Widget.AppCompat.Toolbar.Button.Navigation" parent="android:Widget.Material.Toolbar.Button.Navigation">
     </style>
+    <style name="ButtonLoginApplicant" parent="Theme.AppCompat.Light">
+        <item name="android:textColor">@color/White</item>
+        <item name="colorControlHighlight">@color/colorAccentPress</item>
+        <item name="colorButtonNormal">@color/colorAccent</item>
+    </style>
+    <style name="ButtonLoginHiring" parent="Theme.AppCompat.Light">
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="colorControlHighlight">@color/hint</item>
+        <item name="colorButtonNormal">@color/White</item>
+    </style>
     <style name="MyButton" parent="Theme.AppCompat.Light">
         <item name="android:textColor">@color/White</item>
         <item name="colorControlHighlight">@color/colorAccentPress</item>
