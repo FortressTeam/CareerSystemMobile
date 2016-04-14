@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import com.example.kyler.careersystem.Entities.Categories;
 import com.example.kyler.careersystem.Entities.Posts;
+import com.example.kyler.careersystem.HiringManager.ChildHiringManagerActivity;
 import com.example.kyler.careersystem.WorkWithService.GetJsonArray;
 import com.example.kyler.careersystem.WorkWithService.PostDataWithJson;
 import com.example.kyler.careersystem.R;
@@ -48,7 +49,7 @@ public class AddPostFragment extends Fragment implements View.OnClickListener,Sp
 
     private int page=1;
     private boolean noMoreData = false;
-    private int categoryID,hiringManagerID=Utilities.hiringmanagerID;
+    private int categoryID,categoryDefaultID,hiringManagerID=Utilities.hiringManagers.getID();
     private ProgressDialog pDialog;
     private Posts postEdit;
     private boolean editMode=false;
@@ -74,7 +75,6 @@ public class AddPostFragment extends Fragment implements View.OnClickListener,Sp
         addPostContentIcon = (ImageView) rootView.findViewById(R.id.hiringmanager_addpost_content_icon);
         arrayListCategories = new ArrayList<>();
         ArrayList<String> arr = new ArrayList<>();
-        arr.add("Category");
         pDialog = new ProgressDialog(getActivity());
         pDialog.setMessage("Loading...");
         pDialog.setCancelable(false);
@@ -89,6 +89,8 @@ public class AddPostFragment extends Fragment implements View.OnClickListener,Sp
                         arrayListCategories.add(category);
                         arr.add(arrayListCategories.get(i).getCategoryName());
                     }
+                    arr.add("Category");
+                    categoryDefaultID=arr.size()-1;
                     page++;
                 }else
                     noMoreData = true;
@@ -102,8 +104,10 @@ public class AddPostFragment extends Fragment implements View.OnClickListener,Sp
         }
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity().getApplicationContext(),R.layout.spinner_item,arr);
         addPostCategory.setAdapter(adapter);
+        addPostCategory.setSelection(categoryDefaultID);
         addPostCategory.setOnItemSelectedListener(this);
         addPostAdd.setOnClickListener(this);
+        addPostCancel.setOnClickListener(this);
         observableScrollView.setScrollViewCallbacks(this);
         addPostTitle.setOnFocusChangeListener(this);
         addPostSalary.setOnFocusChangeListener(this);
@@ -138,9 +142,9 @@ public class AddPostFragment extends Fragment implements View.OnClickListener,Sp
 
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-        if(i>0){
-            categoryID=arrayListCategories.get(i-1).getID();
-            Toast.makeText(getActivity().getApplicationContext(),arrayListCategories.get(i-1).getCategoryName()+" "+arrayListCategories.get(i-1).getID(),Toast.LENGTH_SHORT).show();
+        if(i!=categoryDefaultID) {
+            categoryID = arrayListCategories.get(i).getID();
+            Toast.makeText(getActivity().getApplicationContext(), arrayListCategories.get(i).getCategoryName() + " " + arrayListCategories.get(i).getID(), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -199,6 +203,8 @@ public class AddPostFragment extends Fragment implements View.OnClickListener,Sp
                     createAlertError();
                 }
                 break;
+            case R.id.hiringmanager_addpost_cancel:
+                getActivity().onBackPressed();
             default:
                 break;
         }
@@ -219,7 +225,7 @@ public class AddPostFragment extends Fragment implements View.OnClickListener,Sp
     }
 
     private boolean hasCategory(){
-        if(!addPostCategory.getSelectedItem().toString().equals("Category"))
+        if(!(addPostCategory.getSelectedItemPosition()==categoryDefaultID))
             return true;
         else
             return false;
@@ -263,22 +269,27 @@ public class AddPostFragment extends Fragment implements View.OnClickListener,Sp
         builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                JSONObject jsonObject = new JSONObject();
+                JSONObject sendData = new JSONObject();
                 Boolean isSuccess = false;
                 try {
-                    jsonObject.put("post_title", addPostTitle.getText());
-                    jsonObject.put("post_content", addPostContent.getText());
+                    sendData.put("post_title", addPostTitle.getText());
+                    sendData.put("post_content", addPostContent.getText());
                     if (!isNegotiable)
-                        jsonObject.put("post_salary", Float.parseFloat(addPostSalary.getText() + ""));
-                    jsonObject.put("post_location", addPostLocation.getText());
-                    jsonObject.put("post_date", new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime()));
-                    jsonObject.put("post_status", true);
-                    jsonObject.put("category_id", categoryID);
-                    jsonObject.put("hiring_manager_id", hiringManagerID);
+                        sendData.put("post_salary", Float.parseFloat(addPostSalary.getText() + ""));
+                    sendData.put("post_location", addPostLocation.getText());
                     if(editMode){
-                        isSuccess = Utilities.isCreateUpdateSuccess(new PutDataWithJson(jsonObject, getActivity()).execute(UrlStatic.URLEditPost + postEdit.getID() + ".json").get());
+                        sendData.put("id",postEdit.getID());
+                        sendData.put("post_date", Utilities.convertTimePost(postEdit.getPostDate()));
                     }else{
-                        isSuccess = Utilities.isCreateUpdateSuccess(new PostDataWithJson(jsonObject, getActivity()).execute(UrlStatic.URLPosts).get());
+                        sendData.put("post_date", new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime()));
+                    }
+                    sendData.put("post_status", true);
+                    sendData.put("category_id", categoryID);
+                    sendData.put("hiring_manager_id", hiringManagerID);
+                    if(editMode){
+                        isSuccess = Utilities.isCreateUpdateSuccess(new PutDataWithJson(sendData, getActivity()).execute(UrlStatic.URLEditPost + postEdit.getID() + ".json").get());
+                    }else{
+                        isSuccess = Utilities.isCreateUpdateSuccess(new PostDataWithJson(sendData, getActivity()).execute(UrlStatic.URLPosts).get());
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -288,12 +299,14 @@ public class AddPostFragment extends Fragment implements View.OnClickListener,Sp
                     e.printStackTrace();
                 }
                 if (isSuccess) {
+                    Utilities.startFragWith(getActivity(), ChildHiringManagerActivity.class, "jobdetail", sendData.toString());
                     if(editMode) {
                         Toast.makeText(getActivity().getApplicationContext(), "success ", Toast.LENGTH_SHORT).show();
                     }
                     else {
                         Toast.makeText(getActivity().getApplicationContext(), "Create Post success ... ", Toast.LENGTH_SHORT).show();
                     }
+                    getActivity().finish();
                 } else {
                     Toast.makeText(getActivity().getApplicationContext(), "Something went wrong!", Toast.LENGTH_SHORT).show();
                 }

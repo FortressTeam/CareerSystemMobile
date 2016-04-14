@@ -10,10 +10,10 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <permission
-        android:name="com.ln.androidgcm.permission.C2D_MESSAGE"
+        android:name="com.example.kyler.careersystem.permission.C2D_MESSAGE"
         android:protectionLevel="signature" />
 
-    <uses-permission android:name="com.ln.androidgcm.permission.C2D_MESSAGE" />
+    <uses-permission android:name="com.example.kyler.careersystem.permission.C2D_MESSAGE" />
     <!-- END Added for GCM -->
 
     <provider
@@ -83,12 +83,12 @@
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
 
-                <category android:name="com.ln.androidgcm" />
+                <category android:name="com.example.kyler.careersystem" />
             </intent-filter>
         </receiver>
 
         <service
-            android:name="androidgcm.MyGcmPushReceiver"
+            android:name=".MyGcmPushReceiver"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
@@ -96,7 +96,7 @@
         </service>
 
         <service
-            android:name="androidgcm.GcmIntentService"
+            android:name=".GcmIntentService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.android.gms.iid.InstanceID" />

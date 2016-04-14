@@ -44,9 +44,12 @@ public class Utilities {
     public static Users users=null;
     public static Applicants applicants=null;
     public static HiringManagers hiringManagers=null;
-    public static int applicantID=0;
-    public static int hiringmanagerID=0;
-    public static int userID=0;
+
+    public static void clear(){
+        users = null;
+        applicants = null;
+        hiringManagers = null;
+    }
 
     public static void loadNavigationViewApplicant(Context context,ListView lv){
         ArrayList<NavigationListViewItem> listItem = new ArrayList<>();

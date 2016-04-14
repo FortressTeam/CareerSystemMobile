@@ -35,7 +35,7 @@ public class MyresumeEducationFragment extends Fragment implements View.OnClickL
     private EditText educationUniversity,educationDescription;
     private Button educationStart,educationEnd,educationSave,educationDelete;
     private TextView educationStartTextView,educationEndTextView;
-    private int applicantID=Utilities.applicantID;
+    private int applicantID=Utilities.applicants.getID();
     private int historyTypeID;
     private JSONObject jsonData;
     private PersonalHistory personalHistory = null;

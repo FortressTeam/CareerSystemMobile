@@ -55,7 +55,7 @@ public class ManagePost extends Fragment implements AbsListView.OnScrollListener
     private ManagePostAdapter managePostAdapter;
     private JSONArray jsPosts;
     private PostController postController;
-    private int hiringmanagerID=Utilities.hiringmanagerID;
+    private int hiringmanagerID=Utilities.hiringManagers.getID();
     private int page=1;
     private boolean nomoreData=false;
 
@@ -133,16 +133,17 @@ public class ManagePost extends Fragment implements AbsListView.OnScrollListener
                 return false;
             }
         });
+
         managepost_listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
+                Utilities.startFragWith(getActivity(),ChildHiringManagerActivity.class,"jobdetail",jsSendData(posts.get(i)).toString());
             }
         });
         return rootView;
     }
 
-    private void editPost(Posts post){
+    private JSONObject jsSendData(Posts post){
         JSONObject jsSendData = new JSONObject();
         try {
             jsSendData.put("id",post.getID());
@@ -157,6 +158,11 @@ public class ManagePost extends Fragment implements AbsListView.OnScrollListener
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        return jsSendData;
+    }
+
+    private void editPost(Posts post){
+        JSONObject jsSendData = jsSendData(post);
         Utilities.startFragWith(getActivity(), ChildHiringManagerActivity.class,"editpost",jsSendData.toString());
     }
 
@@ -245,7 +251,6 @@ public class ManagePost extends Fragment implements AbsListView.OnScrollListener
             case R.id.hiringmanager_managepost_addpost:
                 Utilities.startFragWith(getActivity(),ChildHiringManagerActivity.class,"addpost","");
                 break;
-
             default:break;
         }
     }

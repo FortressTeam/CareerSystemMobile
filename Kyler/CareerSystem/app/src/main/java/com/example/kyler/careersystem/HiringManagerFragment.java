@@ -57,6 +57,7 @@ public class HiringManagerFragment extends Fragment implements View.OnClickListe
                     bundle.putString("jsuser",result.getJSONObject("user").toString());
                     intent.putExtra("sendData", bundle);
                     startActivity(intent);
+                    getActivity().finish();
                 }else{
                     Toast.makeText(getActivity().getApplicationContext(), "Login Failed!", Toast.LENGTH_SHORT).show();
                 }

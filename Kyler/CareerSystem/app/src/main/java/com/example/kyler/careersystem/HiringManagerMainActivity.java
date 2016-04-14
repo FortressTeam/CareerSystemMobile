@@ -6,6 +6,7 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Handler;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -29,7 +30,6 @@ import com.squareup.picasso.Picasso;
 public class HiringManagerMainActivity extends AppCompatActivity implements View.OnClickListener,ListView.OnItemClickListener {
     ListView navigationViewMenu;
     private Handler mhHandler;
-    private int hiringManagerID=1;
     private Users users = Utilities.users;
     private HiringManagers hiringManagers = Utilities.hiringManagers;
 
@@ -54,9 +54,9 @@ public class HiringManagerMainActivity extends AppCompatActivity implements View
         ImageView hiringManagerImage = (ImageView) findViewById(R.id.nav_header_image);
         TextView hiringManagerName = (TextView) findViewById(R.id.nav_header_name);
         TextView hiringManagerEmail = (TextView) findViewById(R.id.nav_header_email);
-//        Picasso.with(this).load(UrlStatic.URLimg+"user_img/"+users.getUserAvatar()).into(hiringManagerImage);
-//        hiringManagerName.setText(hiringManagers.getHiringManagerName());
-//        hiringManagerEmail.setText(users.getUserEmail());
+        Picasso.with(this).load(UrlStatic.URLimg+"user_img/"+users.getUserAvatar()).into(hiringManagerImage);
+        hiringManagerName.setText(hiringManagers.getHiringManagerName());
+        hiringManagerEmail.setText(users.getUserEmail());
         LinearLayout navSettingControl = (LinearLayout) findViewById(R.id.nav_setting_control);
         navSettingControl.setOnClickListener(this);
         navigationViewMenu.setOnItemClickListener(this);
@@ -136,6 +136,7 @@ public class HiringManagerMainActivity extends AppCompatActivity implements View
                 drawer.closeDrawer(GravityCompat.START);
                 switch(items[i]){
                     case "Log out":
+                        Utilities.clear();
                         startActivity(new Intent(HiringManagerMainActivity.this,LoginActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
 //                        UrlStatic.tokenAccess="";
                         finish();

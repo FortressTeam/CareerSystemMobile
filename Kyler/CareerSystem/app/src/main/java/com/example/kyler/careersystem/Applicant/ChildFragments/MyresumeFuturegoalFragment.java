@@ -25,7 +25,7 @@ public class MyresumeFuturegoalFragment extends Fragment {
     private EditText futuregoalContent;
     private Button futuregoalSave;
     private JSONObject jsReceive=null;
-    private int applicantID = Utilities.applicantID;
+    private int applicantID = Utilities.applicants.getID();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

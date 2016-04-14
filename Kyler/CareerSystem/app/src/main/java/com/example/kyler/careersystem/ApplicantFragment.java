@@ -4,6 +4,7 @@ package com.example.kyler.careersystem;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,7 +31,7 @@ import java.util.concurrent.ExecutionException;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ApplicantFragment extends Fragment implements View.OnClickListener{
+public class ApplicantFragment extends Fragment implements View.OnClickListener,View.OnKeyListener{
     private EditText username,password;
     private Button loginNormal;
     CallbackManager callbackManager;
@@ -44,6 +45,8 @@ public class ApplicantFragment extends Fragment implements View.OnClickListener{
         username = (EditText) view.findViewById(R.id.applicant_login_username);
         password = (EditText) view.findViewById(R.id.applicant_login_password);
         loginNormal = (Button) view.findViewById(R.id.applicant_loginnormal);
+        username.setOnKeyListener(this);
+        password.setOnKeyListener(this);
         loginNormal.setOnClickListener(this);
         callbackManager = CallbackManager.Factory.create();
         loginButton = (LoginButton) view.findViewById(R.id.applicant_loginbutton);
@@ -112,6 +115,7 @@ public class ApplicantFragment extends Fragment implements View.OnClickListener{
                     bundle.putString("jsuser",result.getJSONObject("user").toString());
                     intent.putExtra("sendData",bundle);
                     startActivity(intent);
+                    getActivity().finish();
                 }else{
                     Toast.makeText(getActivity().getApplicationContext(), "Login Failed!", Toast.LENGTH_SHORT).show();
                 }
@@ -154,4 +158,19 @@ public class ApplicantFragment extends Fragment implements View.OnClickListener{
         }
     }
 
+    @Override
+    public boolean onKey(View view, int i, KeyEvent keyEvent) {
+        switch (view.getId()){
+            case R.id.applicant_login_username:
+                if ((keyEvent.getAction() == KeyEvent.ACTION_DOWN) && (i == KeyEvent.KEYCODE_ENTER)) {
+                    password.requestFocus();
+                }
+                break;
+            case R.id.applicant_login_password:
+                break;
+            default:
+                break;
+        }
+        return false;
+    }
 }

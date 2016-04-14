@@ -188,6 +188,7 @@ public class ChildApplicantActivity extends AppCompatActivity implements ListVie
                 drawer.closeDrawer(GravityCompat.START);
                 switch(items[i]){
                     case "Log out":
+                        Utilities.clear();
                         startActivity(new Intent(ChildApplicantActivity.this,LoginActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
 //                        UrlStatic.tokenAccess="";
                         finish();

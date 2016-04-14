@@ -21,6 +21,8 @@ import com.example.kyler.careersystem.ApplicantMainActivity;
 import com.example.kyler.careersystem.Entities.HiringManagers;
 import com.example.kyler.careersystem.Entities.Users;
 import com.example.kyler.careersystem.HiringManager.ChildFragments.AddPostFragment;
+import com.example.kyler.careersystem.HiringManager.ChildFragments.JobDetailFragment;
+import com.example.kyler.careersystem.HiringManagerMainActivity;
 import com.example.kyler.careersystem.LoginActivity;
 import com.example.kyler.careersystem.R;
 import com.example.kyler.careersystem.UrlStatic;
@@ -57,7 +59,7 @@ public class ChildHiringManagerActivity extends AppCompatActivity implements Vie
         View navigationViewFooter = getLayoutInflater().inflate(R.layout.nav_footer_main, null);
         navigationViewMenu.addHeaderView(navigationViewHeader);
         navigationViewMenu.addFooterView(navigationViewFooter);
-        Utilities.loadNavigationViewApplicant(this, navigationViewMenu);
+        Utilities.loadNavigationViewHiringManager(this, navigationViewMenu);
         ImageView hiringManagerImage = (ImageView) findViewById(R.id.nav_header_image);
         TextView hiringManagerName = (TextView) findViewById(R.id.nav_header_name);
         TextView hiringManagerEmail = (TextView) findViewById(R.id.nav_header_email);
@@ -78,6 +80,10 @@ public class ChildHiringManagerActivity extends AppCompatActivity implements Vie
         Fragment fragment = null;
         Bundle bundle = new Bundle();
         switch (key){
+            case "jobdetail":
+                fragment = new JobDetailFragment();
+                bundle.putString("sendData", receiveData);
+                break;
             case "editpost":
                 fragment = new AddPostFragment();
                 bundle.putString("sendData", receiveData);
@@ -94,7 +100,7 @@ public class ChildHiringManagerActivity extends AppCompatActivity implements Vie
     }
 
     private void startActivity(int id){
-        Intent intent = new Intent(this, ApplicantMainActivity.class);
+        Intent intent = new Intent(this, HiringManagerMainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         Bundle bundle = new Bundle();
         bundle.putInt("itemID",id);
@@ -139,6 +145,7 @@ public class ChildHiringManagerActivity extends AppCompatActivity implements Vie
                 drawer.closeDrawer(GravityCompat.START);
                 switch(items[i]){
                     case "Log out":
+                        Utilities.clear();
                         startActivity(new Intent(ChildHiringManagerActivity.this,LoginActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
 //                        UrlStatic.tokenAccess="";
                         finish();

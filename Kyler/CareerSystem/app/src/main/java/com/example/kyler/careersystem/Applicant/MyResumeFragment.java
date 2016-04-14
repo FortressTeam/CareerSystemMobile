@@ -83,7 +83,7 @@ public class MyResumeFragment extends Fragment implements View.OnClickListener,O
     private ArrayList<SkillTypes> listSkillTypes;
     private ArrayList<Skills> skills,listskills;
     private JSONObject jsData;
-    private int applicantID=Utilities.applicantID;
+    private int applicantID=Utilities.applicants.getID();
     private MyresumeController myresumeController;
 
     private Applicants applicant;

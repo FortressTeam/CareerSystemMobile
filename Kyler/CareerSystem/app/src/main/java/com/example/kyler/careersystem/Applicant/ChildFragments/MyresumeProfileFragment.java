@@ -12,6 +12,7 @@ import android.widget.RadioButton;
 import android.widget.Toast;
 
 import com.example.kyler.careersystem.ApplicantMainActivity;
+import com.example.kyler.careersystem.Entities.Applicants;
 import com.example.kyler.careersystem.R;
 import com.example.kyler.careersystem.UrlStatic;
 import com.example.kyler.careersystem.Utilities;
@@ -30,7 +31,7 @@ public class MyresumeProfileFragment extends Fragment implements View.OnClickLis
     private RadioButton rbMale,rbFemale;
     private Button profileSave;
     private JSONObject jsReceive = null;
-    private int applicantID=Utilities.applicantID;
+    private int applicantID=Utilities.applicants.getID();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -80,6 +81,7 @@ public class MyresumeProfileFragment extends Fragment implements View.OnClickLis
             jsonObject.put("applicant_date_of_birth",new SimpleDateFormat("yyyy-MM-dd").format(date));
             jsonObject.put("applicant_sex",rbMale.isChecked());
             JSONObject jsresult =  new PutDataWithJson(jsonObject, getActivity()).execute(UrlStatic.URLApplicant + applicantID + ".json").get();
+            Utilities.applicants.setApplicantName(profileName.getText().toString());
             if(Utilities.isCreateUpdateSuccess(jsresult)){
                 Toast.makeText(getActivity(), "success", Toast.LENGTH_SHORT).show();
                 Utilities.startActivity(getActivity(), ApplicantMainActivity.class, 2);
