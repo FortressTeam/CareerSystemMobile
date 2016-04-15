@@ -2,6 +2,7 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/applicant_myresume_education"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -13,9 +14,10 @@
     tools:context="com.example.kyler.careersystem.Applicant.ChildFragments.MyresumeEducationFragment">
     <LinearLayout
         android:background="@drawable/customborder"
-        android:paddingTop="5dp"
-        android:paddingLeft="5dp"
-        android:paddingRight="5dp"
+        android:paddingLeft="@dimen/padding_card"
+        android:paddingRight="@dimen/padding_card"
+        android:paddingTop="@dimen/margin_card"
+        android:paddingBottom="50dp"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -86,16 +88,25 @@
     </LinearLayout>
 
     <LinearLayout
+        android:layout_marginLeft="@dimen/padding_card"
+        android:layout_marginRight="@dimen/padding_card"
         android:weightSum="1"
         android:layout_alignParentBottom="true"
         android:gravity="center"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="50dp">
 
         <Button
-            android:layout_marginRight="@dimen/padding_card"
+            android:id="@+id/myresume_education_save"
+            android:layout_width="0dp"
+            android:layout_weight="0.5"
+            android:layout_gravity="center"
+            android:text="@string/Save"
+            android:layout_height="wrap_content"
+            android:theme="@style/MyButton"/>
+        <Button
             android:visibility="gone"
-            android:layout_weight="0.3"
+            android:layout_weight="0.5"
             android:id="@+id/myresume_education_delete"
             android:layout_width="0dp"
             android:layout_gravity="center"
@@ -103,15 +114,6 @@
             android:layout_height="wrap_content"
             android:theme="@style/MyButtonDelete"/>
 
-        <Button
-            android:layout_marginLeft="@dimen/padding_card"
-            android:id="@+id/myresume_education_save"
-            android:layout_width="0dp"
-            android:layout_weight="0.3"
-            android:layout_gravity="center"
-            android:text="@string/Save"
-            android:layout_height="wrap_content"
-            android:theme="@style/MyButton"/>
 
     </LinearLayout>
 </RelativeLayout>

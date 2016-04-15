@@ -136,10 +136,7 @@ public class HiringManagerMainActivity extends AppCompatActivity implements View
                 drawer.closeDrawer(GravityCompat.START);
                 switch(items[i]){
                     case "Log out":
-                        Utilities.clear();
-                        startActivity(new Intent(HiringManagerMainActivity.this,LoginActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
-//                        UrlStatic.tokenAccess="";
-                        finish();
+                        Utilities.logOut(HiringManagerMainActivity.this);
                         break;
                     case "Settings":
                         break;

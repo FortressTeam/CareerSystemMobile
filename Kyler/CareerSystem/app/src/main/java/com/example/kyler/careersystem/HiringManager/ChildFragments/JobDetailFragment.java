@@ -105,6 +105,5 @@ public class JobDetailFragment extends Fragment {
             e.printStackTrace();
         }
         Utilities.startFragWith(getActivity(), ChildHiringManagerActivity.class, "editpost", jsSendData.toString());
-        getActivity().finish();
     }
 }

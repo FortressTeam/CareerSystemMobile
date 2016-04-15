@@ -43,7 +43,7 @@ import java.util.concurrent.ExecutionException;
 public class AddPostFragment extends Fragment implements View.OnClickListener,Spinner.OnItemSelectedListener,ObservableScrollViewCallbacks,View.OnFocusChangeListener {
     private EditText addPostTitle,addPostSalary,addPostLocation,addPostContent;
     private ImageView addPostTitleIcon,addPostSalaryIcon,addPostLocationIcon,addPostCategoryIcon,addPostContentIcon;
-    private Button addPostAdd,addPostCancel;
+    private Button addPostAdd;
     private Spinner addPostCategory;
     private ObservableScrollView observableScrollView;
 
@@ -60,9 +60,9 @@ public class AddPostFragment extends Fragment implements View.OnClickListener,Sp
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.hiringmanager_addpost_fragment, container, false);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Add Post");
+        Utilities.hideSoftKeyboard(getActivity(), rootView.findViewById(R.id.hiringmanager_addpost_layout));
         observableScrollView = (ObservableScrollView) rootView.findViewById(R.id.hiringmanager_addpost_scrollview);
         addPostAdd = (Button) rootView.findViewById(R.id.hiringmanager_addpost_add);
-        addPostCancel = (Button) rootView.findViewById(R.id.hiringmanager_addpost_cancel);
         addPostTitle = (EditText) rootView.findViewById(R.id.hiringmanager_addpost_title_edittext);
         addPostSalary = (EditText) rootView.findViewById(R.id.hiringmanager_addpost_salary_edittext);
         addPostLocation = (EditText) rootView.findViewById(R.id.hiringmanager_addpost_location_edittext);
@@ -107,7 +107,6 @@ public class AddPostFragment extends Fragment implements View.OnClickListener,Sp
         addPostCategory.setSelection(categoryDefaultID);
         addPostCategory.setOnItemSelectedListener(this);
         addPostAdd.setOnClickListener(this);
-        addPostCancel.setOnClickListener(this);
         observableScrollView.setScrollViewCallbacks(this);
         addPostTitle.setOnFocusChangeListener(this);
         addPostSalary.setOnFocusChangeListener(this);
@@ -165,19 +164,6 @@ public class AddPostFragment extends Fragment implements View.OnClickListener,Sp
 
     @Override
     public void onUpOrCancelMotionEvent(ScrollState scrollState) {
-        ActionBar ab = ((AppCompatActivity)getActivity()).getSupportActionBar();
-        if (ab == null) {
-            return;
-        }
-        if (scrollState == ScrollState.UP) {
-            if (ab.isShowing()) {
-                ab.hide();
-            }
-        } else if (scrollState == ScrollState.DOWN) {
-            if (!ab.isShowing()) {
-                ab.show();
-            }
-        }
     }
 
     @Override
@@ -203,8 +189,6 @@ public class AddPostFragment extends Fragment implements View.OnClickListener,Sp
                     createAlertError();
                 }
                 break;
-            case R.id.hiringmanager_addpost_cancel:
-                getActivity().onBackPressed();
             default:
                 break;
         }

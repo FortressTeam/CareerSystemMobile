@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -50,6 +51,7 @@ public class MyresumeExperienceFragment extends Fragment implements View.OnClick
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.applicant_myresume_experience_fragment, container, false);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Experience");
+        Utilities.hideSoftKeyboard(getActivity(), rootView.findViewById(R.id.applicant_myresume_experience));
         Bundle bundle = getArguments();
         try {
             jsonData = new JSONObject(bundle.getString("sendData"));
@@ -100,6 +102,10 @@ public class MyresumeExperienceFragment extends Fragment implements View.OnClick
         experienceStart.setOnClickListener(this);
         experienceEnd.setOnClickListener(this);
         experienceSave.setOnClickListener(this);
+        if(!editMode){
+            LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) experienceSave.getLayoutParams();
+            params.weight = 1;
+        }
         return rootView;
     }
 

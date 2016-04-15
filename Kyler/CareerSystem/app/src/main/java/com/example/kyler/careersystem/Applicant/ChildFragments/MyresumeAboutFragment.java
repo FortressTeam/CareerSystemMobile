@@ -31,6 +31,7 @@ public class MyresumeAboutFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.applicant_myresume_about_fragment,container,false);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Edit About");
+        Utilities.hideSoftKeyboard(getActivity(),rootView.findViewById(R.id.applicant_myresume_about));
         Bundle bundle = getArguments();
         aboutContent = (EditText) rootView.findViewById(R.id.myresume_about_content);
         aboutSave = (Button) rootView.findViewById(R.id.myresume_about_save);

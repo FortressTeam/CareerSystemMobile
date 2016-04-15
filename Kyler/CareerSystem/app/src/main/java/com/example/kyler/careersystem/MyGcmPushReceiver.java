@@ -18,6 +18,14 @@ import android.util.Log;
 
 import com.google.android.gms.gcm.GcmListenerService;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 
 public class MyGcmPushReceiver extends GcmListenerService {
 
@@ -36,10 +44,16 @@ public class MyGcmPushReceiver extends GcmListenerService {
         String message = bundle.getString("message");
         Log.d(TAG, "From: " + from);
         Log.d(TAG, "Message: " + message);
+        if(checkAccountExist())
+            sendNotification(bundle);
+    }
 
-        sendNotification(bundle);
-
-
+    private boolean checkAccountExist() {
+        File file = getFileStreamPath("account");
+        if(file == null || !file.exists()) {
+            return false;
+        }
+        return true;
     }
 
     private void sendNotification(Bundle message) {
@@ -62,7 +76,6 @@ public class MyGcmPushReceiver extends GcmListenerService {
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
                 PendingIntent.FLAG_ONE_SHOT);
-
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
                 .setSmallIcon(R.drawable.ic_notification2)

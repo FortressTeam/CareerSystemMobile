@@ -27,14 +27,16 @@ public class LoginActivity extends AppCompatActivity {
                 finish();
             }
         }
-        pager = (ViewPager) findViewById(R.id.view_pager);
-        tabLayout = (TabLayout) findViewById(R.id.tab_layout);
-        FragmentManager manager = getSupportFragmentManager();
-        PageAdapter adapter = new PageAdapter(manager);
-        pager.setAdapter(adapter);
-        tabLayout.setupWithViewPager(pager);
-        pager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-        tabLayout.setTabsFromPagerAdapter(adapter);
+        if(!Utilities.checkLogin(this)){
+            pager = (ViewPager) findViewById(R.id.view_pager);
+            tabLayout = (TabLayout) findViewById(R.id.tab_layout);
+            FragmentManager manager = getSupportFragmentManager();
+            PageAdapter adapter = new PageAdapter(manager);
+            pager.setAdapter(adapter);
+            tabLayout.setupWithViewPager(pager);
+            pager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+            tabLayout.setTabsFromPagerAdapter(adapter);
+        }
     }
 
 }

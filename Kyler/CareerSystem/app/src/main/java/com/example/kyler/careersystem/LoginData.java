@@ -37,7 +37,6 @@ public class LoginData extends AppCompatActivity implements View.OnClickListener
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_applicantdata);
-
         mRegistrationBroadcastReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
@@ -68,7 +67,7 @@ public class LoginData extends AppCompatActivity implements View.OnClickListener
         checkDatatv = (TextView) findViewById(R.id.applicantData_textview);
         checkDatabt = (Button) findViewById(R.id.applicantData_button);
         checkDatabt.setOnClickListener(this);
-        loginas= getIntent().getIntExtra("key",0);
+        loginas= getIntent().getIntExtra("key",3);
         Bundle bundle = getIntent().getBundleExtra("sendData");
         JSONObject jsUser=null;
         try {
@@ -79,7 +78,7 @@ public class LoginData extends AppCompatActivity implements View.OnClickListener
         users = new Users(jsUser);
         Utilities.users = users;
         switch (loginas){
-            case 1:
+            case 3:
                 try {
                     applicants = new Applicants(jsUser.getJSONObject("applicant"));
                 } catch (JSONException e) {

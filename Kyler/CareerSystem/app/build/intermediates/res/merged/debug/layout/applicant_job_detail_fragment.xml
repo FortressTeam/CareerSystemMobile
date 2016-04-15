@@ -34,13 +34,12 @@
                     android:orientation="horizontal"
                     >
                     <de.hdodenhof.circleimageview.CircleImageView
-                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="@dimen/padding_card"
                         android:id="@+id/job_detail_company_logo"
                         android:layout_gravity="top"
                         android:layout_width="80dp"
                         android:layout_height="80dp"/>
                     <LinearLayout
-                        android:paddingLeft="5dp"
                         android:orientation="vertical"
                         android:layout_weight="1"
                         android:layout_width="wrap_content"
@@ -157,13 +156,12 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Salary :"
+                        android:text="Salary: "
                         android:textSize="@dimen/activity_title_small"
                         android:textColor="@color/Black"
                         android:textStyle="bold"/>
                     <TextView
                         android:id="@+id/job_detail_post_salary"
-                        android:paddingLeft="5dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textColor="@color/colorContent"
@@ -180,7 +178,7 @@
                         android:paddingTop="2dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Location :"
+                        android:text="Location: "
                         android:textColor="@color/Black"
                         android:textSize="@dimen/activity_title_small"
                         android:textStyle="bold" />
@@ -200,13 +198,12 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Time post :"
+                        android:text="Time post: "
                         android:textSize="@dimen/activity_title_small"
                         android:textColor="@color/Black"
                         android:textStyle="bold"/>
                     <TextView
                         android:id="@+id/job_detail_post_date"
-                        android:paddingLeft="5dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textColor="@color/colorContent"
@@ -214,14 +211,6 @@
                         android:text="abc"
                         />
                 </LinearLayout>
-                <TextView
-                    android:paddingTop="5dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Job Overview :"
-                    android:textColor="@color/Black"
-                    android:textSize="@dimen/activity_title_small"
-                    android:textStyle="bold" />
                 <TextView
                     android:id="@+id/job_detail_post_content"
                     android:layout_width="match_parent"

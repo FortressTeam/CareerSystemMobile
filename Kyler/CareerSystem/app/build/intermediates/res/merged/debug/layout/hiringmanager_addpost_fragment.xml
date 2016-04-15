@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
+    android:layout_margin="@dimen/margin_layout"
+    android:id="@+id/hiringmanager_addpost_layout"
     android:background="@color/background"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
@@ -7,16 +9,21 @@
     android:layout_height="match_parent"
     tools:context=".HiringManager.ChildFragments.AddPostFragment"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <com.github.ksoichiro.android.observablescrollview.ObservableScrollView
-        android:layout_marginLeft="5dp"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        android:layout_marginRight="5dp"
-        android:layout_marginBottom="50dp"
+    <LinearLayout
+        android:background="@drawable/customborder"
         android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <com.github.ksoichiro.android.observablescrollview.ObservableScrollView
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:layout_width="match_parent"
+        android:paddingBottom="50dp"
+        android:background="@drawable/customborder"
         android:id="@+id/hiringmanager_addpost_scrollview"
         android:scrollbars="none"
         android:layout_height="wrap_content">
         <LinearLayout
+            android:layout_marginRight="@dimen/padding_card"
+            android:layout_marginTop="@dimen/margin_card"
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -24,7 +31,6 @@
                 android:paddingLeft="5dp"
                 android:background="@drawable/customborder"
                 android:orientation="horizontal"
-                android:paddingTop="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <ImageView
@@ -39,6 +45,7 @@
                     android:layout_height="wrap_content">
                     <EditText
                         android:textSize="@dimen/activity_content_medium"
+                        android:singleLine="true"
                         android:id="@+id/hiringmanager_addpost_title_edittext"
                         android:layout_marginLeft="5dp"
                         android:textColorHint="#727272"
@@ -47,12 +54,6 @@
                         android:layout_height="wrap_content"/>
                 </android.support.design.widget.TextInputLayout>
             </LinearLayout>
-            <LinearLayout
-                android:paddingLeft="5dp"
-                android:background="@drawable/customborder"
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
                     <LinearLayout
                         android:layout_marginTop="5dp"
                         android:orientation="horizontal"
@@ -69,8 +70,10 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
                             <EditText
+                                android:inputType="number"
                                 android:textColorHighlight="@color/White"
                                 android:textSize="@dimen/activity_content_medium"
+                                android:singleLine="true"
                                 android:id="@+id/hiringmanager_addpost_salary_edittext"
                                 android:layout_marginLeft="5dp"
                                 android:hint="Salary"
@@ -115,6 +118,7 @@
                         android:layout_height="wrap_content">
                         <EditText
                             android:textSize="@dimen/activity_content_medium"
+                            android:singleLine="true"
                             android:id="@+id/hiringmanager_addpost_location_edittext"
                             android:layout_marginLeft="5dp"
                             android:hint="Location"
@@ -148,31 +152,18 @@
                     android:minHeight="250dp"
                     />
                 </android.support.design.widget.TextInputLayout>
-
                 </LinearLayout>
-            </LinearLayout>
         </LinearLayout>
     </com.github.ksoichiro.android.observablescrollview.ObservableScrollView>
-    <LinearLayout
-        android:id="@+id/hiringmanager_addpost_layoutbutton"
-        android:orientation="horizontal"
-        android:weightSum="1"
-        android:layout_alignParentBottom="true"
-        android:layout_width="match_parent"
-        android:layout_height="50dp">
-        <Button
-            android:textSize="@dimen/activity_title_medium"
-            android:text="@string/AddPost"
-            android:id="@+id/hiringmanager_addpost_add"
-            android:layout_width="0dp"
-            android:layout_weight="0.5"
-            android:layout_height="match_parent"/>
-        <Button
-            android:textSize="@dimen/activity_title_medium"
-            android:text="@string/Cancel"
-            android:id="@+id/hiringmanager_addpost_cancel"
-            android:layout_width="0dp"
-            android:layout_weight="0.5"
-            android:layout_height="match_parent"/>
     </LinearLayout>
+    <Button
+        android:layout_marginLeft="@dimen/padding_card"
+        android:layout_marginRight="@dimen/padding_card"
+        android:layout_alignParentBottom="true"
+        android:theme="@style/MyButton"
+        android:textSize="@dimen/activity_title_medium"
+        android:text="@string/AddPost"
+        android:id="@+id/hiringmanager_addpost_add"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"/>
 </RelativeLayout>

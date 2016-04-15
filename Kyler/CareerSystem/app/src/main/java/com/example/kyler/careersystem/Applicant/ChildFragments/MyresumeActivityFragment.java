@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -49,6 +50,7 @@ public class MyresumeActivityFragment extends Fragment implements View.OnClickLi
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.applicant_myresume_activity_fragment, container, false);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Activity");
+        Utilities.hideSoftKeyboard(getActivity(), rootView.findViewById(R.id.applicant_myresume_activity));
         Bundle bundle = getArguments();
         try {
             jsonData = new JSONObject(bundle.getString("sendData"));
@@ -99,6 +101,10 @@ public class MyresumeActivityFragment extends Fragment implements View.OnClickLi
         activityStart.setOnClickListener(this);
         activityEnd.setOnClickListener(this);
         activitySave.setOnClickListener(this);
+        if(!editMode){
+            LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) activitySave.getLayoutParams();
+            params.weight = 1;
+        }
         return rootView;
     }
     DatePickerDialog.OnDateSetListener startListener = new DatePickerDialog.OnDateSetListener() {

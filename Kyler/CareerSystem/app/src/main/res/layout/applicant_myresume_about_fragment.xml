@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
+    android:id="@+id/applicant_myresume_about"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
@@ -11,10 +12,12 @@
     android:paddingBottom="5dp"
     android:background="@color/background"
     tools:context="com.example.kyler.careersystem.Applicant.ChildFragments.MyresumeAboutFragment">
+
     <LinearLayout
-        android:paddingLeft="5dp"
-        android:paddingRight="5dp"
-        android:paddingTop="5dp"
+        android:paddingLeft="@dimen/padding_card"
+        android:paddingRight="@dimen/padding_card"
+        android:paddingTop="@dimen/margin_card"
+        android:paddingBottom="50dp"
         android:orientation="vertical"
         android:background="@drawable/customborder"
         android:layout_width="match_parent"
@@ -24,7 +27,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <EditText
-                android:minLines="7"
+                android:minLines="10"
                 android:gravity="top"
                 android:singleLine="true"
                 android:textSize="@dimen/activity_content_medium"
@@ -34,16 +37,19 @@
                 android:inputType="textMultiLine"
                 android:layout_marginBottom="10dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="match_parent"/>
         </android.support.design.widget.TextInputLayout>
 
-        <Button
-            android:layout_gravity="center"
-            android:id="@+id/myresume_about_save"
-            android:text="@string/Save"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:theme="@style/MyButton"
-            />
     </LinearLayout>
-</LinearLayout>
+    <Button
+        android:layout_marginLeft="@dimen/padding_card"
+        android:layout_marginRight="@dimen/padding_card"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="center"
+        android:id="@+id/myresume_about_save"
+        android:text="@string/Save"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:theme="@style/MyButton"
+        />
+</RelativeLayout>

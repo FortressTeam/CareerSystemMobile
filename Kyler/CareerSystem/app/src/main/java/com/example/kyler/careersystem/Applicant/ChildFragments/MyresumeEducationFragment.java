@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -46,6 +47,7 @@ public class MyresumeEducationFragment extends Fragment implements View.OnClickL
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.applicant_myresume_education_fragment, container, false);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Education");
+        Utilities.hideSoftKeyboard(getActivity(), rootView.findViewById(R.id.applicant_myresume_education));
         Bundle bundle = getArguments();
         try {
             jsonData = new JSONObject(bundle.getString("sendData"));
@@ -77,6 +79,10 @@ public class MyresumeEducationFragment extends Fragment implements View.OnClickL
         educationStart.setOnClickListener(this);
         educationEnd.setOnClickListener(this);
         educationSave.setOnClickListener(this);
+        if(!editMode){
+            LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) educationSave.getLayoutParams();
+            params.weight = 1;
+        }
         return rootView;
     }
 

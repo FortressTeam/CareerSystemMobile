@@ -1,11 +1,14 @@
 package com.example.kyler.careersystem.Applicant.ChildFragments;
 
 import android.app.Fragment;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -31,6 +34,7 @@ public class MyresumeFuturegoalFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.applicant_myresume_futuregoal_fragment,container,false);
         ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Future Goal");
+        Utilities.hideSoftKeyboard(getActivity(), rootView.findViewById(R.id.applicant_myresume_futuregoal));
         Bundle bundle = getArguments();
         futuregoalContent = (EditText) rootView.findViewById(R.id.myresume_futuregoal_content);
         futuregoalSave = (Button) rootView.findViewById(R.id.myresume_futuregoal_save);
@@ -45,14 +49,13 @@ public class MyresumeFuturegoalFragment extends Fragment {
             public void onClick(View view) {
                 JSONObject jsonObject = new JSONObject();
                 try {
-                    jsonObject.put("applicant_future_goals",futuregoalContent.getText().toString().trim());
-                    JSONObject jsresult = new PutDataWithJson(jsonObject,getActivity()).execute(UrlStatic.URLApplicant+applicantID+".json").get();
-                    if(Utilities.isCreateUpdateSuccess(jsresult)){
+                    jsonObject.put("applicant_future_goals", futuregoalContent.getText().toString().trim());
+                    JSONObject jsresult = new PutDataWithJson(jsonObject, getActivity()).execute(UrlStatic.URLApplicant + applicantID + ".json").get();
+                    if (Utilities.isCreateUpdateSuccess(jsresult)) {
                         Utilities.startActivity(getActivity(), ApplicantMainActivity.class, 2);
                         Toast.makeText(getActivity().getApplicationContext(), "success", Toast.LENGTH_SHORT).show();
-                    }
-                    else{
-                        Toast.makeText(getActivity().getApplicationContext(),"Something went wrong!",Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(getActivity().getApplicationContext(), "Something went wrong!", Toast.LENGTH_SHORT).show();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();

@@ -1,4 +1,5 @@
 <LinearLayout
+    android:id="@+id/hiringmanager_login_linearlayout"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -22,6 +23,7 @@
             <EditText
                 android:textColor="@color/White"
                 android:textSize="@dimen/activity_title_big"
+                android:singleLine="true"
                 android:id="@+id/hiringmanager_login_username"
                 android:hint="Username"
                 android:layout_marginBottom="10dp"
@@ -37,6 +39,7 @@
             <EditText
                 android:textColor="@color/White"
                 android:textSize="@dimen/activity_title_big"
+                android:singleLine="true"
                 android:id="@+id/hiringmanager_login_password"
                 android:textColorHint="#727272"
                 android:hint="Password"
