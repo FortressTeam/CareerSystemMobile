@@ -10,8 +10,10 @@ public class HiringManagers {
     private int ID;
     private String hiringManagerName;
     private String hiringManagerPhone;
+//    private boolean hiringManagerStatus;
     private String companyName;
     private String companyAddress;
+//    private String companyEmail;
     private int companySize;
     private String companyAbout;
     private String companyLogo;
@@ -27,12 +29,18 @@ public class HiringManagers {
             if(jsonObject.has("hiring_manager_phone_number")){
                 this.hiringManagerPhone=jsonObject.getString("hiring_manager_phone_number");
             }
+//            if(jsonObject.has("hiring_manager_status")){
+//                this.hiringManagerStatus=jsonObject.getBoolean("hiring_manager_status");
+//            }
             if(jsonObject.has("company_name")){
                 this.companyName=jsonObject.getString("company_name");
             }
             if(jsonObject.has("company_address")){
                 this.companyAddress=jsonObject.getString("company_address");
             }
+//            if(jsonObject.has("company_email")){
+//                this.companyEmail=jsonObject.getString("company_email");
+//            }
             if(jsonObject.has("company_size")){
                 this.companySize=jsonObject.getInt("company_size");
             }
@@ -47,12 +55,14 @@ public class HiringManagers {
         }
     }
 
-    public HiringManagers(int ID, String hiringManagerName, String hiringManagerPhone, String companyName, String companyAddress, int companySize, String companyAbout, String companyLogo) {
+    public HiringManagers(int ID, String hiringManagerName, String hiringManagerPhone, boolean hiringManagerStatus, String companyName, String companyAddress, String companyEmail, int companySize, String companyAbout, String companyLogo) {
         this.ID = ID;
         this.hiringManagerName = hiringManagerName;
         this.hiringManagerPhone = hiringManagerPhone;
+//        this.hiringManagerStatus = hiringManagerStatus;
         this.companyName = companyName;
         this.companyAddress = companyAddress;
+//        this.companyEmail = companyEmail;
         this.companySize = companySize;
         this.companyAbout = companyAbout;
         this.companyLogo = companyLogo;
@@ -81,6 +91,14 @@ public class HiringManagers {
     public void setHiringManagerPhone(String hiringManagerPhone) {
         this.hiringManagerPhone = hiringManagerPhone;
     }
+//
+//    public boolean isHiringManagerStatus() {
+//        return hiringManagerStatus;
+//    }
+//
+//    public void setHiringManagerStatus(boolean hiringManagerStatus) {
+//        this.hiringManagerStatus = hiringManagerStatus;
+//    }
 
     public String getCompanyName() {
         return companyName;
@@ -97,6 +115,14 @@ public class HiringManagers {
     public void setCompanyAddress(String companyAddress) {
         this.companyAddress = companyAddress;
     }
+
+//    public String getCompanyEmail() {
+//        return companyEmail;
+//    }
+//
+//    public void setCompanyEmail(String companyEmail) {
+//        this.companyEmail = companyEmail;
+//    }
 
     public int getCompanySize() {
         return companySize;

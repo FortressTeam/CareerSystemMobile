@@ -19,4 +19,7 @@
     <string name="notConnection">Try Again</string>
 
     <string name="facebook_app_id">238547153159730</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

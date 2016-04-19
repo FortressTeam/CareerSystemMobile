@@ -24,6 +24,9 @@
     <color name="hint">#727272</color>
     <color name="grey">#121212</color>
 
+
+    <color name="notificationunseen">#FFFDE7</color>
+
     <color name="navigationviewbackground">#2B323A</color>
     <color name="navigationviewcounterbg">#D32F2F</color>
 

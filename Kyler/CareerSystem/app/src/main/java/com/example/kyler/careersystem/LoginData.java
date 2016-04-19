@@ -14,10 +14,16 @@ import android.widget.Toast;
 
 import com.example.kyler.careersystem.Entities.Applicants;
 import com.example.kyler.careersystem.Entities.HiringManagers;
+import com.example.kyler.careersystem.Entities.Hobbies;
+import com.example.kyler.careersystem.Entities.SkillTypes;
 import com.example.kyler.careersystem.Entities.Users;
+import com.example.kyler.careersystem.WorkWithService.GetJsonArrayCallback;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 public class LoginData extends AppCompatActivity implements View.OnClickListener {
 
@@ -99,7 +105,6 @@ public class LoginData extends AppCompatActivity implements View.OnClickListener
                 finish();
                 break;
         }
-
     }
 
     // starting the service to register with GCM

@@ -65,7 +65,7 @@ public class MyGcmPushReceiver extends GcmListenerService {
             Bundle bundle = new Bundle();
             if (Utilities.hiringManagers != null){
                 intent = new Intent(this, HiringManagerMainActivity.class);
-                bundle.putInt("itemID",1);
+                bundle.putInt("itemID",6);
             }
             else {
                 intent = new Intent(this, ApplicantMainActivity.class);

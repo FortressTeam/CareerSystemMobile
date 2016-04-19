@@ -15,7 +15,6 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.example.kyler.careersystem.Applicant.Customize.JobAppliedListViewItem;
 import com.example.kyler.careersystem.Applicant.Customize.JobListViewItem;
@@ -25,6 +24,9 @@ import com.example.kyler.careersystem.Applicant.JobappliedFragment;
 import com.example.kyler.careersystem.Applicant.MyResumeFragment;
 import com.example.kyler.careersystem.Applicant.NavigationListViewAdapter;
 import com.example.kyler.careersystem.Applicant.NavigationListViewItem;
+import com.example.kyler.careersystem.Entities.Hobbies;
+import com.example.kyler.careersystem.Entities.SkillTypes;
+import com.example.kyler.careersystem.HiringManager.NotificationFragment;
 import com.example.kyler.careersystem.Entities.Applicants;
 import com.example.kyler.careersystem.Entities.Categories;
 import com.example.kyler.careersystem.Entities.HiringManagers;
@@ -164,6 +166,9 @@ public class Utilities {
                 break;
             case 1://home
                 fragment = new com.example.kyler.careersystem.HiringManager.ManagePost();
+                break;
+            case 6://home
+                fragment = new NotificationFragment();
                 break;
             default:
                 fragment = new FailedConnectionFragment();

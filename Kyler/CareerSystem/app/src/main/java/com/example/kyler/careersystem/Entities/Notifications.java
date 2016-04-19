@@ -15,7 +15,7 @@ public class Notifications {
     private String notificationTitle;
     private String notificationDetail;
     private String notificationTime;
-    private int isSeen;
+    private boolean isSeen;
     private int userID;
 
     public Notifications(JSONObject jsonObject){
@@ -34,7 +34,7 @@ public class Notifications {
                 this.notificationTime = new SimpleDateFormat("d - LLL - yyyy").format(date);
             }
             if (jsonObject.has("is_seen")) {
-                this.isSeen = jsonObject.getInt("is_seen");
+                this.isSeen = jsonObject.getBoolean("is_seen");
             }
             if (jsonObject.has("user_id")) {
                 this.userID = jsonObject.getInt("user_id");
@@ -46,7 +46,7 @@ public class Notifications {
         }
     }
 
-    public Notifications(int ID, String notificationTitle, String notificationDetail, String notificationTime, int isSeen, int userID) {
+    public Notifications(int ID, String notificationTitle, String notificationDetail, String notificationTime, boolean isSeen, int userID) {
         this.ID = ID;
         this.notificationTitle = notificationTitle;
         this.notificationDetail = notificationDetail;
@@ -87,11 +87,11 @@ public class Notifications {
         this.notificationTime = notificationTime;
     }
 
-    public int getIsSeen() {
+    public boolean isSeen() {
         return isSeen;
     }
 
-    public void setIsSeen(int isSeen) {
+    public void setIsSeen(boolean isSeen) {
         this.isSeen = isSeen;
     }
 

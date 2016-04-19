@@ -9,8 +9,8 @@ import org.json.JSONObject;
 public class follow {
     private int hiringManagerID;
     private int applicantID;
-    private int followHiringManager;
-    private int followApplicant;
+    private boolean followHiringManager;
+    private boolean followApplicant;
 
     public follow(JSONObject jsonObject){
         try {
@@ -21,17 +21,17 @@ public class follow {
                 this.applicantID = jsonObject.getInt("applicant_id");
             }
             if (jsonObject.has("follow_hiring_manager")) {
-                this.followHiringManager = jsonObject.getInt("follow_hiring_manager");
+                this.followHiringManager = jsonObject.getBoolean("follow_hiring_manager");
             }
             if (jsonObject.has("follow_applicant")) {
-                this.followApplicant = jsonObject.getInt("follow_applicant");
+                this.followApplicant = jsonObject.getBoolean("follow_applicant");
             }
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
 
-    public follow(int hiringManagerID, int applicantID, int followHiringManager, int followApplicant) {
+    public follow(int hiringManagerID, int applicantID, boolean followHiringManager, boolean followApplicant) {
         this.hiringManagerID = hiringManagerID;
         this.applicantID = applicantID;
         this.followHiringManager = followHiringManager;
@@ -54,19 +54,19 @@ public class follow {
         this.applicantID = applicantID;
     }
 
-    public int getFollowHiringManager() {
+    public boolean isFollowHiringManager() {
         return followHiringManager;
     }
 
-    public void setFollowHiringManager(int followHiringManager) {
+    public void setFollowHiringManager(boolean followHiringManager) {
         this.followHiringManager = followHiringManager;
     }
 
-    public int getFollowApplicant() {
+    public boolean isFollowApplicant() {
         return followApplicant;
     }
 
-    public void setFollowApplicant(int followApplicant) {
+    public void setFollowApplicant(boolean followApplicant) {
         this.followApplicant = followApplicant;
     }
 }

@@ -12,7 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,7 +21,7 @@ import com.example.kyler.careersystem.Entities.Posts;
 import com.example.kyler.careersystem.R;
 import com.example.kyler.careersystem.UrlStatic;
 import com.example.kyler.careersystem.Utilities;
-import com.example.kyler.careersystem.WorkWithService.GetJsonObject;
+import com.example.kyler.careersystem.WorkWithService.GetJsonObjectCallback;
 import com.github.ksoichiro.android.observablescrollview.ObservableScrollView;
 import com.github.ksoichiro.android.observablescrollview.ObservableScrollViewCallbacks;
 import com.github.ksoichiro.android.observablescrollview.ScrollState;
@@ -30,8 +29,6 @@ import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.concurrent.ExecutionException;
 
 /**
  * Created by kyler on 09/03/2016.
@@ -49,7 +46,8 @@ public class JobDetailFragment extends Fragment implements ObservableScrollViewC
     private Handler mHandler;
     private String url;
     private boolean fabPress = false;
-    private boolean subcribed = false;
+    private boolean applied = false;
+    private JSONObject jsData = null;
 
     public JobDetailFragment() {
     }
@@ -84,47 +82,82 @@ public class JobDetailFragment extends Fragment implements ObservableScrollViewC
         jobDetailPostLocation = (TextView) rootView.findViewById(R.id.job_detail_post_location);
         jobDetailPostDate = (TextView) rootView.findViewById(R.id.job_detail_post_date);
         jobDetailPostContent = (TextView) rootView.findViewById(R.id.job_detail_post_content);
-        
-        pDialog = new ProgressDialog(getActivity());
-        pDialog.setMessage("Loading... ");
-        pDialog.setCancelable(false);
-        pDialog.show();
+
+//        pDialog = new ProgressDialog(getActivity());
+//        pDialog.setMessage("Loading... ");
+//        pDialog.setCancelable(false);
+//        pDialog.show();
         scrollView.setScrollViewCallbacks(this);
         jobDetailPostContent.addOnLayoutChangeListener(this);
         mHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                try {
-                    JSONObject jsonObject = new GetJsonObject(pDialog, "post").execute(url).get();
-                    if (Utilities.checkConnect(jsonObject)) {
-                        Posts post = new Posts(jsonObject);
-                        jsonSendData = new JSONObject(jsonObject.getString("hiring_manager"));
-                        HiringManagers hiringManager = new HiringManagers(jsonSendData);
-                        jobDetailCompanyName.setText(hiringManager.getCompanyName());
-                        jobDetailCompanyAddress.setText(hiringManager.getCompanyAddress());
-                        jobDetailCompanySize.setText(hiringManager.getCompanySize() + "");
-                        jobDetailHiringManagerPhone.setText(hiringManager.getHiringManagerPhone());
-                        Picasso.with(getActivity().getApplicationContext()).load(UrlStatic.URLimg + "/company_img/" + hiringManager.getCompanyLogo()).into(companyLogo);
-                        jobDetailPostTitle.setText(post.getPostTitle());
-                        if (post.getPostSalary() != 0) {
-                            jobDetailPostSalary.setText("VND " + post.getPostSalary());
-                        } else {
-                            jobDetailPostSalary.setText("Negotiable");
+                GetJsonObjectCallback getJsonObjectCallback = new GetJsonObjectCallback(getActivity(),"post") {
+                    @Override
+                    public void receiveData(Object result) {
+                        try {
+                            jsData = (JSONObject) result;
+                            if (Utilities.checkConnect(jsData)) {
+                                Posts post = new Posts(jsData);
+                                jsonSendData = new JSONObject(jsData.getString("hiring_manager"));
+                                HiringManagers hiringManager = new HiringManagers(jsonSendData);
+                                jobDetailCompanyName.setText(hiringManager.getCompanyName());
+                                jobDetailCompanyAddress.setText(hiringManager.getCompanyAddress());
+                                jobDetailCompanySize.setText(hiringManager.getCompanySize() + "");
+                                jobDetailHiringManagerPhone.setText(hiringManager.getHiringManagerPhone());
+                                Picasso.with(getActivity().getApplicationContext()).load(UrlStatic.URLimg + "/company_img/" + hiringManager.getCompanyLogo()).into(companyLogo);
+                                jobDetailPostTitle.setText(post.getPostTitle());
+                                if (post.getPostSalary() != 0) {
+                                    jobDetailPostSalary.setText("VND " + post.getPostSalary());
+                                } else {
+                                    jobDetailPostSalary.setText("Negotiable");
+                                }
+                                jobDetailPostLocation.setText(post.getPostLocation());
+                                jobDetailPostDate.setText(post.getPostDate());
+                                jobDetailPostContent.setText(Html.fromHtml(post.getPostContent()));
+                            } else {
+                                Toast.makeText(getActivity().getApplicationContext(), "Connection got problem!", Toast.LENGTH_SHORT).show();
+                                Utilities.displayViewApplicant(getActivity(), 404);
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
                         }
-                        jobDetailPostLocation.setText(post.getPostLocation());
-                        jobDetailPostDate.setText(post.getPostDate());
-                        jobDetailPostContent.setText(Html.fromHtml(post.getPostContent()));
-                    } else {
-                        Toast.makeText(getActivity().getApplicationContext(), "Connection got problem!", Toast.LENGTH_SHORT).show();
-                        Utilities.displayViewApplicant(getActivity(), 404);
                     }
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } catch (ExecutionException e) {
-                    e.printStackTrace();
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+                };
+                getJsonObjectCallback.execute(url,null,null);
+
+
+//                try {
+//                    JSONObject jsonObject = new GetJsonObject(pDialog, "post").execute(url).get();
+//                    if (Utilities.checkConnect(jsonObject)) {
+//                        Posts post = new Posts(jsonObject);
+//                        jsonSendData = new JSONObject(jsonObject.getString("hiring_manager"));
+//                        HiringManagers hiringManager = new HiringManagers(jsonSendData);
+//                        jobDetailCompanyName.setText(hiringManager.getCompanyName());
+//                        jobDetailCompanyAddress.setText(hiringManager.getCompanyAddress());
+//                        jobDetailCompanySize.setText(hiringManager.getCompanySize() + "");
+//                        jobDetailHiringManagerPhone.setText(hiringManager.getHiringManagerPhone());
+//                        Picasso.with(getActivity().getApplicationContext()).load(UrlStatic.URLimg + "/company_img/" + hiringManager.getCompanyLogo()).into(companyLogo);
+//                        jobDetailPostTitle.setText(post.getPostTitle());
+//                        if (post.getPostSalary() != 0) {
+//                            jobDetailPostSalary.setText("VND " + post.getPostSalary());
+//                        } else {
+//                            jobDetailPostSalary.setText("Negotiable");
+//                        }
+//                        jobDetailPostLocation.setText(post.getPostLocation());
+//                        jobDetailPostDate.setText(post.getPostDate());
+//                        jobDetailPostContent.setText(Html.fromHtml(post.getPostContent()));
+//                    } else {
+//                        Toast.makeText(getActivity().getApplicationContext(), "Connection got problem!", Toast.LENGTH_SHORT).show();
+//                        Utilities.displayViewApplicant(getActivity(), 404);
+//                    }
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                } catch (ExecutionException e) {
+//                    e.printStackTrace();
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                }
             }
         }, 200);
         return rootView;
@@ -166,7 +199,7 @@ public class JobDetailFragment extends Fragment implements ObservableScrollViewC
                 break;
             case R.id.job_detail_floatactionbutton_apply:
                 Toast.makeText(getActivity().getApplicationContext(), "Apply success!", Toast.LENGTH_SHORT).show();
-                subcribed = true;
+                applied = true;
                 jobDetailFloatactionbuttonApply.hide();
                 jobDetailFloatactionApplytv.setVisibility(View.INVISIBLE);
                 break;
@@ -188,7 +221,7 @@ public class JobDetailFragment extends Fragment implements ObservableScrollViewC
             jobDetailFloatactionbutton.setImageResource(R.drawable.closeicon);
             jobDetailFloatactionbuttonFavorite.show();
             jobDetailFloatactionFavoritetv.setVisibility(View.VISIBLE);
-            if(!subcribed){
+            if(!applied){
                 jobDetailFloatactionbuttonApply.show();
                 jobDetailFloatactionApplytv.setVisibility(View.VISIBLE);
             }
@@ -196,7 +229,7 @@ public class JobDetailFragment extends Fragment implements ObservableScrollViewC
             jobDetailFloatactionbutton.setImageResource(R.drawable.fabadd);
             jobDetailFloatactionbuttonFavorite.hide();
             jobDetailFloatactionFavoritetv.setVisibility(View.INVISIBLE);
-            if(!subcribed){
+            if(!applied){
                 jobDetailFloatactionbuttonApply.setVisibility(View.GONE);
                 jobDetailFloatactionApplytv.setVisibility(View.GONE);
             }

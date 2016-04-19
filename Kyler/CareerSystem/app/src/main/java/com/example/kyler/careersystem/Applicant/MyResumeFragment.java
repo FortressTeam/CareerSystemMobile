@@ -32,7 +32,6 @@ import com.example.kyler.careersystem.Applicant.Customize.NonScrollListView;
 import com.example.kyler.careersystem.Applicant.Customize.PersonalHistoryListViewAdapter;
 import com.example.kyler.careersystem.Applicant.Customize.SkillListViewAdapter;
 import com.example.kyler.careersystem.Applicant.Customize.SkillListViewItem;
-import com.example.kyler.careersystem.LoginData;
 import com.example.kyler.careersystem.Bussiness.MyresumeController;
 import com.example.kyler.careersystem.Entities.Applicants;
 import com.example.kyler.careersystem.Entities.ApplicantsHasSkills;
