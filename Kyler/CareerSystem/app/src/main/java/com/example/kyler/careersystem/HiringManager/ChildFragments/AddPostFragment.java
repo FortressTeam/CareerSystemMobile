@@ -2,10 +2,8 @@ package com.example.kyler.careersystem.HiringManager.ChildFragments;
 
 import android.app.AlertDialog;
 import android.app.Fragment;
-import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,12 +19,12 @@ import android.widget.Toast;
 import com.example.kyler.careersystem.Entities.Categories;
 import com.example.kyler.careersystem.Entities.Posts;
 import com.example.kyler.careersystem.HiringManager.ChildHiringManagerActivity;
-import com.example.kyler.careersystem.WorkWithService.GetJsonArray;
-import com.example.kyler.careersystem.WorkWithService.PostDataWithJson;
+import com.example.kyler.careersystem.WorkWithService.GetJsonArrayCallback;
 import com.example.kyler.careersystem.R;
 import com.example.kyler.careersystem.UrlStatic;
 import com.example.kyler.careersystem.Utilities;
-import com.example.kyler.careersystem.WorkWithService.PutDataWithJson;
+import com.example.kyler.careersystem.WorkWithService.PostDataWithJsonCallback;
+import com.example.kyler.careersystem.WorkWithService.PutDataWithJsonCallback;
 import com.github.ksoichiro.android.observablescrollview.ObservableScrollView;
 import com.github.ksoichiro.android.observablescrollview.ObservableScrollViewCallbacks;
 import com.github.ksoichiro.android.observablescrollview.ScrollState;
@@ -38,7 +36,6 @@ import org.json.JSONObject;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.concurrent.ExecutionException;
 
 public class AddPostFragment extends Fragment implements View.OnClickListener,Spinner.OnItemSelectedListener,ObservableScrollViewCallbacks,View.OnFocusChangeListener {
     private EditText addPostTitle,addPostSalary,addPostLocation,addPostContent;
@@ -50,9 +47,9 @@ public class AddPostFragment extends Fragment implements View.OnClickListener,Sp
     private int page=1;
     private boolean noMoreData = false;
     private int categoryID,categoryDefaultID,hiringManagerID=Utilities.hiringManagers.getID();
-    private ProgressDialog pDialog;
     private Posts postEdit;
     private boolean editMode=false;
+    private ArrayList<String> arr;
 
     private ArrayList<Categories> arrayListCategories=null;
 
@@ -74,34 +71,32 @@ public class AddPostFragment extends Fragment implements View.OnClickListener,Sp
         addPostCategoryIcon = (ImageView) rootView.findViewById(R.id.hiringmanager_addpost_category_icon);
         addPostContentIcon = (ImageView) rootView.findViewById(R.id.hiringmanager_addpost_content_icon);
         arrayListCategories = new ArrayList<>();
-        ArrayList<String> arr = new ArrayList<>();
-        pDialog = new ProgressDialog(getActivity());
-        pDialog.setMessage("Loading...");
-        pDialog.setCancelable(false);
-        pDialog.show();
-        try {
-            do {
-                JSONArray jsonArrayCategories = new GetJsonArray(pDialog, "categories").execute(UrlStatic.URLCategories + page).get();
-                if(jsonArrayCategories!=null){
-                    for(int i=0;i<jsonArrayCategories.length();i++){
-                        JSONObject jsonObjectCategories = jsonArrayCategories.getJSONObject(i);
-                        Categories category = new Categories(jsonObjectCategories);
-                        arrayListCategories.add(category);
-                        arr.add(arrayListCategories.get(i).getCategoryName());
+        arr = new ArrayList<>();
+        do {
+            GetJsonArrayCallback getJsonArrayCallback = new GetJsonArrayCallback(getActivity(),"categories") {
+                @Override
+                public void receiveData(Object result) {
+                    try {
+                        JSONArray jsonArrayCategories = (JSONArray) result;
+                        if (jsonArrayCategories != null) {
+                            for (int i = 0; i < jsonArrayCategories.length(); i++) {
+                                JSONObject jsonObjectCategories = jsonArrayCategories.getJSONObject(i);
+                                Categories category = new Categories(jsonObjectCategories);
+                                arrayListCategories.add(category);
+                                arr.add(arrayListCategories.get(i).getCategoryName());
+                            }
+                            arr.add("Category");
+                            categoryDefaultID = arr.size() - 1;
+                            page++;
+                        } else
+                            noMoreData = true;
+                    } catch (JSONException e) {
+                        e.printStackTrace();
                     }
-                    arr.add("Category");
-                    categoryDefaultID=arr.size()-1;
-                    page++;
-                }else
-                    noMoreData = true;
-            }while(!noMoreData);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+                }
+            };
+            getJsonArrayCallback.execute(UrlStatic.URLCategories + page);
+        }while(!noMoreData);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity().getApplicationContext(),R.layout.spinner_item,arr);
         addPostCategory.setAdapter(adapter);
         addPostCategory.setSelection(categoryDefaultID);
@@ -242,8 +237,11 @@ public class AddPostFragment extends Fragment implements View.OnClickListener,Sp
         return isNumber(addPostSalary.getText().toString());
     }
 
+
+    private JSONObject sendData = new JSONObject();
     private void createAlertConfirm(final boolean isNegotiable){
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        Boolean isSuccess = false;
         if(editMode) {
             builder.setMessage("Confirm editing a post ...");
         }
@@ -253,8 +251,6 @@ public class AddPostFragment extends Fragment implements View.OnClickListener,Sp
         builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                JSONObject sendData = new JSONObject();
-                Boolean isSuccess = false;
                 try {
                     sendData.put("post_title", addPostTitle.getText());
                     sendData.put("post_content", addPostContent.getText());
@@ -271,28 +267,38 @@ public class AddPostFragment extends Fragment implements View.OnClickListener,Sp
                     sendData.put("category_id", categoryID);
                     sendData.put("hiring_manager_id", hiringManagerID);
                     if(editMode){
-                        isSuccess = Utilities.isCreateUpdateSuccess(new PutDataWithJson(sendData, getActivity()).execute(UrlStatic.URLEditPost + postEdit.getID() + ".json").get());
+                        PutDataWithJsonCallback putDataWithJsonCallback = new PutDataWithJsonCallback(sendData,getActivity()) {
+                            @Override
+                            public void receiveData(Object result) {
+                                Boolean isSuccess = Utilities.isCreateUpdateSuccess((JSONObject) result);
+                                if(isSuccess){
+                                    Utilities.startFragWith(getActivity(), ChildHiringManagerActivity.class, "jobdetail", sendData.toString());
+                                    Toast.makeText(getActivity().getApplicationContext(), "success ", Toast.LENGTH_SHORT).show();
+                                    getActivity().finish();
+                                }else {
+                                    Toast.makeText(getActivity().getApplicationContext(), "Something went wrong!", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        };
+                        putDataWithJsonCallback.execute(UrlStatic.URLEditPost + postEdit.getID() + ".json");
                     }else{
-                        isSuccess = Utilities.isCreateUpdateSuccess(new PostDataWithJson(sendData, getActivity()).execute(UrlStatic.URLPosts).get());
+                        PostDataWithJsonCallback postDataWithJsonCallback = new PostDataWithJsonCallback(sendData,getActivity()) {
+                            @Override
+                            public void receiveData(Object result) {
+                                Boolean isSuccess = Utilities.isCreateUpdateSuccess((JSONObject) result);
+                                if(isSuccess){
+                                    Utilities.startFragWith(getActivity(), ChildHiringManagerActivity.class, "jobdetail", sendData.toString());
+                                    Toast.makeText(getActivity().getApplicationContext(), "success ", Toast.LENGTH_SHORT).show();
+                                    getActivity().finish();
+                                }else {
+                                    Toast.makeText(getActivity().getApplicationContext(), "Something went wrong!", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        };
+                        postDataWithJsonCallback.execute(UrlStatic.URLPosts);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } catch (ExecutionException e) {
-                    e.printStackTrace();
-                }
-                if (isSuccess) {
-                    Utilities.startFragWith(getActivity(), ChildHiringManagerActivity.class, "jobdetail", sendData.toString());
-                    if(editMode) {
-                        Toast.makeText(getActivity().getApplicationContext(), "success ", Toast.LENGTH_SHORT).show();
-                    }
-                    else {
-                        Toast.makeText(getActivity().getApplicationContext(), "Create Post success ... ", Toast.LENGTH_SHORT).show();
-                    }
-                    getActivity().finish();
-                } else {
-                    Toast.makeText(getActivity().getApplicationContext(), "Something went wrong!", Toast.LENGTH_SHORT).show();
                 }
             }
         }).setNegativeButton("No", null).show();

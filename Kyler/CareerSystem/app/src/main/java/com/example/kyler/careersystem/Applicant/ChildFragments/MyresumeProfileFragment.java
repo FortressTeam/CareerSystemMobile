@@ -1,25 +1,21 @@
 package com.example.kyler.careersystem.Applicant.ChildFragments;
 
 import android.app.Fragment;
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
 import com.example.kyler.careersystem.ApplicantMainActivity;
-import com.example.kyler.careersystem.Entities.Applicants;
 import com.example.kyler.careersystem.R;
 import com.example.kyler.careersystem.UrlStatic;
 import com.example.kyler.careersystem.Utilities;
-import com.example.kyler.careersystem.WorkWithService.PutDataWithJson;
+import com.example.kyler.careersystem.WorkWithService.PutDataWithJsonCallback;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -27,7 +23,6 @@ import org.json.JSONObject;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.concurrent.ExecutionException;
 
 public class MyresumeProfileFragment extends Fragment implements View.OnClickListener{
     private EditText profileName,profileHometown,profileBirthday;
@@ -84,19 +79,21 @@ public class MyresumeProfileFragment extends Fragment implements View.OnClickLis
             Date date = new SimpleDateFormat("dd - MMM - yyyy").parse(profileBirthday.getText().toString());
             jsonObject.put("applicant_date_of_birth",new SimpleDateFormat("yyyy-MM-dd").format(date));
             jsonObject.put("applicant_sex",rbMale.isChecked());
-            JSONObject jsresult =  new PutDataWithJson(jsonObject, getActivity()).execute(UrlStatic.URLApplicant + applicantID + ".json").get();
-            Utilities.applicants.setApplicantName(profileName.getText().toString());
-            if(Utilities.isCreateUpdateSuccess(jsresult)){
-                Toast.makeText(getActivity(), "success", Toast.LENGTH_SHORT).show();
-                Utilities.startActivity(getActivity(), ApplicantMainActivity.class, 2);
-            }else{
-                Toast.makeText(getActivity(), "Something went wrong", Toast.LENGTH_SHORT).show();
-            }
+            PutDataWithJsonCallback putDataWithJsonCallback = new PutDataWithJsonCallback(jsonObject,getActivity()) {
+                @Override
+                public void receiveData(Object result) {
+                    JSONObject jsresult =  (JSONObject) result;
+                    Utilities.applicants.setApplicantName(profileName.getText().toString());
+                    if(Utilities.isCreateUpdateSuccess(jsresult)){
+                        Toast.makeText(getActivity(), "success", Toast.LENGTH_SHORT).show();
+                        Utilities.startActivity(getActivity(), ApplicantMainActivity.class, 2);
+                    }else{
+                        Toast.makeText(getActivity(), "Something went wrong", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            };
+            putDataWithJsonCallback.execute(UrlStatic.URLApplicant + applicantID + ".json");
         } catch (JSONException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
             e.printStackTrace();
         } catch (ParseException e) {
             e.printStackTrace();

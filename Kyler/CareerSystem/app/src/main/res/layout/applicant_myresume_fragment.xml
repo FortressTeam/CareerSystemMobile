@@ -255,6 +255,54 @@
                         <ImageView
                             android:layout_gravity="center_vertical"
                             android:layout_width="25dp"
+                            android:background="@drawable/resumeobjectiveicon"
+                            android:layout_height="25dp"/>
+                        <TextView
+                            android:textStyle="bold"
+                            android:textColor="@color/Black"
+                            android:textSize="@dimen/activity_title_medium"
+                            android:paddingLeft="@dimen/padding_image_text"
+                            android:text="Objective"
+                            android:gravity="center_vertical"
+                            android:layout_weight="1"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"/>
+                        <ImageView
+                            android:id="@+id/myresume_editobjective"
+                            android:background="@drawable/editicon"
+                            android:layout_width="35dp"
+                            android:layout_height="match_parent"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:minHeight="30dp"
+                            android:id="@+id/myresume_objective"
+                            android:text="Don't have information."
+                            android:textSize="@dimen/activity_content_medium"
+                            android:textColor="@color/colorContent"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:padding="@dimen/padding_card"
+                    android:layout_marginBottom="@dimen/margin_card"
+                    android:elevation="2dp"
+                    android:background="@drawable/customborder"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="35dp"
+                        android:weightSum="1"
+                        android:orientation="horizontal">
+                        <ImageView
+                            android:layout_gravity="center_vertical"
+                            android:layout_width="25dp"
                             android:background="@drawable/resumeeducationicon"
                             android:layout_height="25dp"/>
                         <TextView
@@ -573,53 +621,6 @@
                     </com.example.kyler.careersystem.Applicant.Customize.NonScrollListView>
                 </LinearLayout>
 
-                <LinearLayout
-                    android:padding="@dimen/padding_card"
-                    android:layout_marginBottom="@dimen/margin_card"
-                    android:elevation="2dp"
-                    android:background="@drawable/customborder"
-                    android:orientation="vertical"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="35dp"
-                        android:weightSum="1"
-                        android:orientation="horizontal">
-                        <ImageView
-                            android:layout_gravity="center_vertical"
-                            android:layout_width="25dp"
-                            android:background="@drawable/resumefuturegoalicon"
-                            android:layout_height="25dp"/>
-                        <TextView
-                            android:textStyle="bold"
-                            android:textColor="@color/Black"
-                            android:textSize="@dimen/activity_title_medium"
-                            android:paddingLeft="@dimen/padding_image_text"
-                            android:text="Future Goal"
-                            android:gravity="center_vertical"
-                            android:layout_weight="1"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"/>
-                        <ImageView
-                            android:id="@+id/myresume_editfuturegoal"
-                            android:background="@drawable/editicon"
-                            android:layout_width="35dp"
-                            android:layout_height="match_parent"/>
-                    </LinearLayout>
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-                        <TextView
-                            android:minHeight="30dp"
-                            android:id="@+id/myresume_futuregoal"
-                            android:text="Don't have information."
-                            android:textSize="@dimen/activity_content_medium"
-                            android:textColor="@color/colorContent"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
-                    </LinearLayout>
-                </LinearLayout>
             </LinearLayout>
         </com.github.ksoichiro.android.observablescrollview.ObservableScrollView>
     </LinearLayout>

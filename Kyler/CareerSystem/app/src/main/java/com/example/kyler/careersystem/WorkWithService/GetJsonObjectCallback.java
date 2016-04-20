@@ -1,9 +1,12 @@
 package com.example.kyler.careersystem.WorkWithService;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.util.Log;
+
+import com.example.kyler.careersystem.R;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -15,33 +18,42 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import dmax.dialog.SpotsDialog;
+
 /**
  * Created by kyler on 19/04/2016.
  */
 public abstract class GetJsonObjectCallback extends AsyncTask<String,Void,JSONObject> implements CallbackReciever {
     private ProgressDialog mProgressDialog;
+    private AlertDialog dialog;
     private String key;
     Activity activity;
 
     public GetJsonObjectCallback(Activity activity,String key) {
         this.activity = activity;
         this.key = key;
-        mProgressDialog = new ProgressDialog(activity);
-        mProgressDialog.setMessage("Loading ...");
-        mProgressDialog.setIndeterminate(false);
-        mProgressDialog.setCancelable(false);
+//        mProgressDialog = new ProgressDialog(activity);
+//        mProgressDialog.setMessage("Loading ...");
+//        mProgressDialog.setIndeterminate(false);
+//        mProgressDialog.setCancelable(false);
+        dialog = new SpotsDialog(activity, R.style.Custom);
+        dialog.setCancelable(false);
     }
 
     @Override
     protected void onPreExecute() {
-        mProgressDialog.show();
+//        mProgressDialog.show();
+        dialog.show();
         super.onPreExecute();
     }
 
     @Override
     protected void onPostExecute(JSONObject jsonObject) {
-        if (mProgressDialog != null || mProgressDialog.isShowing()){
-            mProgressDialog.dismiss();
+//        if (mProgressDialog != null || mProgressDialog.isShowing()){
+//            mProgressDialog.dismiss();
+//        }
+        if (dialog != null || dialog.isShowing()){
+            dialog.dismiss();
         }
         receiveData(jsonObject);
     }

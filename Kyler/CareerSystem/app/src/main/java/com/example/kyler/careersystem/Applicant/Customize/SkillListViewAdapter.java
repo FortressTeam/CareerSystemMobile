@@ -14,13 +14,12 @@ import android.widget.Toast;
 
 import com.example.kyler.careersystem.R;
 import com.example.kyler.careersystem.UrlStatic;
-import com.example.kyler.careersystem.WorkWithService.DeleteDataWithJson;
+import com.example.kyler.careersystem.Utilities;
+import com.example.kyler.careersystem.WorkWithService.DeleteDataWithJsonCallback;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.concurrent.ExecutionException;
 
 /**
  * Created by kyler on 31/03/2016.
@@ -88,23 +87,21 @@ public class SkillListViewAdapter extends BaseAdapter {
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-                                try {
-                                    JSONObject jsResult = new DeleteDataWithJson(context).execute(UrlStatic.URLApplicantsHasSkills+"?applicant_id="+applicantID+"&skill_id="+skillID).get();
-                                    if(jsResult.getString("message").equals("Deleted")){
-                                        skillListViewItemItems.remove(listViewID);
-                                        notifyDataSetChanged();
-                                        Toast.makeText(context.getApplicationContext(),"Delete success",Toast.LENGTH_SHORT).show();
+                                DeleteDataWithJsonCallback deleteDataWithJsonCallback = new DeleteDataWithJsonCallback(context) {
+                                    @Override
+                                    public void receiveData(Object result) {
+                                        JSONObject jsResult = (JSONObject) result;
+                                        if(Utilities.isDeleteSuccess(jsResult)){
+                                            skillListViewItemItems.remove(listViewID);
+                                            notifyDataSetChanged();
+                                            Toast.makeText(context.getApplicationContext(),"Delete success",Toast.LENGTH_SHORT).show();
+                                        }
+                                        else{
+                                            Toast.makeText(context.getApplicationContext(),"Something went wrong",Toast.LENGTH_SHORT).show();
+                                        }
                                     }
-                                    else{
-                                        Toast.makeText(context.getApplicationContext(),"Something went wrong",Toast.LENGTH_SHORT).show();
-                                    }
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                } catch (InterruptedException e) {
-                                    e.printStackTrace();
-                                } catch (ExecutionException e) {
-                                    e.printStackTrace();
-                                }
+                                };
+                                deleteDataWithJsonCallback.execute(UrlStatic.URLApplicantsHasSkills+"?applicant_id="+applicantID+"&skill_id="+skillID);
                             }
                         })
                         .setNegativeButton("No",null).show();

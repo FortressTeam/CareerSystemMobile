@@ -13,7 +13,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import com.example.kyler.careersystem.WorkWithService.PostDataWithJson;
+import com.example.kyler.careersystem.WorkWithService.PostDataWithJsonCallback;
 import com.github.ksoichiro.android.observablescrollview.ObservableScrollView;
 import com.github.ksoichiro.android.observablescrollview.ObservableScrollViewCallbacks;
 import com.github.ksoichiro.android.observablescrollview.ScrollState;
@@ -23,7 +23,6 @@ import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.concurrent.ExecutionException;
 
 public class FeedbackFragment extends Fragment implements View.OnClickListener,ObservableScrollViewCallbacks {
     private LinearLayout feedbackIdea,feedbackProblem,feedbackQuestion,feedbackPraise;
@@ -146,18 +145,20 @@ public class FeedbackFragment extends Fragment implements View.OnClickListener,O
             jsonObject.put("feedback_date",new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime()));
             jsonObject.put("feedback_type_id",feedbackTypeID);
             jsonObject.put("user_id",userID);
-            isSuccess = isPostFeedbackSuccess(new PostDataWithJson(jsonObject,getActivity()).execute(UrlStatic.URLFeedbacks).get());
+            PostDataWithJsonCallback postDataWithJsonCallback = new PostDataWithJsonCallback(jsonObject,getActivity()) {
+                @Override
+                public void receiveData(Object result) {
+                    boolean isSuccess = isPostFeedbackSuccess((JSONObject) result);
+                    if (isSuccess) {
+                        Toast.makeText(getActivity().getApplicationContext(), "Create Post success ... ", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(getActivity().getApplicationContext(), "Create Post fail ... Something went wrong ", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            };
+
         } catch (JSONException e) {
             e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
-        if (isSuccess) {
-            Toast.makeText(getActivity().getApplicationContext(), "Create Post success ... ", Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(getActivity().getApplicationContext(), "Create Post fail ... Something went wrong ", Toast.LENGTH_SHORT).show();
         }
     }
 

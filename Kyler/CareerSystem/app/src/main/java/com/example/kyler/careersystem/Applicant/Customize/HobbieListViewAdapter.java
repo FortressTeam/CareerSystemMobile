@@ -13,13 +13,12 @@ import android.widget.Toast;
 
 import com.example.kyler.careersystem.R;
 import com.example.kyler.careersystem.UrlStatic;
-import com.example.kyler.careersystem.WorkWithService.DeleteDataWithJson;
+import com.example.kyler.careersystem.Utilities;
+import com.example.kyler.careersystem.WorkWithService.DeleteDataWithJsonCallback;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.concurrent.ExecutionException;
 
 /**
  * Created by kyler on 05/04/2016.
@@ -81,23 +80,21 @@ public class HobbieListViewAdapter extends BaseAdapter {
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-                                try {
-                                    JSONObject jsResult = new DeleteDataWithJson(context).execute(UrlStatic.URLApplicantsHasHobbies+"?applicant_id="+applicantID+"&hobby_id="+hobbieID).get();
-                                    if(jsResult.getString("message").equals("Deleted")){
-                                        hobbieListViewItems.remove(listViewID);
-                                        notifyDataSetChanged();
-                                        Toast.makeText(context.getApplicationContext(), "Delete success", Toast.LENGTH_SHORT).show();
+                                DeleteDataWithJsonCallback deleteDataWithJsonCallback = new DeleteDataWithJsonCallback(context) {
+                                    @Override
+                                    public void receiveData(Object result) {
+                                        JSONObject jsResult = (JSONObject) result;
+                                        if(Utilities.isDeleteSuccess(jsResult)){
+                                            hobbieListViewItems.remove(listViewID);
+                                            notifyDataSetChanged();
+                                            Toast.makeText(context.getApplicationContext(), "Delete success", Toast.LENGTH_SHORT).show();
+                                        }
+                                        else{
+                                            Toast.makeText(context.getApplicationContext(),"Something went wrong",Toast.LENGTH_SHORT).show();
+                                        }
                                     }
-                                    else{
-                                        Toast.makeText(context.getApplicationContext(),"Something went wrong",Toast.LENGTH_SHORT).show();
-                                    }
-                                } catch (InterruptedException e) {
-                                    e.printStackTrace();
-                                } catch (ExecutionException e) {
-                                    e.printStackTrace();
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                }
+                                };
+                                deleteDataWithJsonCallback.execute(UrlStatic.URLApplicantsHasHobbies+"?applicant_id="+applicantID+"&hobby_id="+hobbieID);
                             }
                         })
                         .setNegativeButton("No",null).show();

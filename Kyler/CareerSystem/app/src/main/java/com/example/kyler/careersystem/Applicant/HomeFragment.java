@@ -1,7 +1,6 @@
 package com.example.kyler.careersystem.Applicant;
 
 import android.app.Fragment;
-import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -25,15 +24,14 @@ import com.example.kyler.careersystem.Entities.Posts;
 import com.example.kyler.careersystem.R;
 import com.example.kyler.careersystem.UrlStatic;
 import com.example.kyler.careersystem.Utilities;
-import com.example.kyler.careersystem.WorkWithService.GetJsonArray;
-import com.example.kyler.careersystem.WorkWithService.GetJsonLoadMore;
+import com.example.kyler.careersystem.WorkWithService.GetJsonArrayCallback;
+import com.example.kyler.careersystem.WorkWithService.GetJsonLoadMoreCallback;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.concurrent.ExecutionException;
 
 public class HomeFragment extends Fragment implements AbsListView.OnScrollListener,ListView.OnItemClickListener {
     private ListView home_job_listview;
@@ -43,7 +41,7 @@ public class HomeFragment extends Fragment implements AbsListView.OnScrollListen
     private ArrayList<Posts> arrPost;
     private Handler mHandler;
     private ProgressBar progressBar;
-    private ProgressDialog pDialog;
+    private JSONArray jsonArray = null;
 
     private PostController postController;
 
@@ -57,39 +55,36 @@ public class HomeFragment extends Fragment implements AbsListView.OnScrollListen
         mHandler = new Handler();
         arrPost = new ArrayList<>();
         jobListViewItems = new ArrayList<JobListViewItem>();
-        pDialog = new ProgressDialog(getActivity());
-        pDialog.setMessage("Loading...");
-        pDialog.setCancelable(false);
-        pDialog.show();
         mHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                JSONArray jsonArray = null;
-                try {
-                    jsonArray = new GetJsonArray(pDialog, "posts").execute(UrlStatic.URLHomefragment + page).get();
-                    if(Utilities.checkConnect(jsonArray)){
-                        for (int i = 0; i < jsonArray.length(); i++) {
-                            JSONObject jsonObject = jsonArray.getJSONObject(i);
-                            Posts post = new Posts(jsonObject);
-                            arrPost.add(post);
-                            HiringManagers hiringManager = new HiringManagers(jsonObject.getJSONObject("hiring_manager"));
-                            Categories category = new Categories(jsonObject.getJSONObject("category"));
-                            jobListViewItems.add(postController.getJobListView(post, hiringManager, category));
+                GetJsonArrayCallback getJsonArrayCallback = new GetJsonArrayCallback(getActivity(),"posts") {
+                    @Override
+                    public void receiveData(Object result) {
+                        try {
+                            jsonArray = (JSONArray) result;
+                            if(Utilities.checkConnect(jsonArray)){
+                                for (int i = 0; i < jsonArray.length(); i++) {
+                                    JSONObject jsonObject = jsonArray.getJSONObject(i);
+                                    Posts post = new Posts(jsonObject);
+                                    arrPost.add(post);
+                                    HiringManagers hiringManager = new HiringManagers(jsonObject.getJSONObject("hiring_manager"));
+                                    Categories category = new Categories(jsonObject.getJSONObject("category"));
+                                    jobListViewItems.add(postController.getJobListView(post, hiringManager, category));
+                                }
+                                jobListViewAdapterLoadInfinite = new JobListViewAdapterLoadInfinite(getActivity().getApplicationContext(), jobListViewItems, 10, 5);
+                                home_job_listview.setAdapter(jobListViewAdapterLoadInfinite);
+                            }
+                            else {
+                                Toast.makeText(getActivity().getApplicationContext(), "Connection got problem!", Toast.LENGTH_SHORT).show();
+                                Utilities.displayViewApplicant(getActivity(), 404);
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
                         }
-                        jobListViewAdapterLoadInfinite = new JobListViewAdapterLoadInfinite(getActivity().getApplicationContext(), jobListViewItems, 10, 5);
-                        home_job_listview.setAdapter(jobListViewAdapterLoadInfinite);
                     }
-                    else {
-                        Toast.makeText(getActivity().getApplicationContext(), "Connection got problem!", Toast.LENGTH_SHORT).show();
-                        Utilities.displayViewApplicant(getActivity(), 404);
-                    }
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } catch (ExecutionException e) {
-                    e.printStackTrace();
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+                };
+                getJsonArrayCallback.execute(UrlStatic.URLHomefragment + page);
             }
         }, 300);
         View rootView = inflater.inflate(R.layout.applicant_home_fragment,container,false);
@@ -146,7 +141,7 @@ public class HomeFragment extends Fragment implements AbsListView.OnScrollListen
         //Load more
         if(firstVisibleItem + visibleItemCount == totalItemCount && !nomoreData && !hasCallback){ //check if we've reached the bottom
             progressBar.setVisibility(View.VISIBLE);
-            mHandler.postDelayed(showMore,200);
+            mHandler.postDelayed(showMore, 300);
             hasCallback = true;
         }
     }
@@ -157,28 +152,31 @@ public class HomeFragment extends Fragment implements AbsListView.OnScrollListen
             if(jobListViewAdapterLoadInfinite!=null){
                 if(jobListViewAdapterLoadInfinite.endReached()){
                     page++;
-                    try {
-                        JSONArray jsonArray = new GetJsonLoadMore(progressBar,"posts").execute(UrlStatic.URLHomefragment+page).get();
-                        if(jsonArray!=null){
-                            nomoreData=false;
-                            for(int i=0;i<jsonArray.length();i++){
-                                JSONObject jsonObject = jsonArray.getJSONObject(i);
-                                Posts post = new Posts(jsonObject);
-                                arrPost.add(post);
-                                HiringManagers hiringManager = new HiringManagers(new JSONObject(jsonObject.getString("hiring_manager")));
-                                Categories category = new Categories(new JSONObject(jsonObject.getString("category")));
-                                jobListViewItems.add(postController.getJobListView(post, hiringManager, category));
-                                jobListViewAdapterLoadInfinite.setJobListViewItems(jobListViewItems);
+                    GetJsonLoadMoreCallback getJsonLoadMoreCallback = new GetJsonLoadMoreCallback(progressBar,"posts") {
+                        @Override
+                        public void receiveData(Object result) {
+                            try {
+                                JSONArray jsonArray = (JSONArray) result;
+                                if(jsonArray!=null){
+                                    nomoreData=false;
+                                    for(int i=0;i<jsonArray.length();i++){
+                                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+                                        Posts post = new Posts(jsonObject);
+                                        arrPost.add(post);
+                                        HiringManagers hiringManager = new HiringManagers(new JSONObject(jsonObject.getString("hiring_manager")));
+                                        Categories category = new Categories(new JSONObject(jsonObject.getString("category")));
+                                        jobListViewItems.add(postController.getJobListView(post, hiringManager, category));
+                                        jobListViewAdapterLoadInfinite.setJobListViewItems(jobListViewItems);
+                                        jobListViewAdapterLoadInfinite.notifyDataSetChanged();
+                                    }
+                                }else
+                                    nomoreData=true;
+                            } catch (JSONException e) {
+                                e.printStackTrace();
                             }
-                        }else
-                            nomoreData=true;
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    } catch (ExecutionException e) {
-                        e.printStackTrace();
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
+                        }
+                    };
+                    getJsonLoadMoreCallback.execute(UrlStatic.URLHomefragment+page);
                 }
                 boolean noMoreToShow = jobListViewAdapterLoadInfinite.showMore();
             }

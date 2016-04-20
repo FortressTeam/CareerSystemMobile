@@ -14,12 +14,10 @@ import com.example.kyler.careersystem.ApplicantMainActivity;
 import com.example.kyler.careersystem.R;
 import com.example.kyler.careersystem.UrlStatic;
 import com.example.kyler.careersystem.Utilities;
-import com.example.kyler.careersystem.WorkWithService.PutDataWithJson;
+import com.example.kyler.careersystem.WorkWithService.PutDataWithJsonCallback;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.concurrent.ExecutionException;
 
 public class MyresumeAboutFragment extends Fragment {
     private EditText aboutContent;
@@ -47,19 +45,21 @@ public class MyresumeAboutFragment extends Fragment {
                 JSONObject jsonObject = new JSONObject();
                 try {
                     jsonObject.put("applicant_about",aboutContent.getText().toString().trim());
-                    JSONObject jsresult = new PutDataWithJson(jsonObject,getActivity()).execute(UrlStatic.URLApplicant+applicantID+".json").get();
-                    if(Utilities.isCreateUpdateSuccess(jsresult)){
-                        Utilities.startActivity(getActivity(), ApplicantMainActivity.class, 2);
-                        Toast.makeText(getActivity().getApplicationContext(),"success",Toast.LENGTH_SHORT).show();
-                    }
-                    else{
-                        Toast.makeText(getActivity().getApplicationContext(),"Something went wrong!",Toast.LENGTH_SHORT).show();
-                    }
+                    PutDataWithJsonCallback putDataWithJsonCallback = new PutDataWithJsonCallback(jsonObject,getActivity()) {
+                        @Override
+                        public void receiveData(Object result) {
+                            JSONObject jsresult = (JSONObject) result;
+                            if(Utilities.isCreateUpdateSuccess(jsresult)){
+                                Utilities.startActivity(getActivity(), ApplicantMainActivity.class, 2);
+                                Toast.makeText(getActivity().getApplicationContext(),"success",Toast.LENGTH_SHORT).show();
+                            }
+                            else{
+                                Toast.makeText(getActivity().getApplicationContext(),"Something went wrong!",Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    };
+                    putDataWithJsonCallback.execute(UrlStatic.URLApplicant+applicantID+".json");
                 } catch (JSONException e) {
-                    e.printStackTrace();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } catch (ExecutionException e) {
                     e.printStackTrace();
                 }
             }

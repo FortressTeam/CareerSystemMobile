@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.kyler.careersystem.Applicant.Customize.JobAppliedListViewItem;
 import com.example.kyler.careersystem.Applicant.Customize.JobListViewItem;
@@ -33,7 +34,7 @@ import com.example.kyler.careersystem.Entities.HiringManagers;
 import com.example.kyler.careersystem.Entities.Posts;
 import com.example.kyler.careersystem.Entities.Users;
 import com.example.kyler.careersystem.HiringManager.ChildFragments.AddPostFragment;
-import com.example.kyler.careersystem.WorkWithService.PostDataWithJson;
+import com.example.kyler.careersystem.WorkWithService.PostDataWithJsonCallback;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -333,8 +334,7 @@ public class Utilities {
         return result;
     }
 
-    public static boolean checkLogin(Activity activity){
-        boolean result = false;
+    public static void checkLogin(Activity activity){
         try {
             FileInputStream fin = activity.openFileInput(Utilities.SAVEING_FILE_LOGIN);
             int c;
@@ -345,9 +345,7 @@ public class Utilities {
             fin.close();
             JSONObject jsData = new JSONObject(data);
             if(jsData.has("username") && jsData.has("password") && jsData.has("group_id")){
-                result = doLoginNormal(activity, jsData.getString("username"), jsData.getString("password"), jsData.getInt("group_id"));
-            }else{
-                result = false;
+                doLoginNormal(activity, jsData.getString("username"), jsData.getString("password"), jsData.getInt("group_id"));
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -356,45 +354,52 @@ public class Utilities {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        return result;
     }
 
-    public static boolean doLoginNormal(Activity activity, String username, String password, int groupid){
-        boolean rs = false;
-        JSONObject sendData = new JSONObject();
-        try{
-            sendData.put("username",username);
-            sendData.put("password", password);
-            JSONObject result = new PostDataWithJson(sendData,activity).execute(UrlStatic.URLSignin).get();
-            if(result!=null&&result.getString("message").equals("Success")){
-                if(result.getJSONObject("user").getInt("group_id")==groupid) {
-                    rs = true;
-                    sendData.put("group_id",groupid);
-                    if(Utilities.saveLogin(activity, sendData.toString())) {
-                        Intent intent = new Intent(activity, LoginData.class).putExtra("key", groupid);
-                        Bundle bundle = new Bundle();
-                        bundle.putString("jsuser", result.getJSONObject("user").toString());
-                        intent.putExtra("sendData", bundle);
-                        activity.startActivity(intent);
-                        activity.finish();
-                    }
-                    else{
-                        Log.e("Login","Can't save Login");
-                    }
-                }else{
-                    rs = false;
-                }
-            }else{
-                rs = false;
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
+    public static void doLoginNormal(final Activity activity, String username, String password, final int groupid){
+        JSONObject jsSendData = new JSONObject();
+        try {
+            jsSendData.put("username", username);
+            jsSendData.put("password", password);
+        } catch (JSONException e1) {
+            e1.printStackTrace();
         }
-        return rs;
+        final JSONObject sendData = jsSendData;
+        PostDataWithJsonCallback postDataWithJsonCallback = new PostDataWithJsonCallback(sendData,activity) {
+            @Override
+            public void receiveData(Object result) {
+                try {
+                    JSONObject resultLogin = (JSONObject) result;
+                    if (resultLogin != null){
+                        if(resultLogin.getString("message").equals("Success")) {
+                            if (resultLogin.getJSONObject("user").getInt("group_id") == groupid) {
+                                sendData.put("group_id", groupid);
+                                if (Utilities.saveLogin(activity, sendData.toString())) {
+                                    Intent intent = new Intent(activity, LoginData.class).putExtra("key", groupid);
+                                    Bundle bundle = new Bundle();
+                                    bundle.putString("jsuser", resultLogin.getJSONObject("user").toString());
+                                    intent.putExtra("sendData", bundle);
+                                    activity.startActivity(intent);
+                                    activity.finish();
+                                } else {
+                                    Log.e("Login", "Can't save Login");
+                                }
+                                Toast.makeText(activity.getApplicationContext(), "Login success", Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(activity.getApplicationContext(), "Login fail", Toast.LENGTH_SHORT).show();
+                            }
+                        } else {
+                            Toast.makeText(activity.getApplicationContext(), "Username or password is wrong!", Toast.LENGTH_SHORT).show();
+                        }
+                    }else{
+                        Toast.makeText(activity.getApplicationContext(), "Connection got problem!", Toast.LENGTH_SHORT).show();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+        postDataWithJsonCallback.execute(UrlStatic.URLSignin);
     }
 
 

@@ -33,4 +33,11 @@
         <item name="colorControlHighlight">@color/colorButtonDeletePress</item>
         <item name="colorButtonNormal">@color/colorButtonDelete</item>
     </style>
+
+    <style name="Custom" parent="android:Theme.Material.Dialog.NoActionBar">
+        <item name="DialogTitleAppearance">@android:style/TextAppearance.Medium</item>
+        <item name="DialogTitleText">Loading…</item>
+        <item name="DialogSpotColor">@color/colorAccent</item>
+        <item name="DialogSpotCount">5</item>
+    </style>
 </resources>

@@ -125,39 +125,6 @@ public class JobDetailFragment extends Fragment implements ObservableScrollViewC
                     }
                 };
                 getJsonObjectCallback.execute(url,null,null);
-
-
-//                try {
-//                    JSONObject jsonObject = new GetJsonObject(pDialog, "post").execute(url).get();
-//                    if (Utilities.checkConnect(jsonObject)) {
-//                        Posts post = new Posts(jsonObject);
-//                        jsonSendData = new JSONObject(jsonObject.getString("hiring_manager"));
-//                        HiringManagers hiringManager = new HiringManagers(jsonSendData);
-//                        jobDetailCompanyName.setText(hiringManager.getCompanyName());
-//                        jobDetailCompanyAddress.setText(hiringManager.getCompanyAddress());
-//                        jobDetailCompanySize.setText(hiringManager.getCompanySize() + "");
-//                        jobDetailHiringManagerPhone.setText(hiringManager.getHiringManagerPhone());
-//                        Picasso.with(getActivity().getApplicationContext()).load(UrlStatic.URLimg + "/company_img/" + hiringManager.getCompanyLogo()).into(companyLogo);
-//                        jobDetailPostTitle.setText(post.getPostTitle());
-//                        if (post.getPostSalary() != 0) {
-//                            jobDetailPostSalary.setText("VND " + post.getPostSalary());
-//                        } else {
-//                            jobDetailPostSalary.setText("Negotiable");
-//                        }
-//                        jobDetailPostLocation.setText(post.getPostLocation());
-//                        jobDetailPostDate.setText(post.getPostDate());
-//                        jobDetailPostContent.setText(Html.fromHtml(post.getPostContent()));
-//                    } else {
-//                        Toast.makeText(getActivity().getApplicationContext(), "Connection got problem!", Toast.LENGTH_SHORT).show();
-//                        Utilities.displayViewApplicant(getActivity(), 404);
-//                    }
-//                } catch (InterruptedException e) {
-//                    e.printStackTrace();
-//                } catch (ExecutionException e) {
-//                    e.printStackTrace();
-//                } catch (JSONException e) {
-//                    e.printStackTrace();
-//                }
             }
         }, 200);
         return rootView;
@@ -227,7 +194,7 @@ public class JobDetailFragment extends Fragment implements ObservableScrollViewC
             }
         }else{
             jobDetailFloatactionbutton.setImageResource(R.drawable.fabadd);
-            jobDetailFloatactionbuttonFavorite.hide();
+            jobDetailFloatactionbuttonFavorite.setVisibility(View.GONE);
             jobDetailFloatactionFavoritetv.setVisibility(View.INVISIBLE);
             if(!applied){
                 jobDetailFloatactionbuttonApply.setVisibility(View.GONE);

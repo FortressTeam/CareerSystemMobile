@@ -4,7 +4,6 @@ package com.example.kyler.careersystem;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,7 +13,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.example.kyler.careersystem.WorkWithService.PostDataWithJson;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
@@ -23,16 +21,6 @@ import com.facebook.Profile;
 import com.facebook.ProfileTracker;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
-import com.facebook.login.widget.LoginButton;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.Arrays;
-import java.util.concurrent.ExecutionException;
 
 import static java.util.Arrays.*;
 
@@ -126,11 +114,7 @@ public class ApplicantFragment extends Fragment implements View.OnClickListener,
         switch (view.getId()){
             case R.id.applicant_loginnormal:
                 if(checkValidLogin())
-                    if(Utilities.doLoginNormal(getActivity(), username.getText().toString(), password.getText().toString(), 3)){
-                        Toast.makeText(getActivity().getApplicationContext(),"Login success",Toast.LENGTH_SHORT).show();
-                    }else{
-                        Toast.makeText(getActivity().getApplicationContext(),"Login fail",Toast.LENGTH_SHORT).show();
-                    }
+                    Utilities.doLoginNormal(getActivity(), username.getText().toString(), password.getText().toString(), 3);
                 else
                     Toast.makeText(getActivity().getApplicationContext(),"username or password is missing",Toast.LENGTH_SHORT).show();
                 break;
@@ -147,11 +131,7 @@ public class ApplicantFragment extends Fragment implements View.OnClickListener,
             case R.id.applicant_login_password:
                 if ((keyEvent.getAction() == KeyEvent.ACTION_DOWN) && (i == KeyEvent.KEYCODE_ENTER)) {
                     if(checkValidLogin())
-                        if(Utilities.doLoginNormal(getActivity(), username.getText().toString(), password.getText().toString(), 3)){
-                            Toast.makeText(getActivity().getApplicationContext(),"Login success",Toast.LENGTH_SHORT).show();
-                        }else{
-                            Toast.makeText(getActivity().getApplicationContext(),"Login fail",Toast.LENGTH_SHORT).show();
-                        }
+                        Utilities.doLoginNormal(getActivity(), username.getText().toString(), password.getText().toString(), 3);
                     else
                         Toast.makeText(getActivity().getApplicationContext(),"username or password is missing",Toast.LENGTH_SHORT).show();
                 }

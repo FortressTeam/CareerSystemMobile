@@ -19,10 +19,10 @@ public class Applicants {
     private String applicantAddress;
     private String applicantAbout;
     private boolean applicantMaritalStatus;
-    private String applicantFutureGoal;
+    private String applicantObjective;
     private String applicantWebsite;
     private boolean applicantStatus;
-    private int careerPathID;
+    private int majorID;
 
     public Applicants(JSONObject jsonObject) {
         try {
@@ -51,8 +51,8 @@ public class Applicants {
             if (jsonObject.has("applicant_marital_status")) {
                 this.applicantMaritalStatus = jsonObject.getBoolean("applicant_marital_status");
             }
-            if (jsonObject.has("applicant_future_goals")) {
-                this.applicantFutureGoal = jsonObject.getString("applicant_future_goals");
+            if (jsonObject.has("applicant_objective")) {
+                this.applicantObjective = jsonObject.getString("applicant_objective");
             }
             if (jsonObject.has("applicant_website")) {
                 this.applicantWebsite = jsonObject.getString("applicant_website");
@@ -60,8 +60,8 @@ public class Applicants {
             if (jsonObject.has("applicant_status")) {
                 this.applicantStatus = jsonObject.getBoolean("applicant_status");
             }
-            if (jsonObject.has("career_path_id")) {
-                this.careerPathID = jsonObject.getInt("career_path_id");
+            if (jsonObject.has("major_id")) {
+                this.majorID = jsonObject.getInt("major_id");
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -70,7 +70,7 @@ public class Applicants {
         }
     }
 
-    public Applicants(int ID, String applicantName, String applicantPhone, String applicantDateOfBirth, boolean applicantSex, String applicantAddress, String applicantAbout, boolean applicantMaritalStatus, String applicantFutureGoal, String applicantWebsite, boolean applicantStatus, int careerPathID) {
+    public Applicants(int ID, String applicantName, String applicantPhone, String applicantDateOfBirth, boolean applicantSex, String applicantAddress, String applicantAbout, boolean applicantMaritalStatus, String applicantObjective, String applicantWebsite, boolean applicantStatus, int majorID) {
         this.ID = ID;
         this.applicantName = applicantName;
         this.applicantPhone = applicantPhone;
@@ -79,10 +79,10 @@ public class Applicants {
         this.applicantAddress = applicantAddress;
         this.applicantAbout = applicantAbout;
         this.applicantMaritalStatus = applicantMaritalStatus;
-        this.applicantFutureGoal = applicantFutureGoal;
+        this.applicantObjective = applicantObjective;
         this.applicantWebsite = applicantWebsite;
         this.applicantStatus = applicantStatus;
-        this.careerPathID = careerPathID;
+        this.majorID = majorID;
     }
 
     public int getID() {
@@ -149,12 +149,12 @@ public class Applicants {
         this.applicantMaritalStatus = applicantMaritalStatus;
     }
 
-    public String getApplicantFutureGoal() {
-        return applicantFutureGoal;
+    public String getApplicantObjective() {
+        return applicantObjective;
     }
 
-    public void setApplicantFutureGoal(String applicantFutureGoal) {
-        this.applicantFutureGoal = applicantFutureGoal;
+    public void setApplicantObjective(String applicantObjective) {
+        this.applicantObjective = applicantObjective;
     }
 
     public String getApplicantWebsite() {
@@ -173,11 +173,11 @@ public class Applicants {
         this.applicantStatus = applicantStatus;
     }
 
-    public int getCareerPathID() {
-        return careerPathID;
+    public int getMajorID() {
+        return majorID;
     }
 
-    public void setCareerPathID(int careerPathID) {
-        this.careerPathID = careerPathID;
+    public void setMajorID(int majorID) {
+        this.majorID = majorID;
     }
 }

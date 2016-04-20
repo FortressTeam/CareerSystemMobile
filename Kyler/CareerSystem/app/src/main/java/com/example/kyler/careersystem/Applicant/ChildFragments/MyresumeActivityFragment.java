@@ -23,15 +23,14 @@ import com.example.kyler.careersystem.Entities.PersonalHistory;
 import com.example.kyler.careersystem.R;
 import com.example.kyler.careersystem.UrlStatic;
 import com.example.kyler.careersystem.Utilities;
-import com.example.kyler.careersystem.WorkWithService.DeleteDataWithJson;
-import com.example.kyler.careersystem.WorkWithService.PostDataWithJson;
-import com.example.kyler.careersystem.WorkWithService.PutDataWithJson;
+import com.example.kyler.careersystem.WorkWithService.DeleteDataWithJsonCallback;
+import com.example.kyler.careersystem.WorkWithService.PostDataWithJsonCallback;
+import com.example.kyler.careersystem.WorkWithService.PutDataWithJsonCallback;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Calendar;
-import java.util.concurrent.ExecutionException;
 
 public class MyresumeActivityFragment extends Fragment implements View.OnClickListener{
     private Calendar calendar = Calendar.getInstance();
@@ -194,18 +193,20 @@ public class MyresumeActivityFragment extends Fragment implements View.OnClickLi
             sendData.put("personal_history_end", Utilities.convertTimePost(activityEndTextView.getText().toString()));
             sendData.put("personal_history_type_id",historyTypeID);
             sendData.put("applicant_id",applicantID);
-            JSONObject jsResult = new PostDataWithJson(sendData,getActivity()).execute(UrlStatic.URLPersonalHistory).get();
-            if(Utilities.isCreateUpdateSuccess(jsResult)){
-                Utilities.startActivity(getActivity(), ApplicantMainActivity.class, 2);
-                Toast.makeText(getActivity().getApplicationContext(),"success",Toast.LENGTH_SHORT).show();
-            }else{
-                Toast.makeText(getActivity().getApplicationContext(),"Something went wrong!",Toast.LENGTH_SHORT).show();
-            }
+            PostDataWithJsonCallback postDataWithJsonCallback = new PostDataWithJsonCallback(sendData,getActivity()) {
+                @Override
+                public void receiveData(Object result) {
+                    JSONObject jsResult = (JSONObject) result;
+                    if(Utilities.isCreateUpdateSuccess(jsResult)){
+                        Utilities.startActivity(getActivity(), ApplicantMainActivity.class, 2);
+                        Toast.makeText(getActivity().getApplicationContext(), "success", Toast.LENGTH_SHORT).show();
+                    }else{
+                        Toast.makeText(getActivity().getApplicationContext(),"Something went wrong!",Toast.LENGTH_SHORT).show();
+                    }
+                }
+            };
+            postDataWithJsonCallback.execute(UrlStatic.URLPersonalHistory);
         } catch (JSONException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
             e.printStackTrace();
         }
     }
@@ -217,18 +218,19 @@ public class MyresumeActivityFragment extends Fragment implements View.OnClickLi
             jsEdit.put("personal_history_detail",activityDescription.getText());
             jsEdit.put("personal_history_start", Utilities.convertTimePost(activityStartTextView.getText().toString()));
             jsEdit.put("personal_history_end", Utilities.convertTimePost(activityEndTextView.getText().toString()));
-            JSONObject jsResult = new PutDataWithJson(jsEdit,getActivity()).execute(UrlStatic.URLPersonalHistory2+personalHistory.getID()+".json").get();
-            if(Utilities.isCreateUpdateSuccess(jsResult)){
-                Utilities.startActivity(getActivity(), ApplicantMainActivity.class, 2);
-                Toast.makeText(getActivity().getApplicationContext(),"success",Toast.LENGTH_SHORT).show();
-            }else{
-                Toast.makeText(getActivity().getApplicationContext(),"Something went wrong!",Toast.LENGTH_SHORT).show();
-            }
+            PutDataWithJsonCallback putDataWithJsonCallback = new PutDataWithJsonCallback(jsEdit,getActivity()) {
+                @Override
+                public void receiveData(Object result) {
+                    JSONObject jsResult = (JSONObject) result;
+                    if(Utilities.isCreateUpdateSuccess(jsResult)){
+                        Utilities.startActivity(getActivity(), ApplicantMainActivity.class, 2);
+                        Toast.makeText(getActivity().getApplicationContext(),"success",Toast.LENGTH_SHORT).show();
+                    }else{
+                        Toast.makeText(getActivity().getApplicationContext(),"Something went wrong!",Toast.LENGTH_SHORT).show();
+                    }
+                }
+            };
         } catch (JSONException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
             e.printStackTrace();
         }
     }
@@ -239,19 +241,19 @@ public class MyresumeActivityFragment extends Fragment implements View.OnClickLi
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        try {
-                            JSONObject jsDelete = new DeleteDataWithJson(getActivity()).execute(UrlStatic.URLPersonalHistory2+personalHistory.getID()+".json").get();
-                            if(Utilities.isDeleteSuccess(jsDelete)){
-                                Utilities.startActivity(getActivity(), ApplicantMainActivity.class, 2);
-                                Toast.makeText(getActivity().getApplicationContext(),"Deleted success",Toast.LENGTH_SHORT).show();
-                            }else{
-                                Toast.makeText(getActivity().getApplicationContext(),"Something went wrong!",Toast.LENGTH_SHORT).show();
+                        DeleteDataWithJsonCallback deleteDataWithJsonCallback = new DeleteDataWithJsonCallback(getActivity()) {
+                            @Override
+                            public void receiveData(Object result) {
+                                JSONObject jsDelete = (JSONObject) result;
+                                if(Utilities.isDeleteSuccess(jsDelete)){
+                                    Utilities.startActivity(getActivity(), ApplicantMainActivity.class, 2);
+                                    Toast.makeText(getActivity().getApplicationContext(),"Deleted success",Toast.LENGTH_SHORT).show();
+                                }else{
+                                    Toast.makeText(getActivity().getApplicationContext(),"Something went wrong!",Toast.LENGTH_SHORT).show();
+                                }
                             }
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        } catch (ExecutionException e) {
-                            e.printStackTrace();
-                        }
+                        };
+                        deleteDataWithJsonCallback.execute(UrlStatic.URLPersonalHistory2+personalHistory.getID()+".json");
                     }
                 })
                 .setNegativeButton("No",null).show();

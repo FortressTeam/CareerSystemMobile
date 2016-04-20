@@ -2,7 +2,6 @@ package com.example.kyler.careersystem.Applicant;
 
 import android.app.Dialog;
 import android.app.Fragment;
-import android.app.ProgressDialog;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.os.Handler;
@@ -43,9 +42,9 @@ import com.example.kyler.careersystem.Entities.Users;
 import com.example.kyler.careersystem.R;
 import com.example.kyler.careersystem.UrlStatic;
 import com.example.kyler.careersystem.Utilities;
-import com.example.kyler.careersystem.WorkWithService.GetJsonArray;
-import com.example.kyler.careersystem.WorkWithService.GetJsonObject;
-import com.example.kyler.careersystem.WorkWithService.PostDataWithJson;
+import com.example.kyler.careersystem.WorkWithService.GetJsonArrayWithoutDialog;
+import com.example.kyler.careersystem.WorkWithService.GetJsonObjectCallback;
+import com.example.kyler.careersystem.WorkWithService.PostDataWithJsonCallback;
 import com.github.ksoichiro.android.observablescrollview.ObservableScrollView;
 import com.github.ksoichiro.android.observablescrollview.ObservableScrollViewCallbacks;
 import com.github.ksoichiro.android.observablescrollview.ScrollState;
@@ -56,7 +55,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.concurrent.ExecutionException;
 
 /**
  * Created by kyler on 10/03/2016.
@@ -71,8 +69,8 @@ public class MyResumeFragment extends Fragment implements View.OnClickListener,O
     private NonScrollListView myresume_listview_education,myresume_listview_experience,myresume_listview_activity,myresume_listview_award,myresume_listview_skill,myresume_listview_hobbie;
     private ObservableScrollView myresumeFragmentObservableScrollView;
     private TextView myresumeEducation,myresumeExperience,myresumeActivity,myresumeAward,myresumeSkill,myresumeHobbie;
-    private TextView myresumeSex,myresumeHometown,myresumeBirthday,myresumePhone,myresumeEmail,myresumeAddress,myresumeAbout,myresumeFutureGoal;
-    private ImageView myresumeUserImage,myresumeEditContact,myresumeEditAbout,myresumeAddEducation,myresumeAddExperience,myresumeAddActivity,myresumeAddAward,myresumeAddSkills,myresumeAddHobbies,myresumeEditFutureGoals;
+    private TextView myresumeSex,myresumeHometown,myresumeBirthday,myresumePhone,myresumeEmail,myresumeAddress,myresumeAbout, myresumeObjective;
+    private ImageView myresumeUserImage,myresumeEditContact,myresumeEditAbout,myresumeAddEducation,myresumeAddExperience,myresumeAddActivity,myresumeAddAward,myresumeAddSkills,myresumeAddHobbies, myresumeEditObjective;
     private LinearLayout myresumeEditProfile;
     private FloatingActionButton myresumeEditButton;
 
@@ -82,6 +80,7 @@ public class MyResumeFragment extends Fragment implements View.OnClickListener,O
     private ArrayList<SkillTypes> listSkillTypes;
     private ArrayList<Skills> skills,listskills;
     private JSONObject jsData;
+    private JSONArray jshobbies, jsSkillTypes;
     private int applicantID=Utilities.applicants.getID();
     private MyresumeController myresumeController;
 
@@ -89,47 +88,63 @@ public class MyResumeFragment extends Fragment implements View.OnClickListener,O
     private Users user;
     private boolean hideButton=true;
     private Handler mHandler;
-    private ProgressDialog pDialog;
     private Dialog addHobbieDialog,addSkillDialog;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mHandler = new Handler();
-        pDialog = new ProgressDialog(getActivity());
-        pDialog.setMessage("Loading... ");
-        pDialog.setCancelable(false);
-        pDialog.show();
+        myresumeController = new MyresumeController();
         mHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                myresumeController = new MyresumeController();
-                try {
-                    jsData = new GetJsonObject(pDialog, "applicant").execute(UrlStatic.URLApplicant + applicantID + ".json").get();
-                    JSONArray jshobbies = new GetJsonArray(pDialog,"hobbies").execute(UrlStatic.URLHobbies).get();
-                    JSONArray jsSkillTypes = new GetJsonArray(pDialog, "skillTypes").execute(UrlStatic.URLSkillTypes).get();
-                    if(Utilities.checkConnect(jsData) && Utilities.checkConnect(jshobbies) && Utilities.checkConnect(jsSkillTypes)) {
-                        applicant = myresumeController.getApplicant(jsData);
-                        user = myresumeController.getUser(jsData.getJSONObject("user"));
-                        personalHistories = myresumeController.getPersonalHistories(jsData.getJSONArray("personal_history"));
-                        listSkillTypes = myresumeController.getSkillTypes(jsSkillTypes);
-                        skills = myresumeController.getSkills(jsData.getJSONArray("skills"));
-                        hobbies = myresumeController.getHobbies(jsData.getJSONArray("hobbies"));
-                        listhobbies = myresumeController.getHobbies(jshobbies);
-                        applicantsHasSkills = myresumeController.getApplicantsHasSkills(jsData.getJSONArray("skills"));
-                        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(applicant.getApplicantName());
-                        loadInfo();
+
+                GetJsonArrayWithoutDialog getHoobies = new GetJsonArrayWithoutDialog("hobbies") {
+                    @Override
+                    public void receiveData(Object result) {
+                        jshobbies = (JSONArray) result;
+                        if(Utilities.checkConnect(jshobbies)) {
+                            listhobbies = myresumeController.getHobbies(jshobbies);
+                        }
                     }
-                    else{
-                        Toast.makeText(getActivity().getApplicationContext(),"Connection got problem!",Toast.LENGTH_SHORT).show();
-                        Utilities.displayViewApplicant(getActivity(), 404);
+                };
+                getHoobies.execute(UrlStatic.URLHobbies);
+
+                GetJsonArrayWithoutDialog getSkills = new GetJsonArrayWithoutDialog("skillTypes") {
+                    @Override
+                    public void receiveData(Object result) {
+                        jsSkillTypes = (JSONArray) result;
+                        if(Utilities.checkConnect(jsSkillTypes)) {
+                            listSkillTypes = myresumeController.getSkillTypes(jsSkillTypes);
+                        }
                     }
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } catch (ExecutionException e) {
-                    e.printStackTrace();
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+                };
+                getSkills.execute(UrlStatic.URLSkillTypes);
+
+                GetJsonObjectCallback getJsonObjectCallback = new GetJsonObjectCallback(getActivity(),"applicant") {
+                    @Override
+                    public void receiveData(Object result) {
+                        try {
+                            jsData = (JSONObject) result;
+                            if(Utilities.checkConnect(jsData)) {
+                                applicant = myresumeController.getApplicant(jsData);
+                                user = myresumeController.getUser(jsData.getJSONObject("user"));
+                                personalHistories = myresumeController.getPersonalHistories(jsData.getJSONArray("personal_history"));
+                                skills = myresumeController.getSkills(jsData.getJSONArray("skills"));
+                                hobbies = myresumeController.getHobbies(jsData.getJSONArray("hobbies"));
+                                applicantsHasSkills = myresumeController.getApplicantsHasSkills(jsData.getJSONArray("skills"));
+                                ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(applicant.getApplicantName());
+                                loadInfo();
+                            }
+                            else {
+                                Toast.makeText(getActivity().getApplicationContext(), "Connection got problem!", Toast.LENGTH_SHORT).show();
+                                Utilities.displayViewApplicant(getActivity(), 404);
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                };
+                getJsonObjectCallback.execute(UrlStatic.URLApplicant + applicantID + ".json");
             }
         }, 300);
         View rootView=inflater.inflate(R.layout.applicant_myresume_fragment,container,false);
@@ -145,7 +160,7 @@ public class MyResumeFragment extends Fragment implements View.OnClickListener,O
         myresumeEmail = (TextView) rootView.findViewById(R.id.myresume_email);
         myresumeAddress = (TextView) rootView.findViewById(R.id.myresume_address);
         myresumeAbout = (TextView) rootView.findViewById(R.id.myresume_about);
-        myresumeFutureGoal = (TextView) rootView.findViewById(R.id.myresume_futuregoal);
+        myresumeObjective = (TextView) rootView.findViewById(R.id.myresume_objective);
 
         myresumeEditProfile = (LinearLayout) rootView.findViewById(R.id.myresume_editprofile);
         myresumeEditContact = (ImageView) rootView.findViewById(R.id.myresume_editcontact);
@@ -156,7 +171,7 @@ public class MyResumeFragment extends Fragment implements View.OnClickListener,O
         myresumeAddAward = (ImageView) rootView.findViewById(R.id.myresume_addaward);
         myresumeAddSkills= (ImageView) rootView.findViewById(R.id.myresume_addskill);
         myresumeAddHobbies = (ImageView) rootView.findViewById(R.id.myresume_addhobbie);
-        myresumeEditFutureGoals = (ImageView) rootView.findViewById(R.id.myresume_editfuturegoal);
+        myresumeEditObjective = (ImageView) rootView.findViewById(R.id.myresume_editobjective);
         myresumeEducation = (TextView) rootView.findViewById(R.id.myresume_education);
         myresumeExperience = (TextView) rootView.findViewById(R.id.myresume_experience);
         myresumeActivity = (TextView) rootView.findViewById(R.id.myresume_activity);
@@ -260,20 +275,20 @@ public class MyResumeFragment extends Fragment implements View.OnClickListener,O
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 majorChanged=true;
                 addSkillSearch.setText("");
-                try {
-                    JSONArray jsArrSkills = new GetJsonArray(pDialog, "skills").execute(UrlStatic.URLSkills + "?skill_type_id=" + listSkillTypes.get(i).getID()).get();
-                    listskills = myresumeController.getSkills(jsArrSkills);
-                    skillListViewItemsAddSkill = new ArrayList<SkillListViewItem>();
-                    for (int j = 0; j < listskills.size(); j++) {
-                        skillListViewItemsAddSkill.add(new SkillListViewItem(applicantID, listskills.get(j).getID(), listskills.get(j).getSkillName(), 1));
+                GetJsonArrayWithoutDialog getJsonArrayWithoutDialog = new GetJsonArrayWithoutDialog("skills") {
+                    @Override
+                    public void receiveData(Object result) {
+                            JSONArray jsArrSkills = (JSONArray) result;
+                            listskills = myresumeController.getSkills(jsArrSkills);
+                            skillListViewItemsAddSkill = new ArrayList<SkillListViewItem>();
+                            for (int j = 0; j < listskills.size(); j++) {
+                                skillListViewItemsAddSkill.add(new SkillListViewItem(applicantID, listskills.get(j).getID(), listskills.get(j).getSkillName(), 1));
+                            }
+                            adapterAddSkill = new SkillListViewAdapter(getActivity(), skillListViewItemsAddSkill, true, true);
+                            addSkillListView.setAdapter(adapterAddSkill);
                     }
-                    adapterAddSkill = new SkillListViewAdapter(getActivity(), skillListViewItemsAddSkill, true, true);
-                    addSkillListView.setAdapter(adapterAddSkill);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } catch (ExecutionException e) {
-                    e.printStackTrace();
-                }
+                };
+                getJsonArrayWithoutDialog.execute(UrlStatic.URLSkills + "?skill_type_id=" + listSkillTypes.get(i).getID());
             }
 
             @Override
@@ -532,7 +547,7 @@ public class MyResumeFragment extends Fragment implements View.OnClickListener,O
         myresumeEmail.setText(user.getUserEmail());
         myresumeAddress.setText(applicant.getApplicantAddress());
         myresumeAbout.setText(applicant.getApplicantAbout());
-        myresumeFutureGoal.setText(applicant.getApplicantFutureGoal());
+        myresumeObjective.setText(applicant.getApplicantObjective());
         arrayEducation = getListPersonalHistory(personalHistories, 1);
         arrayExperience = getListPersonalHistory(personalHistories,2);
         arrayActivity = getListPersonalHistory(personalHistories,3);
@@ -550,7 +565,7 @@ public class MyResumeFragment extends Fragment implements View.OnClickListener,O
         myresumeAddAward.setOnClickListener(this);
         myresumeAddSkills.setOnClickListener(this);
         myresumeAddHobbies.setOnClickListener(this);
-        myresumeEditFutureGoals.setOnClickListener(this);
+        myresumeEditObjective.setOnClickListener(this);
         setVisibleButton(hideButton);
         createAddHobbieDialog(listhobbies);
         createAddSkillDialog(listSkillTypes);
@@ -600,7 +615,7 @@ public class MyResumeFragment extends Fragment implements View.OnClickListener,O
             myresumeAddAward.setVisibility(View.INVISIBLE);
             myresumeAddSkills.setVisibility(View.INVISIBLE);
             myresumeAddHobbies.setVisibility(View.INVISIBLE);
-            myresumeEditFutureGoals.setVisibility(View.INVISIBLE);
+            myresumeEditObjective.setVisibility(View.INVISIBLE);
         }else{
             myresumeEditProfile.setEnabled(true);
             myresumeEditContact.setVisibility(View.VISIBLE);
@@ -611,7 +626,7 @@ public class MyResumeFragment extends Fragment implements View.OnClickListener,O
             myresumeAddAward.setVisibility(View.VISIBLE);
             myresumeAddSkills.setVisibility(View.VISIBLE);
             myresumeAddHobbies.setVisibility(View.VISIBLE);
-            myresumeEditFutureGoals.setVisibility(View.VISIBLE);
+            myresumeEditObjective.setVisibility(View.VISIBLE);
         }
     }
 
@@ -633,7 +648,7 @@ public class MyResumeFragment extends Fragment implements View.OnClickListener,O
                             myresumeEditButton.setImageResource(R.drawable.closeicon);
                             myresumeEditButton.show();
                         }
-                    },700);
+                    },500);
                     hideButton = !hideButton;
                 }
                 else{
@@ -645,7 +660,7 @@ public class MyResumeFragment extends Fragment implements View.OnClickListener,O
                             myresumeEditButton.setImageResource(R.drawable.editicon2);
                             myresumeEditButton.show();
                         }
-                    },1000);
+                    },500);
                     hideButton=!hideButton;
                 }
                 reloadApplicantSkills(hideButton);
@@ -702,10 +717,10 @@ public class MyResumeFragment extends Fragment implements View.OnClickListener,O
                 addHobbieDialog.show();
                 addHobbieDialog.getWindow().setLayout(width, (4 * height) / 5);
                 break;
-            case R.id.myresume_editfuturegoal:
+            case R.id.myresume_editobjective:
                 jsSendData.remove("user");
                 jsSendData.remove("personal_history");
-                Utilities.startFragWith(getActivity(), ChildApplicantActivity.class, "myresumeeditfuturegoal", jsSendData.toString());
+                Utilities.startFragWith(getActivity(), ChildApplicantActivity.class, "myresumeeditobjectivegoal", jsSendData.toString());
                 break;
             default :
                 break;
@@ -735,8 +750,8 @@ public class MyResumeFragment extends Fragment implements View.OnClickListener,O
         }
         return checkExist;
     }
-    private void doSaveAddSkill(SkillListViewItem skillListViewItem){
-        JSONObject jsSend = new JSONObject();
+    private void doSaveAddSkill(final SkillListViewItem skillListViewItem){
+        final JSONObject jsSend = new JSONObject();
         boolean checkExist=true;
         if(skillListViewItems!=null) {
             for (int i = 0; i < skillListViewItems.size(); i++) {
@@ -753,25 +768,26 @@ public class MyResumeFragment extends Fragment implements View.OnClickListener,O
                 jsSend.put("applicant_id",skillListViewItem.getApplicantID());
                 jsSend.put("skill_id",skillListViewItem.getSkillID());
                 jsSend.put("skill_level",skillListViewItem.getSkillLevel());
-                JSONObject result = new PostDataWithJson(jsSend, getActivity()).execute(UrlStatic.URLApplicantsHasSkills).get();
-                if(Utilities.isCreateUpdateSuccess(result)){
-                    addSkillDialog.dismiss();
-                    skillListViewItems.add(skillListViewItem);
-                    skillListViewAdapter = new SkillListViewAdapter(getActivity(),skillListViewItems,false,hideButton);
-                    skillListViewAdapter.notifyDataSetChanged();
-                    myresume_listview_skill.setAdapter(skillListViewAdapter);
-                    if(skillListViewItems.size()==1) {
-                        myresumeSkill.setVisibility(View.GONE);
+                PostDataWithJsonCallback postDataWithJsonCallback = new PostDataWithJsonCallback(jsSend,getActivity()) {
+                    @Override
+                    public void receiveData(Object result) {
+                        JSONObject jsResult = (JSONObject) result;
+                        if(Utilities.isCreateUpdateSuccess(jsResult)){
+                            addSkillDialog.dismiss();
+                            skillListViewItems.add(skillListViewItem);
+                            skillListViewAdapter = new SkillListViewAdapter(getActivity(),skillListViewItems,false,hideButton);
+                            skillListViewAdapter.notifyDataSetChanged();
+                            myresume_listview_skill.setAdapter(skillListViewAdapter);
+                            if(skillListViewItems.size()==1) {
+                                myresumeSkill.setVisibility(View.GONE);
+                            }
+                            Toast.makeText(getActivity().getApplicationContext(), "Add Success", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(getActivity().getApplicationContext(), "Something went wrong!", Toast.LENGTH_SHORT).show();
+                        }
                     }
-                    Toast.makeText(getActivity().getApplicationContext(), "Add Success", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(getActivity().getApplicationContext(), "Something went wrong!", Toast.LENGTH_SHORT).show();
-                }
+                };
             } catch (JSONException e) {
-                e.printStackTrace();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            } catch (ExecutionException e) {
                 e.printStackTrace();
             }
         }else{
@@ -779,8 +795,8 @@ public class MyResumeFragment extends Fragment implements View.OnClickListener,O
         }
     }
 
-    private void doSaveAddHobbie(HobbieListViewItem hobbieListViewItem){
-        JSONObject jsSend = new JSONObject();
+    private void doSaveAddHobbie(final HobbieListViewItem hobbieListViewItem){
+        final JSONObject jsSend = new JSONObject();
         boolean checkExist=true;
         if(hobbieListViewItems!=null) {
             for (int i = 0; i < hobbieListViewItems.size(); i++) {
@@ -796,25 +812,27 @@ public class MyResumeFragment extends Fragment implements View.OnClickListener,O
             try {
                 jsSend.put("applicant_id", applicantID);
                 jsSend.put("hobby_id", hobbieListViewItem.getHobbieID());
-                JSONObject result = new PostDataWithJson(jsSend, getActivity()).execute(UrlStatic.URLApplicantsHasHobbies).get();
-                if (Utilities.isCreateUpdateSuccess(result)) {
-                    addHobbieDialog.dismiss();
-                    hobbieListViewItems.add(hobbieListViewItem);
-                    hobbieListViewAdapter = new HobbieListViewAdapter(getActivity(), hobbieListViewItems, false, hideButton);
-                    hobbieListViewAdapter.notifyDataSetChanged();
-                    myresume_listview_hobbie.setAdapter(hobbieListViewAdapter);
-                    if(hobbieListViewItems.size()==1) {
-                        myresumeHobbie.setVisibility(View.GONE);
+                PostDataWithJsonCallback postDataWithJsonCallback = new PostDataWithJsonCallback(jsSend,getActivity()) {
+                    @Override
+                    public void receiveData(Object result) {
+                        JSONObject jsResult = (JSONObject) result;
+                        if (Utilities.isCreateUpdateSuccess(jsResult)) {
+                            addHobbieDialog.dismiss();
+                            hobbieListViewItems.add(hobbieListViewItem);
+                            hobbieListViewAdapter = new HobbieListViewAdapter(getActivity(), hobbieListViewItems, false, hideButton);
+                            hobbieListViewAdapter.notifyDataSetChanged();
+                            myresume_listview_hobbie.setAdapter(hobbieListViewAdapter);
+                            if(hobbieListViewItems.size()==1) {
+                                myresumeHobbie.setVisibility(View.GONE);
+                            }
+                            Toast.makeText(getActivity().getApplicationContext(), "Add Success", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(getActivity().getApplicationContext(), "Something went wrong!", Toast.LENGTH_SHORT).show();
+                        }
                     }
-                    Toast.makeText(getActivity().getApplicationContext(), "Add Success", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(getActivity().getApplicationContext(), "Something went wrong!", Toast.LENGTH_SHORT).show();
-                }
+                };
+                postDataWithJsonCallback.execute(UrlStatic.URLApplicantsHasHobbies);
             } catch (JSONException e) {
-                e.printStackTrace();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            } catch (ExecutionException e) {
                 e.printStackTrace();
             }
         }else{

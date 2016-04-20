@@ -3,7 +3,6 @@ package com.example.kyler.careersystem.HiringManager;
 
 import android.app.AlertDialog;
 import android.app.Fragment;
-import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.Point;
@@ -27,20 +26,18 @@ import com.baoyz.swipemenulistview.SwipeMenuListView;
 import com.example.kyler.careersystem.Bussiness.PostController;
 import com.example.kyler.careersystem.Entities.Posts;
 import com.example.kyler.careersystem.HiringManager.customize.ManagePostAdapter;
-import com.example.kyler.careersystem.HiringManagerMainActivity;
 import com.example.kyler.careersystem.R;
 import com.example.kyler.careersystem.UrlStatic;
 import com.example.kyler.careersystem.Utilities;
-import com.example.kyler.careersystem.WorkWithService.GetJsonArray;
-import com.example.kyler.careersystem.WorkWithService.GetJsonLoadMore;
-import com.example.kyler.careersystem.WorkWithService.PutDataWithJson;
+import com.example.kyler.careersystem.WorkWithService.GetJsonArrayCallback;
+import com.example.kyler.careersystem.WorkWithService.GetJsonLoadMoreCallback;
+import com.example.kyler.careersystem.WorkWithService.PutDataWithJsonCallback;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.concurrent.ExecutionException;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -49,7 +46,6 @@ public class ManagePost extends Fragment implements AbsListView.OnScrollListener
     private SwipeMenuListView managepost_listview;
     private FloatingActionButton managePostAddPost;
     private Handler mHandler;
-    private ProgressDialog pDialog;
     private ArrayList<Posts> posts,postsLoadMore;
     private ProgressBar progressBar;
     private ManagePostAdapter managePostAdapter;
@@ -69,10 +65,6 @@ public class ManagePost extends Fragment implements AbsListView.OnScrollListener
         managePostAddPost = (FloatingActionButton) rootView.findViewById(R.id.hiringmanager_managepost_addpost);
         managePostAddPost.setOnClickListener(this);
         mHandler = new Handler();
-        pDialog = new ProgressDialog(getActivity());
-        pDialog.setMessage("Loading...");
-        pDialog.setCancelable(false);
-        pDialog.show();
         Display display = getActivity().getWindowManager().getDefaultDisplay();
         final Point size = new Point();
         display.getSize(size);
@@ -83,16 +75,16 @@ public class ManagePost extends Fragment implements AbsListView.OnScrollListener
         mHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                try {
-                    jsPosts = new GetJsonArray(pDialog, "posts").execute(UrlStatic.URLManagePost +hiringmanagerID+"&page="+page).get();
-                    posts = postController.getPosts(jsPosts);
-                    managePostAdapter = new ManagePostAdapter(getActivity().getApplicationContext(), posts,20,10);
-                    managepost_listview.setAdapter(managePostAdapter);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } catch (ExecutionException e) {
-                    e.printStackTrace();
-                }
+                GetJsonArrayCallback getJsonArrayCallback = new GetJsonArrayCallback(getActivity(),"posts") {
+                    @Override
+                    public void receiveData(Object result) {
+                        jsPosts = (JSONArray) result;
+                        posts = postController.getPosts(jsPosts);
+                        managePostAdapter = new ManagePostAdapter(getActivity().getApplicationContext(), posts,20,10);
+                        managepost_listview.setAdapter(managePostAdapter);
+                    }
+                };
+                getJsonArrayCallback.execute(UrlStatic.URLManagePost +hiringmanagerID+"&page="+page);
             }
         }, 300);
 
@@ -176,20 +168,22 @@ public class ManagePost extends Fragment implements AbsListView.OnScrollListener
                         try {
                             jssendData.put("id",posts.get(id).getID());
                             jssendData.put("post_status",false);
-                            JSONObject result = new PutDataWithJson(jssendData,getActivity()).execute(UrlStatic.URLEditPost+posts.get(id).getID()+".json").get();
-                            if(Utilities.isCreateUpdateSuccess(result)){
-                                posts.remove(id);
-                                managePostAdapter.setPosts(posts);
-                                managePostAdapter.notifyDataSetChanged();
-                                Toast.makeText(getActivity().getApplicationContext(),"Deleted",Toast.LENGTH_SHORT).show();
-                            }else{
-                                Toast.makeText(getActivity().getApplicationContext(),"Something went wrong!",Toast.LENGTH_SHORT).show();
-                            }
+                            PutDataWithJsonCallback putDataWithJsonCallback = new PutDataWithJsonCallback(jssendData,getActivity()) {
+                                @Override
+                                public void receiveData(Object result) {
+                                    JSONObject jsResult = (JSONObject) result;
+                                    if(Utilities.isCreateUpdateSuccess(jsResult)){
+                                        posts.remove(id);
+                                        managePostAdapter.setPosts(posts);
+                                        managePostAdapter.notifyDataSetChanged();
+                                        Toast.makeText(getActivity().getApplicationContext(),"Deleted",Toast.LENGTH_SHORT).show();
+                                    }else{
+                                        Toast.makeText(getActivity().getApplicationContext(),"Something went wrong!",Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            };
+                            putDataWithJsonCallback.execute(UrlStatic.URLEditPost+posts.get(id).getID()+".json");
                         } catch (JSONException e) {
-                            e.printStackTrace();
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        } catch (ExecutionException e) {
                             e.printStackTrace();
                         }
                     }
@@ -219,25 +213,27 @@ public class ManagePost extends Fragment implements AbsListView.OnScrollListener
             if(managePostAdapter!=null){
                 if(managePostAdapter.endReached()){
                     page++;
-                    try {
-                        JSONArray jsonArray = new GetJsonLoadMore(progressBar,"posts").execute(UrlStatic.URLManagePost +hiringmanagerID+"&page="+page).get();
-                        if(jsonArray!=null){
-                            nomoreData=false;
-                            for(int i=0;i<jsonArray.length();i++){
-                                JSONObject jsonObject = jsonArray.getJSONObject(i);
-                                Posts post = new Posts(jsonObject);
-                                posts.add(post);
-                                managePostAdapter.setPosts(posts);
+                    GetJsonLoadMoreCallback getJsonLoadMoreCallback = new GetJsonLoadMoreCallback(progressBar,"posts") {
+                        @Override
+                        public void receiveData(Object result) {
+                            try {
+                                JSONArray jsonArray = (JSONArray) result;
+                                if (jsonArray != null) {
+                                    nomoreData = false;
+                                    for (int i = 0; i < jsonArray.length(); i++) {
+                                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+                                        Posts post = new Posts(jsonObject);
+                                        posts.add(post);
+                                        managePostAdapter.setPosts(posts);
+                                    }
+                                } else
+                                    nomoreData = true;
+                            } catch (JSONException e) {
+                                e.printStackTrace();
                             }
-                        }else
-                            nomoreData=true;
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    } catch (ExecutionException e) {
-                        e.printStackTrace();
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
+                        }
+                    };
+                    getJsonLoadMoreCallback.execute(UrlStatic.URLManagePost +hiringmanagerID+"&page="+page);
                 }
                 managePostAdapter.showMore();
             }
