@@ -14,16 +14,10 @@ import android.widget.Toast;
 
 import com.example.kyler.careersystem.Entities.Applicants;
 import com.example.kyler.careersystem.Entities.HiringManagers;
-import com.example.kyler.careersystem.Entities.Hobbies;
-import com.example.kyler.careersystem.Entities.SkillTypes;
 import com.example.kyler.careersystem.Entities.Users;
-import com.example.kyler.careersystem.WorkWithService.GetJsonArrayCallback;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.ArrayList;
 
 public class LoginData extends AppCompatActivity implements View.OnClickListener {
 
@@ -38,11 +32,28 @@ public class LoginData extends AppCompatActivity implements View.OnClickListener
     private TextView checkDatatv;
     private Button checkDatabt;
     private int loginas;
+    private String token;
+    private boolean checktoken=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_applicantdata);
+
+        checkDatatv = (TextView) findViewById(R.id.applicantData_textview);
+        checkDatabt = (Button) findViewById(R.id.applicantData_button);
+        checkDatabt.setOnClickListener(this);
+        loginas= getIntent().getIntExtra("key",3);
+        Bundle bundle = getIntent().getBundleExtra("sendData");
+        JSONObject jsUser=null;
+        try {
+            jsUser = new JSONObject(bundle.getString("jsuser"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        users = new Users(jsUser);
+        Utilities.users = users;
+
         mRegistrationBroadcastReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
@@ -51,7 +62,7 @@ public class LoginData extends AppCompatActivity implements View.OnClickListener
                 if (intent.getAction().equals(REGISTRATION_COMPLETE)) {
                     // gcm successfully registered
                     // now subscribe to `global` topic to receive app wide notifications
-                    String token = intent.getStringExtra("token");
+                    token = intent.getStringExtra("token");
 
                     Toast.makeText(getApplicationContext(), "GCM registration token: " + token, Toast.LENGTH_LONG).show();
 
@@ -70,19 +81,7 @@ public class LoginData extends AppCompatActivity implements View.OnClickListener
 
         registerGCM();
 
-        checkDatatv = (TextView) findViewById(R.id.applicantData_textview);
-        checkDatabt = (Button) findViewById(R.id.applicantData_button);
-        checkDatabt.setOnClickListener(this);
-        loginas= getIntent().getIntExtra("key",3);
-        Bundle bundle = getIntent().getBundleExtra("sendData");
-        JSONObject jsUser=null;
-        try {
-            jsUser = new JSONObject(bundle.getString("jsuser"));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        users = new Users(jsUser);
-        Utilities.users = users;
+
         switch (loginas){
             case 3:
                 try {
@@ -91,6 +90,7 @@ public class LoginData extends AppCompatActivity implements View.OnClickListener
                     e.printStackTrace();
                 }
                 Utilities.applicants = applicants;
+                Utilities.getDataBackground(applicants.getID());
                 startActivity(new Intent(this, ApplicantMainActivity.class));
                 finish();
                 break;
@@ -111,6 +111,11 @@ public class LoginData extends AppCompatActivity implements View.OnClickListener
     private void registerGCM() {
         Intent intent = new Intent(this, GcmIntentService.class);
         intent.putExtra("key", "register");
+        Bundle checkToken = new Bundle();
+        checkToken.putInt("userID",users.getID());
+        checkToken.putString("userAndroidToken", users.getUserAndroidToken());
+        intent.putExtra("key", "register");
+        intent.putExtra("checkToken",checkToken);
         startService(intent);
     }
 

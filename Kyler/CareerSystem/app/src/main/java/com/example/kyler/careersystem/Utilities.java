@@ -25,6 +25,8 @@ import com.example.kyler.careersystem.Applicant.JobappliedFragment;
 import com.example.kyler.careersystem.Applicant.MyResumeFragment;
 import com.example.kyler.careersystem.Applicant.NavigationListViewAdapter;
 import com.example.kyler.careersystem.Applicant.NavigationListViewItem;
+import com.example.kyler.careersystem.Entities.ApplicantsFollowPosts;
+import com.example.kyler.careersystem.Entities.Follow;
 import com.example.kyler.careersystem.Entities.Hobbies;
 import com.example.kyler.careersystem.Entities.SkillTypes;
 import com.example.kyler.careersystem.HiringManager.NotificationFragment;
@@ -34,7 +36,10 @@ import com.example.kyler.careersystem.Entities.HiringManagers;
 import com.example.kyler.careersystem.Entities.Posts;
 import com.example.kyler.careersystem.Entities.Users;
 import com.example.kyler.careersystem.HiringManager.ChildFragments.AddPostFragment;
+import com.example.kyler.careersystem.WorkWithService.GetJsonArrayWithoutDialog;
+import com.example.kyler.careersystem.WorkWithService.GetJsonObjectCallback;
 import com.example.kyler.careersystem.WorkWithService.PostDataWithJsonCallback;
+import com.example.kyler.careersystem.WorkWithService.PostDataWithoutDialog;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -44,6 +49,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -56,9 +62,12 @@ import java.util.concurrent.TimeUnit;
  * Created by Duck_Ky on 3/5/2016.
  */
 public class Utilities {
+    public static String userAndroidToken = null;
     public static Users users=null;
     public static Applicants applicants=null;
     public static HiringManagers hiringManagers=null;
+    public static ArrayList<ApplicantsFollowPosts> applicantsFollowPosts = null;
+    public static ArrayList<Follow> follows = null;
 
     public static String SAVEING_FILE_LOGIN = "account";
 
@@ -66,6 +75,7 @@ public class Utilities {
         users = null;
         applicants = null;
         hiringManagers = null;
+        userAndroidToken = null;
     }
 
 
@@ -125,8 +135,7 @@ public class Utilities {
                 fragment = new FindFragment();
                 break;
             case 4://favorite
-//                fragment = new HomeFragment();
-                fragment = new AddPostFragment();
+
                 break;
             case 5://jobapplied
                 fragment = new JobappliedFragment();
@@ -403,13 +412,26 @@ public class Utilities {
     }
 
 
-    public static void logOut(Activity activity){
-        clear();
-        Intent intent = new Intent(activity,LoginActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        activity.deleteFile(Utilities.SAVEING_FILE_LOGIN);
-        activity.startActivity(intent);
-        activity.finish();
+    public static void logOut(final Activity activity){
+        JSONObject jsSendData = new JSONObject();
+        try {
+            jsSendData.put("user_android_token","");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        final JSONObject sendData = jsSendData;
+        PostDataWithJsonCallback postDataWithJsonCallback = new PostDataWithJsonCallback(sendData,activity) {
+            @Override
+            public void receiveData(Object result) {
+                clear();
+                Intent intent = new Intent(activity,LoginActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                activity.deleteFile(Utilities.SAVEING_FILE_LOGIN);
+                activity.startActivity(intent);
+                activity.finish();
+            }
+        };
+        postDataWithJsonCallback.execute(UrlStatic.URLUpdateToken+users.getID()+".json");
     }
 
     public static String convertTime(String date){
@@ -489,6 +511,50 @@ public class Utilities {
             return false;
     }
 
+    public static void checkToken(int ID,String token){
+        JSONObject jsSendData = new JSONObject();
+        try {
+            jsSendData.put("user_android_token",token);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        final JSONObject sendData = jsSendData;
+        PostDataWithoutDialog postDataWithoutDialog = new PostDataWithoutDialog(sendData) {
+            @Override
+            public void receiveData(Object result) {
 
+            }
+        };
+        postDataWithoutDialog.execute(UrlStatic.URLUpdateToken+ID+".json");
+    }
+
+    public static void getDataBackground(int applicantID){
+        GetJsonObjectCallback getJsonObjectCallback = new GetJsonObjectCallback("applicant") {
+            @Override
+            public void receiveData(Object result) {
+                if(result!=null) {
+                    try {
+                        JSONArray jsApplicantsFollowPosts = ((JSONObject) result).getJSONArray("applicants_follow_posts");
+                        JSONArray jsFollow = ((JSONObject) result).getJSONArray("follow");
+                        if(jsApplicantsFollowPosts!=null) {
+                            applicantsFollowPosts = new ArrayList<>();
+                            for (int i = 0; i < jsApplicantsFollowPosts.length(); i++) {
+                                applicantsFollowPosts.add(new ApplicantsFollowPosts(jsApplicantsFollowPosts.getJSONObject(i)));
+                            }
+                        }
+                        if(jsFollow!=null){
+                            follows = new ArrayList<>();
+                            for(int i=0;i< jsFollow.length();i++){
+                                follows.add(new Follow(jsFollow.getJSONObject(i)));
+                            }
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        };
+        getJsonObjectCallback.execute(UrlStatic.URLApplicant+applicantID+".json");
+    }
 
 }

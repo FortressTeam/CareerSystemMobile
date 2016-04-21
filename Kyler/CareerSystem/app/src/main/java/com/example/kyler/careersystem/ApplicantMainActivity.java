@@ -78,7 +78,7 @@ public class ApplicantMainActivity extends AppCompatActivity implements ListView
             builder.setMessage("Do you want to exit?").setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
-                    finish();
+                    moveTaskToBack(true);
                 }
             }).setNegativeButton("No",null).show();
         }

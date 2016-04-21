@@ -19,6 +19,7 @@ public class Users {
     private boolean userStatus;
     private String userActivationKey;
     private String userAvatar;
+    private String userAndroidToken;
     private int groupID;
 
     public Users(JSONObject jsonObject){
@@ -26,11 +27,8 @@ public class Users {
             if (jsonObject.has("id")) {
                 this.ID = jsonObject.getInt("id");
             }
-            if (jsonObject.has("user_name")) {
-                this.username = jsonObject.getString("user_name");
-            }
-            if (jsonObject.has("user_password")) {
-                this.password = jsonObject.getString("user_password");
+            if (jsonObject.has("username")) {
+                this.username = jsonObject.getString("username");
             }
             if (jsonObject.has("user_registered")) {
                 Date date = new SimpleDateFormat("yyyy-MM-dd").parse(jsonObject.getString("user_registered"));
@@ -48,8 +46,14 @@ public class Users {
             if (jsonObject.has("user_avatar")) {
                 this.userAvatar = jsonObject.getString("user_avatar");
             }
+            if (jsonObject.has("user_android_token")) {
+                this.userAndroidToken = jsonObject.getString("user_android_token");
+            }
             if (jsonObject.has("group_id")) {
                 this.groupID = jsonObject.getInt("group_id");
+            }
+            if (jsonObject.has("user_password")) {
+                this.password = jsonObject.getString("user_password");
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -58,7 +62,7 @@ public class Users {
         }
     }
 
-    public Users(int ID, String username, String password, String userRegistered, String userEmail, boolean userStatus, String userActivationKey, String userAvatar, int groupID) {
+    public Users(int ID, String username, String password, String userRegistered, String userEmail, boolean userStatus, String userActivationKey, String userAvatar, String userAndroidToken, int groupID) {
         this.ID = ID;
         this.username = username;
         this.password = password;
@@ -67,6 +71,7 @@ public class Users {
         this.userStatus = userStatus;
         this.userActivationKey = userActivationKey;
         this.userAvatar = userAvatar;
+        this.userAndroidToken = userAndroidToken;
         this.groupID = groupID;
     }
 
@@ -132,6 +137,14 @@ public class Users {
 
     public void setUserAvatar(String userAvatar) {
         this.userAvatar = userAvatar;
+    }
+
+    public String getUserAndroidToken() {
+        return userAndroidToken;
+    }
+
+    public void setUserAndroidToken(String userAndroidToken) {
+        this.userAndroidToken = userAndroidToken;
     }
 
     public int getGroupID() {

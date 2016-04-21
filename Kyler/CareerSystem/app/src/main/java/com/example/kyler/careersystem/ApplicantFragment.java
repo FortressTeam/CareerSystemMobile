@@ -59,7 +59,6 @@ public class ApplicantFragment extends Fragment implements View.OnClickListener,
                             profile = currentProfile;
                             username.setText(profile.getName());
                             //this place for getting profile information for doing login.
-
                             profileTracker.stopTracking();
                         }
                     };
@@ -119,7 +118,8 @@ public class ApplicantFragment extends Fragment implements View.OnClickListener,
                     Toast.makeText(getActivity().getApplicationContext(),"username or password is missing",Toast.LENGTH_SHORT).show();
                 break;
             case R.id.applicant_login_facebook:
-                LoginManager.getInstance().logInWithReadPermissions(this, asList("public_profile", "user_friends"));
+                Utilities.doLoginNormal(getActivity(), "kyler", "123123123", 3);
+//                LoginManager.getInstance().logInWithReadPermissions(this, asList("public_profile", "user_friends"));
                 break;
             default:break;
         }

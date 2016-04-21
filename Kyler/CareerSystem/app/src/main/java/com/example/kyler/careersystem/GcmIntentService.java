@@ -6,6 +6,7 @@ package com.example.kyler.careersystem;
 import android.app.IntentService;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
@@ -21,6 +22,8 @@ import java.io.IOException;
 
 
 public class GcmIntentService extends IntentService {
+    private int userID;
+    private String userAndroidToken;
 
     private static final String TAG = GcmIntentService.class.getSimpleName();
 
@@ -37,6 +40,9 @@ public class GcmIntentService extends IntentService {
     @Override
     protected void onHandleIntent(Intent intent) {
         String key = intent.getStringExtra(KEY);
+        Bundle checkToken = intent.getBundleExtra("checkToken");
+        userID = checkToken.getInt("userID");
+        userAndroidToken = checkToken.getString("userAndroidToken");
         switch (key) {
             case SUBSCRIBE:
                 // subscribe to a topic
@@ -65,6 +71,11 @@ public class GcmIntentService extends IntentService {
             InstanceID instanceID = InstanceID.getInstance(this);
             token = instanceID.getToken(getString(R.string.gcm_defaultSenderId),
                     GoogleCloudMessaging.INSTANCE_ID_SCOPE, null);
+
+            Utilities.userAndroidToken = token;
+            if(!userAndroidToken.equals(token)){
+                Utilities.checkToken(userID,token);
+            }
 
             Log.e(TAG, "GCM Registration Token: " + token);
 

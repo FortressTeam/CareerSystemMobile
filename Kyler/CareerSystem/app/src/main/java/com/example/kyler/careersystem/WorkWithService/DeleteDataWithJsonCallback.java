@@ -1,8 +1,11 @@
 package com.example.kyler.careersystem.WorkWithService;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
+
+import com.example.kyler.careersystem.R;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -14,18 +17,18 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import dmax.dialog.SpotsDialog;
+
 /**
  * Created by kyler on 20/04/2016.
  */
 public abstract class DeleteDataWithJsonCallback extends AsyncTask<String,Void,JSONObject> implements CallbackReciever {
     private Activity activity;
-    private ProgressDialog mProgressDialog;
+    private AlertDialog mProgressDialog;
 
     public DeleteDataWithJsonCallback(Activity activity) {
         this.activity = activity;
-        mProgressDialog = new ProgressDialog(activity);
-        mProgressDialog.setMessage("Loading ...");
-        mProgressDialog.setIndeterminate(false);
+        mProgressDialog = new SpotsDialog(activity, R.style.Custom);
         mProgressDialog.setCancelable(false);
     }
 

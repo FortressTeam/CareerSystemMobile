@@ -2,7 +2,6 @@ package com.example.kyler.careersystem.WorkWithService;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -24,36 +23,38 @@ import dmax.dialog.SpotsDialog;
  * Created by kyler on 19/04/2016.
  */
 public abstract class GetJsonObjectCallback extends AsyncTask<String,Void,JSONObject> implements CallbackReciever {
-    private ProgressDialog mProgressDialog;
-    private AlertDialog dialog;
+    private AlertDialog mProgressDialog;
     private String key;
+    private boolean dialog = false;
     Activity activity;
 
     public GetJsonObjectCallback(Activity activity,String key) {
         this.activity = activity;
         this.key = key;
-//        mProgressDialog = new ProgressDialog(activity);
-//        mProgressDialog.setMessage("Loading ...");
-//        mProgressDialog.setIndeterminate(false);
-//        mProgressDialog.setCancelable(false);
-        dialog = new SpotsDialog(activity, R.style.Custom);
-        dialog.setCancelable(false);
+        this.dialog = true;
+        mProgressDialog = new SpotsDialog(activity, R.style.Custom);
+        mProgressDialog.setCancelable(false);
+    }
+
+    public GetJsonObjectCallback(String key) {
+        this.key = key;
+        this.dialog = false;
     }
 
     @Override
     protected void onPreExecute() {
-//        mProgressDialog.show();
-        dialog.show();
+        if(dialog) {
+            mProgressDialog.show();
+        }
         super.onPreExecute();
     }
 
     @Override
     protected void onPostExecute(JSONObject jsonObject) {
-//        if (mProgressDialog != null || mProgressDialog.isShowing()){
-//            mProgressDialog.dismiss();
-//        }
-        if (dialog != null || dialog.isShowing()){
-            dialog.dismiss();
+        if(dialog){
+            if (mProgressDialog != null || mProgressDialog.isShowing()){
+                mProgressDialog.dismiss();
+            }
         }
         receiveData(jsonObject);
     }

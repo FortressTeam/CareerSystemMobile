@@ -45,11 +45,11 @@ public class AddPostFragment extends Fragment implements View.OnClickListener,Sp
     private ObservableScrollView observableScrollView;
 
     private int page=1;
-    private boolean noMoreData = false;
     private int categoryID,categoryDefaultID,hiringManagerID=Utilities.hiringManagers.getID();
     private Posts postEdit;
     private boolean editMode=false;
     private ArrayList<String> arr;
+    private Bundle bundle;
 
     private ArrayList<Categories> arrayListCategories=null;
 
@@ -70,36 +70,58 @@ public class AddPostFragment extends Fragment implements View.OnClickListener,Sp
         addPostLocationIcon = (ImageView) rootView.findViewById(R.id.hiringmanager_addpost_location_icon);
         addPostCategoryIcon = (ImageView) rootView.findViewById(R.id.hiringmanager_addpost_category_icon);
         addPostContentIcon = (ImageView) rootView.findViewById(R.id.hiringmanager_addpost_content_icon);
+        addPostAdd.setText("Create");
         arrayListCategories = new ArrayList<>();
         arr = new ArrayList<>();
-        do {
-            GetJsonArrayCallback getJsonArrayCallback = new GetJsonArrayCallback(getActivity(),"categories") {
-                @Override
-                public void receiveData(Object result) {
-                    try {
-                        JSONArray jsonArrayCategories = (JSONArray) result;
-                        if (jsonArrayCategories != null) {
-                            for (int i = 0; i < jsonArrayCategories.length(); i++) {
-                                JSONObject jsonObjectCategories = jsonArrayCategories.getJSONObject(i);
-                                Categories category = new Categories(jsonObjectCategories);
-                                arrayListCategories.add(category);
-                                arr.add(arrayListCategories.get(i).getCategoryName());
+        bundle = getArguments();
+        GetJsonArrayCallback getJsonArrayCallback = new GetJsonArrayCallback(getActivity(),"categories") {
+            @Override
+            public void receiveData(Object result) {
+                try {
+                    JSONArray jsonArrayCategories = (JSONArray) result;
+                    if (jsonArrayCategories != null) {
+                        for (int i = 0; i < jsonArrayCategories.length(); i++) {
+                            JSONObject jsonObjectCategories = jsonArrayCategories.getJSONObject(i);
+                            Categories category = new Categories(jsonObjectCategories);
+                            arrayListCategories.add(category);
+                            arr.add(arrayListCategories.get(i).getCategoryName());
+                        }
+                        arr.add("Category");
+                        categoryDefaultID = arr.size() - 1;
+                        page++;
+                        ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity().getApplicationContext(),R.layout.spinner_item,arr);
+                        addPostCategory.setAdapter(adapter);
+                        addPostCategory.setSelection(categoryDefaultID);
+                        if(!bundle.getString("sendData").equals("")){
+                            try {
+                                JSONObject received = new JSONObject(bundle.getString("sendData"));
+                                postEdit = new Posts(received);
+                                addPostTitle.setText(postEdit.getPostTitle());
+                                addPostSalary.setText(postEdit.getPostSalary()+"");
+                                addPostLocation.setText(postEdit.getPostLocation());
+                                addPostContent.setText(postEdit.getPostContent());
+                                for(int i=0;i<arrayListCategories.size();i++){
+                                    if(arrayListCategories.get(i).getID()==postEdit.getCategoryID()) {
+                                        addPostCategory.setSelection(i);
+                                        break;
+                                    }
+                                }
+                                editMode=true;
+                                addPostAdd.setText("Save");
+                                ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Edit Post");
+                            } catch (JSONException e) {
+                                e.printStackTrace();
                             }
-                            arr.add("Category");
-                            categoryDefaultID = arr.size() - 1;
-                            page++;
-                        } else
-                            noMoreData = true;
-                    } catch (JSONException e) {
-                        e.printStackTrace();
+                        }
+                    } else {
+
                     }
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
-            };
-            getJsonArrayCallback.execute(UrlStatic.URLCategories + page);
-        }while(!noMoreData);
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity().getApplicationContext(),R.layout.spinner_item,arr);
-        addPostCategory.setAdapter(adapter);
-        addPostCategory.setSelection(categoryDefaultID);
+            }
+        };
+        getJsonArrayCallback.execute(UrlStatic.URLCategories + page);
         addPostCategory.setOnItemSelectedListener(this);
         addPostAdd.setOnClickListener(this);
         observableScrollView.setScrollViewCallbacks(this);
@@ -108,29 +130,6 @@ public class AddPostFragment extends Fragment implements View.OnClickListener,Sp
         addPostLocation.setOnFocusChangeListener(this);
         addPostCategory.setOnFocusChangeListener(this);
         addPostContent.setOnFocusChangeListener(this);
-        adapter.notifyDataSetChanged();
-        Bundle bundle = getArguments();
-        if(!bundle.getString("sendData").equals("")){
-            try {
-                JSONObject received = new JSONObject(bundle.getString("sendData"));
-                postEdit = new Posts(received);
-                addPostTitle.setText(postEdit.getPostTitle());
-                addPostSalary.setText(postEdit.getPostSalary()+"");
-                addPostLocation.setText(postEdit.getPostLocation());
-                addPostContent.setText(postEdit.getPostContent());
-                for(int i=0;i<arrayListCategories.size();i++){
-                    if(arrayListCategories.get(i).getID()==postEdit.getCategoryID()) {
-                        addPostCategory.setSelection(i);
-                        break;
-                    }
-                }
-                editMode=true;
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-        if(editMode)
-            addPostAdd.setText("Save");
         return rootView;
     }
 

@@ -406,12 +406,13 @@
     <string name="Cancel">Cancel</string>
     <string name="Delete">Delete</string>
     <string name="End">End</string>
+    <string name="Follow">Follow</string>
     <string name="Login">Login</string>
     <string name="Save">Save</string>
     <string name="Start">Start</string>
     <string name="Submit">Submit</string>
-    <string name="Subscribe">Subscribe</string>
     <string name="Time">Time</string>
+    <string name="Unfollow">Unfollow</string>
     <string name="abc_action_bar_home_description">Navigate home</string>
     <string name="abc_action_bar_home_description_format">%1$s, %2$s</string>
     <string name="abc_action_bar_home_subtitle_description_format">%1$s, %2$s, %3$s</string>

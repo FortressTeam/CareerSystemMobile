@@ -787,6 +787,7 @@ public class MyResumeFragment extends Fragment implements View.OnClickListener,O
                         }
                     }
                 };
+                postDataWithJsonCallback.execute(UrlStatic.URLApplicantsHasSkills);
             } catch (JSONException e) {
                 e.printStackTrace();
             }

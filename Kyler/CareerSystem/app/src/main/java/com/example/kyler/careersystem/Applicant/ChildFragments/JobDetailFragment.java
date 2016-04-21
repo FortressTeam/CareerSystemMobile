@@ -16,12 +16,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.kyler.careersystem.Applicant.ChildApplicantActivity;
+import com.example.kyler.careersystem.Entities.ApplicantsFollowPosts;
 import com.example.kyler.careersystem.Entities.HiringManagers;
 import com.example.kyler.careersystem.Entities.Posts;
 import com.example.kyler.careersystem.R;
 import com.example.kyler.careersystem.UrlStatic;
 import com.example.kyler.careersystem.Utilities;
 import com.example.kyler.careersystem.WorkWithService.GetJsonObjectCallback;
+import com.example.kyler.careersystem.WorkWithService.PostDataWithJsonCallback;
 import com.github.ksoichiro.android.observablescrollview.ObservableScrollView;
 import com.github.ksoichiro.android.observablescrollview.ObservableScrollViewCallbacks;
 import com.github.ksoichiro.android.observablescrollview.ScrollState;
@@ -29,6 +31,8 @@ import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 /**
  * Created by kyler on 09/03/2016.
@@ -40,14 +44,17 @@ public class JobDetailFragment extends Fragment implements ObservableScrollViewC
     private ImageView companyLogo;
     private FloatingActionButton jobDetailFloatactionbutton,jobDetailFloatactionbuttonApply,jobDetailFloatactionbuttonFavorite;
     private ProgressDialog pDialog;
-    private TextView jobDetailFloatactionApplytv, jobDetailFloatactionFavoritetv;
+    private TextView jobDetailFloatactionApplytv, jobDetailFloatactionFavoritetv, jobDetailStatus;
 
     private JSONObject jsonSendData;
+    private ArrayList<ApplicantsFollowPosts> applicantsFollowPosts = Utilities.applicantsFollowPosts;
     private Handler mHandler;
     private String url;
     private boolean fabPress = false;
-    private boolean applied = false;
+    private boolean applied = false,follow = false;
     private JSONObject jsData = null;
+    private Posts post;
+    private int exist = -1 ;
 
     public JobDetailFragment() {
     }
@@ -82,11 +89,7 @@ public class JobDetailFragment extends Fragment implements ObservableScrollViewC
         jobDetailPostLocation = (TextView) rootView.findViewById(R.id.job_detail_post_location);
         jobDetailPostDate = (TextView) rootView.findViewById(R.id.job_detail_post_date);
         jobDetailPostContent = (TextView) rootView.findViewById(R.id.job_detail_post_content);
-
-//        pDialog = new ProgressDialog(getActivity());
-//        pDialog.setMessage("Loading... ");
-//        pDialog.setCancelable(false);
-//        pDialog.show();
+        jobDetailStatus = (TextView) rootView.findViewById(R.id.job_detail_status);
         scrollView.setScrollViewCallbacks(this);
         jobDetailPostContent.addOnLayoutChangeListener(this);
         mHandler.postDelayed(new Runnable() {
@@ -98,7 +101,18 @@ public class JobDetailFragment extends Fragment implements ObservableScrollViewC
                         try {
                             jsData = (JSONObject) result;
                             if (Utilities.checkConnect(jsData)) {
-                                Posts post = new Posts(jsData);
+                                post = new Posts(jsData);
+                                for(int i=0;i<applicantsFollowPosts.size();i++){
+                                    if(applicantsFollowPosts.get(i).getPostID()==post.getID()){
+                                        exist=i;
+                                        if(applicantsFollowPosts.get(i).isFollowStatus())
+                                        {
+                                            follow = true;
+                                            jobDetailFloatactionbuttonFavorite.setImageResource(R.drawable.starfollow);
+                                            break;
+                                        }
+                                    }
+                                }
                                 jsonSendData = new JSONObject(jsData.getString("hiring_manager"));
                                 HiringManagers hiringManager = new HiringManagers(jsonSendData);
                                 jobDetailCompanyName.setText(hiringManager.getCompanyName());
@@ -171,12 +185,47 @@ public class JobDetailFragment extends Fragment implements ObservableScrollViewC
                 jobDetailFloatactionApplytv.setVisibility(View.INVISIBLE);
                 break;
             case R.id.job_detail_floatactionbutton_favorite:
-                Toast.makeText(getActivity().getApplicationContext(), "FloatActionButton!", Toast.LENGTH_SHORT).show();
-                jobDetailFloatactionbuttonFavorite.setImageResource(R.drawable.starfollow);
+                followListener(follow);
                 break;
             default:
                 break;
         }
+    }
+
+    public void followListener(boolean fl){
+        JSONObject jsSendData = new JSONObject();
+        try {
+            jsSendData.put("applicant_id",Utilities.applicants.getID());
+            jsSendData.put("post_id",post.getID());
+            jsSendData.put("follow_status",!fl);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        final JSONObject sendData = jsSendData;
+        PostDataWithJsonCallback postDataWithJsonCallback = new PostDataWithJsonCallback(sendData,getActivity()) {
+            @Override
+            public void receiveData(Object result) {
+                if(Utilities.isCreateUpdateSuccess((JSONObject)result)){
+                    if(exist != -1) {
+                        if (follow) {
+                            jobDetailFloatactionbuttonFavorite.setImageResource(R.drawable.star);
+                        } else {
+                            jobDetailFloatactionbuttonFavorite.setImageResource(R.drawable.starfollow);
+                        }
+                        applicantsFollowPosts.get(exist).setFollowStatus(!follow);
+                    }else{
+                        applicantsFollowPosts.add(new ApplicantsFollowPosts((sendData)));
+                        jobDetailFloatactionbuttonFavorite.setImageResource(R.drawable.starfollow);
+                        exist = applicantsFollowPosts.size()-1;
+                    }
+                    Utilities.applicantsFollowPosts = applicantsFollowPosts;
+                    follow = !follow;
+                }else{
+                    Toast.makeText(getActivity(),"Something went wrong!",Toast.LENGTH_SHORT).show();
+                }
+            }
+        };
+        postDataWithJsonCallback.execute(UrlStatic.URLApplicantsFollowPosts);
     }
 
     @Override

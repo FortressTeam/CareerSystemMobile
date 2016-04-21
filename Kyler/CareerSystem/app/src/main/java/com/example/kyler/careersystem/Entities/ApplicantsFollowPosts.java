@@ -9,6 +9,7 @@ import org.json.JSONObject;
 public class ApplicantsFollowPosts {
     private int applicantID;
     private int postID;
+    private boolean followStatus;
 
     public ApplicantsFollowPosts(JSONObject jsonObject){
         try {
@@ -18,14 +19,18 @@ public class ApplicantsFollowPosts {
             if (jsonObject.has("post_id")) {
                 this.postID = jsonObject.getInt("post_id");
             }
+            if (jsonObject.has("follow_status")) {
+                this.followStatus = jsonObject.getBoolean("follow_status");
+            }
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
 
-    public ApplicantsFollowPosts(int applicantID, int postID) {
+    public ApplicantsFollowPosts(int applicantID, int postID, boolean followStatus) {
         this.applicantID = applicantID;
         this.postID = postID;
+        this.followStatus = followStatus;
     }
 
     public int getApplicantID() {
@@ -42,5 +47,13 @@ public class ApplicantsFollowPosts {
 
     public void setPostID(int postID) {
         this.postID = postID;
+    }
+
+    public boolean isFollowStatus() {
+        return followStatus;
+    }
+
+    public void setFollowStatus(boolean followStatus) {
+        this.followStatus = followStatus;
     }
 }

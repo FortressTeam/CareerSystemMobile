@@ -1,9 +1,12 @@
 package com.example.kyler.careersystem.WorkWithService;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.util.Log;
+
+import com.example.kyler.careersystem.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -16,20 +19,20 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import dmax.dialog.SpotsDialog;
+
 /**
  * Created by kyler on 19/04/2016.
  */
 public abstract class GetJsonArrayCallback extends AsyncTask<String,Void,JSONArray> implements CallbackReciever {
     private Activity activity;
     private String key;
-    private ProgressDialog mProgressDialog;
+    private AlertDialog mProgressDialog;
 
     public GetJsonArrayCallback(Activity activity, String key) {
         this.activity = activity;
         this.key = key;
-        mProgressDialog = new ProgressDialog(activity);
-        mProgressDialog.setMessage("Loading ...");
-        mProgressDialog.setIndeterminate(false);
+        mProgressDialog = new SpotsDialog(activity, R.style.Custom);
         mProgressDialog.setCancelable(false);
     }
 
