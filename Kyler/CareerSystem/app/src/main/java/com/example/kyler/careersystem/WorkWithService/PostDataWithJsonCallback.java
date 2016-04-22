@@ -28,6 +28,7 @@ public abstract class PostDataWithJsonCallback extends AsyncTask<String,Void,JSO
     private JSONObject jsonObject;
     private Activity activity;
     private AlertDialog mProgressDialog;
+    private boolean dialog = true;
 
     public abstract void receiveData(Object result);
 
@@ -36,6 +37,11 @@ public abstract class PostDataWithJsonCallback extends AsyncTask<String,Void,JSO
         this.activity = activity;
         mProgressDialog = new SpotsDialog(activity, R.style.Custom);
         mProgressDialog.setCancelable(false);
+    }
+
+    public PostDataWithJsonCallback(JSONObject jsonObject) {
+        this.jsonObject = jsonObject;
+        this.dialog = false;
     }
 
     @Override
@@ -102,14 +108,18 @@ public abstract class PostDataWithJsonCallback extends AsyncTask<String,Void,JSO
 
     @Override
     protected void onPreExecute() {
-        mProgressDialog.show();
+        if(dialog) {
+            mProgressDialog.show();
+        }
         super.onPreExecute();
     }
 
     @Override
     protected void onPostExecute(JSONObject jsonObject) {
-        if (mProgressDialog != null || mProgressDialog.isShowing()){
-            mProgressDialog.dismiss();
+        if(dialog) {
+            if (mProgressDialog != null || mProgressDialog.isShowing()) {
+                mProgressDialog.dismiss();
+            }
         }
         receiveData(jsonObject);
     }

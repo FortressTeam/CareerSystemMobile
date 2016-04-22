@@ -84,7 +84,7 @@ public class ManagePost extends Fragment implements AbsListView.OnScrollListener
                         managepost_listview.setAdapter(managePostAdapter);
                     }
                 };
-                getJsonArrayCallback.execute(UrlStatic.URLManagePost +hiringmanagerID+"&page="+page);
+                getJsonArrayCallback.execute(UrlStatic.URLManagePost +hiringmanagerID+"&page="+page+"&sort=post_date&direction=desc");
             }
         }, 300);
 
@@ -233,7 +233,7 @@ public class ManagePost extends Fragment implements AbsListView.OnScrollListener
                             }
                         }
                     };
-                    getJsonLoadMoreCallback.execute(UrlStatic.URLManagePost +hiringmanagerID+"&page="+page);
+                    getJsonLoadMoreCallback.execute(UrlStatic.URLManagePost +hiringmanagerID+"&page="+page+"&sort=post_date&direction=desc");
                 }
                 managePostAdapter.showMore();
             }

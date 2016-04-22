@@ -17,7 +17,7 @@ public class Posts {
     private int postSalary;
     private String postLocation;
     private String postDate;
-    private boolean postStatus;
+    private int postStatus;
     private int categoryID;
     private int hiringManagerID;
 
@@ -40,7 +40,7 @@ public class Posts {
                 this.postDate=new SimpleDateFormat("d - LLL - yyyy").format(date);
             }
             if(jsonObject.has("post_status")){
-                this.postStatus = jsonObject.getBoolean("post_status");
+                this.postStatus = jsonObject.getInt("post_status");
             }
             if(jsonObject.has("category_id")){
                 this.categoryID=jsonObject.getInt("category_id");
@@ -60,7 +60,7 @@ public class Posts {
         }
     }
 
-    public Posts(int ID, String postTitle, String postContent, int postSalary, String postLocation, String postDate, boolean postStatus, int categoryID, int hiringManagerID) {
+    public Posts(int ID, String postTitle, String postContent, int postSalary, String postLocation, String postDate, int postStatus, int categoryID, int hiringManagerID) {
         this.ID = ID;
         this.postTitle = postTitle;
         this.postContent = postContent;
@@ -120,11 +120,11 @@ public class Posts {
         this.postDate = postDate;
     }
 
-    public boolean isPostStatus() {
+    public int getPostStatus() {
         return postStatus;
     }
 
-    public void setPostStatus(boolean postStatus) {
+    public void setPostStatus(int postStatus) {
         this.postStatus = postStatus;
     }
 

@@ -72,7 +72,7 @@ public class HomeFragment extends Fragment implements AbsListView.OnScrollListen
                                     Categories category = new Categories(jsonObject.getJSONObject("category"));
                                     jobListViewItems.add(postController.getJobListView(post, hiringManager, category));
                                 }
-                                jobListViewAdapterLoadInfinite = new JobListViewAdapterLoadInfinite(getActivity().getApplicationContext(), jobListViewItems, 10, 5);
+                                jobListViewAdapterLoadInfinite = new JobListViewAdapterLoadInfinite(getActivity().getApplicationContext(), jobListViewItems, 10, 10);
                                 home_job_listview.setAdapter(jobListViewAdapterLoadInfinite);
                             }
                             else {
@@ -84,7 +84,7 @@ public class HomeFragment extends Fragment implements AbsListView.OnScrollListen
                         }
                     }
                 };
-                getJsonArrayCallback.execute(UrlStatic.URLHomefragment + page);
+                getJsonArrayCallback.execute(UrlStatic.URLHomefragment + page+"&sort=post_date&direction=desc");
             }
         }, 300);
         View rootView = inflater.inflate(R.layout.applicant_home_fragment,container,false);
@@ -176,7 +176,7 @@ public class HomeFragment extends Fragment implements AbsListView.OnScrollListen
                             }
                         }
                     };
-                    getJsonLoadMoreCallback.execute(UrlStatic.URLHomefragment+page);
+                    getJsonLoadMoreCallback.execute(UrlStatic.URLHomefragment+page+"&sort=post_date&direction=desc");
                 }
                 boolean noMoreToShow = jobListViewAdapterLoadInfinite.showMore();
             }

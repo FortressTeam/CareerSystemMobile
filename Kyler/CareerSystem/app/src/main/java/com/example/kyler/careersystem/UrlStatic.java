@@ -11,6 +11,7 @@ public class UrlStatic {
     public static String URLSignin = service + "api/users/signin.json";
     public static String URLUpdateToken = service +"api/users/updateToken/";
     public static String URLApplicantsFollowPosts = service +"api/applicants_follow_posts.json";
+    public static String URLPostsHasCurriculumVitaes = service +"api/posts_has_curriculum_vitaes.json";
     public static String URLfollow = service +"api/follow.json";
     public static String URLPosts = service + "api/posts.json";
     public static String URLEditPost = service + "api/posts/";

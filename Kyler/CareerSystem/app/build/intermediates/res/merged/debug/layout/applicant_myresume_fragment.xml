@@ -620,7 +620,33 @@
                         android:layout_height="wrap_content">
                     </com.example.kyler.careersystem.Applicant.Customize.NonScrollListView>
                 </LinearLayout>
+                <LinearLayout
+                    android:visibility="gone"
+                    android:id="@+id/myresume_hiringmanger_follow_linearlayout"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp">
+                    <Button
+                        android:layout_marginLeft="50dp"
+                        android:layout_marginRight="50dp"
+                        android:visibility="visible"
+                        android:id="@+id/myresume_hiringmanager_follow"
+                        android:text="@string/Follow"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"/>
 
+                    <Button
+                        android:layout_marginLeft="50dp"
+                        android:layout_marginRight="50dp"
+                        android:visibility="gone"
+                        android:id="@+id/myresume_hiringmanager_unfollow"
+                        android:text="@string/Unfollow"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:theme="@style/MyButton"/>
+                </LinearLayout>
             </LinearLayout>
         </com.github.ksoichiro.android.observablescrollview.ObservableScrollView>
     </LinearLayout>

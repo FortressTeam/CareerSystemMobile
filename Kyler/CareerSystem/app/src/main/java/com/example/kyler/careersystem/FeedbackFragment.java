@@ -156,6 +156,7 @@ public class FeedbackFragment extends Fragment implements View.OnClickListener,O
                     }
                 }
             };
+            postDataWithJsonCallback.execute(UrlStatic.URLFeedbacks);
 
         } catch (JSONException e) {
             e.printStackTrace();

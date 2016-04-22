@@ -262,7 +262,7 @@ public class AddPostFragment extends Fragment implements View.OnClickListener,Sp
                     }else{
                         sendData.put("post_date", new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime()));
                     }
-                    sendData.put("post_status", true);
+                    sendData.put("post_status", 1);
                     sendData.put("category_id", categoryID);
                     sendData.put("hiring_manager_id", hiringManagerID);
                     if(editMode){

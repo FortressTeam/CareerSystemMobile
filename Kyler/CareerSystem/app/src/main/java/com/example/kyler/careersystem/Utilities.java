@@ -27,19 +27,14 @@ import com.example.kyler.careersystem.Applicant.NavigationListViewAdapter;
 import com.example.kyler.careersystem.Applicant.NavigationListViewItem;
 import com.example.kyler.careersystem.Entities.ApplicantsFollowPosts;
 import com.example.kyler.careersystem.Entities.Follow;
-import com.example.kyler.careersystem.Entities.Hobbies;
-import com.example.kyler.careersystem.Entities.SkillTypes;
 import com.example.kyler.careersystem.HiringManager.NotificationFragment;
 import com.example.kyler.careersystem.Entities.Applicants;
 import com.example.kyler.careersystem.Entities.Categories;
 import com.example.kyler.careersystem.Entities.HiringManagers;
 import com.example.kyler.careersystem.Entities.Posts;
 import com.example.kyler.careersystem.Entities.Users;
-import com.example.kyler.careersystem.HiringManager.ChildFragments.AddPostFragment;
-import com.example.kyler.careersystem.WorkWithService.GetJsonArrayWithoutDialog;
 import com.example.kyler.careersystem.WorkWithService.GetJsonObjectCallback;
 import com.example.kyler.careersystem.WorkWithService.PostDataWithJsonCallback;
-import com.example.kyler.careersystem.WorkWithService.PostDataWithoutDialog;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -49,13 +44,11 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -176,6 +169,8 @@ public class Utilities {
                 break;
             case 1://home
                 fragment = new com.example.kyler.careersystem.HiringManager.ManagePost();
+                break;
+            case 5://home
                 break;
             case 6://home
                 fragment = new NotificationFragment();
@@ -519,7 +514,7 @@ public class Utilities {
             e.printStackTrace();
         }
         final JSONObject sendData = jsSendData;
-        PostDataWithoutDialog postDataWithoutDialog = new PostDataWithoutDialog(sendData) {
+        PostDataWithJsonCallback postDataWithoutDialog = new PostDataWithJsonCallback(sendData) {
             @Override
             public void receiveData(Object result) {
 

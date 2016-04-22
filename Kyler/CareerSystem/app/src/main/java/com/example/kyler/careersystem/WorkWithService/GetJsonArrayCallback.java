@@ -28,6 +28,7 @@ public abstract class GetJsonArrayCallback extends AsyncTask<String,Void,JSONArr
     private Activity activity;
     private String key;
     private AlertDialog mProgressDialog;
+    private boolean dialog = true;
 
     public GetJsonArrayCallback(Activity activity, String key) {
         this.activity = activity;
@@ -36,9 +37,16 @@ public abstract class GetJsonArrayCallback extends AsyncTask<String,Void,JSONArr
         mProgressDialog.setCancelable(false);
     }
 
+    public GetJsonArrayCallback(String key) {
+        this.key = key;
+        this.dialog = false;
+    }
+
     @Override
     protected void onPreExecute() {
-        mProgressDialog.show();
+        if(dialog) {
+            mProgressDialog.show();
+        }
         super.onPreExecute();
     }
 
@@ -46,8 +54,10 @@ public abstract class GetJsonArrayCallback extends AsyncTask<String,Void,JSONArr
 
     @Override
     protected void onPostExecute(JSONArray jsonArray) {
-        if (mProgressDialog != null || mProgressDialog.isShowing()){
-            mProgressDialog.dismiss();
+        if(dialog) {
+            if (mProgressDialog != null || mProgressDialog.isShowing()) {
+                mProgressDialog.dismiss();
+            }
         }
         receiveData(jsonArray);
     }

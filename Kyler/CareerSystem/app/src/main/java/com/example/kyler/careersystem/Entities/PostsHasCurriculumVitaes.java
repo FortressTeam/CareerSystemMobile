@@ -9,6 +9,7 @@ import org.json.JSONObject;
 public class PostsHasCurriculumVitaes {
     private int PostID;
     private int CurriculumVitaes;
+    private int appliedCVStatus;
 
     public PostsHasCurriculumVitaes(JSONObject jsonObject){
         try {
@@ -18,14 +19,26 @@ public class PostsHasCurriculumVitaes {
             if (jsonObject.has("curriculum_vitae_id")) {
                 this.CurriculumVitaes = jsonObject.getInt("curriculum_vitae_id");
             }
+            if (jsonObject.has("applied_cv_status")) {
+                this.appliedCVStatus = jsonObject.getInt("applied_cv_status");
+            }
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
 
-    public PostsHasCurriculumVitaes(int postID, int curriculumVitaes) {
+    public PostsHasCurriculumVitaes(int postID, int curriculumVitaes, int appliedCVStatus) {
         PostID = postID;
         CurriculumVitaes = curriculumVitaes;
+        this.appliedCVStatus = appliedCVStatus;
+    }
+
+    public int getAppliedCVStatus() {
+        return appliedCVStatus;
+    }
+
+    public void setAppliedCVStatus(int appliedCVStatus) {
+        this.appliedCVStatus = appliedCVStatus;
     }
 
     public int getPostID() {

@@ -42,7 +42,7 @@ import com.example.kyler.careersystem.Entities.Users;
 import com.example.kyler.careersystem.R;
 import com.example.kyler.careersystem.UrlStatic;
 import com.example.kyler.careersystem.Utilities;
-import com.example.kyler.careersystem.WorkWithService.GetJsonArrayWithoutDialog;
+import com.example.kyler.careersystem.WorkWithService.GetJsonArrayCallback;
 import com.example.kyler.careersystem.WorkWithService.GetJsonObjectCallback;
 import com.example.kyler.careersystem.WorkWithService.PostDataWithJsonCallback;
 import com.github.ksoichiro.android.observablescrollview.ObservableScrollView;
@@ -97,23 +97,22 @@ public class MyResumeFragment extends Fragment implements View.OnClickListener,O
         mHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
-
-                GetJsonArrayWithoutDialog getHoobies = new GetJsonArrayWithoutDialog("hobbies") {
+                GetJsonArrayCallback getHoobies = new GetJsonArrayCallback("hobbies") {
                     @Override
                     public void receiveData(Object result) {
                         jshobbies = (JSONArray) result;
-                        if(Utilities.checkConnect(jshobbies)) {
+                        if (Utilities.checkConnect(jshobbies)) {
                             listhobbies = myresumeController.getHobbies(jshobbies);
                         }
                     }
                 };
                 getHoobies.execute(UrlStatic.URLHobbies);
 
-                GetJsonArrayWithoutDialog getSkills = new GetJsonArrayWithoutDialog("skillTypes") {
+                GetJsonArrayCallback getSkills = new GetJsonArrayCallback("skillTypes") {
                     @Override
                     public void receiveData(Object result) {
                         jsSkillTypes = (JSONArray) result;
-                        if(Utilities.checkConnect(jsSkillTypes)) {
+                        if (Utilities.checkConnect(jsSkillTypes)) {
                             listSkillTypes = myresumeController.getSkillTypes(jsSkillTypes);
                         }
                     }
@@ -275,17 +274,17 @@ public class MyResumeFragment extends Fragment implements View.OnClickListener,O
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 majorChanged=true;
                 addSkillSearch.setText("");
-                GetJsonArrayWithoutDialog getJsonArrayWithoutDialog = new GetJsonArrayWithoutDialog("skills") {
+                GetJsonArrayCallback getJsonArrayWithoutDialog = new GetJsonArrayCallback("skills") {
                     @Override
                     public void receiveData(Object result) {
-                            JSONArray jsArrSkills = (JSONArray) result;
-                            listskills = myresumeController.getSkills(jsArrSkills);
-                            skillListViewItemsAddSkill = new ArrayList<SkillListViewItem>();
-                            for (int j = 0; j < listskills.size(); j++) {
-                                skillListViewItemsAddSkill.add(new SkillListViewItem(applicantID, listskills.get(j).getID(), listskills.get(j).getSkillName(), 1));
-                            }
-                            adapterAddSkill = new SkillListViewAdapter(getActivity(), skillListViewItemsAddSkill, true, true);
-                            addSkillListView.setAdapter(adapterAddSkill);
+                        JSONArray jsArrSkills = (JSONArray) result;
+                        listskills = myresumeController.getSkills(jsArrSkills);
+                        skillListViewItemsAddSkill = new ArrayList<SkillListViewItem>();
+                        for (int j = 0; j < listskills.size(); j++) {
+                            skillListViewItemsAddSkill.add(new SkillListViewItem(applicantID, listskills.get(j).getID(), listskills.get(j).getSkillName(), 1));
+                        }
+                        adapterAddSkill = new SkillListViewAdapter(getActivity(), skillListViewItemsAddSkill, true, true);
+                        addSkillListView.setAdapter(adapterAddSkill);
                     }
                 };
                 getJsonArrayWithoutDialog.execute(UrlStatic.URLSkills + "?skill_type_id=" + listSkillTypes.get(i).getID());
@@ -587,11 +586,10 @@ public class MyResumeFragment extends Fragment implements View.OnClickListener,O
     public void onScrollChanged(int scrollY, boolean firstScroll, boolean dragging) {
         View view = (View) myresumeFragmentObservableScrollView.getChildAt(myresumeFragmentObservableScrollView.getChildCount()-1);
         int diff = (view.getHeight()-(myresumeFragmentObservableScrollView.getHeight()+myresumeFragmentObservableScrollView.getScrollY()));
-        if(diff == 0){
+        if (diff == 0) {
             myresumeEditButton.hide();
-        }else
+        } else
             myresumeEditButton.show();
-
     }
 
     @Override

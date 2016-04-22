@@ -3,6 +3,7 @@ package com.example.kyler.careersystem.Bussiness;
 import com.example.kyler.careersystem.Applicant.Customize.JobListViewItem;
 import com.example.kyler.careersystem.Entities.ApplicantsHasSkills;
 import com.example.kyler.careersystem.Entities.Categories;
+import com.example.kyler.careersystem.Entities.CurriculumVitaes;
 import com.example.kyler.careersystem.Entities.HiringManagers;
 import com.example.kyler.careersystem.Entities.Posts;
 import com.example.kyler.careersystem.UrlStatic;
