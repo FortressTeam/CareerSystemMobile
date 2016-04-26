@@ -46,7 +46,7 @@ public class ManagePost extends Fragment implements AbsListView.OnScrollListener
     private SwipeMenuListView managepost_listview;
     private FloatingActionButton managePostAddPost;
     private Handler mHandler;
-    private ArrayList<Posts> posts,postsLoadMore;
+    private ArrayList<Posts> posts;
     private ProgressBar progressBar;
     private ManagePostAdapter managePostAdapter;
     private JSONArray jsPosts;
@@ -144,7 +144,7 @@ public class ManagePost extends Fragment implements AbsListView.OnScrollListener
             jsSendData.put("post_salary",post.getPostSalary());
             jsSendData.put("post_location",post.getPostLocation());
             jsSendData.put("post_date",Utilities.convertTimePost(post.getPostDate()));
-            jsSendData.put("post_status",post.isPostStatus());
+            jsSendData.put("post_status",post.getPostStatus());
             jsSendData.put("category_id",post.getCategoryID());
             jsSendData.put("hiring_manager_id",post.getHiringManagerID());
         } catch (JSONException e) {
@@ -167,7 +167,7 @@ public class ManagePost extends Fragment implements AbsListView.OnScrollListener
                         JSONObject jssendData = new JSONObject();
                         try {
                             jssendData.put("id",posts.get(id).getID());
-                            jssendData.put("post_status",false);
+                            jssendData.put("post_status",0);
                             PutDataWithJsonCallback putDataWithJsonCallback = new PutDataWithJsonCallback(jssendData,getActivity()) {
                                 @Override
                                 public void receiveData(Object result) {

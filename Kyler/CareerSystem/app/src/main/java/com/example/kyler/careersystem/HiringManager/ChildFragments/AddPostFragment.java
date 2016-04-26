@@ -285,6 +285,11 @@ public class AddPostFragment extends Fragment implements View.OnClickListener,Sp
                             @Override
                             public void receiveData(Object result) {
                                 Boolean isSuccess = Utilities.isCreateUpdateSuccess((JSONObject) result);
+                                try {
+                                    sendData.put("id",((JSONObject)result).getJSONObject("post").getInt("id"));
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
                                 if(isSuccess){
                                     Utilities.startFragWith(getActivity(), ChildHiringManagerActivity.class, "jobdetail", sendData.toString());
                                     Toast.makeText(getActivity().getApplicationContext(), "success ", Toast.LENGTH_SHORT).show();

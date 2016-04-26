@@ -135,6 +135,8 @@ public class MyresumeExperienceFragment extends Fragment implements View.OnClick
                 String startDate = experienceStartTextview.getText().toString();
                 if(Utilities.validDatepicker(startDate, endDate))
                     experienceEndTextview.setText(endDate);
+                else
+                    new AlertDialog.Builder(getActivity()).setMessage("Invalid Date").setPositiveButton("OK", null).show();
             }
         }
     };

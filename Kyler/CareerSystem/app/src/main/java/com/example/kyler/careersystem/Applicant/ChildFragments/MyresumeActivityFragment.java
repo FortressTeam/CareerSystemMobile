@@ -132,6 +132,8 @@ public class MyresumeActivityFragment extends Fragment implements View.OnClickLi
                 String startDate = activityStartTextView.getText().toString();
                 if(Utilities.validDatepicker(startDate, endDate))
                     activityEndTextView.setText(endDate);
+                else
+                    new AlertDialog.Builder(getActivity()).setMessage("Invalid Date").setPositiveButton("OK", null).show();
             }
         }
     };

@@ -1,6 +1,7 @@
 package com.example.kyler.careersystem.HiringManager.ChildFragments;
 
 import android.app.Fragment;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.text.Html;
@@ -9,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.Space;
 import android.widget.TextView;
 
@@ -46,7 +48,8 @@ public class JobDetailFragment extends Fragment implements ObservableScrollViewC
     private Posts post;
     private HiringManagers hiringManager = Utilities.hiringManagers;
     private LinearLayout jobDetailCVSubmitLayout;
-    private NonScrollListView jobDetailListCVSubmit;
+    private ListView jobDetailListCVSubmit;
+    private LinearLayout jobDetailListCVHolder;
     private JSONObject jsPost;
     private ArrayList<SubmittedCVListViewItem> submittedCVListViewItems;
     private SubmittedCVListViewAdapter submittedCVListViewAdapter;
@@ -67,7 +70,8 @@ public class JobDetailFragment extends Fragment implements ObservableScrollViewC
         }
         jobDetailScrollView = (ObservableScrollView) rootView.findViewById(R.id.job_detail_scrollview);
         jobDetailCVSubmitLayout = (LinearLayout) rootView.findViewById(R.id.hiringmanager_listcv_submit_layout);
-        jobDetailListCVSubmit = (NonScrollListView) rootView.findViewById(R.id.hiringmanager_listcv_submit);
+        jobDetailListCVSubmit = (ListView) rootView.findViewById(R.id.hiringmanager_listcv_submit);
+        jobDetailListCVHolder = (LinearLayout) rootView.findViewById(R.id.hiringmanager_listcv_holder);
         companyLogo = (ImageView) rootView.findViewById(R.id.job_detail_company_logo);
         jobDetailCompanyName = (TextView) rootView.findViewById(R.id.job_detail_company_name);
         jobDetailCompanyAddress = (TextView) rootView.findViewById(R.id.job_detail_company_address);
@@ -105,6 +109,11 @@ public class JobDetailFragment extends Fragment implements ObservableScrollViewC
         return rootView;
     }
 
+    private int dpToPx(int dp)
+    {
+        return (int) (dp * Resources.getSystem().getDisplayMetrics().density);
+    }
+
     private void loadListCVSubmit(JSONObject jsonObject){
         try {
             curriculumVitaes = jsonObject.getJSONArray("curriculum_vitaes");
@@ -122,6 +131,7 @@ public class JobDetailFragment extends Fragment implements ObservableScrollViewC
                 jobDetailListCVSubmit.setAdapter(submittedCVListViewAdapter);
                 jobDetailListCVSubmit.setVisibility(View.VISIBLE);
                 jobDetailSubmitAlert.setVisibility(View.GONE);
+                jobDetailListCVHolder.setLayoutParams(new LinearLayout.LayoutParams(jobDetailListCVHolder.getLayoutParams().width, dpToPx(submittedCVListViewItems.size() * 69)));
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -155,13 +165,14 @@ public class JobDetailFragment extends Fragment implements ObservableScrollViewC
             jsSendData.put("post_salary",post.getPostSalary());
             jsSendData.put("post_location",post.getPostLocation());
             jsSendData.put("post_date", Utilities.convertTimePost(post.getPostDate()));
-            jsSendData.put("post_status",post.isPostStatus());
+            jsSendData.put("post_status",post.getPostStatus());
             jsSendData.put("category_id",post.getCategoryID());
             jsSendData.put("hiring_manager_id",post.getHiringManagerID());
         } catch (JSONException e) {
             e.printStackTrace();
         }
         Utilities.startFragWith(getActivity(), ChildHiringManagerActivity.class, "editpost", jsSendData.toString());
+        getActivity().finish();
     }
 
     @Override
