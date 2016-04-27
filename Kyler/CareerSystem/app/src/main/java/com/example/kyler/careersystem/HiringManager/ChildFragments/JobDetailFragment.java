@@ -131,7 +131,7 @@ public class JobDetailFragment extends Fragment implements ObservableScrollViewC
                 jobDetailListCVSubmit.setAdapter(submittedCVListViewAdapter);
                 jobDetailListCVSubmit.setVisibility(View.VISIBLE);
                 jobDetailSubmitAlert.setVisibility(View.GONE);
-                jobDetailListCVHolder.setLayoutParams(new LinearLayout.LayoutParams(jobDetailListCVHolder.getLayoutParams().width, dpToPx(submittedCVListViewItems.size() * 69)));
+                jobDetailListCVHolder.setLayoutParams(new LinearLayout.LayoutParams(jobDetailListCVHolder.getLayoutParams().width, dpToPx( submittedCVListViewItems.size() * 69 )));
             }
         } catch (JSONException e) {
             e.printStackTrace();

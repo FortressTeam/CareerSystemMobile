@@ -25,9 +25,10 @@ import java.util.ArrayList;
 /**
  * Created by kyler on 22/04/2016.
  */
-public class SubmittedCVListViewAdapter extends BaseAdapter implements View.OnClickListener{
+public class SubmittedCVListViewAdapter extends BaseAdapter implements View.OnClickListener {
     private Activity context;
     private ArrayList<SubmittedCVListViewItem> submittedCVListViewItems;
+    private int ACCEPT = 1, REJECT = 2;
 
     public SubmittedCVListViewAdapter(Activity context, ArrayList<SubmittedCVListViewItem> submittedCVListViewItems) {
         this.context = context;
@@ -51,33 +52,33 @@ public class SubmittedCVListViewAdapter extends BaseAdapter implements View.OnCl
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
-        if(view == null){
+        if (view == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
-            view = inflater.inflate(R.layout.hiringmanager_submittedcv_listviewitem,null);
+            view = inflater.inflate(R.layout.hiringmanager_submittedcv_listviewitem, null);
         }
         TextView submittedcv_listviewitem_applicantname = (TextView) view.findViewById(R.id.submittedcv_listviewitem_applicantname);
         TextView submittedcv_listviewitem_cvname = (TextView) view.findViewById(R.id.submittedcv_listviewitem_cvname);
         LinearLayout submittedcv_listviewitem_cv = (LinearLayout) view.findViewById(R.id.submittedcv_listviewitem_cv);
-        ImageView submittedcv_listviewitem_accept = (ImageView) view.findViewById(R.id.submittedcv_listviewitem_accept);
-        ImageView submittedcv_listviewitem_reject = (ImageView) view.findViewById(R.id.submittedcv_listviewitem_reject);
-        if(submittedCVListViewItems.get(i).getPostsHasCurriculumVitaes().getAppliedCVStatus()==2) {
+        final ImageView submittedcv_listviewitem_accept = (ImageView) view.findViewById(R.id.submittedcv_listviewitem_accept);
+        final ImageView submittedcv_listviewitem_reject = (ImageView) view.findViewById(R.id.submittedcv_listviewitem_reject);
+        if (submittedCVListViewItems.get(i).getPostsHasCurriculumVitaes().getAppliedCVStatus() == REJECT) {
             submittedcv_listviewitem_accept.setVisibility(View.GONE);
-        }else if(submittedCVListViewItems.get(i).getPostsHasCurriculumVitaes().getAppliedCVStatus()==1) {
+        } else if (submittedCVListViewItems.get(i).getPostsHasCurriculumVitaes().getAppliedCVStatus() == ACCEPT) {
             submittedcv_listviewitem_reject.setVisibility(View.GONE);
-        }else {
-//            final int id = i;
-//            submittedcv_listviewitem_accept.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View view) {
-//                    doPost(id, 1,submittedcv_listviewitem_accept,submittedcv_listviewitem_reject);
-//                }
-//            });
-//            submittedcv_listviewitem_reject.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View view) {
-//                    doPost(id,2,submittedcv_listviewitem_reject,submittedcv_listviewitem_accept);
-//                }
-//            });
+        } else {
+            final int id = i;
+            submittedcv_listviewitem_accept.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    doPost(id, 1, submittedcv_listviewitem_accept, submittedcv_listviewitem_reject);
+                }
+            });
+            submittedcv_listviewitem_reject.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    doPost(id, 2, submittedcv_listviewitem_reject, submittedcv_listviewitem_accept);
+                }
+            });
         }
         submittedcv_listviewitem_applicantname.setText(submittedCVListViewItems.get(i).getApplicantName());
         submittedcv_listviewitem_cvname.setText(submittedCVListViewItems.get(i).getCvName());
@@ -88,7 +89,7 @@ public class SubmittedCVListViewAdapter extends BaseAdapter implements View.OnCl
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.submittedcv_listviewitem_applicantname:
                 break;
             case R.id.submittedcv_listviewitem_cv:
@@ -96,11 +97,11 @@ public class SubmittedCVListViewAdapter extends BaseAdapter implements View.OnCl
         }
     }
 
-    private void doPost(final int id, final int status,ImageView img1,ImageView img2){
+    private void doPost(final int id, final int status, final ImageView img1, final ImageView img2) {
         String message = "";
-        if(status == 2){
+        if (status == REJECT) {
             message = "Do you want to reject this CV?";
-        }else if(status == 1){
+        } else if (status == ACCEPT) {
             message = "Do you want to accept this CV?";
         }
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
@@ -111,19 +112,21 @@ public class SubmittedCVListViewAdapter extends BaseAdapter implements View.OnCl
                         PostsHasCurriculumVitaes postsHasCurriculumVitaes = submittedCVListViewItems.get(id).getPostsHasCurriculumVitaes();
                         JSONObject jsSendData = new JSONObject();
                         try {
-                            jsSendData.put("curriculum_vitae_id",postsHasCurriculumVitaes.getCurriculumVitaes());
-                            jsSendData.put("post_id",postsHasCurriculumVitaes.getPostID());
-                            jsSendData.put("applied_cv_status",status);
+                            jsSendData.put("curriculum_vitae_id", postsHasCurriculumVitaes.getCurriculumVitaes());
+                            jsSendData.put("post_id", postsHasCurriculumVitaes.getPostID());
+                            jsSendData.put("applied_cv_status", status);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
                         final JSONObject sendData = jsSendData;
-                        PostDataWithJsonCallback postDataWithJsonCallback = new PostDataWithJsonCallback(sendData,context) {
+                        PostDataWithJsonCallback postDataWithJsonCallback = new PostDataWithJsonCallback(sendData, context) {
                             @Override
                             public void receiveData(Object result) {
-                                if(!Utilities.isCreateUpdateSuccess((JSONObject) result)){
+                                if (!Utilities.isCreateUpdateSuccess((JSONObject) result)) {
                                     Utilities.displayViewHiringManager(context, 404);
-                                }else{
+                                } else {
+                                    img1.setEnabled(false);
+                                    img2.setVisibility(View.GONE);
                                     notifyDataSetChanged();
                                 }
                             }

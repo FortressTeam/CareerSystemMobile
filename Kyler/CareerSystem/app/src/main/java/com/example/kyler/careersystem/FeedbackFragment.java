@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.example.kyler.careersystem.Applicant.ChildApplicantActivity;
 import com.example.kyler.careersystem.WorkWithService.PostDataWithJsonCallback;
 import com.github.ksoichiro.android.observablescrollview.ObservableScrollView;
 import com.github.ksoichiro.android.observablescrollview.ObservableScrollViewCallbacks;
@@ -150,9 +151,11 @@ public class FeedbackFragment extends Fragment implements View.OnClickListener,O
                 public void receiveData(Object result) {
                     boolean isSuccess = isPostFeedbackSuccess((JSONObject) result);
                     if (isSuccess) {
-                        Toast.makeText(getActivity().getApplicationContext(), "Create Post success ... ", Toast.LENGTH_SHORT).show();
+                        Utilities.startFragWith(getActivity(), ChildApplicantActivity.class,"Feedback",null);
+                        Toast.makeText(getActivity().getApplicationContext(), "Send Feedback success ... ", Toast.LENGTH_SHORT).show();
+                        getActivity().finish();
                     } else {
-                        Toast.makeText(getActivity().getApplicationContext(), "Create Post fail ... Something went wrong ", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity().getApplicationContext(), "Send Feedback fail ... Something went wrong ", Toast.LENGTH_SHORT).show();
                     }
                 }
             };
