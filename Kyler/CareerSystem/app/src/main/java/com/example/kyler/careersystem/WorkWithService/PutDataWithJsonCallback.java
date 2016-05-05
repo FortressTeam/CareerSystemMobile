@@ -16,6 +16,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
+import java.net.SocketTimeoutException;
 import java.net.URL;
 
 import dmax.dialog.SpotsDialog;
@@ -87,6 +88,8 @@ public abstract class PutDataWithJsonCallback extends AsyncTask<String,Void,JSON
             result = new JSONObject(stringBuilder.toString());
         } catch (MalformedURLException e) {
             e.printStackTrace();
+        } catch (SocketTimeoutException e){
+            result = null;
         } catch (IOException e) {
             e.printStackTrace();
         } catch (JSONException e) {

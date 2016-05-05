@@ -61,6 +61,8 @@ public class Utilities {
     public static HiringManagers hiringManagers=null;
     public static ArrayList<ApplicantsFollowPosts> applicantsFollowPosts = null;
     public static ArrayList<Follow> follows = null;
+    public static JSONArray jsArrayPost = null, jsArraySkillTypes = null, jsArrayHobbies = null;
+    public static JSONObject jsApplicant = null;
 
     public static String SAVEING_FILE_LOGIN = "account";
 
@@ -486,7 +488,7 @@ public class Utilities {
         Intent intent = new Intent(fromActivity, endActivity);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         Bundle bundle = new Bundle();
-        bundle.putInt("itemID",2);
+        bundle.putInt("itemID",id);
         intent.putExtra("back", bundle);
         fromActivity.startActivity(intent);
         fromActivity.finish();

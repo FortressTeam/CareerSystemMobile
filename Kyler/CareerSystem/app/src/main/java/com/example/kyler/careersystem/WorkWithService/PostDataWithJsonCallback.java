@@ -16,6 +16,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
+import java.net.SocketTimeoutException;
 import java.net.URL;
 
 import dmax.dialog.SpotsDialog;
@@ -84,6 +85,8 @@ public abstract class PostDataWithJsonCallback extends AsyncTask<String,Void,JSO
             }
         } catch (MalformedURLException e) {
             e.printStackTrace();
+        } catch (SocketTimeoutException e){
+            result = null;
         } catch (IOException e) {
             try {
                 int HttpResult = ((HttpURLConnection)connection).getResponseCode();

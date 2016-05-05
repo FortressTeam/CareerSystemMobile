@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
+import java.net.SocketTimeoutException;
 import java.net.URL;
 
 /**
@@ -61,6 +62,8 @@ public abstract class GetJsonLoadMoreCallback extends AsyncTask<String,Void,JSON
                 reader.close();
             }
         } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (SocketTimeoutException e){
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();

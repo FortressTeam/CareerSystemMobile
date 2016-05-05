@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
+import java.net.SocketTimeoutException;
 import java.net.URL;
 
 import dmax.dialog.SpotsDialog;
@@ -83,6 +84,8 @@ public abstract class GetJsonArrayCallback extends AsyncTask<String,Void,JSONArr
                 reader.close();
             }
         } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (SocketTimeoutException e){
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();

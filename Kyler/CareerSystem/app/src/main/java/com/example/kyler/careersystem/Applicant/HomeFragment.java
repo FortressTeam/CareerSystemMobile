@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.example.kyler.careersystem.Applicant.Customize.JobListViewAdapterLoadInfinite;
 import com.example.kyler.careersystem.Applicant.Customize.JobListViewItem;
 import com.example.kyler.careersystem.Applicant.Customize.ViewHolder;
+import com.example.kyler.careersystem.ApplicantMainActivity;
 import com.example.kyler.careersystem.Bussiness.PostController;
 import com.example.kyler.careersystem.Entities.Categories;
 import com.example.kyler.careersystem.Entities.HiringManagers;
@@ -55,42 +56,9 @@ public class HomeFragment extends Fragment implements AbsListView.OnScrollListen
         mHandler = new Handler();
         arrPost = new ArrayList<>();
         jobListViewItems = new ArrayList<JobListViewItem>();
-        mHandler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                GetJsonArrayCallback getJsonArrayCallback = new GetJsonArrayCallback(getActivity(),"posts") {
-                    @Override
-                    public void receiveData(Object result) {
-                        try {
-                            jsonArray = (JSONArray) result;
-                            if(Utilities.checkConnect(jsonArray)){
-                                for (int i = 0; i < jsonArray.length(); i++) {
-                                    JSONObject jsonObject = jsonArray.getJSONObject(i);
-                                    Posts post = new Posts(jsonObject);
-                                    arrPost.add(post);
-                                    HiringManagers hiringManager = new HiringManagers(jsonObject.getJSONObject("hiring_manager"));
-                                    Categories category = new Categories(jsonObject.getJSONObject("category"));
-                                    jobListViewItems.add(postController.getJobListView(post, hiringManager, category));
-                                }
-                                jobListViewAdapterLoadInfinite = new JobListViewAdapterLoadInfinite(getActivity().getApplicationContext(), jobListViewItems, 10, 10);
-                                home_job_listview.setAdapter(jobListViewAdapterLoadInfinite);
-                            }
-                            else {
-                                Toast.makeText(getActivity().getApplicationContext(), "Connection got problem!", Toast.LENGTH_SHORT).show();
-                                Utilities.displayViewApplicant(getActivity(), 404);
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                };
-                getJsonArrayCallback.execute(UrlStatic.URLHomefragment + page+"&sort=post_date&direction=desc");
-            }
-        }, 300);
         View rootView = inflater.inflate(R.layout.applicant_home_fragment,container,false);
         ((AppCompatActivity)getActivity()).getSupportActionBar().show();
         ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Home");
-        postController = new PostController();
         home_job_listview = (ListView) rootView.findViewById(R.id.home_job_listview);
         View footer = getActivity().getLayoutInflater().inflate(R.layout.progress_bar_footer, null);
         progressBar = (ProgressBar) footer.findViewById(R.id.progressBar);
@@ -102,10 +70,63 @@ public class HomeFragment extends Fragment implements AbsListView.OnScrollListen
         swipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                Toast.makeText(getActivity().getApplicationContext(), "Hello", Toast.LENGTH_SHORT).show();
-                swipeLayout.setRefreshing(false);
+                Utilities.jsArrayPost=null;
+                Utilities.startActivity(getActivity(), ApplicantMainActivity.class,1);
+                getActivity().finish();
             }
         });
+        postController = new PostController();
+        if(Utilities.jsArrayPost == null) {
+            mHandler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    GetJsonArrayCallback getJsonArrayCallback = new GetJsonArrayCallback(getActivity(), "posts") {
+                        @Override
+                        public void receiveData(Object result) {
+                            try {
+                                jsonArray = (JSONArray) result;
+                                Utilities.jsArrayPost = jsonArray;
+                                if (Utilities.checkConnect(jsonArray)) {
+                                    for (int i = 0; i < jsonArray.length(); i++) {
+                                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+                                        Posts post = new Posts(jsonObject);
+                                        arrPost.add(post);
+                                        HiringManagers hiringManager = new HiringManagers(jsonObject.getJSONObject("hiring_manager"));
+                                        Categories category = new Categories(jsonObject.getJSONObject("category"));
+                                        jobListViewItems.add(postController.getJobListView(post, hiringManager, category));
+                                    }
+                                    jobListViewAdapterLoadInfinite = new JobListViewAdapterLoadInfinite(getActivity().getApplicationContext(), jobListViewItems, 10, 10);
+                                    home_job_listview.setAdapter(jobListViewAdapterLoadInfinite);
+                                } else {
+                                    Toast.makeText(getActivity().getApplicationContext(), "Connection got problem!", Toast.LENGTH_SHORT).show();
+                                    Utilities.displayViewApplicant(getActivity(), 404);
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    };
+                    getJsonArrayCallback.execute(UrlStatic.URLHomefragment + page + "&sort=post_date&direction=desc");
+                }
+            }, 300);
+        }else {
+            try {
+                jsonArray = Utilities.jsArrayPost;
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    JSONObject jsonObject = jsonArray.getJSONObject(i);
+                    Posts post = new Posts(jsonObject);
+                    arrPost.add(post);
+                    HiringManagers hiringManager = new HiringManagers(jsonObject.getJSONObject("hiring_manager"));
+                    Categories category = new Categories(jsonObject.getJSONObject("category"));
+                    jobListViewItems.add(postController.getJobListView(post, hiringManager, category));
+                }
+                jobListViewAdapterLoadInfinite = new JobListViewAdapterLoadInfinite(getActivity().getApplicationContext(), jobListViewItems, 10, 10);
+                home_job_listview.setAdapter(jobListViewAdapterLoadInfinite);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
         return rootView;
     }
 

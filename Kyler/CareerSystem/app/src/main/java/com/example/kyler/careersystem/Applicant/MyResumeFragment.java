@@ -94,58 +94,6 @@ public class MyResumeFragment extends Fragment implements View.OnClickListener,O
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mHandler = new Handler();
         myresumeController = new MyresumeController();
-        mHandler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                GetJsonArrayCallback getHoobies = new GetJsonArrayCallback("hobbies") {
-                    @Override
-                    public void receiveData(Object result) {
-                        jshobbies = (JSONArray) result;
-                        if (Utilities.checkConnect(jshobbies)) {
-                            listhobbies = myresumeController.getHobbies(jshobbies);
-                        }
-                    }
-                };
-                getHoobies.execute(UrlStatic.URLHobbies);
-
-                GetJsonArrayCallback getSkills = new GetJsonArrayCallback("skillTypes") {
-                    @Override
-                    public void receiveData(Object result) {
-                        jsSkillTypes = (JSONArray) result;
-                        if (Utilities.checkConnect(jsSkillTypes)) {
-                            listSkillTypes = myresumeController.getSkillTypes(jsSkillTypes);
-                        }
-                    }
-                };
-                getSkills.execute(UrlStatic.URLSkillTypes);
-
-                GetJsonObjectCallback getJsonObjectCallback = new GetJsonObjectCallback(getActivity(),"applicant") {
-                    @Override
-                    public void receiveData(Object result) {
-                        try {
-                            jsData = (JSONObject) result;
-                            if(Utilities.checkConnect(jsData)) {
-                                applicant = myresumeController.getApplicant(jsData);
-                                user = myresumeController.getUser(jsData.getJSONObject("user"));
-                                personalHistories = myresumeController.getPersonalHistories(jsData.getJSONArray("personal_history"));
-                                skills = myresumeController.getSkills(jsData.getJSONArray("skills"));
-                                hobbies = myresumeController.getHobbies(jsData.getJSONArray("hobbies"));
-                                applicantsHasSkills = myresumeController.getApplicantsHasSkills(jsData.getJSONArray("skills"));
-                                ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(applicant.getApplicantName());
-                                loadInfo();
-                            }
-                            else {
-                                Toast.makeText(getActivity().getApplicationContext(), "Connection got problem!", Toast.LENGTH_SHORT).show();
-                                Utilities.displayViewApplicant(getActivity(), 404);
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                };
-                getJsonObjectCallback.execute(UrlStatic.URLApplicant + applicantID + ".json");
-            }
-        }, 300);
         View rootView=inflater.inflate(R.layout.applicant_myresume_fragment,container,false);
         myresumeFragmentObservableScrollView = (ObservableScrollView) rootView.findViewById(R.id.myresume_fragment_observablescrollview);
         myresumeFragmentObservableScrollView.setScrollViewCallbacks(this);
@@ -183,6 +131,81 @@ public class MyResumeFragment extends Fragment implements View.OnClickListener,O
         myresume_listview_award = (NonScrollListView) rootView.findViewById(R.id.myresume_listview_award);
         myresume_listview_skill = (NonScrollListView) rootView.findViewById(R.id.myresume_listview_skill);
         myresume_listview_hobbie = (NonScrollListView) rootView.findViewById(R.id.myresume_listview_hobbie);
+        if(Utilities.jsApplicant == null && Utilities.jsArraySkillTypes == null && Utilities.jsArrayHobbies == null){
+            mHandler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    GetJsonArrayCallback getHoobies = new GetJsonArrayCallback("hobbies") {
+                        @Override
+                        public void receiveData(Object result) {
+                            jshobbies = (JSONArray) result;
+                            Utilities.jsArrayHobbies = jshobbies;
+                            if (Utilities.checkConnect(jshobbies)) {
+                                listhobbies = myresumeController.getHobbies(jshobbies);
+                            }
+                        }
+                    };
+                    getHoobies.execute(UrlStatic.URLHobbies);
+
+                    GetJsonArrayCallback getSkills = new GetJsonArrayCallback("skillTypes") {
+                        @Override
+                        public void receiveData(Object result) {
+                            jsSkillTypes = (JSONArray) result;
+                            Utilities.jsArraySkillTypes = jsSkillTypes;
+                            if (Utilities.checkConnect(jsSkillTypes)) {
+                                listSkillTypes = myresumeController.getSkillTypes(jsSkillTypes);
+                            }
+                        }
+                    };
+                    getSkills.execute(UrlStatic.URLSkillTypes);
+
+                    GetJsonObjectCallback getJsonObjectCallback = new GetJsonObjectCallback(getActivity(), "applicant") {
+                        @Override
+                        public void receiveData(Object result) {
+                            try {
+                                jsData = (JSONObject) result;
+                                Utilities.jsApplicant = jsData;
+                                if (Utilities.checkConnect(jsData)) {
+                                    applicant = myresumeController.getApplicant(jsData);
+                                    user = myresumeController.getUser(jsData.getJSONObject("user"));
+                                    personalHistories = myresumeController.getPersonalHistories(jsData.getJSONArray("personal_history"));
+                                    skills = myresumeController.getSkills(jsData.getJSONArray("skills"));
+                                    hobbies = myresumeController.getHobbies(jsData.getJSONArray("hobbies"));
+                                    applicantsHasSkills = myresumeController.getApplicantsHasSkills(jsData.getJSONArray("skills"));
+                                    ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(applicant.getApplicantName());
+                                    loadInfo();
+                                } else {
+                                    Toast.makeText(getActivity().getApplicationContext(), "Connection got problem!", Toast.LENGTH_SHORT).show();
+                                    Utilities.displayViewApplicant(getActivity(), 404);
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    };
+                    getJsonObjectCallback.execute(UrlStatic.URLApplicant + applicantID + ".json");
+                }
+            }, 300);
+        }
+        else{
+            try {
+                jshobbies = Utilities.jsArrayHobbies;
+                jsSkillTypes = Utilities.jsArraySkillTypes;
+                jsData = Utilities.jsApplicant;
+                listhobbies = myresumeController.getHobbies(jshobbies);
+                listSkillTypes = myresumeController.getSkillTypes(jsSkillTypes);
+                applicant = myresumeController.getApplicant(jsData);
+                user = myresumeController.getUser(jsData.getJSONObject("user"));
+                personalHistories = myresumeController.getPersonalHistories(jsData.getJSONArray("personal_history"));
+                skills = myresumeController.getSkills(jsData.getJSONArray("skills"));
+                hobbies = myresumeController.getHobbies(jsData.getJSONArray("hobbies"));
+                applicantsHasSkills = myresumeController.getApplicantsHasSkills(jsData.getJSONArray("skills"));
+                ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(applicant.getApplicantName());
+                loadInfo();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
         return rootView;
     }
 
