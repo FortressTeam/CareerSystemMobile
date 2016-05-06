@@ -12,6 +12,7 @@ import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.kyler.careersystem.Applicant.Customize.JobListViewAdapterLoadInfinite;
@@ -36,6 +37,7 @@ import java.util.ArrayList;
 
 public class HomeFragment extends Fragment implements AbsListView.OnScrollListener,ListView.OnItemClickListener {
     private ListView home_job_listview;
+    private TextView homeBlank;
 
     private JobListViewAdapterLoadInfinite jobListViewAdapterLoadInfinite;
     private ArrayList<JobListViewItem> jobListViewItems;
@@ -60,6 +62,7 @@ public class HomeFragment extends Fragment implements AbsListView.OnScrollListen
         ((AppCompatActivity)getActivity()).getSupportActionBar().show();
         ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Home");
         home_job_listview = (ListView) rootView.findViewById(R.id.home_job_listview);
+        homeBlank = (TextView) rootView.findViewById(R.id.home_job_blank);
         View footer = getActivity().getLayoutInflater().inflate(R.layout.progress_bar_footer, null);
         progressBar = (ProgressBar) footer.findViewById(R.id.progressBar);
         home_job_listview.addFooterView(footer);
@@ -97,6 +100,7 @@ public class HomeFragment extends Fragment implements AbsListView.OnScrollListen
                                     }
                                     jobListViewAdapterLoadInfinite = new JobListViewAdapterLoadInfinite(getActivity().getApplicationContext(), jobListViewItems, 10, 10);
                                     home_job_listview.setAdapter(jobListViewAdapterLoadInfinite);
+                                    homeBlank.setVisibility(View.GONE);
                                 } else {
                                     Toast.makeText(getActivity().getApplicationContext(), "Connection got problem!", Toast.LENGTH_SHORT).show();
                                     Utilities.displayViewApplicant(getActivity(), 404);
@@ -122,6 +126,7 @@ public class HomeFragment extends Fragment implements AbsListView.OnScrollListen
                 }
                 jobListViewAdapterLoadInfinite = new JobListViewAdapterLoadInfinite(getActivity().getApplicationContext(), jobListViewItems, 10, 10);
                 home_job_listview.setAdapter(jobListViewAdapterLoadInfinite);
+                homeBlank.setVisibility(View.GONE);
             } catch (JSONException e) {
                 e.printStackTrace();
             }

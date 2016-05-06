@@ -4,8 +4,8 @@ package com.example.kyler.careersystem;
  * Created by kyler on 18/03/2016.
  */
 public class UrlStatic {
-//    public static String service="http://192.168.11.196/CareerSystemWebBased/career_system/";
-    public static String service="http://u1kkf43607cc.123456798a.koding.io/CareerSystemWebBased/career_system/";
+    public static String service="http://192.168.11.196/CareerSystemWebBased/career_system/";
+//    public static String service="http://u1kkf43607cc.123456798a.koding.io/CareerSystemWebBased/career_system/";
     public static String URLimg = service + "img/";
 //    public static String URLLoginToken = service +"api/users/token.json";
     public static String URLSignin = service + "api/users/signin.json";

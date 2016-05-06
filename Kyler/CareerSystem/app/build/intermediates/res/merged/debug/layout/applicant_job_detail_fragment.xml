@@ -235,7 +235,6 @@
                         android:textColor="@color/colorContent"
                         android:textSize="@dimen/activity_content_medium" />
                 </LinearLayout>
-
                 <TextView
                     android:id="@+id/job_detail_post_content"
                     android:layout_width="match_parent"
@@ -390,4 +389,10 @@
             android:textStyle="bold"
             android:visibility="gone" />
     </LinearLayout>
+    <TextView
+        android:visibility="gone"
+        android:background="@color/White"
+        android:id="@+id/job_detail_blank"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 </RelativeLayout>

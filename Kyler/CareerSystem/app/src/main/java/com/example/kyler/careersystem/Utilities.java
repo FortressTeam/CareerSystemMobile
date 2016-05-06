@@ -26,6 +26,7 @@ import com.example.kyler.careersystem.Applicant.MyResumeFragment;
 import com.example.kyler.careersystem.Applicant.NavigationListViewAdapter;
 import com.example.kyler.careersystem.Applicant.NavigationListViewItem;
 import com.example.kyler.careersystem.Entities.ApplicantsFollowPosts;
+import com.example.kyler.careersystem.Entities.CurriculumVitaes;
 import com.example.kyler.careersystem.Entities.Follow;
 import com.example.kyler.careersystem.HiringManager.NotificationFragment;
 import com.example.kyler.careersystem.Entities.Applicants;
@@ -33,6 +34,7 @@ import com.example.kyler.careersystem.Entities.Categories;
 import com.example.kyler.careersystem.Entities.HiringManagers;
 import com.example.kyler.careersystem.Entities.Posts;
 import com.example.kyler.careersystem.Entities.Users;
+import com.example.kyler.careersystem.WorkWithService.GetJsonArrayCallback;
 import com.example.kyler.careersystem.WorkWithService.GetJsonObjectCallback;
 import com.example.kyler.careersystem.WorkWithService.PostDataWithJsonCallback;
 
@@ -61,7 +63,7 @@ public class Utilities {
     public static HiringManagers hiringManagers=null;
     public static ArrayList<ApplicantsFollowPosts> applicantsFollowPosts = null;
     public static ArrayList<Follow> follows = null;
-    public static JSONArray jsArrayPost = null, jsArraySkillTypes = null, jsArrayHobbies = null;
+    public static JSONArray jsArrayPost = null, jsArraySkillTypes = null, jsArrayHobbies = null, jsArrayCurriculumVitaes = null;
     public static JSONObject jsApplicant = null;
 
     public static String SAVEING_FILE_LOGIN = "account";
@@ -71,6 +73,10 @@ public class Utilities {
         applicants = null;
         hiringManagers = null;
         userAndroidToken = null;
+        jsArrayPost = null;
+        jsArraySkillTypes = null;
+        jsArrayHobbies = null;
+        jsApplicant = null;
     }
 
 
@@ -552,6 +558,14 @@ public class Utilities {
             }
         };
         getJsonObjectCallback.execute(UrlStatic.URLApplicant+applicantID+".json");
+
+        GetJsonArrayCallback getJsonArrayCallback = new GetJsonArrayCallback("curriculumVitaes") {
+            @Override
+            public void receiveData(Object result) {
+                jsArrayCurriculumVitaes = (JSONArray) result;
+            }
+        };
+        getJsonArrayCallback.execute(UrlStatic.URLCurriculumVitaes+Utilities.applicants.getID());
     }
 
 }

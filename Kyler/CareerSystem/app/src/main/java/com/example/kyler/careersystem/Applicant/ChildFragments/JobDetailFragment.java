@@ -3,9 +3,11 @@ package com.example.kyler.careersystem.Applicant.ChildFragments;
 import android.app.Dialog;
 import android.app.Fragment;
 import android.app.ProgressDialog;
+import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
 import android.view.LayoutInflater;
@@ -53,13 +55,14 @@ public class JobDetailFragment extends Fragment implements ObservableScrollViewC
     private FloatingActionButton jobDetailFloatactionbutton,jobDetailFloatactionbuttonApply,jobDetailFloatactionbuttonFavorite;
     private LinearLayout jobDetailCompanyLayout;
     private TextView jobDetailFloatactionApplytv, jobDetailFloatactionFavoritetv, jobDetailStatus;
+    private TextView jobDetailBlank, alert;
 
     private JSONObject jsonSendData;
     private ArrayList<ApplicantsFollowPosts> applicantsFollowPosts = Utilities.applicantsFollowPosts;
     private Handler mHandler;
     private String url;
     private boolean fabPress = false;
-    private boolean applied = false,follow = false;
+    private boolean follow = false;
     private JSONObject jsData = null;
     private Posts post;
     private int exist = -1 ;
@@ -78,6 +81,7 @@ public class JobDetailFragment extends Fragment implements ObservableScrollViewC
         Bundle bundle = getArguments();
         url = UrlStatic.URLEditPost + bundle.getString("sendData") + ".json";
 
+        jobDetailBlank = (TextView) rootView.findViewById(R.id.job_detail_blank);
         companyLogo = (ImageView) rootView.findViewById(R.id.job_detail_company_logo);
         jobDetailCompanyLayout = (LinearLayout) rootView.findViewById(R.id.job_detail_company_layout);
         jobDetailFloatactionbutton = (FloatingActionButton) rootView.findViewById(R.id.job_detail_floatactionbutton);
@@ -95,7 +99,6 @@ public class JobDetailFragment extends Fragment implements ObservableScrollViewC
         jobDetailCompanyAddress = (TextView) rootView.findViewById(R.id.job_detail_company_address);
         jobDetailCompanySize = (TextView) rootView.findViewById(R.id.job_detail_company_size);
         jobDetailHiringManagerPhone = (TextView) rootView.findViewById(R.id.job_detail_hiringmanager_phone);
-        createMyCVDialog();
         jobDetailPostTitle = (TextView) rootView.findViewById(R.id.job_detail_post_title);
         jobDetailPostSalary = (TextView) rootView.findViewById(R.id.job_detail_post_salary);
         jobDetailPostLocation = (TextView) rootView.findViewById(R.id.job_detail_post_location);
@@ -104,6 +107,15 @@ public class JobDetailFragment extends Fragment implements ObservableScrollViewC
         jobDetailStatus = (TextView) rootView.findViewById(R.id.job_detail_status);
         scrollView.setScrollViewCallbacks(this);
         jobDetailPostContent.addOnLayoutChangeListener(this);
+        JSONArray jsCurriculumVitaes = Utilities.jsArrayCurriculumVitaes;
+        for(int i=0;i<jsCurriculumVitaes.length();i++){
+            try {
+                curriculumVitaes.add(new CurriculumVitaes(jsCurriculumVitaes.getJSONObject(i)));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        createMyCVDialog();
         mHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -141,6 +153,7 @@ public class JobDetailFragment extends Fragment implements ObservableScrollViewC
                                 jobDetailPostLocation.setText(post.getPostLocation());
                                 jobDetailPostDate.setText(post.getPostDate());
                                 jobDetailPostContent.setText(Html.fromHtml(post.getPostContent()));
+                                jobDetailBlank.setVisibility(View.GONE);
                             } else {
                                 Toast.makeText(getActivity().getApplicationContext(), "Connection got problem!", Toast.LENGTH_SHORT).show();
                                 Utilities.displayViewApplicant(getActivity(), 404);
@@ -151,21 +164,6 @@ public class JobDetailFragment extends Fragment implements ObservableScrollViewC
                     }
                 };
                 getJsonObjectCallback.execute(url,null,null);
-
-                GetJsonArrayCallback getJsonArrayCallback = new GetJsonArrayCallback("curriculumVitaes") {
-                    @Override
-                    public void receiveData(Object result) {
-                        JSONArray jsCurriculumVitaes = (JSONArray) result;
-                        for(int i=0;i<jsCurriculumVitaes.length();i++){
-                            try {
-                                curriculumVitaes.add(new CurriculumVitaes(jsCurriculumVitaes.getJSONObject(i)));
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    }
-                };
-                getJsonArrayCallback.execute(UrlStatic.URLCurriculumVitaes+Utilities.applicants.getID());
             }
         }, 200);
         return rootView;
@@ -177,8 +175,15 @@ public class JobDetailFragment extends Fragment implements ObservableScrollViewC
         myCVDialog.setTitle("My Curriculum Vitaes");
         myCVListView = (ListView) myCVDialog.findViewById(R.id.job_detail_mycvdialog_listview);
         Button cancel = (Button) myCVDialog.findViewById(R.id.job_detail_mycvdialog_cancel);
-        MyCVListViewAdapter myCVListViewAdapter = new MyCVListViewAdapter(getActivity(),curriculumVitaes);
-        myCVListView.setAdapter(myCVListViewAdapter);
+        alert = (TextView) myCVDialog.findViewById(R.id.job_detail_mycvdialog_alert);
+        if(curriculumVitaes.size()!=0) {
+            alert.setVisibility(View.GONE);
+            MyCVListViewAdapter myCVListViewAdapter = new MyCVListViewAdapter(getActivity(), curriculumVitaes);
+            myCVListView.setAdapter(myCVListViewAdapter);
+        }else{
+            alert.setVisibility(View.VISIBLE);
+            myCVListView.setVisibility(View.GONE);
+        }
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -202,9 +207,7 @@ public class JobDetailFragment extends Fragment implements ObservableScrollViewC
                         JSONObject jsResult = (JSONObject) result;
                         if (Utilities.isCreateUpdateSuccess(jsResult)) {
                             Toast.makeText(getActivity().getApplicationContext(), "Apply success!", Toast.LENGTH_SHORT).show();
-                            applied = true;
-                            jobDetailFloatactionbuttonApply.hide();
-                            jobDetailFloatactionApplytv.setVisibility(View.INVISIBLE);
+                            changeAppliedButtonStatus(R.color.jobappliedpending, "Pending ...");
                             myCVDialog.dismiss();
                         } else {
                             Toast.makeText(getActivity(), "something went wrong!", Toast.LENGTH_SHORT).show();
@@ -214,6 +217,39 @@ public class JobDetailFragment extends Fragment implements ObservableScrollViewC
                 postDataWithJsonCallback.execute(UrlStatic.URLPostsHasCurriculumVitaes);
             }
         });
+        alert.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                GetJsonArrayCallback getJsonArrayCallback = new GetJsonArrayCallback(getActivity(),"curriculumVitaes") {
+                    @Override
+                    public void receiveData(Object result) {
+                        JSONArray jsCurriculumVitaes = (JSONArray) result;
+                        for(int i=0;i<jsCurriculumVitaes.length();i++){
+                            try {
+                                curriculumVitaes.add(new CurriculumVitaes(jsCurriculumVitaes.getJSONObject(i)));
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                        if(curriculumVitaes.size()!=0){
+                            Utilities.jsArrayCurriculumVitaes = jsCurriculumVitaes;
+                            alert.setVisibility(View.GONE);
+                            MyCVListViewAdapter myCVListViewAdapter = new MyCVListViewAdapter(getActivity(), curriculumVitaes);
+                            myCVListView.setAdapter(myCVListViewAdapter);
+                            myCVListView.setVisibility(View.VISIBLE);
+                        }
+                    }
+                };
+                getJsonArrayCallback.execute(UrlStatic.URLCurriculumVitaes+Utilities.applicants.getID());
+
+            }
+        });
+    }
+
+    private void changeAppliedButtonStatus(int color,String text){
+        jobDetailFloatactionbuttonApply.setEnabled(false);
+        jobDetailFloatactionbuttonApply.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(getActivity().getApplicationContext(), color)));
+        jobDetailFloatactionApplytv.setText(text);
     }
 
     @Override
@@ -306,18 +342,14 @@ public class JobDetailFragment extends Fragment implements ObservableScrollViewC
             jobDetailFloatactionbutton.setImageResource(R.drawable.closeicon);
             jobDetailFloatactionbuttonFavorite.show();
             jobDetailFloatactionFavoritetv.setVisibility(View.VISIBLE);
-            if(!applied){
-                jobDetailFloatactionbuttonApply.show();
-                jobDetailFloatactionApplytv.setVisibility(View.VISIBLE);
-            }
+            jobDetailFloatactionbuttonApply.show();
+            jobDetailFloatactionApplytv.setVisibility(View.VISIBLE);
         }else{
             jobDetailFloatactionbutton.setImageResource(R.drawable.fabadd);
             jobDetailFloatactionbuttonFavorite.setVisibility(View.GONE);
             jobDetailFloatactionFavoritetv.setVisibility(View.INVISIBLE);
-            if(!applied){
-                jobDetailFloatactionbuttonApply.setVisibility(View.GONE);
-                jobDetailFloatactionApplytv.setVisibility(View.GONE);
-            }
+            jobDetailFloatactionbuttonApply.setVisibility(View.GONE);
+            jobDetailFloatactionApplytv.setVisibility(View.GONE);
         }
     }
 }

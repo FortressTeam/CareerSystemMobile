@@ -72,23 +72,6 @@ public class ManagePost extends Fragment implements AbsListView.OnScrollListener
         progressBar = (ProgressBar) footer.findViewById(R.id.progressBar);
         managepost_listview.addFooterView(footer);
         managepost_listview.setOnScrollListener(this);
-        mHandler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                GetJsonArrayCallback getJsonArrayCallback = new GetJsonArrayCallback(getActivity(),"posts") {
-                    @Override
-                    public void receiveData(Object result) {
-                        jsPosts = (JSONArray) result;
-                        posts = postController.getPosts(jsPosts);
-                        managePostAdapter = new ManagePostAdapter(getActivity().getApplicationContext(), posts,20,10);
-                        managepost_listview.setAdapter(managePostAdapter);
-                    }
-                };
-                getJsonArrayCallback.execute(UrlStatic.URLManagePost +hiringmanagerID+"&page="+page+"&sort=post_date&direction=desc");
-            }
-        }, 300);
-
-
         SwipeMenuCreator creator = new SwipeMenuCreator() {
             @Override
             public void create(SwipeMenu menu) {
@@ -125,13 +108,35 @@ public class ManagePost extends Fragment implements AbsListView.OnScrollListener
                 return false;
             }
         });
-
         managepost_listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Utilities.startFragWith(getActivity(),ChildHiringManagerActivity.class,"jobdetail",jsSendData(posts.get(i)).toString());
+                Utilities.startFragWith(getActivity(), ChildHiringManagerActivity.class, "jobdetail", jsSendData(posts.get(i)).toString());
             }
         });
+        if(Utilities.jsArrayPost == null) {
+            mHandler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    GetJsonArrayCallback getJsonArrayCallback = new GetJsonArrayCallback(getActivity(), "posts") {
+                        @Override
+                        public void receiveData(Object result) {
+                            jsPosts = (JSONArray) result;
+                            Utilities.jsArrayPost = jsPosts;
+                            posts = postController.getPosts(jsPosts);
+                            managePostAdapter = new ManagePostAdapter(getActivity().getApplicationContext(), posts, 20, 10);
+                            managepost_listview.setAdapter(managePostAdapter);
+                        }
+                    };
+                    getJsonArrayCallback.execute(UrlStatic.URLManagePost + hiringmanagerID + "&page=" + page + "&sort=post_date&direction=desc");
+                }
+            }, 300);
+        }else{
+            jsPosts = Utilities.jsArrayPost;
+            posts = postController.getPosts(jsPosts);
+            managePostAdapter = new ManagePostAdapter(getActivity().getApplicationContext(), posts, 20, 10);
+            managepost_listview.setAdapter(managePostAdapter);
+        }
         return rootView;
     }
 

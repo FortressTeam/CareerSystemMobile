@@ -72,6 +72,7 @@ public class MyResumeFragment extends Fragment implements View.OnClickListener,O
     private TextView myresumeSex,myresumeHometown,myresumeBirthday,myresumePhone,myresumeEmail,myresumeAddress,myresumeAbout, myresumeObjective;
     private ImageView myresumeUserImage,myresumeEditContact,myresumeEditAbout,myresumeAddEducation,myresumeAddExperience,myresumeAddActivity,myresumeAddAward,myresumeAddSkills,myresumeAddHobbies, myresumeEditObjective;
     private LinearLayout myresumeEditProfile;
+    private TextView myresumeBlank;
     private FloatingActionButton myresumeEditButton;
 
     private ArrayList<PersonalHistory> arrayEducation,arrayExperience,arrayActivity,arrayAward,personalHistories;
@@ -97,6 +98,7 @@ public class MyResumeFragment extends Fragment implements View.OnClickListener,O
         View rootView=inflater.inflate(R.layout.applicant_myresume_fragment,container,false);
         myresumeFragmentObservableScrollView = (ObservableScrollView) rootView.findViewById(R.id.myresume_fragment_observablescrollview);
         myresumeFragmentObservableScrollView.setScrollViewCallbacks(this);
+        myresumeBlank = (TextView) rootView.findViewById(R.id.myresume_blank);
 
         myresumeEditButton = (FloatingActionButton) rootView.findViewById(R.id.myresume_editbutton);
         myresumeUserImage = (ImageView) rootView.findViewById(R.id.myresume_user_image);
@@ -174,6 +176,7 @@ public class MyResumeFragment extends Fragment implements View.OnClickListener,O
                                     applicantsHasSkills = myresumeController.getApplicantsHasSkills(jsData.getJSONArray("skills"));
                                     ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(applicant.getApplicantName());
                                     loadInfo();
+                                    myresumeBlank.setVisibility(View.GONE);
                                 } else {
                                     Toast.makeText(getActivity().getApplicationContext(), "Connection got problem!", Toast.LENGTH_SHORT).show();
                                     Utilities.displayViewApplicant(getActivity(), 404);
@@ -202,6 +205,7 @@ public class MyResumeFragment extends Fragment implements View.OnClickListener,O
                 applicantsHasSkills = myresumeController.getApplicantsHasSkills(jsData.getJSONArray("skills"));
                 ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(applicant.getApplicantName());
                 loadInfo();
+                myresumeBlank.setVisibility(View.GONE);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
