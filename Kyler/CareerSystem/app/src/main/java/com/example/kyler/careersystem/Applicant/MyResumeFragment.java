@@ -99,6 +99,7 @@ public class MyResumeFragment extends Fragment implements View.OnClickListener,O
         myresumeFragmentObservableScrollView = (ObservableScrollView) rootView.findViewById(R.id.myresume_fragment_observablescrollview);
         myresumeFragmentObservableScrollView.setScrollViewCallbacks(this);
         myresumeBlank = (TextView) rootView.findViewById(R.id.myresume_blank);
+        myresumeBlank.setVisibility(View.VISIBLE);
 
         myresumeEditButton = (FloatingActionButton) rootView.findViewById(R.id.myresume_editbutton);
         myresumeUserImage = (ImageView) rootView.findViewById(R.id.myresume_user_image);
@@ -133,7 +134,7 @@ public class MyResumeFragment extends Fragment implements View.OnClickListener,O
         myresume_listview_award = (NonScrollListView) rootView.findViewById(R.id.myresume_listview_award);
         myresume_listview_skill = (NonScrollListView) rootView.findViewById(R.id.myresume_listview_skill);
         myresume_listview_hobbie = (NonScrollListView) rootView.findViewById(R.id.myresume_listview_hobbie);
-        if(Utilities.jsApplicant == null && Utilities.jsArraySkillTypes == null && Utilities.jsArrayHobbies == null){
+        if(Utilities.jsApplicant == null || Utilities.jsArraySkillTypes == null || Utilities.jsArrayHobbies == null){
             mHandler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
@@ -798,6 +799,7 @@ public class MyResumeFragment extends Fragment implements View.OnClickListener,O
                     public void receiveData(Object result) {
                         JSONObject jsResult = (JSONObject) result;
                         if(Utilities.isCreateUpdateSuccess(jsResult)){
+                            Utilities.jsApplicant = null;
                             addSkillDialog.dismiss();
                             skillListViewItems.add(skillListViewItem);
                             skillListViewAdapter = new SkillListViewAdapter(getActivity(),skillListViewItems,false,hideButton);
@@ -843,6 +845,7 @@ public class MyResumeFragment extends Fragment implements View.OnClickListener,O
                     public void receiveData(Object result) {
                         JSONObject jsResult = (JSONObject) result;
                         if (Utilities.isCreateUpdateSuccess(jsResult)) {
+                            Utilities.jsApplicant = null;
                             addHobbieDialog.dismiss();
                             hobbieListViewItems.add(hobbieListViewItem);
                             hobbieListViewAdapter = new HobbieListViewAdapter(getActivity(), hobbieListViewItems, false, hideButton);

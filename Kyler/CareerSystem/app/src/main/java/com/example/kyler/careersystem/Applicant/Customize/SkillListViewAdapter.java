@@ -92,6 +92,7 @@ public class SkillListViewAdapter extends BaseAdapter {
                                     public void receiveData(Object result) {
                                         JSONObject jsResult = (JSONObject) result;
                                         if(Utilities.isDeleteSuccess(jsResult)){
+                                            Utilities.jsApplicant = null;
                                             skillListViewItemItems.remove(listViewID);
                                             notifyDataSetChanged();
                                             Toast.makeText(context.getApplicationContext(),"Delete success",Toast.LENGTH_SHORT).show();

@@ -55,6 +55,7 @@ public class MyresumeContactFragment extends Fragment {
                         public void receiveData(Object result) {
                             JSONObject jsresult = (JSONObject) result;
                             if (Utilities.isCreateUpdateSuccess(jsresult)) {
+                                Utilities.jsApplicant = null;
                                 Toast.makeText(getActivity().getApplicationContext(), "Success", Toast.LENGTH_SHORT).show();
                                 Utilities.startActivity(getActivity(), ApplicantMainActivity.class, 2);
                             }

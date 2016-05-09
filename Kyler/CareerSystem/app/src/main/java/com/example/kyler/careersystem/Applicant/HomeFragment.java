@@ -63,6 +63,7 @@ public class HomeFragment extends Fragment implements AbsListView.OnScrollListen
         ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Home");
         home_job_listview = (ListView) rootView.findViewById(R.id.home_job_listview);
         homeBlank = (TextView) rootView.findViewById(R.id.home_job_blank);
+        homeBlank.setVisibility(View.VISIBLE);
         View footer = getActivity().getLayoutInflater().inflate(R.layout.progress_bar_footer, null);
         progressBar = (ProgressBar) footer.findViewById(R.id.progressBar);
         home_job_listview.addFooterView(footer);

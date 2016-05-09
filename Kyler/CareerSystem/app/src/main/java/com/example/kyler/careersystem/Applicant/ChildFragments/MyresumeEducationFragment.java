@@ -165,6 +165,7 @@ public class MyresumeEducationFragment extends Fragment implements View.OnClickL
                 public void receiveData(Object result) {
                     JSONObject jsResult = (JSONObject) result;
                     if(Utilities.isCreateUpdateSuccess(jsResult)){
+                        Utilities.jsApplicant = null;
                         Utilities.startActivity(getActivity(), ApplicantMainActivity.class, 2);
                         Toast.makeText(getActivity().getApplicationContext(), "success", Toast.LENGTH_SHORT).show();
                     }else{
@@ -191,6 +192,7 @@ public class MyresumeEducationFragment extends Fragment implements View.OnClickL
                 public void receiveData(Object result) {
                     JSONObject jsResult = (JSONObject) result;
                     if(Utilities.isCreateUpdateSuccess(jsResult)){
+                        Utilities.jsApplicant = null;
                         Utilities.startActivity(getActivity(), ApplicantMainActivity.class, 2);
                         Toast.makeText(getActivity().getApplicationContext(),"success",Toast.LENGTH_SHORT).show();
                     }else{
@@ -215,6 +217,7 @@ public class MyresumeEducationFragment extends Fragment implements View.OnClickL
                             public void receiveData(Object result) {
                                 JSONObject jsDelete = (JSONObject) result;
                                 if(Utilities.isDeleteSuccess(jsDelete)){
+                                    Utilities.jsApplicant = null;
                                     Utilities.startActivity(getActivity(), ApplicantMainActivity.class, 2);
                                     Toast.makeText(getActivity().getApplicationContext(),"Deleted success",Toast.LENGTH_SHORT).show();
                                 }else{

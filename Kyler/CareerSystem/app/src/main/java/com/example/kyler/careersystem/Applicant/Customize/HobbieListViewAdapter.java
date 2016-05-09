@@ -85,6 +85,7 @@ public class HobbieListViewAdapter extends BaseAdapter {
                                     public void receiveData(Object result) {
                                         JSONObject jsResult = (JSONObject) result;
                                         if(Utilities.isDeleteSuccess(jsResult)){
+                                            Utilities.jsApplicant = null;
                                             hobbieListViewItems.remove(listViewID);
                                             notifyDataSetChanged();
                                             Toast.makeText(context.getApplicationContext(), "Delete success", Toast.LENGTH_SHORT).show();

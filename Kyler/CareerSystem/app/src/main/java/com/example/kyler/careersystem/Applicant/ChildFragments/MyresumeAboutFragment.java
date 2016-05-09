@@ -50,6 +50,7 @@ public class MyresumeAboutFragment extends Fragment {
                         public void receiveData(Object result) {
                             JSONObject jsresult = (JSONObject) result;
                             if(Utilities.isCreateUpdateSuccess(jsresult)){
+                                Utilities.jsApplicant = null;
                                 Utilities.startActivity(getActivity(), ApplicantMainActivity.class, 2);
                                 Toast.makeText(getActivity().getApplicationContext(),"success",Toast.LENGTH_SHORT).show();
                             }

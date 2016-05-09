@@ -27,6 +27,7 @@ import com.example.kyler.careersystem.Entities.ApplicantsFollowPosts;
 import com.example.kyler.careersystem.Entities.CurriculumVitaes;
 import com.example.kyler.careersystem.Entities.HiringManagers;
 import com.example.kyler.careersystem.Entities.Posts;
+import com.example.kyler.careersystem.Entities.PostsHasCurriculumVitaes;
 import com.example.kyler.careersystem.R;
 import com.example.kyler.careersystem.UrlStatic;
 import com.example.kyler.careersystem.Utilities;
@@ -60,15 +61,16 @@ public class JobDetailFragment extends Fragment implements ObservableScrollViewC
     private JSONObject jsonSendData;
     private ArrayList<ApplicantsFollowPosts> applicantsFollowPosts = Utilities.applicantsFollowPosts;
     private Handler mHandler;
-    private String url;
     private boolean fabPress = false;
     private boolean follow = false;
     private JSONObject jsData = null;
     private Posts post;
+    private int postID;
     private int exist = -1 ;
     private ArrayList<CurriculumVitaes> curriculumVitaes = new ArrayList<>();
     private Dialog myCVDialog;
     private ListView myCVListView;
+    private ArrayList<PostsHasCurriculumVitaes> postsHasCurriculumVitaes = new ArrayList<>();
 
     public JobDetailFragment() {
     }
@@ -79,9 +81,10 @@ public class JobDetailFragment extends Fragment implements ObservableScrollViewC
         View rootView = inflater.inflate(R.layout.applicant_job_detail_fragment, container, false);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Job Detail");
         Bundle bundle = getArguments();
-        url = UrlStatic.URLEditPost + bundle.getString("sendData") + ".json";
+        postID = Integer.parseInt(bundle.getString("sendData"));
 
         jobDetailBlank = (TextView) rootView.findViewById(R.id.job_detail_blank);
+        jobDetailBlank.setVisibility(View.VISIBLE);
         companyLogo = (ImageView) rootView.findViewById(R.id.job_detail_company_logo);
         jobDetailCompanyLayout = (LinearLayout) rootView.findViewById(R.id.job_detail_company_layout);
         jobDetailFloatactionbutton = (FloatingActionButton) rootView.findViewById(R.id.job_detail_floatactionbutton);
@@ -163,10 +166,53 @@ public class JobDetailFragment extends Fragment implements ObservableScrollViewC
                         }
                     }
                 };
-                getJsonObjectCallback.execute(url,null,null);
+                getJsonObjectCallback.execute(UrlStatic.URLEditPost + postID + ".json");
+                GetJsonArrayCallback getJsonArrayCallback = new GetJsonArrayCallback("postsHasCurriculumVitaes") {
+                    @Override
+                    public void receiveData(Object result) {
+                        try {
+                            JSONArray jsArrayPostHasCurriculumVitaes = (JSONArray) result;
+                            for (int i = 0; i < jsArrayPostHasCurriculumVitaes.length(); i++) {
+                                postsHasCurriculumVitaes.add(new PostsHasCurriculumVitaes(jsArrayPostHasCurriculumVitaes.getJSONObject(i)));
+                            }
+                            checkSubmitCV();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                };
+                getJsonArrayCallback.execute(UrlStatic.URLPostsHasCurriculumVitaes + "?post_id="+postID);
             }
-        }, 200);
+        }, 300);
         return rootView;
+    }
+
+    private void checkSubmitCV(){
+        boolean submitStatus = false;
+        if(postsHasCurriculumVitaes.size()>0){
+            for(int i=0;i<postsHasCurriculumVitaes.size();i++) {
+                if (submitStatus) {
+                    break;
+                }
+                for (int j = 0; j < curriculumVitaes.size(); j++) {
+                    if (postsHasCurriculumVitaes.get(i).getCurriculumVitaes() == curriculumVitaes.get(j).getID()) {
+                        switch(postsHasCurriculumVitaes.get(i).getAppliedCVStatus()){
+                            case 0:
+                                changeAppliedButtonStatus(R.color.jobappliedpending, "Pending ...");
+                                break;
+                            case 1:
+                                changeAppliedButtonStatus(R.color.jobappliedaccepted, "Accepted");
+                                break;
+                            case 2:
+                                changeAppliedButtonStatus(R.color.jobappliedreject, "Rejected");
+                                break;
+                        }
+                        submitStatus = true;
+                        break;
+                    }
+                }
+            }
+        }
     }
 
     private void createMyCVDialog(){

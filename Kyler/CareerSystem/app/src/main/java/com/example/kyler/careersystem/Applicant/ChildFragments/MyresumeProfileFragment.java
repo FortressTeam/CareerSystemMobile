@@ -85,6 +85,7 @@ public class MyresumeProfileFragment extends Fragment implements View.OnClickLis
                     JSONObject jsresult =  (JSONObject) result;
                     Utilities.applicants.setApplicantName(profileName.getText().toString());
                     if(Utilities.isCreateUpdateSuccess(jsresult)){
+                        Utilities.jsApplicant = null;
                         Toast.makeText(getActivity(), "success", Toast.LENGTH_SHORT).show();
                         Utilities.startActivity(getActivity(), ApplicantMainActivity.class, 2);
                     }else{

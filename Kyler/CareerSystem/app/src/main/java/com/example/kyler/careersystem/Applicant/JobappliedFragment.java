@@ -11,25 +11,34 @@ import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.kyler.careersystem.Applicant.Customize.JobAppliedListViewAdapterLoadInfinite;
 import com.example.kyler.careersystem.Applicant.Customize.JobAppliedListViewItem;
+import com.example.kyler.careersystem.Entities.CurriculumVitaes;
+import com.example.kyler.careersystem.Entities.Posts;
 import com.example.kyler.careersystem.R;
+import com.example.kyler.careersystem.UrlStatic;
 import com.example.kyler.careersystem.Utilities;
+import com.example.kyler.careersystem.WorkWithService.GetJsonArrayCallback;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class JobappliedFragment extends Fragment implements AbsListView.OnScrollListener,ListView.OnItemClickListener{
+public class JobappliedFragment extends Fragment implements AbsListView.OnScrollListener,ListView.OnItemClickListener,Spinner.OnItemSelectedListener{
     private JobAppliedListViewAdapterLoadInfinite jobAppliedListViewAdapterLoadInfinite;
     private ArrayList<JobAppliedListViewItem> jobAppliedListViewItems;
+    private Spinner jobAppliedCVSpinner;
 
     private ListView jobappliedListView;
     private Handler mHandler;
     private ProgressBar progressBar;
+    private ArrayList<CurriculumVitaes> curriculumVitaes = new ArrayList<>();
+    private ArrayList<Posts> posts = new ArrayList<>();
 
     public JobappliedFragment(){}
 
@@ -38,6 +47,14 @@ public class JobappliedFragment extends Fragment implements AbsListView.OnScroll
         View rootView = inflater.inflate(R.layout.applicant_jobapplied_fragment, container, false);
         ((AppCompatActivity)getActivity()).getSupportActionBar().show();
         ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Job Applied");
+        JSONArray jsArrayCurruculumVitaes = Utilities.jsArrayCurriculumVitaes;
+        for(int i=0;i<jsArrayCurruculumVitaes.length();i++){
+            try {
+                curriculumVitaes.add(new CurriculumVitaes(jsArrayCurruculumVitaes.getJSONObject(i)));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
         mHandler = new Handler();
         JSONObject jsJob1=null,jsJob2=null,jsJob3=null;
         try {
@@ -72,6 +89,7 @@ public class JobappliedFragment extends Fragment implements AbsListView.OnScroll
             e.printStackTrace();
         }
         jobappliedListView = (ListView) rootView.findViewById(R.id.jobapplied_listview);
+        jobAppliedCVSpinner = (Spinner) rootView.findViewById(R.id.find_job_city_spinner);
         View footer = getActivity().getLayoutInflater().inflate(R.layout.progress_bar_footer, null);
         progressBar = (ProgressBar) footer.findViewById(R.id.progressBar);
         jobappliedListView.addFooterView(footer);
@@ -89,6 +107,7 @@ public class JobappliedFragment extends Fragment implements AbsListView.OnScroll
         progressBar.setVisibility((8 < jobAppliedListViewItems.size()) ? View.VISIBLE : View.GONE);
         jobappliedListView.setOnScrollListener(this);
         jobappliedListView.setOnItemClickListener(this);
+        jobAppliedCVSpinner.setOnItemSelectedListener(this);
         return rootView;
     }
 
@@ -121,4 +140,27 @@ public class JobappliedFragment extends Fragment implements AbsListView.OnScroll
             progressBar.setVisibility(noMoreToShow? View.GONE : View.VISIBLE);
         }
     };
+
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+        GetJsonArrayCallback getJsonArrayCallback = new GetJsonArrayCallback(getActivity(),"postsHasCurriculumVitaes") {
+            @Override
+            public void receiveData(Object result) {
+                try {
+                    JSONArray jsArrayPostsHasCurriculumVitaes = (JSONArray) result;
+                    for (int i = 0; i < jsArrayPostsHasCurriculumVitaes.length(); i++) {
+                        posts.add(new Posts(jsArrayPostsHasCurriculumVitaes.getJSONObject(i).getJSONObject("post")));
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+        getJsonArrayCallback.execute(UrlStatic.URLPostsHasCurriculumVitaes+"?curriculum_vitae_id="+curriculumVitaes.get(i).getID());
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
+    }
 }
