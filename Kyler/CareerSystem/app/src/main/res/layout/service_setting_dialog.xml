@@ -19,6 +19,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
         <RadioButton
+        android:checked="true"
+        android:id="@+id/service_setting_cloud9"
+        android:text="koding"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+        <RadioButton
             android:id="@+id/service_setting_custom"
             android:text="custom"
             android:layout_width="match_parent"

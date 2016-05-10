@@ -2,6 +2,7 @@ package com.example.kyler.careersystem.Applicant.Customize;
 
 import android.app.Activity;
 import android.content.Context;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -63,7 +64,7 @@ public class JobListViewAdapterLoadInfinite extends ArrayAdapter<JobListViewItem
         job_listviewitem_salary.setText(jobListViewItems.get(i).getSalary());
         job_listviewitem_company.setText(jobListViewItems.get(i).getCompany());
         job_listviewitem_major.setText(jobListViewItems.get(i).getMajor());
-        job_listviewitem_description.setText(jobListViewItems.get(i).getDescription());
+        job_listviewitem_description.setText(Html.fromHtml(jobListViewItems.get(i).getDescription()));
         ViewHolder holder = new ViewHolder();
         holder.header = job_listviewitem_holderview;
         view.setTag(holder);

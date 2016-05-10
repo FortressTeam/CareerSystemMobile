@@ -19,14 +19,13 @@ import android.widget.Toast;
 
 import com.example.kyler.careersystem.Applicant.Customize.JobAppliedListViewItem;
 import com.example.kyler.careersystem.Applicant.Customize.JobListViewItem;
-import com.example.kyler.careersystem.Applicant.FindFragment;
+import com.example.kyler.careersystem.Applicant.SearchFragment;
 import com.example.kyler.careersystem.Applicant.HomeFragment;
 import com.example.kyler.careersystem.Applicant.JobappliedFragment;
 import com.example.kyler.careersystem.Applicant.MyResumeFragment;
 import com.example.kyler.careersystem.Applicant.NavigationListViewAdapter;
 import com.example.kyler.careersystem.Applicant.NavigationListViewItem;
 import com.example.kyler.careersystem.Entities.ApplicantsFollowPosts;
-import com.example.kyler.careersystem.Entities.CurriculumVitaes;
 import com.example.kyler.careersystem.Entities.Follow;
 import com.example.kyler.careersystem.HiringManager.NotificationFragment;
 import com.example.kyler.careersystem.Entities.Applicants;
@@ -63,7 +62,7 @@ public class Utilities {
     public static HiringManagers hiringManagers=null;
     public static ArrayList<ApplicantsFollowPosts> applicantsFollowPosts = null;
     public static ArrayList<Follow> follows = null;
-    public static JSONArray jsArrayPost = null, jsArraySkillTypes = null, jsArrayHobbies = null, jsArrayCurriculumVitaes = null;
+    public static JSONArray jsArrayPost = null, jsArraySkillTypes = null, jsArrayHobbies = null, jsArrayCurriculumVitaes = null, jsArrayCategories = null;
     public static JSONObject jsApplicant = null;
 
     public static String SAVEING_FILE_LOGIN = "account";
@@ -133,7 +132,7 @@ public class Utilities {
                 fragment = new MyResumeFragment();
                 break;
             case 3://find
-                fragment = new FindFragment();
+                fragment = new SearchFragment();
                 break;
             case 4://favorite
 
@@ -531,7 +530,7 @@ public class Utilities {
         postDataWithoutDialog.execute(UrlStatic.URLUpdateToken+ID+".json");
     }
 
-    public static void getDataBackground(int applicantID){
+    public static void getDataApplicantBackground(int applicantID){
         GetJsonObjectCallback getJsonObjectCallback = new GetJsonObjectCallback("applicant") {
             @Override
             public void receiveData(Object result) {
@@ -559,13 +558,21 @@ public class Utilities {
         };
         getJsonObjectCallback.execute(UrlStatic.URLApplicant+applicantID+".json");
 
-        GetJsonArrayCallback getJsonArrayCallback = new GetJsonArrayCallback("curriculumVitaes") {
+        GetJsonArrayCallback getJsonArrayCVs = new GetJsonArrayCallback("curriculumVitaes") {
             @Override
             public void receiveData(Object result) {
                 jsArrayCurriculumVitaes = (JSONArray) result;
             }
         };
-        getJsonArrayCallback.execute(UrlStatic.URLCurriculumVitaes+Utilities.applicants.getID());
+        getJsonArrayCVs.execute(UrlStatic.URLCurriculumVitaes + Utilities.applicants.getID());
+
+        GetJsonArrayCallback getJsonArrayCategories = new GetJsonArrayCallback("categories") {
+            @Override
+            public void receiveData(Object result) {
+                jsArrayCategories = (JSONArray) result;
+            }
+        };
+        getJsonArrayCategories.execute(UrlStatic.URLCategories);
     }
 
 }

@@ -331,6 +331,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginRight="@dimen/padding_card"
+            android:layout_marginLeft="@dimen/margin_card"
             android:gravity="center"
             android:orientation="vertical">
 
@@ -362,6 +363,7 @@
             android:id="@+id/job_detail_floatactionbutton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_card"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
             android:layout_marginBottom="@dimen/margin_card"

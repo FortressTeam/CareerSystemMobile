@@ -18,7 +18,7 @@ import java.util.ArrayList;
  * Created by kyler on 22/03/2016.
  */
 public class PostController {
-    public JobListViewItem getJobListView(Posts post, HiringManagers hiringManager, Categories category){
+    public JobListViewItem getJobListViewItem(Posts post, HiringManagers hiringManager, Categories category){
         JobListViewItem jobListViewItem=null;
         String title=post.getPostTitle();
         String titleTime= Utilities.getDays(post.getPostDate());
@@ -31,7 +31,7 @@ public class PostController {
         }
         String company=hiringManager.getCompanyName();
         String major=category.getCategoryName();
-        String description=hiringManager.getCompanyAbout();
+        String description=post.getPostContent();
         jobListViewItem = new JobListViewItem(title,titleTime,image,salary,company,major,description);
         return jobListViewItem;
     }

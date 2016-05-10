@@ -137,13 +137,14 @@ public class ApplicantFragment extends Fragment implements View.OnClickListener,
 
     private Dialog dialogSetting;
     private EditText serviceSettingEdit;
-    private RadioButton rbKoding,rbEnclave,rbCustom;
+    private RadioButton rbKoding,rbEnclave,rbCloud9,rbCustom;
     private void createDialogSetting(){
         dialogSetting = new Dialog(getActivity());
         dialogSetting.setContentView(R.layout.service_setting_dialog);
         dialogSetting.setTitle("Choose your service");
         rbKoding = (RadioButton) dialogSetting.findViewById(R.id.service_setting_koding);
         rbEnclave = (RadioButton) dialogSetting.findViewById(R.id.service_setting_enclave);
+        rbCloud9 = (RadioButton) dialogSetting.findViewById(R.id.service_setting_cloud9);
         rbCustom = (RadioButton) dialogSetting.findViewById(R.id.service_setting_custom);
         serviceSettingEdit = (EditText) dialogSetting.findViewById(R.id.service_setting_custom_edit);
         rbCustom.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -164,6 +165,8 @@ public class ApplicantFragment extends Fragment implements View.OnClickListener,
                     UrlStatic.service = "http://u1kkf43607cc.123456798a.koding.io/CareerSystemWebBased/career_system/";
                 }else if(rbEnclave.isChecked()){
                     UrlStatic.service = "http://192.168.11.196/CareerSystemWebBased/career_system/";
+                }else if(rbCloud9.isChecked()){
+                    UrlStatic.service = "http://career-system-viennt.c9users.io/career_system/";
                 }else{
                     UrlStatic.service = serviceSettingEdit.getText().toString();
                 }

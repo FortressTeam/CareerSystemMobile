@@ -296,6 +296,8 @@ public class JobDetailFragment extends Fragment implements ObservableScrollViewC
         jobDetailFloatactionbuttonApply.setEnabled(false);
         jobDetailFloatactionbuttonApply.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(getActivity().getApplicationContext(), color)));
         jobDetailFloatactionApplytv.setText(text);
+        jobDetailFloatactionApplytv.setTextColor(ColorStateList.valueOf(ContextCompat.getColor(getActivity().getApplicationContext(), color)));
+        jobDetailFloatactionbutton.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(getActivity().getApplicationContext(), color)));
     }
 
     @Override

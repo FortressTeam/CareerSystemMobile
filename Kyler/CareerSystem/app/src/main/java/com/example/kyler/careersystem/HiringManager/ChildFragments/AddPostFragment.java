@@ -44,7 +44,6 @@ public class AddPostFragment extends Fragment implements View.OnClickListener,Sp
     private Spinner addPostCategory;
     private ObservableScrollView observableScrollView;
 
-    private int page=1;
     private int categoryID,categoryDefaultID,hiringManagerID=Utilities.hiringManagers.getID();
     private Posts postEdit;
     private boolean editMode=false;
@@ -88,7 +87,6 @@ public class AddPostFragment extends Fragment implements View.OnClickListener,Sp
                         }
                         arr.add("Category");
                         categoryDefaultID = arr.size() - 1;
-                        page++;
                         ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity().getApplicationContext(),R.layout.spinner_item,arr);
                         addPostCategory.setAdapter(adapter);
                         addPostCategory.setSelection(categoryDefaultID);
@@ -121,7 +119,7 @@ public class AddPostFragment extends Fragment implements View.OnClickListener,Sp
                 }
             }
         };
-        getJsonArrayCallback.execute(UrlStatic.URLCategories + page);
+        getJsonArrayCallback.execute(UrlStatic.URLCategories);
         addPostCategory.setOnItemSelectedListener(this);
         addPostAdd.setOnClickListener(this);
         observableScrollView.setScrollViewCallbacks(this);

@@ -90,7 +90,7 @@ public class LoginData extends AppCompatActivity implements View.OnClickListener
                     e.printStackTrace();
                 }
                 Utilities.applicants = applicants;
-                Utilities.getDataBackground(applicants.getID());
+                Utilities.getDataApplicantBackground(applicants.getID());
                 startActivity(new Intent(this, ApplicantMainActivity.class));
                 finish();
                 break;

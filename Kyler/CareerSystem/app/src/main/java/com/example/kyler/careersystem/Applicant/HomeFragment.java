@@ -97,7 +97,7 @@ public class HomeFragment extends Fragment implements AbsListView.OnScrollListen
                                         arrPost.add(post);
                                         HiringManagers hiringManager = new HiringManagers(jsonObject.getJSONObject("hiring_manager"));
                                         Categories category = new Categories(jsonObject.getJSONObject("category"));
-                                        jobListViewItems.add(postController.getJobListView(post, hiringManager, category));
+                                        jobListViewItems.add(postController.getJobListViewItem(post, hiringManager, category));
                                     }
                                     jobListViewAdapterLoadInfinite = new JobListViewAdapterLoadInfinite(getActivity().getApplicationContext(), jobListViewItems, 10, 10);
                                     home_job_listview.setAdapter(jobListViewAdapterLoadInfinite);
@@ -123,7 +123,7 @@ public class HomeFragment extends Fragment implements AbsListView.OnScrollListen
                     arrPost.add(post);
                     HiringManagers hiringManager = new HiringManagers(jsonObject.getJSONObject("hiring_manager"));
                     Categories category = new Categories(jsonObject.getJSONObject("category"));
-                    jobListViewItems.add(postController.getJobListView(post, hiringManager, category));
+                    jobListViewItems.add(postController.getJobListViewItem(post, hiringManager, category));
                 }
                 jobListViewAdapterLoadInfinite = new JobListViewAdapterLoadInfinite(getActivity().getApplicationContext(), jobListViewItems, 10, 10);
                 home_job_listview.setAdapter(jobListViewAdapterLoadInfinite);
@@ -192,7 +192,7 @@ public class HomeFragment extends Fragment implements AbsListView.OnScrollListen
                                         arrPost.add(post);
                                         HiringManagers hiringManager = new HiringManagers(new JSONObject(jsonObject.getString("hiring_manager")));
                                         Categories category = new Categories(new JSONObject(jsonObject.getString("category")));
-                                        jobListViewItems.add(postController.getJobListView(post, hiringManager, category));
+                                        jobListViewItems.add(postController.getJobListViewItem(post, hiringManager, category));
                                         jobListViewAdapterLoadInfinite.setJobListViewItems(jobListViewItems);
                                         jobListViewAdapterLoadInfinite.notifyDataSetChanged();
                                     }
