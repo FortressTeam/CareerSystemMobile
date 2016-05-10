@@ -81,6 +81,7 @@ public class Utilities {
 
     public static void hideSoftKeyboard(final Activity activity, View view) {
 
+        activity.getCurrentFocus().clearFocus();
         //Set up touch listener for non-text box views to hide keyboard.
         if(!(view instanceof EditText)) {
 

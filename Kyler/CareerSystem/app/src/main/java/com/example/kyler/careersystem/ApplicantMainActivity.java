@@ -2,6 +2,9 @@ package com.example.kyler.careersystem;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
+import android.support.v7.widget.SearchView;
+import android.app.SearchManager;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
@@ -24,9 +27,10 @@ import com.example.kyler.careersystem.Entities.Applicants;
 import com.example.kyler.careersystem.Entities.Users;
 import com.squareup.picasso.Picasso;
 
-public class ApplicantMainActivity extends AppCompatActivity implements ListView.OnItemClickListener,View.OnClickListener{
+public class ApplicantMainActivity extends AppCompatActivity implements ListView.OnItemClickListener,View.OnClickListener,SearchView.OnQueryTextListener{
     ListView navigationViewMenu;
     private Handler mhHandler;
+    private SearchView searchView;
     private Users users = Utilities.users;
     private Applicants applicants = Utilities.applicants;
 
@@ -85,6 +89,10 @@ public class ApplicantMainActivity extends AppCompatActivity implements ListView
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
+        MenuItem itemSearch = menu.findItem(R.id.menu_search);
+        searchView = (SearchView) itemSearch.getActionView();
+        //set OnQueryTextListener cho search view để thực hiện search theo text
+        searchView.setOnQueryTextListener(this);
         return true;
     }
 
@@ -145,5 +153,17 @@ public class ApplicantMainActivity extends AppCompatActivity implements ListView
                 }
             }
         }).show();
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        Utilities.hideSoftKeyboard(this,findViewById(R.id.applicant_main_layout));
+        Utilities.displayViewApplicant(this,3);
+        return true;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        return true;
     }
 }
