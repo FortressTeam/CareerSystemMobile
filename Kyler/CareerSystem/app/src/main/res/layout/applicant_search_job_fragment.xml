@@ -2,33 +2,47 @@
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="fill_parent"
+    android:background="@color/White"
     android:orientation="vertical"
     android:padding="@dimen/margin_layout"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <android.support.design.widget.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/padding_card"
-        android:theme="@style/EditTextLoginApplicant">
-
-        <EditText
-            android:hint="I'm looking for "
-            android:id="@+id/applicant_search_job_edittext"
-            android:textSize="@dimen/activity_title_medium"
-            android:singleLine="true"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </android.support.design.widget.TextInputLayout>
-
     <LinearLayout
+        android:padding="@dimen/margin_layout"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:weightSum="1"
+        android:layout_height="wrap_content">
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="wrap_content"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:theme="@style/EditTextLoginApplicant">
+        <EditText
+            android:hint="I'm looking for"
+            android:id="@+id/applicant_search_job_edittext"
+            android:singleLine="true"
+            android:textSize="@dimen/activity_title_medium"
+            android:textColor="@color/Black"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        </android.support.design.widget.TextInputLayout>
+        <ImageView
+            android:id="@+id/applicant_search_job_filter"
+            android:layout_gravity="center"
+            android:src="@drawable/filtericon"
+            android:layout_width="30dp"
+            android:layout_height="30dp"/>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/applicant_search_job_filter_layout"
         android:orientation="vertical"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
         <TextView
-            android:layout_marginTop="@dimen/padding_card"
             android:layout_marginLeft="@dimen/padding_card"
-            android:text="WHAT"
+            android:text="What"
+            android:paddingTop="@dimen/margin_layout"
             android:textSize="@dimen/activity_title_medium"
             android:textColor="@color/Black"
             android:textStyle="bold"
@@ -61,7 +75,7 @@
         <TextView
             android:layout_marginLeft="@dimen/padding_card"
             android:layout_marginRight="@dimen/padding_card"
-            android:text="WHERE"
+            android:text="Where"
             android:textSize="@dimen/activity_title_medium"
             android:textColor="@color/Black"
             android:textStyle="bold"
@@ -90,22 +104,46 @@
                 android:layout_marginRight="@dimen/margin_layout"
                 android:src="@drawable/dropdownicon"/>
         </RelativeLayout>
-
+        <Button
+            android:id="@+id/applicant_search_job_button"
+            android:layout_marginRight="@dimen/padding_card"
+            android:layout_gravity="bottom|right"
+            android:theme="@style/MyButton"
+            android:text="@string/Search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
     </LinearLayout>
 
-
     <LinearLayout
-        android:gravity="bottom"
+        android:id="@+id/applicant_search_job_result_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <Button
-            android:layout_alignParentBottom="true"
-            android:layout_marginLeft="@dimen/padding_card"
-            android:layout_marginRight="@dimen/padding_card"
-            android:id="@+id/applicant_search_job_button"
-            android:text="@string/Search"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <LinearLayout
+            android:id="@+id/applicant_search_job_result_noresult"
+            android:padding="@dimen/padding_card"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:theme="@style/MyButton"/>
+            android:orientation="vertical"
+            android:layout_height="wrap_content">
+            <TextView
+                android:textSize="@dimen/activity_title_big"
+                android:textStyle="bold"
+                android:textColor="@color/colorContent"
+                android:text="Sorry, your search did not match with any jobs"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:paddingTop="@dimen/margin_card"
+                android:textSize="@dimen/activity_title_medium"
+                android:textColor="@color/Black"
+                android:text="Please try again with another key words."
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+        <com.github.ksoichiro.android.observablescrollview.ObservableListView
+            android:scrollbars="none"
+            android:id="@+id/applicant_search_job_result_listview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
     </LinearLayout>
 </LinearLayout>

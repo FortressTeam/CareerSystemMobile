@@ -50,8 +50,8 @@ public class SearchFragmentResult extends Fragment implements AbsListView.OnScro
     private String urlSearch;
     private boolean nomoreData=true;
     private int page=1;
-    private Button jobSearchResultTryAgain;
-    private LinearLayout jobSearchResultNoResult;
+        private Button jobSearchResultTryAgain;
+        private LinearLayout jobSearchResultNoResult;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.applicant_search_job_result_fragment, container, false);

@@ -2,6 +2,8 @@ package com.example.kyler.careersystem;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Fragment;
+import android.app.FragmentManager;
 import android.content.Context;
 import android.support.v7.widget.SearchView;
 import android.app.SearchManager;
@@ -16,6 +18,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -23,16 +26,18 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.kyler.careersystem.Applicant.ChildApplicantActivity;
+import com.example.kyler.careersystem.Applicant.SearchFragment;
 import com.example.kyler.careersystem.Entities.Applicants;
 import com.example.kyler.careersystem.Entities.Users;
 import com.squareup.picasso.Picasso;
 
-public class ApplicantMainActivity extends AppCompatActivity implements ListView.OnItemClickListener,View.OnClickListener,SearchView.OnQueryTextListener{
+public class ApplicantMainActivity extends AppCompatActivity implements ListView.OnItemClickListener,View.OnClickListener{
     ListView navigationViewMenu;
     private Handler mhHandler;
     private SearchView searchView;
     private Users users = Utilities.users;
     private Applicants applicants = Utilities.applicants;
+    private Activity activiy = this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,12 +92,34 @@ public class ApplicantMainActivity extends AppCompatActivity implements ListView
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(final Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         MenuItem itemSearch = menu.findItem(R.id.menu_search);
         searchView = (SearchView) itemSearch.getActionView();
-        //set OnQueryTextListener cho search view để thực hiện search theo text
-        searchView.setOnQueryTextListener(this);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+                drawer.closeDrawer(GravityCompat.START);
+                Utilities.hideSoftKeyboard(activiy, findViewById(R.id.applicant_main_layout));
+                Fragment fragment = new SearchFragment();
+                Bundle bundle = new Bundle();
+                bundle.putString("searchContent", searchView.getQuery().toString());
+                fragment.setArguments(bundle);
+                FragmentManager fragmentManager = activiy.getFragmentManager();
+                fragmentManager.beginTransaction().replace(R.id.frame_main,fragment).commit();
+                InputMethodManager inputMethodManager = (InputMethodManager) activiy.getSystemService(Activity.INPUT_METHOD_SERVICE);
+                inputMethodManager.hideSoftInputFromWindow(activiy.getCurrentFocus().getWindowToken(), 0);
+                searchView.clearFocus();
+                (menu.findItem(R.id.menu_search)).collapseActionView();
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
         return true;
     }
 
@@ -153,17 +180,5 @@ public class ApplicantMainActivity extends AppCompatActivity implements ListView
                 }
             }
         }).show();
-    }
-
-    @Override
-    public boolean onQueryTextSubmit(String query) {
-        Utilities.hideSoftKeyboard(this,findViewById(R.id.applicant_main_layout));
-        Utilities.displayViewApplicant(this,3);
-        return true;
-    }
-
-    @Override
-    public boolean onQueryTextChange(String newText) {
-        return true;
     }
 }

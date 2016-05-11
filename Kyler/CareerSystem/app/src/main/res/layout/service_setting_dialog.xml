@@ -21,7 +21,7 @@
         <RadioButton
         android:checked="true"
         android:id="@+id/service_setting_cloud9"
-        android:text="koding"
+        android:text="cloud9"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
         <RadioButton
