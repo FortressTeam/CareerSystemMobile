@@ -1,11 +1,10 @@
 package com.example.kyler.careersystem.Bussiness;
 
 import com.example.kyler.careersystem.Applicant.Customize.JobListViewItem;
-import com.example.kyler.careersystem.Entities.ApplicantsHasSkills;
 import com.example.kyler.careersystem.Entities.Categories;
-import com.example.kyler.careersystem.Entities.CurriculumVitaes;
 import com.example.kyler.careersystem.Entities.HiringManagers;
 import com.example.kyler.careersystem.Entities.Posts;
+import com.example.kyler.careersystem.Entities.PostsHasCurriculumVitaes;
 import com.example.kyler.careersystem.UrlStatic;
 import com.example.kyler.careersystem.Utilities;
 
@@ -31,8 +30,29 @@ public class PostController {
         }
         String company=hiringManager.getCompanyName();
         String major=category.getCategoryName();
-        String description=post.getPostContent();
-        jobListViewItem = new JobListViewItem(title,titleTime,image,salary,company,major,description);
+        String postContent=post.getPostContent();
+        String location = post.getPostLocation();
+        jobListViewItem = new JobListViewItem(title,titleTime,image,salary,company,major,postContent,location);
+        return jobListViewItem;
+    }
+
+    public JobListViewItem getJobAppliedListViewItem(Posts post, PostsHasCurriculumVitaes postsHasCurriculumVitaes, HiringManagers hiringManager, Categories category){
+        JobListViewItem jobListViewItem=null;
+        String title=post.getPostTitle();
+        String titleTime= Utilities.getDays(post.getPostDate());
+        String image= UrlStatic.URLimg+"company_img/"+hiringManager.getCompanyLogo();
+        String salary = "";
+        if(post.getPostSalary() == 0){
+            salary = "Negotiable";
+        }else{
+            salary="VND "+post.getPostSalary();
+        }
+        int status = postsHasCurriculumVitaes.getAppliedCVStatus();
+        String company=hiringManager.getCompanyName();
+        String major=category.getCategoryName();
+        String postContent=post.getPostContent();
+        String location = post.getPostLocation();
+        jobListViewItem = new JobListViewItem(title,titleTime,image,salary,company,major,postContent,location,status);
         return jobListViewItem;
     }
 

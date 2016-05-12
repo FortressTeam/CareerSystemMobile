@@ -104,7 +104,7 @@ public class FeedbackFragment extends Fragment implements View.OnClickListener,O
     private void selectFeedbackType(View view){
         unselectFeedbackType();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            view.setElevation(20);
+            view.setElevation(50);
         }
     }
 
@@ -139,7 +139,6 @@ public class FeedbackFragment extends Fragment implements View.OnClickListener,O
 
     private void postFeedback(){
         JSONObject jsonObject = new JSONObject();
-        boolean isSuccess=false;
         try {
             jsonObject.put("feedback_title",feedbackTitle.getText());
             jsonObject.put("feedback_comment",feedbackComment.getText());

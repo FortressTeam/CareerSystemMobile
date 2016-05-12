@@ -1,5 +1,6 @@
 package com.example.kyler.careersystem.Applicant;
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.os.Handler;
@@ -8,10 +9,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -49,7 +52,7 @@ public class HomeFragment extends Fragment implements AbsListView.OnScrollListen
     private PostController postController;
 
     private int page=1;
-    private boolean nomoreData=false;
+    private boolean nomoreData=false,refresh=false;
 
     public HomeFragment(){}
 
@@ -69,14 +72,19 @@ public class HomeFragment extends Fragment implements AbsListView.OnScrollListen
         home_job_listview.addFooterView(footer);
         home_job_listview.setOnScrollListener(this);
         home_job_listview.setOnItemClickListener(this);
-        progressBar.setVisibility((4 < jobListViewItems.size()) ? View.VISIBLE : View.GONE);
+//        progressBar.setVisibility((4 < jobListViewItems.size()) ? View.VISIBLE : View.GONE);
         final SwipeRefreshLayout swipeLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.home_swipe);
         swipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                Utilities.jsArrayPost=null;
-                Utilities.startActivity(getActivity(), ApplicantMainActivity.class,1);
-                getActivity().finish();
+                if(refresh) {
+                    refresh=false;
+                    Utilities.jsArrayPost = null;
+                    Utilities.startActivity(getActivity(), ApplicantMainActivity.class, 1);
+                    getActivity().finish();
+                }else{
+                    swipeLayout.setRefreshing(false);
+                }
             }
         });
         postController = new PostController();
@@ -88,20 +96,26 @@ public class HomeFragment extends Fragment implements AbsListView.OnScrollListen
                         @Override
                         public void receiveData(Object result) {
                             try {
+                                refresh=true;
                                 jsonArray = (JSONArray) result;
                                 Utilities.jsArrayPost = jsonArray;
                                 if (Utilities.checkConnect(jsonArray)) {
-                                    for (int i = 0; i < jsonArray.length(); i++) {
-                                        JSONObject jsonObject = jsonArray.getJSONObject(i);
-                                        Posts post = new Posts(jsonObject);
-                                        arrPost.add(post);
-                                        HiringManagers hiringManager = new HiringManagers(jsonObject.getJSONObject("hiring_manager"));
-                                        Categories category = new Categories(jsonObject.getJSONObject("category"));
-                                        jobListViewItems.add(postController.getJobListViewItem(post, hiringManager, category));
+                                    if(jsonArray.length() != 0) {
+                                        for (int i = 0; i < jsonArray.length(); i++) {
+                                            JSONObject jsonObject = jsonArray.getJSONObject(i);
+                                            Posts post = new Posts(jsonObject);
+                                            arrPost.add(post);
+                                            HiringManagers hiringManager = new HiringManagers(jsonObject.getJSONObject("hiring_manager"));
+                                            Categories category = new Categories(jsonObject.getJSONObject("category"));
+                                            jobListViewItems.add(postController.getJobListViewItem(post, hiringManager, category));
+                                        }
+                                        jobListViewAdapterLoadInfinite = new JobListViewAdapterLoadInfinite(getActivity().getApplicationContext(), jobListViewItems, 10, 10);
+                                        progressBar.setVisibility(View.VISIBLE);
+                                        home_job_listview.setAdapter(jobListViewAdapterLoadInfinite);
+                                        homeBlank.setVisibility(View.GONE);
+                                    }else {
+                                        nomoreData = true;
                                     }
-                                    jobListViewAdapterLoadInfinite = new JobListViewAdapterLoadInfinite(getActivity().getApplicationContext(), jobListViewItems, 10, 10);
-                                    home_job_listview.setAdapter(jobListViewAdapterLoadInfinite);
-                                    homeBlank.setVisibility(View.GONE);
                                 } else {
                                     Toast.makeText(getActivity().getApplicationContext(), "Connection got problem!", Toast.LENGTH_SHORT).show();
                                     Utilities.displayViewApplicant(getActivity(), 404);
@@ -116,6 +130,7 @@ public class HomeFragment extends Fragment implements AbsListView.OnScrollListen
             }, 300);
         }else {
             try {
+                refresh=true;
                 jsonArray = Utilities.jsArrayPost;
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
@@ -132,12 +147,15 @@ public class HomeFragment extends Fragment implements AbsListView.OnScrollListen
                 e.printStackTrace();
             }
         }
-
         return rootView;
     }
 
     @Override
     public void onScrollStateChanged(AbsListView view, int scrollState) {
+        if(scrollState == SCROLL_STATE_TOUCH_SCROLL){
+            InputMethodManager inputMethodManager = (InputMethodManager)  getActivity().getSystemService(Activity.INPUT_METHOD_SERVICE);
+            inputMethodManager.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), 0);
+        }
     }
 
     @Override

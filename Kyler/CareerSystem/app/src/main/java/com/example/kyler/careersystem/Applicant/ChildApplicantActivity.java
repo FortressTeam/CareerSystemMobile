@@ -27,7 +27,6 @@ import com.example.kyler.careersystem.Applicant.ChildFragments.MyresumeEducation
 import com.example.kyler.careersystem.Applicant.ChildFragments.MyresumeExperienceFragment;
 import com.example.kyler.careersystem.Applicant.ChildFragments.MyresumeObjectiveFragment;
 import com.example.kyler.careersystem.Applicant.ChildFragments.MyresumeProfileFragment;
-import com.example.kyler.careersystem.Applicant.ChildFragments.SearchFragmentResult;
 import com.example.kyler.careersystem.ApplicantMainActivity;
 import com.example.kyler.careersystem.Entities.Applicants;
 import com.example.kyler.careersystem.Entities.Users;
@@ -129,8 +128,8 @@ public class ChildApplicantActivity extends AppCompatActivity implements ListVie
                 fragment = new MyresumeObjectiveFragment();
                 bundle.putString("sendData",receiveData);
                 break;
-            case "searchresult":
-                fragment = new SearchFragmentResult();
+            case "search":
+                fragment = new SearchFragment();
                 bundle.putString("sendData",receiveData);
                 break;
             case "Feedback":

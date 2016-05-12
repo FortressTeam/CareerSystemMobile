@@ -2,6 +2,7 @@ package com.example.kyler.careersystem.Applicant;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -22,11 +23,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
-import android.widget.SearchView;
-import android.widget.Spinner;
-import android.widget.TextView;
-import android.widget.Toast;
-
 import com.example.kyler.careersystem.Applicant.Customize.JobListViewAdapterLoadInfinite;
 import com.example.kyler.careersystem.Applicant.Customize.JobListViewItem;
 import com.example.kyler.careersystem.Applicant.Customize.ViewHolder;
@@ -85,7 +81,7 @@ public class SearchFragment extends Fragment implements View.OnClickListener, Ab
         ((AppCompatActivity)getActivity()).getSupportActionBar().show();
         ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Search");
         Bundle bundle = getArguments();
-        String searchContent = bundle.getString("searchContent");
+        String searchContent = bundle.getString("sendData");
         urlSearch = UrlStatic.URLPosts + "?post_status=1&limit=10"+"&q="+Utilities.replaceSpecialCharacter(searchContent)+"&page=";
         JSONArray jsonArrayCategories = Utilities.jsArrayCategories;
         arrCategories.add("All");
@@ -131,6 +127,17 @@ public class SearchFragment extends Fragment implements View.OnClickListener, Ab
         searchJobFilter.setOnClickListener(this);
         search_job_listview.setOnScrollListener(this);
         search_job_listview.setOnItemClickListener(this);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            search_job_listview.setOnScrollChangeListener(new View.OnScrollChangeListener() {
+                @Override
+                public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+                    filter=false;
+                    showFilter();
+                    InputMethodManager inputMethodManager = (InputMethodManager)  getActivity().getSystemService(Activity.INPUT_METHOD_SERVICE);
+                    inputMethodManager.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), 0);
+                }
+            });
+        }
         mHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -158,9 +165,9 @@ public class SearchFragment extends Fragment implements View.OnClickListener, Ab
                             jobListViewItems.add(postController.getJobListViewItem(post, hiringManager, category));
                         }
                         jobListViewAdapterLoadInfinite = new JobListViewAdapterLoadInfinite(getActivity().getApplicationContext(), jobListViewItems, 10, 5);
+                        nomoreData = false;
                         search_job_listview.setAdapter(jobListViewAdapterLoadInfinite);
                         progressBar.setVisibility(View.VISIBLE);
-                        nomoreData = false;
                         search_job_listview.setVisibility(View.VISIBLE);
                         jobSearchResultNoResult.setVisibility(View.GONE);
                     } else {
@@ -215,8 +222,11 @@ public class SearchFragment extends Fragment implements View.OnClickListener, Ab
     }
 
     @Override
-    public void onScrollStateChanged(AbsListView absListView, int i) {
-
+    public void onScrollStateChanged(AbsListView absListView, int scrollState) {
+        if(scrollState == SCROLL_STATE_TOUCH_SCROLL){
+            InputMethodManager inputMethodManager = (InputMethodManager)  getActivity().getSystemService(Activity.INPUT_METHOD_SERVICE);
+            inputMethodManager.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), 0);
+        }
     }
 
     @Override

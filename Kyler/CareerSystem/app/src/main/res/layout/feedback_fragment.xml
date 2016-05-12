@@ -29,7 +29,7 @@
                 android:textStyle="bold"
                 android:text="We are willing to receive your feedbacks!"
                 android:textColor="@color/Black"
-                android:textSize="25dp"
+                android:textSize="@dimen/activity_title_big"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 />
@@ -43,7 +43,7 @@
                     android:id="@+id/feedback_idea"
                     android:elevation="2dp"
                     android:layout_margin="2dp"
-                    android:background="@color/White"
+                    android:background="@drawable/customborder"
                     android:gravity="center"
                     android:orientation="vertical"
                     android:layout_weight="0.25"
@@ -54,7 +54,7 @@
                         android:layout_width="70dp"
                         android:layout_height="70dp"/>
                     <TextView
-                        android:textSize="@dimen/activity_title_medium"
+                        android:textSize="@dimen/activity_title_small"
                         android:textColor="@color/Black"
                         android:text="Idea"
                         android:textStyle="bold"
@@ -65,7 +65,7 @@
                     android:id="@+id/feedback_problem"
                     android:elevation="2dp"
                     android:layout_margin="2dp"
-                    android:background="@color/White"
+                    android:background="@drawable/customborder"
                     android:gravity="center"
                     android:orientation="vertical"
                     android:layout_weight="0.25"
@@ -76,7 +76,7 @@
                         android:layout_width="70dp"
                         android:layout_height="70dp"/>
                     <TextView
-                        android:textSize="@dimen/activity_title_medium"
+                        android:textSize="@dimen/activity_title_small"
                         android:textColor="@color/Black"
                         android:text="Problem"
                         android:textStyle="bold"
@@ -87,7 +87,7 @@
                     android:id="@+id/feedback_question"
                     android:elevation="2dp"
                     android:layout_margin="2dp"
-                    android:background="@color/White"
+                    android:background="@drawable/customborder"
                     android:gravity="center"
                     android:orientation="vertical"
                     android:layout_weight="0.25"
@@ -98,7 +98,7 @@
                         android:layout_width="70dp"
                         android:layout_height="70dp"/>
                     <TextView
-                        android:textSize="@dimen/activity_title_medium"
+                        android:textSize="@dimen/activity_title_small"
                         android:textColor="@color/Black"
                         android:text="Question"
                         android:textStyle="bold"
@@ -109,7 +109,7 @@
                     android:id="@+id/feedback_praise"
                     android:elevation="2dp"
                     android:layout_margin="2dp"
-                    android:background="@color/White"
+                    android:background="@drawable/customborder"
                     android:gravity="center"
                     android:orientation="vertical"
                     android:layout_weight="0.25"
@@ -120,7 +120,7 @@
                         android:layout_width="70dp"
                         android:layout_height="70dp"/>
                     <TextView
-                        android:textSize="@dimen/activity_title_medium"
+                        android:textSize="@dimen/activity_title_small"
                         android:textColor="@color/Black"
                         android:text="Praise"
                         android:textStyle="bold"
@@ -179,13 +179,15 @@
             android:id="@+id/feedback_submit_button"
             android:layout_width="0dp"
             android:layout_weight="0.5"
-            android:layout_height="50dp"/>
+            android:layout_height="50dp"
+            android:theme="@style/MyButton"/>
         <Button
             android:textSize="@dimen/activity_title_medium"
             android:text="@string/Cancel"
             android:id="@+id/feedback_cancel_button"
             android:layout_width="0dp"
             android:layout_weight="0.5"
-            android:layout_height="50dp"/>
+            android:layout_height="50dp"
+            android:theme="@style/MyButton"/>
     </LinearLayout>
 </RelativeLayout>

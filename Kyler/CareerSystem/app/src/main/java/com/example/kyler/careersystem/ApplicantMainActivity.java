@@ -31,13 +31,12 @@ import com.example.kyler.careersystem.Entities.Applicants;
 import com.example.kyler.careersystem.Entities.Users;
 import com.squareup.picasso.Picasso;
 
-public class ApplicantMainActivity extends AppCompatActivity implements ListView.OnItemClickListener,View.OnClickListener{
+public class ApplicantMainActivity extends AppCompatActivity implements ListView.OnItemClickListener,View.OnClickListener,SearchView.OnQueryTextListener{
     ListView navigationViewMenu;
     private Handler mhHandler;
     private SearchView searchView;
     private Users users = Utilities.users;
     private Applicants applicants = Utilities.applicants;
-    private Activity activiy = this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,34 +91,19 @@ public class ApplicantMainActivity extends AppCompatActivity implements ListView
     }
 
     @Override
+    protected void onResume() {
+        if(applicants == null){
+            this.onRestart();
+        }
+        super.onResume();
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(final Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         MenuItem itemSearch = menu.findItem(R.id.menu_search);
         searchView = (SearchView) itemSearch.getActionView();
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-                drawer.closeDrawer(GravityCompat.START);
-                Utilities.hideSoftKeyboard(activiy, findViewById(R.id.applicant_main_layout));
-                Fragment fragment = new SearchFragment();
-                Bundle bundle = new Bundle();
-                bundle.putString("searchContent", searchView.getQuery().toString());
-                fragment.setArguments(bundle);
-                FragmentManager fragmentManager = activiy.getFragmentManager();
-                fragmentManager.beginTransaction().replace(R.id.frame_main,fragment).commit();
-                InputMethodManager inputMethodManager = (InputMethodManager) activiy.getSystemService(Activity.INPUT_METHOD_SERVICE);
-                inputMethodManager.hideSoftInputFromWindow(activiy.getCurrentFocus().getWindowToken(), 0);
-                searchView.clearFocus();
-                (menu.findItem(R.id.menu_search)).collapseActionView();
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                return false;
-            }
-        });
+        searchView.setOnQueryTextListener(this);
         return true;
     }
 
@@ -127,6 +111,8 @@ public class ApplicantMainActivity extends AppCompatActivity implements ListView
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.menu_search) {
+            DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+            drawer.closeDrawer(GravityCompat.START);
             return true;
         }
 
@@ -144,7 +130,7 @@ public class ApplicantMainActivity extends AppCompatActivity implements ListView
             public void run() {
                 Utilities.displayViewApplicant(activity, id);
             }
-        },300);
+        }, 300);
     }
 
     @Override
@@ -180,5 +166,24 @@ public class ApplicantMainActivity extends AppCompatActivity implements ListView
                 }
             }
         }).show();
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        Utilities.hideSoftKeyboard(this, findViewById(R.id.applicant_main_layout));
+        Utilities.startFragWith(this,ChildApplicantActivity.class,"search",searchView.getQuery().toString());
+        searchView.setQuery("", false);
+        searchView.clearFocus();
+        searchView.onActionViewCollapsed();
+        InputMethodManager inputMethodManager = (InputMethodManager) this.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(this.getCurrentFocus().getWindowToken(), 0);
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        return false;
     }
 }

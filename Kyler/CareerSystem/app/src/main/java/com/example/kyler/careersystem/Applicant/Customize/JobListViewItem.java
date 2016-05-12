@@ -10,16 +10,47 @@ public class JobListViewItem {
     private String salary;
     private String company;
     private String major;
-    private String description;
+    private String postContent;
+    private String location;
+    private int status=-1;
 
-    public JobListViewItem(String title, String titleTime, String image, String salary, String company, String major, String description) {
+    public JobListViewItem(String title, String titleTime, String image, String salary, String company, String major, String postContent, String location) {
         this.title = title;
         this.titleTime = titleTime;
         this.image = image;
         this.salary = salary;
         this.company = company;
         this.major = major;
-        this.description = description;
+        this.postContent = postContent;
+        this.location = location;
+    }
+
+    public JobListViewItem(String title, String titleTime, String image, String salary, String company, String major, String postContent, String location, int status) {
+        this.title = title;
+        this.titleTime = titleTime;
+        this.image = image;
+        this.salary = salary;
+        this.company = company;
+        this.major = major;
+        this.postContent = postContent;
+        this.location = location;
+        this.status = status;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 
     public String getTitle() {
@@ -70,11 +101,11 @@ public class JobListViewItem {
         this.major = major;
     }
 
-    public String getDescription() {
-        return description;
+    public String getPostContent() {
+        return postContent;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setPostContent(String postContent) {
+        this.postContent = postContent;
     }
 }

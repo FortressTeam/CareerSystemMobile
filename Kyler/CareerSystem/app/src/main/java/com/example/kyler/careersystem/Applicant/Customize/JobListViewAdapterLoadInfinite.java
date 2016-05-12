@@ -57,14 +57,43 @@ public class JobListViewAdapterLoadInfinite extends ArrayAdapter<JobListViewItem
         TextView job_listviewitem_salary = (TextView) view.findViewById(R.id.job_listviewitem_salary);
         TextView job_listviewitem_company = (TextView) view.findViewById(R.id.job_listviewitem_company);
         TextView job_listviewitem_major = (TextView) view.findViewById(R.id.job_listviewitem_major);
-        TextView job_listviewitem_description = (TextView) view.findViewById(R.id.job_listviewitem_description);
+        TextView job_listviewitem_location = (TextView) view.findViewById(R.id.job_listviewitem_location);
+        TextView job_listviewitem_postContent = (TextView) view.findViewById(R.id.job_listviewitem_postContent);
+        int status=jobListViewItems.get(i).getStatus();
+        if(status != -1){
+            TextView job_applied_listviewitem_status = (TextView) view.findViewById(R.id.job_applied_listviewitem_status);
+            job_applied_listviewitem_status.setVisibility(View.VISIBLE);
+            String jobStatus = "";
+            switch (status){
+                case 0:
+                    jobStatus = "Pending...";
+                    job_applied_listviewitem_status.setBackgroundResource(R.drawable.customborderpending);
+                    break;
+                case 1:
+                    jobStatus = "Accepted";
+                    job_applied_listviewitem_status.setBackgroundResource(R.drawable.customborderaccepted);
+                    break;
+                case 2:
+                    jobStatus = "Rejected";
+                    job_applied_listviewitem_status.setBackgroundResource(R.drawable.customborderrejected);
+                    break;
+                default:break;
+            }
+            job_applied_listviewitem_status.setText(jobStatus);
+        }
+        else{
+            LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) job_listviewitem_title.getLayoutParams();
+            params.weight = 1;
+            job_listviewitem_title.setLayoutParams(params);
+        }
         job_listviewitem_title.setText(jobListViewItems.get(i).getTitle());
         job_listviewitem_title_time.setText(jobListViewItems.get(i).getTitleTime());
         Picasso.with(context).load(jobListViewItems.get(i).getImage()).into(job_listviewitem_image);
         job_listviewitem_salary.setText(jobListViewItems.get(i).getSalary());
         job_listviewitem_company.setText(jobListViewItems.get(i).getCompany());
         job_listviewitem_major.setText(jobListViewItems.get(i).getMajor());
-        job_listviewitem_description.setText(Html.fromHtml(jobListViewItems.get(i).getDescription()));
+        job_listviewitem_location.setText(jobListViewItems.get(i).getLocation());
+        job_listviewitem_postContent.setText(Html.fromHtml(jobListViewItems.get(i).getPostContent()));
         ViewHolder holder = new ViewHolder();
         holder.header = job_listviewitem_holderview;
         view.setTag(holder);

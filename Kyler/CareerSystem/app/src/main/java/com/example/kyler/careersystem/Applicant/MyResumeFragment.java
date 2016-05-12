@@ -1,5 +1,6 @@
 package com.example.kyler.careersystem.Applicant;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.app.Fragment;
 import android.content.res.ColorStateList;
@@ -14,6 +15,7 @@ import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -134,6 +136,7 @@ public class MyResumeFragment extends Fragment implements View.OnClickListener,O
         myresume_listview_award = (NonScrollListView) rootView.findViewById(R.id.myresume_listview_award);
         myresume_listview_skill = (NonScrollListView) rootView.findViewById(R.id.myresume_listview_skill);
         myresume_listview_hobbie = (NonScrollListView) rootView.findViewById(R.id.myresume_listview_hobbie);
+        myresumeEditButton.setVisibility(View.GONE);
         if(Utilities.jsApplicant == null || Utilities.jsArraySkillTypes == null || Utilities.jsArrayHobbies == null){
             mHandler.postDelayed(new Runnable() {
                 @Override
@@ -178,6 +181,7 @@ public class MyResumeFragment extends Fragment implements View.OnClickListener,O
                                     ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(applicant.getApplicantName());
                                     loadInfo();
                                     myresumeBlank.setVisibility(View.GONE);
+                                    myresumeEditButton.setVisibility(View.VISIBLE);
                                 } else {
                                     Toast.makeText(getActivity().getApplicationContext(), "Connection got problem!", Toast.LENGTH_SHORT).show();
                                     Utilities.displayViewApplicant(getActivity(), 404);
@@ -207,6 +211,7 @@ public class MyResumeFragment extends Fragment implements View.OnClickListener,O
                 ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle(applicant.getApplicantName());
                 loadInfo();
                 myresumeBlank.setVisibility(View.GONE);
+                myresumeEditButton.setVisibility(View.VISIBLE);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -612,6 +617,8 @@ public class MyResumeFragment extends Fragment implements View.OnClickListener,O
 
     @Override
     public void onScrollChanged(int scrollY, boolean firstScroll, boolean dragging) {
+        InputMethodManager inputMethodManager = (InputMethodManager)  getActivity().getSystemService(Activity.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), 0);
         View view = (View) myresumeFragmentObservableScrollView.getChildAt(myresumeFragmentObservableScrollView.getChildCount()-1);
         int diff = (view.getHeight()-(myresumeFragmentObservableScrollView.getHeight()+myresumeFragmentObservableScrollView.getScrollY()));
         if (diff == 0) {

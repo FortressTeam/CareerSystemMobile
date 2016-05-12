@@ -17,9 +17,8 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.example.kyler.careersystem.Applicant.Customize.JobAppliedListViewItem;
 import com.example.kyler.careersystem.Applicant.Customize.JobListViewItem;
-import com.example.kyler.careersystem.Applicant.SearchFragment;
+import com.example.kyler.careersystem.Applicant.FollowJobFragment;
 import com.example.kyler.careersystem.Applicant.HomeFragment;
 import com.example.kyler.careersystem.Applicant.JobappliedFragment;
 import com.example.kyler.careersystem.Applicant.MyResumeFragment;
@@ -64,9 +63,10 @@ public class Utilities {
     public static ArrayList<ApplicantsFollowPosts> applicantsFollowPosts = null;
     public static ArrayList<Follow> follows = null;
     public static JSONArray jsArrayPost = null, jsArraySkillTypes = null, jsArrayHobbies = null, jsArrayCurriculumVitaes = null, jsArrayCategories = null;
+    public static JSONArray jsAppliedPosts;
     public static JSONObject jsApplicant = null;
 
-    public static String SAVEING_FILE_LOGIN = "account";
+    public static String SAVING_FILE_LOGIN = "account";
 
     public static void clear(){
         users = null;
@@ -77,6 +77,9 @@ public class Utilities {
         jsArraySkillTypes = null;
         jsArrayHobbies = null;
         jsApplicant = null;
+        jsArrayCurriculumVitaes = null;
+        jsArrayCategories = null;
+        jsAppliedPosts = null;
     }
 
 
@@ -131,7 +134,7 @@ public class Utilities {
                 fragment = new MyResumeFragment();
                 break;
             case 3://favorite
-
+                fragment = new FollowJobFragment();
                 break;
             case 4://jobapplied
                 fragment = new JobappliedFragment();
@@ -192,66 +195,6 @@ public class Utilities {
         drawer.closeDrawer(GravityCompat.START);
     }
 
-    public static JobAppliedListViewItem getJobAppliedLVItemfrom(JSONObject jsonObject){
-        JobAppliedListViewItem jobAppliedListViewItem=null;
-        String companyImage = null;
-        String companyName = null;
-        String postTitle = null;
-        String postContent =null;
-        String companyAddress = null;
-        int salary = 0;
-        int status = 0;
-        try{
-            if(jsonObject.has("company_image"))
-                companyImage = jsonObject.getString("company_image");
-            if(jsonObject.has("company_name"))
-                companyName = jsonObject.getString("company_name");
-            if(jsonObject.has("post_title"))
-                postTitle = jsonObject.getString("post_title");
-            if(jsonObject.has("post_content"))
-                postContent = jsonObject.getString("post_content");
-            if(jsonObject.has("company_address"))
-                companyAddress = jsonObject.getString("company_address");
-            if(jsonObject.has("salary"))
-                salary = jsonObject.getInt("salary");
-            if(jsonObject.has("status"))
-                status = jsonObject.getInt("status");
-            jobAppliedListViewItem = new JobAppliedListViewItem(companyImage,companyName,postTitle,postContent,status,companyAddress,salary);
-        }catch (JSONException e){e.printStackTrace();}
-        return jobAppliedListViewItem;
-    }
-
-    public static JobListViewItem getJobLVItemfrom(JSONObject jsonObject){
-        JobListViewItem jobListViewItem=null;
-        String title=null;
-        String titleTime=null;
-        String image=null;
-        String salary=null;
-        String company=null;
-        String major=null;
-        String description=null;
-        try {
-            if(jsonObject.has("post_title"))
-                title=jsonObject.getString("post_title");
-            if(jsonObject.has("post_title_time"))
-                titleTime=jsonObject.getString("post_title_time");
-            if(jsonObject.has("post_image"))
-                image=jsonObject.getString("post_image");
-            if(jsonObject.has("post_salary"))
-                salary=jsonObject.getString("post_salary");
-            if(jsonObject.has("company_name"))
-                company=jsonObject.getString("company_name");
-            if(jsonObject.has("category_name"))
-                major=jsonObject.getString("category_name");
-            if(jsonObject.has("post_content"))
-                description=jsonObject.getString("post_content");
-            jobListViewItem = new JobListViewItem(title,titleTime,image,salary,company,major,description);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return jobListViewItem;
-    }
-
     public static String getDays(String datetime){
         if(datetime==null)
             return "";
@@ -302,20 +245,6 @@ public class Utilities {
         return result;
     }
 
-    public static JobListViewItem getJobLVItemfrom(Posts post,HiringManagers hiringManager,Categories category){
-        JobListViewItem jobListViewItem=null;
-        String title=post.getPostTitle();
-        String titleTime=getDays(post.getPostDate());
-        String image= UrlStatic.URLimg+"company_img/"+hiringManager.getCompanyLogo();
-        String salary="VND "+post.getPostSalary();
-        String company=hiringManager.getCompanyName();
-        String major=category.getCategoryName();
-        String description=hiringManager.getCompanyAbout();
-        jobListViewItem = new JobListViewItem(title,titleTime,image,salary,company,major,description);
-        return jobListViewItem;
-    }
-
-
     public static void startFragWith(Activity activitySend,Class activityReceive,String key,String sendData){ // sendData could be an Object
         Intent intent = new Intent(activitySend,activityReceive);
         String senddt=sendData; // could be changed by an Object
@@ -329,7 +258,7 @@ public class Utilities {
     public static boolean saveLogin(Activity activity,String data){
         boolean result = false;
         try {
-            FileOutputStream fOut = activity.openFileOutput(Utilities.SAVEING_FILE_LOGIN, activity.MODE_PRIVATE);
+            FileOutputStream fOut = activity.openFileOutput(Utilities.SAVING_FILE_LOGIN, activity.MODE_PRIVATE);
             fOut.write(data.getBytes());
             fOut.close();
             result = true;
@@ -343,7 +272,7 @@ public class Utilities {
 
     public static void checkLogin(Activity activity){
         try {
-            FileInputStream fin = activity.openFileInput(Utilities.SAVEING_FILE_LOGIN);
+            FileInputStream fin = activity.openFileInput(Utilities.SAVING_FILE_LOGIN);
             int c;
             String data="";
             while( (c = fin.read()) != -1){
@@ -424,7 +353,7 @@ public class Utilities {
                 clear();
                 Intent intent = new Intent(activity,LoginActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                activity.deleteFile(Utilities.SAVEING_FILE_LOGIN);
+                activity.deleteFile(Utilities.SAVING_FILE_LOGIN);
                 activity.startActivity(intent);
                 activity.finish();
             }
@@ -569,6 +498,13 @@ public class Utilities {
             }
         };
         getJsonArrayCategories.execute(UrlStatic.URLCategories);
+        GetJsonArrayCallback getJsonArrayAppliedPosts = new GetJsonArrayCallback("posts") {
+            @Override
+            public void receiveData(Object result) {
+                jsAppliedPosts = (JSONArray) result;
+            }
+        };
+//        getJsonArrayCategories.execute(UrlStatic.URLPosts+"?applicant_id="+applicants.getID()+"&sort=post_date&direction=desc");
     }
 
     public static String replaceSpecialCharacter(String input){

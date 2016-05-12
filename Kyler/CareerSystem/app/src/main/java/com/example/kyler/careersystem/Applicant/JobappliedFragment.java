@@ -11,17 +11,19 @@ import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
-import android.widget.Spinner;
 import android.widget.Toast;
-
-import com.example.kyler.careersystem.Applicant.Customize.JobAppliedListViewAdapterLoadInfinite;
-import com.example.kyler.careersystem.Applicant.Customize.JobAppliedListViewItem;
-import com.example.kyler.careersystem.Entities.CurriculumVitaes;
+import com.example.kyler.careersystem.Applicant.Customize.JobListViewAdapterLoadInfinite;
+import com.example.kyler.careersystem.Applicant.Customize.JobListViewItem;
+import com.example.kyler.careersystem.Bussiness.PostController;
+import com.example.kyler.careersystem.Entities.Categories;
+import com.example.kyler.careersystem.Entities.HiringManagers;
 import com.example.kyler.careersystem.Entities.Posts;
+import com.example.kyler.careersystem.Entities.PostsHasCurriculumVitaes;
 import com.example.kyler.careersystem.R;
 import com.example.kyler.careersystem.UrlStatic;
 import com.example.kyler.careersystem.Utilities;
 import com.example.kyler.careersystem.WorkWithService.GetJsonArrayCallback;
+import com.example.kyler.careersystem.WorkWithService.GetJsonLoadMoreCallback;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -29,16 +31,18 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class JobappliedFragment extends Fragment implements AbsListView.OnScrollListener,ListView.OnItemClickListener,Spinner.OnItemSelectedListener{
-    private JobAppliedListViewAdapterLoadInfinite jobAppliedListViewAdapterLoadInfinite;
-    private ArrayList<JobAppliedListViewItem> jobAppliedListViewItems;
-    private Spinner jobAppliedCVSpinner;
+public class JobappliedFragment extends Fragment implements AbsListView.OnScrollListener,ListView.OnItemClickListener{
+    private JobListViewAdapterLoadInfinite jobAppliedListViewAdapterLoadInfinite;
+    private ArrayList<JobListViewItem> jobAppliedListViewItems;
 
     private ListView jobappliedListView;
     private Handler mHandler;
     private ProgressBar progressBar;
-    private ArrayList<CurriculumVitaes> curriculumVitaes = new ArrayList<>();
     private ArrayList<Posts> posts = new ArrayList<>();
+    private PostController postController = new PostController();
+    private String url="";
+    private int page=1;
+    private boolean nomoreData = true;
 
     public JobappliedFragment(){}
 
@@ -47,67 +51,52 @@ public class JobappliedFragment extends Fragment implements AbsListView.OnScroll
         View rootView = inflater.inflate(R.layout.applicant_jobapplied_fragment, container, false);
         ((AppCompatActivity)getActivity()).getSupportActionBar().show();
         ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Job Applied");
-        JSONArray jsArrayCurruculumVitaes = Utilities.jsArrayCurriculumVitaes;
-        for(int i=0;i<jsArrayCurruculumVitaes.length();i++){
-            try {
-                curriculumVitaes.add(new CurriculumVitaes(jsArrayCurruculumVitaes.getJSONObject(i)));
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
+        url = UrlStatic.URLPosts + "?applicant_id="+Utilities.applicants.getID()+"&limit=10&posts_status=1&page=";
         mHandler = new Handler();
-        JSONObject jsJob1=null,jsJob2=null,jsJob3=null;
-        try {
-            jsJob1 = new JSONObject("{\n" +
-                    "  \"company_image\": \"https://www.fs-net.de/assets/Uploads/home/_resampled/ResizedImage130130-icon-fabrik-blue.png\",\n" +
-                    "  \"company_name\": \"Enclave\",\n" +
-                    "  \"post_title\": \"Software Engineer\",\n" +
-                    "  \"post_content\": \"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.\",\n" +
-                    "  \"company_address\": \"Da Nang City\",\n" +
-                    "  \"salary\": 5500000,\n" +
-                    "  \"status\": 1\n" +
-                    "}");
-            jsJob2 = new JSONObject("{\n" +
-                    "  \"company_image\": \"http://www.microindustrialmart.com/wp-content/uploads/2015/12/parentcompany.png\",\n" +
-                    "  \"company_name\": \"Enclave\",\n" +
-                    "  \"post_title\": \"Software Engineer\",\n" +
-                    "  \"post_content\": \"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.\",\n" +
-                    "  \"company_address\": \"Da Nang City\",\n" +
-                    "  \"salary\": 5500000,\n" +
-                    "  \"status\": 2\n" +
-                    "}");
-            jsJob3 = new JSONObject("{\n" +
-                    "  \"company_image\": \"http://www.microindustrialmart.com/wp-content/uploads/2015/12/parentcompany.png\",\n" +
-                    "  \"company_name\": \"Enclave\",\n" +
-                    "  \"post_title\": \"Software Engineer\",\n" +
-                    "  \"post_content\": \"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.\",\n" +
-                    "  \"company_address\": \"Da Nang City\",\n" +
-                    "  \"salary\": 5500000,\n" +
-                    "  \"status\": 3\n" +
-                    "}");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        mHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                GetJsonArrayCallback getJsonArrayCallback = new GetJsonArrayCallback(getActivity(),"posts") {
+                    @Override
+                    public void receiveData(Object result) {
+                        JSONArray jsonArray = (JSONArray) result;
+                        if(Utilities.checkConnect(jsonArray)){
+                            jobAppliedListViewItems = new ArrayList<>();
+                            if(jsonArray.length() != 0){
+                                try {
+                                    for(int i=0;i<jsonArray.length();i++){
+                                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+                                        Posts post = new Posts(jsonObject);
+                                        posts.add(post);
+                                        PostsHasCurriculumVitaes postsHasCurriculumVitaes = new PostsHasCurriculumVitaes(jsonObject.getJSONArray("posts_has_curriculum_vitaes").getJSONObject(0));
+                                        HiringManagers hiringManager = new HiringManagers(jsonObject.getJSONObject("hiring_manager"));
+                                        Categories categories = new Categories(jsonObject.getJSONObject("category"));
+                                        jobAppliedListViewItems.add(postController.getJobAppliedListViewItem(post,postsHasCurriculumVitaes,hiringManager,categories));
+                                    }
+                                    jobAppliedListViewAdapterLoadInfinite = new JobListViewAdapterLoadInfinite(getActivity(), jobAppliedListViewItems, 10, 5);
+                                    jobappliedListView.setAdapter(jobAppliedListViewAdapterLoadInfinite);
+                                    nomoreData=false;
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }else{
+                                nomoreData=true;
+                            }
+                        }else {
+                            Toast.makeText(getActivity().getApplicationContext(), "Connection got problem!", Toast.LENGTH_SHORT).show();
+                            Utilities.displayViewApplicant(getActivity(), 404);
+                        }
+                    }
+                };
+                getJsonArrayCallback.execute(url + page + "&sort=post_date&direction=desc");
+            }
+        },300);
         jobappliedListView = (ListView) rootView.findViewById(R.id.jobapplied_listview);
-        jobAppliedCVSpinner = (Spinner) rootView.findViewById(R.id.find_job_city_spinner);
         View footer = getActivity().getLayoutInflater().inflate(R.layout.progress_bar_footer, null);
         progressBar = (ProgressBar) footer.findViewById(R.id.progressBar);
         jobappliedListView.addFooterView(footer);
-        jobAppliedListViewItems = new ArrayList<JobAppliedListViewItem>();
-        for(int i=0;i<14;i++){
-            if(i%3==0)
-                jobAppliedListViewItems.add(Utilities.getJobAppliedLVItemfrom(jsJob1));
-            else if(i%2==0)
-                jobAppliedListViewItems.add(Utilities.getJobAppliedLVItemfrom(jsJob2));
-            else
-                jobAppliedListViewItems.add(Utilities.getJobAppliedLVItemfrom(jsJob3));
-        }
-        jobAppliedListViewAdapterLoadInfinite = new JobAppliedListViewAdapterLoadInfinite(getActivity(), jobAppliedListViewItems, 8, 2);
-        jobappliedListView.setAdapter(jobAppliedListViewAdapterLoadInfinite);
-        progressBar.setVisibility((8 < jobAppliedListViewItems.size()) ? View.VISIBLE : View.GONE);
         jobappliedListView.setOnScrollListener(this);
         jobappliedListView.setOnItemClickListener(this);
-        jobAppliedCVSpinner.setOnItemSelectedListener(this);
         return rootView;
     }
 
@@ -115,7 +104,8 @@ public class JobappliedFragment extends Fragment implements AbsListView.OnScroll
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-        //Show JobApplied Information space:
+        if(i < jobAppliedListViewItems.size())
+            Utilities.startFragWith(getActivity(), ChildApplicantActivity.class, "jobdetail", posts.get(i).getID() + "");
     }
 
     @Override
@@ -125,9 +115,9 @@ public class JobappliedFragment extends Fragment implements AbsListView.OnScroll
 
     @Override
     public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-        if(firstVisibleItem + visibleItemCount == totalItemCount && !jobAppliedListViewAdapterLoadInfinite.endReached() && !hasCallback){ //check if we've reached the bottom
-            Toast.makeText(getActivity().getApplicationContext(), "Loading", Toast.LENGTH_SHORT).show();
-            mHandler.postDelayed(showMore, 1000);
+        if(firstVisibleItem + visibleItemCount == totalItemCount && !nomoreData && !hasCallback){ //check if we've reached the bottom
+            progressBar.setVisibility(View.VISIBLE);
+            mHandler.postDelayed(showMore, 300);
             hasCallback = true;
         }
     }
@@ -135,32 +125,39 @@ public class JobappliedFragment extends Fragment implements AbsListView.OnScroll
     private boolean hasCallback;
     private Runnable showMore = new Runnable(){
         public void run(){
-            boolean noMoreToShow = jobAppliedListViewAdapterLoadInfinite.showMore(); //show more views and find out if
+            if(jobAppliedListViewAdapterLoadInfinite!=null){
+                if(jobAppliedListViewAdapterLoadInfinite.endReached()){
+                    page++;
+                    GetJsonLoadMoreCallback getJsonLoadMoreCallback = new GetJsonLoadMoreCallback(progressBar,"posts") {
+                        @Override
+                        public void receiveData(Object result) {
+                            try {
+                                JSONArray jsonArray = (JSONArray) result;
+                                if(jsonArray!=null){
+                                    nomoreData=false;
+                                    for(int i=0;i<jsonArray.length();i++){
+                                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+                                        Posts post = new Posts(jsonObject);
+                                        posts.add(post);
+                                        PostsHasCurriculumVitaes postsHasCurriculumVitaes = new PostsHasCurriculumVitaes(jsonObject.getJSONArray("posts_has_curriculum_vitaes").getJSONObject(0));
+                                        HiringManagers hiringManager = new HiringManagers(jsonObject.getJSONObject("hiring_manager"));
+                                        Categories categories = new Categories(jsonObject.getJSONObject("category"));
+                                        jobAppliedListViewItems.add(postController.getJobAppliedListViewItem(post, postsHasCurriculumVitaes, hiringManager,categories));
+                                        jobAppliedListViewAdapterLoadInfinite.setJobListViewItems(jobAppliedListViewItems);
+                                        jobAppliedListViewAdapterLoadInfinite.notifyDataSetChanged();
+                                    }
+                                }else
+                                    nomoreData=true;
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    };
+                    getJsonLoadMoreCallback.execute(url + page + "&sort=post_date&direction=desc");
+                }
+                boolean noMoreToShow = jobAppliedListViewAdapterLoadInfinite.showMore();
+            }
             hasCallback = false;
-            progressBar.setVisibility(noMoreToShow? View.GONE : View.VISIBLE);
         }
     };
-
-    @Override
-    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-        GetJsonArrayCallback getJsonArrayCallback = new GetJsonArrayCallback(getActivity(),"postsHasCurriculumVitaes") {
-            @Override
-            public void receiveData(Object result) {
-                try {
-                    JSONArray jsArrayPostsHasCurriculumVitaes = (JSONArray) result;
-                    for (int i = 0; i < jsArrayPostsHasCurriculumVitaes.length(); i++) {
-                        posts.add(new Posts(jsArrayPostsHasCurriculumVitaes.getJSONObject(i).getJSONObject("post")));
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        };
-        getJsonArrayCallback.execute(UrlStatic.URLPostsHasCurriculumVitaes+"?curriculum_vitae_id="+curriculumVitaes.get(i).getID());
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> adapterView) {
-
-    }
 }

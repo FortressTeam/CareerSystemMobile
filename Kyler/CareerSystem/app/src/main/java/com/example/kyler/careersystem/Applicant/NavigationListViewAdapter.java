@@ -44,7 +44,7 @@ public class NavigationListViewAdapter extends BaseAdapter {
     public View getView(int i, View view, ViewGroup viewGroup) {
         if(view == null){
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
-            view = inflater.inflate(R.layout.navigation_listview_item,viewGroup,false);
+            view = inflater.inflate(R.layout.navigation_listviewitem,viewGroup,false);
         }
         ImageView navigationListViewItemImage = (ImageView) view.findViewById(R.id.navigation_listview_item_image);
         TextView navigationListViewItemTitle = (TextView) view.findViewById(R.id.navigation_listview_item_title);
