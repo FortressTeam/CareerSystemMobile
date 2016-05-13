@@ -2,11 +2,7 @@ package com.example.kyler.careersystem;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Fragment;
-import android.app.FragmentManager;
-import android.content.Context;
 import android.support.v7.widget.SearchView;
-import android.app.SearchManager;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
@@ -26,13 +22,11 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.kyler.careersystem.Applicant.ChildApplicantActivity;
-import com.example.kyler.careersystem.Applicant.SearchFragment;
 import com.example.kyler.careersystem.Entities.Applicants;
 import com.example.kyler.careersystem.Entities.Users;
 import com.squareup.picasso.Picasso;
 
 public class ApplicantMainActivity extends AppCompatActivity implements ListView.OnItemClickListener,View.OnClickListener,SearchView.OnQueryTextListener{
-    ListView navigationViewMenu;
     private Handler mhHandler;
     private SearchView searchView;
     private Users users = Utilities.users;
@@ -50,12 +44,12 @@ public class ApplicantMainActivity extends AppCompatActivity implements ListView
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
-        navigationViewMenu = (ListView) findViewById(R.id.navigation_view_menu);
+        Utilities.navigationViewMenu = (ListView) findViewById(R.id.navigation_view_menu);
         View navigationViewHeader = getLayoutInflater().inflate(R.layout.nav_header_main, null);
         View navigationViewFooter = getLayoutInflater().inflate(R.layout.nav_footer_main, null);
-        navigationViewMenu.addHeaderView(navigationViewHeader);
-        navigationViewMenu.addFooterView(navigationViewFooter);
-        Utilities.loadNavigationViewApplicant(this, navigationViewMenu);
+        Utilities.navigationViewMenu.addHeaderView(navigationViewHeader);
+        Utilities.navigationViewMenu.addFooterView(navigationViewFooter);
+        Utilities.loadNavigationViewApplicant(this);
         ImageView applicantImage = (ImageView) findViewById(R.id.nav_header_image);
         TextView applicantName = (TextView) findViewById(R.id.nav_header_name);
         TextView applicantEmail = (TextView) findViewById(R.id.nav_header_email);
@@ -64,7 +58,7 @@ public class ApplicantMainActivity extends AppCompatActivity implements ListView
         applicantEmail.setText(users.getUserEmail());
         LinearLayout navSettingControl = (LinearLayout) findViewById(R.id.nav_setting_control);
         navSettingControl.setOnClickListener(this);
-        navigationViewMenu.setOnItemClickListener(this);
+        Utilities.navigationViewMenu.setOnItemClickListener(this);
         Bundle bundle = getIntent().getBundleExtra("back");
         if(bundle!=null){
             int id = bundle.getInt("itemID");
@@ -72,6 +66,7 @@ public class ApplicantMainActivity extends AppCompatActivity implements ListView
         }
         else
             Utilities.displayViewApplicant(this, 1);
+        Utilities.getNotificationCount(this);
     }
 
     @Override
@@ -172,7 +167,6 @@ public class ApplicantMainActivity extends AppCompatActivity implements ListView
     public boolean onQueryTextSubmit(String query) {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
-        Utilities.hideSoftKeyboard(this, findViewById(R.id.applicant_main_layout));
         Utilities.startFragWith(this,ChildApplicantActivity.class,"search",searchView.getQuery().toString());
         searchView.setQuery("", false);
         searchView.clearFocus();

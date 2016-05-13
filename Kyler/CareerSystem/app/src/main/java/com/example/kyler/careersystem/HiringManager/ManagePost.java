@@ -112,7 +112,7 @@ public class ManagePost extends Fragment implements AbsListView.OnScrollListener
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 if(i < posts.size())
-                    Utilities.startFragWith(getActivity(), ChildHiringManagerActivity.class, "jobdetail", jsSendData(posts.get(i)).toString());
+                    Utilities.startFragWith(getActivity(), ChildHiringManagerActivity.class, "jobdetail", posts.get(i).getID()+"");
             }
         });
         if(Utilities.jsArrayPost == null) {

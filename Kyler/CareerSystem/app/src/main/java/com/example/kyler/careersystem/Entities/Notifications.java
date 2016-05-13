@@ -3,10 +3,6 @@ package com.example.kyler.careersystem.Entities;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 /**
  * Created by kyler on 14/03/2016.
  */
@@ -14,7 +10,8 @@ public class Notifications {
     private int ID;
     private String notificationTitle;
     private String notificationDetail;
-    private String notificationTime;
+    private int notificationType;
+    private int notificationData;
     private boolean isSeen;
     private int userID;
 
@@ -26,12 +23,14 @@ public class Notifications {
             if (jsonObject.has("notification_title")) {
                 this.notificationTitle = jsonObject.getString("notification_title");
             }
-            if (jsonObject.has("notification_detail")) {
-                this.notificationDetail = jsonObject.getString("notification_detail");
+            if (jsonObject.has("notification_message")) {
+                this.notificationDetail = jsonObject.getString("notification_message");
             }
-            if (jsonObject.has("notification_time")) {
-                Date date = new SimpleDateFormat("yyyy-MM-dd").parse(jsonObject.getString("notification_time"));
-                this.notificationTime = new SimpleDateFormat("d - LLL - yyyy").format(date);
+            if (jsonObject.has("notification_type")) {
+                this.notificationType = jsonObject.getInt("notification_type");
+            }
+            if (jsonObject.has("notification_object_id")) {
+                this.notificationData = jsonObject.getInt("notification_object_id");
             }
             if (jsonObject.has("is_seen")) {
                 this.isSeen = jsonObject.getBoolean("is_seen");
@@ -41,16 +40,15 @@ public class Notifications {
             }
         } catch (JSONException e) {
             e.printStackTrace();
-        } catch (ParseException e) {
-            e.printStackTrace();
         }
     }
 
-    public Notifications(int ID, String notificationTitle, String notificationDetail, String notificationTime, boolean isSeen, int userID) {
+    public Notifications(int ID, String notificationTitle, String notificationDetail, int notificationType, int notificationData, boolean isSeen, int userID) {
         this.ID = ID;
         this.notificationTitle = notificationTitle;
         this.notificationDetail = notificationDetail;
-        this.notificationTime = notificationTime;
+        this.notificationType = notificationType;
+        this.notificationData = notificationData;
         this.isSeen = isSeen;
         this.userID = userID;
     }
@@ -79,12 +77,20 @@ public class Notifications {
         this.notificationDetail = notificationDetail;
     }
 
-    public String getNotificationTime() {
-        return notificationTime;
+    public int getNotificationType() {
+        return notificationType;
     }
 
-    public void setNotificationTime(String notificationTime) {
-        this.notificationTime = notificationTime;
+    public void setNotificationType(int notificationType) {
+        this.notificationType = notificationType;
+    }
+
+    public int getNotificationData() {
+        return notificationData;
+    }
+
+    public void setNotificationData(int notificationData) {
+        this.notificationData = notificationData;
     }
 
     public boolean isSeen() {

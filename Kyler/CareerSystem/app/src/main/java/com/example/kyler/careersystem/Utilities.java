@@ -17,7 +17,6 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.example.kyler.careersystem.Applicant.Customize.JobListViewItem;
 import com.example.kyler.careersystem.Applicant.FollowJobFragment;
 import com.example.kyler.careersystem.Applicant.HomeFragment;
 import com.example.kyler.careersystem.Applicant.JobappliedFragment;
@@ -26,11 +25,8 @@ import com.example.kyler.careersystem.Applicant.NavigationListViewAdapter;
 import com.example.kyler.careersystem.Applicant.NavigationListViewItem;
 import com.example.kyler.careersystem.Entities.ApplicantsFollowPosts;
 import com.example.kyler.careersystem.Entities.Follow;
-import com.example.kyler.careersystem.HiringManager.NotificationFragment;
 import com.example.kyler.careersystem.Entities.Applicants;
-import com.example.kyler.careersystem.Entities.Categories;
 import com.example.kyler.careersystem.Entities.HiringManagers;
-import com.example.kyler.careersystem.Entities.Posts;
 import com.example.kyler.careersystem.Entities.Users;
 import com.example.kyler.careersystem.WorkWithService.GetJsonArrayCallback;
 import com.example.kyler.careersystem.WorkWithService.GetJsonObjectCallback;
@@ -65,6 +61,8 @@ public class Utilities {
     public static JSONArray jsArrayPost = null, jsArraySkillTypes = null, jsArrayHobbies = null, jsArrayCurriculumVitaes = null, jsArrayCategories = null;
     public static JSONArray jsAppliedPosts;
     public static JSONObject jsApplicant = null;
+    public static int notificationCount = 0;
+    public static ListView navigationViewMenu;
 
     public static String SAVING_FILE_LOGIN = "account";
 
@@ -80,6 +78,8 @@ public class Utilities {
         jsArrayCurriculumVitaes = null;
         jsArrayCategories = null;
         jsAppliedPosts = null;
+        notificationCount = 0;
+        navigationViewMenu = null;
     }
 
 
@@ -110,15 +110,20 @@ public class Utilities {
         }
     }
 
-    public static void loadNavigationViewApplicant(Context context,ListView lv){
+    public static void loadNavigationViewApplicant(Context context){
         ArrayList<NavigationListViewItem> listItem = new ArrayList<>();
         listItem.add(new NavigationListViewItem(R.drawable.navhomeicon,"Home"));
         listItem.add(new NavigationListViewItem(R.drawable.navmyresumeicon,"My Resume"));
         listItem.add(new NavigationListViewItem(R.drawable.navfavoriteicon,"Favorite"));
         listItem.add(new NavigationListViewItem(R.drawable.navjobappliedicon,"Job Applied"));
-        listItem.add(new NavigationListViewItem(R.drawable.navnotificationicon,"Notifications",15,true));
-        NavigationListViewAdapter adapter = new NavigationListViewAdapter(context.getApplicationContext(),listItem);
-        lv.setAdapter(adapter);
+        if(notificationCount > 0) {
+            listItem.add(new NavigationListViewItem(R.drawable.navnotificationicon, "Notifications", notificationCount, true));
+        }else{
+            listItem.add(new NavigationListViewItem(R.drawable.navnotificationicon, "Notifications"));
+        }
+        NavigationListViewAdapter adapter = new NavigationListViewAdapter(context,listItem);
+        navigationViewMenu.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
     }
 
     public static void displayViewApplicant(Activity context, int position){
@@ -140,6 +145,10 @@ public class Utilities {
                 fragment = new JobappliedFragment();
                 break;
             case 5://notifications
+                fragment = new NotificationFragment();
+                break;
+            case 99:
+                logOut(context);
                 break;
             default:
                 fragment = new FailedConnectionFragment();
@@ -155,30 +164,50 @@ public class Utilities {
         drawer.closeDrawer(GravityCompat.START);
     }
 
-    public static void loadNavigationViewHiringManager(Context context,ListView lv){
+    public static void getNotificationCount(final Context context){
+        GetJsonObjectCallback getJsonObjectNotificationCount = new GetJsonObjectCallback("count") {
+            @Override
+            public void receiveData(Object result) {
+                JSONObject jsonObject = (JSONObject) result;
+                if(jsonObject != null){
+                    try {
+                        Utilities.notificationCount = jsonObject.getInt("notifications");
+                        Utilities.loadNavigationViewApplicant(context);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        };
+        getJsonObjectNotificationCount.execute(UrlStatic.URLNotificationCount+"?user_id="+users.getID());
+    }
+
+    public static void loadNavigationViewHiringManager(Context context){
         ArrayList<NavigationListViewItem> listItem = new ArrayList<>();
         listItem.add(new NavigationListViewItem(R.drawable.hiringmanagerpost,"Posts"));
-        listItem.add(new NavigationListViewItem(R.drawable.hiringmanagercvsubmitted,"Resume Submitted"));
-        listItem.add(new NavigationListViewItem(R.drawable.hiringmanagerfind,"Find"));
-        listItem.add(new NavigationListViewItem(R.drawable.hiringmanagercalendar,"Calendar"));
-        listItem.add(new NavigationListViewItem(R.drawable.navjobappliedicon,"Job Applied"));
-        listItem.add(new NavigationListViewItem(R.drawable.navnotificationicon,"Notifications",15,true));
+//        listItem.add(new NavigationListViewItem(R.drawable.hiringmanagercvsubmitted,"Resume Submitted"));
+//        listItem.add(new NavigationListViewItem(R.drawable.hiringmanagerfind,"Find"));
+//        listItem.add(new NavigationListViewItem(R.drawable.hiringmanagercalendar,"Calendar"));
+//        listItem.add(new NavigationListViewItem(R.drawable.navjobappliedicon,"Job Applied"));
+        if(notificationCount > 0) {
+            listItem.add(new NavigationListViewItem(R.drawable.navnotificationicon, "Notifications", notificationCount, true));
+        }else{
+            listItem.add(new NavigationListViewItem(R.drawable.navnotificationicon, "Notifications"));
+        }
         NavigationListViewAdapter adapter = new NavigationListViewAdapter(context.getApplicationContext(),listItem);
-        lv.setAdapter(adapter);
+        navigationViewMenu.setAdapter(adapter);
     }
 
     public static void displayViewHiringManager(Activity context, int position){
         Fragment fragment = null;
         switch (position){
-            case 0://home
+            case 0:
                 fragment = new com.example.kyler.careersystem.HiringManager.HomeFragment();
                 break;
-            case 1://home
+            case 1:
                 fragment = new com.example.kyler.careersystem.HiringManager.ManagePost();
                 break;
-            case 5://home
-                break;
-            case 6://home
+            case 2:
                 fragment = new NotificationFragment();
                 break;
             default:

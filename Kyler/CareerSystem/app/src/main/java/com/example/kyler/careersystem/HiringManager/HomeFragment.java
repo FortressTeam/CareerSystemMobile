@@ -20,7 +20,7 @@ import com.squareup.picasso.Picasso;
 public class HomeFragment extends Fragment implements View.OnClickListener{
     private ImageView companyImage;
     private TextView companyName,companySize,companyAdress,companyPhone,companyAbout,hiringManagerName;
-    private LinearLayout homeManagePost,homeAddPost,homeSubmittedResume,homeApointments,homeNotifications;
+//    private LinearLayout homeManagePost,homeAddPost,homeSubmittedResume,homeApointments,homeNotifications;
     private HiringManagers hiringManager = Utilities.hiringManagers;
 
     @Override
@@ -33,11 +33,11 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         companyAdress = (TextView) rootView.findViewById(R.id.home_company_address);
         companyPhone = (TextView) rootView.findViewById(R.id.home_company_phone);
         companyAbout = (TextView) rootView.findViewById(R.id.home_company_about);
-        homeManagePost = (LinearLayout) rootView.findViewById(R.id.home_manage_post);
-        homeAddPost = (LinearLayout) rootView.findViewById(R.id.home_add_post);
-        homeSubmittedResume = (LinearLayout) rootView.findViewById(R.id.home_submitted_resume);
-        homeApointments = (LinearLayout) rootView.findViewById(R.id.home_appointments);
-        homeNotifications = (LinearLayout) rootView.findViewById(R.id.home_notifications);
+//        homeManagePost = (LinearLayout) rootView.findViewById(R.id.home_manage_post);
+//        homeAddPost = (LinearLayout) rootView.findViewById(R.id.home_add_post);
+//        homeSubmittedResume = (LinearLayout) rootView.findViewById(R.id.home_submitted_resume);
+//        homeApointments = (LinearLayout) rootView.findViewById(R.id.home_appointments);
+//        homeNotifications = (LinearLayout) rootView.findViewById(R.id.home_notifications);
 
         Picasso.with(getActivity().getApplicationContext()).load(UrlStatic.URLimg+"company_img/"+hiringManager.getCompanyLogo()).into(companyImage);
         hiringManagerName.setText(hiringManager.getHiringManagerName());
@@ -46,30 +46,30 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         companyAdress.setText(hiringManager.getCompanyAddress());
         companyAbout.setText(hiringManager.getCompanyAbout());
         companyPhone.setText(hiringManager.getHiringManagerPhone());
-        homeManagePost.setOnClickListener(this);
-        homeAddPost.setOnClickListener(this);
-        homeSubmittedResume.setOnClickListener(this);
-        homeApointments.setOnClickListener(this);
-        homeNotifications.setOnClickListener(this);
+//        homeManagePost.setOnClickListener(this);
+//        homeAddPost.setOnClickListener(this);
+//        homeSubmittedResume.setOnClickListener(this);
+//        homeApointments.setOnClickListener(this);
+//        homeNotifications.setOnClickListener(this);
         return rootView;
     }
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
-            case R.id.home_manage_post:
-                Utilities.displayViewHiringManager(getActivity(),1);
-                break;
-            case R.id.home_add_post:
-                Utilities.startFragWith(getActivity(),ChildHiringManagerActivity.class,"addpost","");
-                break;
-            case R.id.home_submitted_resume:
-                break;
-            case R.id.home_appointments:
-                break;
-            case R.id.home_notifications:
-                break;
-
-        }
+//        switch (view.getId()){
+//            case R.id.home_manage_post:
+//                Utilities.displayViewHiringManager(getActivity(),1);
+//                break;
+//            case R.id.home_add_post:
+//                Utilities.startFragWith(getActivity(),ChildHiringManagerActivity.class,"addpost","");
+//                break;
+//            case R.id.home_submitted_resume:
+//                break;
+//            case R.id.home_appointments:
+//                break;
+//            case R.id.home_notifications:
+//                break;
+//
+//        }
     }
 }

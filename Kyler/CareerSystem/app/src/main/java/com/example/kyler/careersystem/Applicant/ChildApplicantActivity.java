@@ -38,7 +38,6 @@ import com.squareup.picasso.Picasso;
 
 public class ChildApplicantActivity extends AppCompatActivity implements ListView.OnItemClickListener,View.OnClickListener {
 
-    private ListView navigationViewMenu;
     private String receiveData;
     private Users users = Utilities.users;
     private Applicants applicants = Utilities.applicants;
@@ -61,12 +60,12 @@ public class ChildApplicantActivity extends AppCompatActivity implements ListVie
             }
         });
         toolbar.setNavigationIcon(R.drawable.navigationbackicon);
-        navigationViewMenu = (ListView) findViewById(R.id.navigation_view_menu);
+        Utilities.navigationViewMenu = (ListView) findViewById(R.id.navigation_view_menu);
         View navigationViewHeader = getLayoutInflater().inflate(R.layout.nav_header_main, null);
         View navigationViewFooter = getLayoutInflater().inflate(R.layout.nav_footer_main, null);
-        navigationViewMenu.addHeaderView(navigationViewHeader);
-        navigationViewMenu.addFooterView(navigationViewFooter);
-        Utilities.loadNavigationViewApplicant(this, navigationViewMenu);
+        Utilities.navigationViewMenu.addHeaderView(navigationViewHeader);
+        Utilities.navigationViewMenu.addFooterView(navigationViewFooter);
+        Utilities.loadNavigationViewApplicant(this);
         ImageView hiringManagerImage = (ImageView) findViewById(R.id.nav_header_image);
         TextView hiringManagerName = (TextView) findViewById(R.id.nav_header_name);
         TextView hiringManagerEmail = (TextView) findViewById(R.id.nav_header_email);
@@ -75,8 +74,8 @@ public class ChildApplicantActivity extends AppCompatActivity implements ListVie
         hiringManagerEmail.setText(users.getUserEmail());
         LinearLayout navSettingControl = (LinearLayout) findViewById(R.id.nav_setting_control);
         navSettingControl.setOnClickListener(this);
-        navigationViewMenu.setOnItemClickListener(this);
-        navigationViewMenu.setOnItemClickListener(this);
+        Utilities.navigationViewMenu.setOnItemClickListener(this);
+        Utilities.navigationViewMenu.setOnItemClickListener(this);
         Bundle bundle = getIntent().getBundleExtra("sendBundle");
         String key = bundle.getString("key");
         receiveData = bundle.getString("sendData");
@@ -189,7 +188,7 @@ public class ChildApplicantActivity extends AppCompatActivity implements ListVie
                 drawer.closeDrawer(GravityCompat.START);
                 switch(items[i]){
                     case "Log out":
-                        Utilities.logOut(ChildApplicantActivity.this);
+                        startActivity(99);
                         break;
                     case "Settings":
                         break;

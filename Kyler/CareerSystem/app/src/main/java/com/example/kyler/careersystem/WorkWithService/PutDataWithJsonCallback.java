@@ -28,6 +28,7 @@ public abstract class PutDataWithJsonCallback extends AsyncTask<String,Void,JSON
     private JSONObject jsonObject;
     private Activity activity;
     private AlertDialog mProgressDialog;
+    private boolean dialog = true;
 
     public PutDataWithJsonCallback(JSONObject jsonObject, Activity activity) {
         this.jsonObject = jsonObject;
@@ -36,18 +37,27 @@ public abstract class PutDataWithJsonCallback extends AsyncTask<String,Void,JSON
         mProgressDialog.setCancelable(false);
     }
 
+    public PutDataWithJsonCallback(JSONObject jsonObject) {
+        this.jsonObject = jsonObject;
+        this.dialog = false;
+    }
+
     public abstract void receiveData(Object result);
 
     @Override
     protected void onPreExecute() {
-        mProgressDialog.show();
+        if(dialog) {
+            mProgressDialog.show();
+        }
         super.onPreExecute();
     }
 
     @Override
     protected void onPostExecute(JSONObject jsonObject) {
-        if (mProgressDialog != null || mProgressDialog.isShowing()){
-            mProgressDialog.dismiss();
+        if(dialog) {
+            if (mProgressDialog != null || mProgressDialog.isShowing()) {
+                mProgressDialog.dismiss();
+            }
         }
         receiveData(jsonObject);
     }

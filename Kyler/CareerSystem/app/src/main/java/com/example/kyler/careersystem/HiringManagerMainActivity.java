@@ -25,7 +25,7 @@ import com.example.kyler.careersystem.Entities.Users;
 import com.squareup.picasso.Picasso;
 
 public class HiringManagerMainActivity extends AppCompatActivity implements View.OnClickListener,ListView.OnItemClickListener {
-    ListView navigationViewMenu;
+
     private Handler mhHandler;
     private Users users = Utilities.users;
     private HiringManagers hiringManagers = Utilities.hiringManagers;
@@ -42,12 +42,12 @@ public class HiringManagerMainActivity extends AppCompatActivity implements View
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
-        navigationViewMenu = (ListView) findViewById(R.id.navigation_view_menu);
+        Utilities.navigationViewMenu = (ListView) findViewById(R.id.navigation_view_menu);
         View navigationViewHeader = getLayoutInflater().inflate(R.layout.nav_header_main, null);
         View navigationViewFooter = getLayoutInflater().inflate(R.layout.nav_footer_main, null);
-        navigationViewMenu.addHeaderView(navigationViewHeader);
-        navigationViewMenu.addFooterView(navigationViewFooter);
-        Utilities.loadNavigationViewHiringManager(this, navigationViewMenu);
+        Utilities.navigationViewMenu.addHeaderView(navigationViewHeader);
+        Utilities.navigationViewMenu.addFooterView(navigationViewFooter);
+        Utilities.loadNavigationViewHiringManager(this);
         ImageView hiringManagerImage = (ImageView) findViewById(R.id.nav_header_image);
         TextView hiringManagerName = (TextView) findViewById(R.id.nav_header_name);
         TextView hiringManagerEmail = (TextView) findViewById(R.id.nav_header_email);
@@ -56,7 +56,7 @@ public class HiringManagerMainActivity extends AppCompatActivity implements View
         hiringManagerEmail.setText(users.getUserEmail());
         LinearLayout navSettingControl = (LinearLayout) findViewById(R.id.nav_setting_control);
         navSettingControl.setOnClickListener(this);
-        navigationViewMenu.setOnItemClickListener(this);
+        Utilities.navigationViewMenu.setOnItemClickListener(this);
         Bundle bundle = getIntent().getBundleExtra("back");
         if(bundle!=null){
             int id = bundle.getInt("itemID");

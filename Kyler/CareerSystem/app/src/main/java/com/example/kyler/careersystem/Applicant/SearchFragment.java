@@ -8,7 +8,9 @@ import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
 import android.text.Html;
+import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -56,7 +58,7 @@ public class SearchFragment extends Fragment implements View.OnClickListener, Ab
     private ArrayList<Categories> categories = new ArrayList<>();
     private ArrayList<String> arrCategories = new ArrayList<>();
     private String urlSearch="";
-    private ImageView searchJobFilter;
+    private ImageView searchJobFilter,searchJobEditTextClear;
     private boolean filter=false;
     private LinearLayout searchJobFilterLayout;
     private EditText searchJobEditText;
@@ -97,6 +99,7 @@ public class SearchFragment extends Fragment implements View.OnClickListener, Ab
         searchJobEditText = (EditText) rootView.findViewById(R.id.applicant_search_job_edittext);
         searchJobFilterLayout = (LinearLayout) rootView.findViewById(R.id.applicant_search_job_filter_layout);
         searchJobFilter = (ImageView) rootView.findViewById(R.id.applicant_search_job_filter);
+        searchJobEditTextClear = (ImageView) rootView.findViewById(R.id.applicant_search_job_edittext_clear);
         searchJobLocation = (SearchableSpinner) rootView.findViewById(R.id.applicant_search_job_spinner_location);
         searchJobMajor = (SearchableSpinner) rootView.findViewById(R.id.applicant_search_job_spinner_major);
         searchJob = (Button) rootView.findViewById(R.id.applicant_search_job_button);
@@ -122,6 +125,27 @@ public class SearchFragment extends Fragment implements View.OnClickListener, Ab
         searchJobMajor.setAdapter(majorAdapter);
         searchJobMajor.setTitle("Select Major");
         searchJobMajor.setSelection(0);
+        searchJobEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if (charSequence.toString().equals("")) {
+                    searchJobEditTextClear.setVisibility(View.GONE);
+                } else {
+                    searchJobEditTextClear.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+        searchJobEditTextClear.setOnClickListener(this);
         searchJobEditText.setOnKeyListener(this);
         searchJob.setOnClickListener(this);
         searchJobFilter.setOnClickListener(this);
@@ -209,6 +233,9 @@ public class SearchFragment extends Fragment implements View.OnClickListener, Ab
             case R.id.applicant_search_job_filter:
                 filter=!filter;
                 showFilter();
+                break;
+            case R.id.applicant_search_job_edittext_clear:
+                searchJobEditText.setText("");
                 break;
         }
     }

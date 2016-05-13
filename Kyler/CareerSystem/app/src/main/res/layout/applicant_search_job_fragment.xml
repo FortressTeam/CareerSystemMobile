@@ -12,9 +12,12 @@
         android:orientation="horizontal"
         android:weightSum="1"
         android:layout_height="wrap_content">
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="wrap_content"
+        <FrameLayout
             android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content">
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:theme="@style/EditTextLoginApplicant">
         <EditText
@@ -24,8 +27,18 @@
             android:textSize="@dimen/activity_title_medium"
             android:textColor="@color/Black"
             android:layout_width="match_parent"
+            android:paddingLeft="@dimen/padding_card"
             android:layout_height="wrap_content"/>
         </android.support.design.widget.TextInputLayout>
+            <ImageView
+                android:id="@+id/applicant_search_job_edittext_clear"
+                android:layout_marginRight="@dimen/margin_layout"
+                android:layout_marginBottom="@dimen/margin_card"
+                android:layout_gravity="bottom|right"
+                android:src="@drawable/clearicon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </FrameLayout>
         <ImageView
             android:id="@+id/applicant_search_job_filter"
             android:layout_gravity="center"

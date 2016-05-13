@@ -72,12 +72,12 @@
         "source": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/build/intermediates/exploded-aar/com.android.support/design/23.1.1/res/layout/design_navigation_item_header.xml"
     },
     {
-        "merged": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/build/intermediates/res/merged/debug/layout/applicant_follow_job_fragment.xml",
-        "source": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/src/main/res/layout/applicant_follow_job_fragment.xml"
-    },
-    {
         "merged": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/build/intermediates/res/merged/debug/layout/design_navigation_item.xml",
         "source": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/build/intermediates/exploded-aar/com.android.support/design/23.1.1/res/layout/design_navigation_item.xml"
+    },
+    {
+        "merged": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/build/intermediates/res/merged/debug/layout/applicant_follow_job_fragment.xml",
+        "source": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/src/main/res/layout/applicant_follow_job_fragment.xml"
     },
     {
         "merged": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/build/intermediates/res/merged/debug/layout/hiringmanager_submittedcv_fragment.xml",
@@ -150,6 +150,10 @@
     {
         "merged": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/build/intermediates/res/merged/debug/layout/abc_screen_toolbar.xml",
         "source": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/layout/abc_screen_toolbar.xml"
+    },
+    {
+        "merged": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/build/intermediates/res/merged/debug/layout/applicant_follow_job_listviewitem.xml",
+        "source": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/src/main/res/layout/applicant_follow_job_listviewitem.xml"
     },
     {
         "merged": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/build/intermediates/res/merged/debug/layout/nav_header_main.xml",

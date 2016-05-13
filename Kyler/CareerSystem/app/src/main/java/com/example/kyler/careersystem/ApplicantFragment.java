@@ -192,6 +192,9 @@ public class ApplicantFragment extends Fragment implements View.OnClickListener,
                 UrlStatic.URLApplicantsHasSkills = UrlStatic.service + "api/applicants_has_skills.json";
                 UrlStatic.URLApplicantsHasHobbies = UrlStatic.service + "api/applicants_has_hobbies.json";
                 UrlStatic.URLHobbies = UrlStatic.service + "api/hobbies.json";
+                UrlStatic.URLNotifications = UrlStatic.service +"api/notifications.json";
+                UrlStatic.URLNotificationSeen = UrlStatic.service +"api/notifications/hasSeen/";
+                UrlStatic.URLNotificationCount = UrlStatic.service +"api/notifications/notSeen.json";
                 dialogSetting.dismiss();
             }
         });

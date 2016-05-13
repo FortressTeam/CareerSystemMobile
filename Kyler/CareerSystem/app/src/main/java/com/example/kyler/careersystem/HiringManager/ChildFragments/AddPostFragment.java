@@ -269,7 +269,13 @@ public class AddPostFragment extends Fragment implements View.OnClickListener,Sp
                             public void receiveData(Object result) {
                                 Boolean isSuccess = Utilities.isCreateUpdateSuccess((JSONObject) result);
                                 if(isSuccess){
-                                    Utilities.startFragWith(getActivity(), ChildHiringManagerActivity.class, "jobdetail", sendData.toString());
+                                    int postID = 0;
+                                    try {
+                                        postID=((JSONObject)result).getJSONObject("post").getInt("id");
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                    Utilities.startFragWith(getActivity(), ChildHiringManagerActivity.class, "jobdetail", postID+"");
                                     Toast.makeText(getActivity().getApplicationContext(), "success ", Toast.LENGTH_SHORT).show();
                                     getActivity().finish();
                                 }else {
@@ -283,13 +289,15 @@ public class AddPostFragment extends Fragment implements View.OnClickListener,Sp
                             @Override
                             public void receiveData(Object result) {
                                 Boolean isSuccess = Utilities.isCreateUpdateSuccess((JSONObject) result);
+                                int postID = 0;
                                 try {
-                                    sendData.put("id",((JSONObject)result).getJSONObject("post").getInt("id"));
+                                    postID=((JSONObject)result).getJSONObject("post").getInt("id");
+                                    sendData.put("id",postID);
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
                                 if(isSuccess){
-                                    Utilities.startFragWith(getActivity(), ChildHiringManagerActivity.class, "jobdetail", sendData.toString());
+                                    Utilities.startFragWith(getActivity(), ChildHiringManagerActivity.class, "jobdetail", postID+"");
                                     Toast.makeText(getActivity().getApplicationContext(), "success ", Toast.LENGTH_SHORT).show();
                                     getActivity().finish();
                                 }else {

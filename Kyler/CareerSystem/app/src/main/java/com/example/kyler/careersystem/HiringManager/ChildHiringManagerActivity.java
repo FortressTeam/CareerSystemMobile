@@ -31,7 +31,6 @@ import com.squareup.picasso.Picasso;
 
 public class ChildHiringManagerActivity extends AppCompatActivity implements View.OnClickListener,AdapterView.OnItemClickListener{
 
-    private ListView navigationViewMenu;
     private String receiveData;
     private Users users = Utilities.users;
     private HiringManagers hiringManagers = Utilities.hiringManagers;
@@ -54,12 +53,12 @@ public class ChildHiringManagerActivity extends AppCompatActivity implements Vie
             }
         });
         toolbar.setNavigationIcon(R.drawable.navigationbackicon);
-        navigationViewMenu = (ListView) findViewById(R.id.navigation_view_menu);
+        Utilities.navigationViewMenu = (ListView) findViewById(R.id.navigation_view_menu);
         View navigationViewHeader = getLayoutInflater().inflate(R.layout.nav_header_main, null);
         View navigationViewFooter = getLayoutInflater().inflate(R.layout.nav_footer_main, null);
-        navigationViewMenu.addHeaderView(navigationViewHeader);
-        navigationViewMenu.addFooterView(navigationViewFooter);
-        Utilities.loadNavigationViewHiringManager(this, navigationViewMenu);
+        Utilities.navigationViewMenu.addHeaderView(navigationViewHeader);
+        Utilities.navigationViewMenu.addFooterView(navigationViewFooter);
+        Utilities.loadNavigationViewHiringManager(this);
         ImageView hiringManagerImage = (ImageView) findViewById(R.id.nav_header_image);
         TextView hiringManagerName = (TextView) findViewById(R.id.nav_header_name);
         TextView hiringManagerEmail = (TextView) findViewById(R.id.nav_header_email);
@@ -68,8 +67,8 @@ public class ChildHiringManagerActivity extends AppCompatActivity implements Vie
         hiringManagerEmail.setText(users.getUserEmail());
         LinearLayout navSettingControl = (LinearLayout) findViewById(R.id.nav_setting_control);
         navSettingControl.setOnClickListener(this);
-        navigationViewMenu.setOnItemClickListener(this);
-        navigationViewMenu.setOnItemClickListener(this);
+        Utilities.navigationViewMenu.setOnItemClickListener(this);
+        Utilities.navigationViewMenu.setOnItemClickListener(this);
         Bundle bundle = getIntent().getBundleExtra("sendBundle");
         String key = bundle.getString("key");
         receiveData = bundle.getString("sendData");

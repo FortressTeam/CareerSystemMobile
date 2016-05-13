@@ -62,12 +62,6 @@ public class JobDetailFragment extends Fragment implements ObservableScrollViewC
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.applicant_job_detail_fragment, container, false);
         Bundle bundle = getArguments();
-        try {
-            receiveData = new JSONObject(bundle.getString("sendData"));
-            post = new Posts(receiveData);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
         jobDetailScrollView = (ObservableScrollView) rootView.findViewById(R.id.job_detail_scrollview);
         jobDetailCVSubmitLayout = (LinearLayout) rootView.findViewById(R.id.hiringmanager_listcv_submit_layout);
         jobDetailListCVSubmit = (ListView) rootView.findViewById(R.id.hiringmanager_listcv_submit);
@@ -87,8 +81,6 @@ public class JobDetailFragment extends Fragment implements ObservableScrollViewC
         spaceView.setVisibility(View.GONE);
         jobDetailCVSubmitLayout.setVisibility(View.VISIBLE);
         jobDetailScrollView.setScrollViewCallbacks(this);
-        loadData();
-
         jobDetailFloatactionbutton = (FloatingActionButton) rootView.findViewById(R.id.job_detail_floatactionbutton);
         jobDetailFloatactionbutton.setImageResource(R.drawable.editicon2);
         jobDetailFloatactionbutton.setOnClickListener(new View.OnClickListener() {
@@ -102,10 +94,12 @@ public class JobDetailFragment extends Fragment implements ObservableScrollViewC
             @Override
             public void receiveData(Object result) {
                 jsPost = (JSONObject) result;
+                post = new Posts(jsPost);
                 loadListCVSubmit(jsPost);
+                loadData();
             }
         };
-        getJsonObjectCallback.execute(UrlStatic.URLEditPost + post.getID() + ".json");
+        getJsonObjectCallback.execute(UrlStatic.URLEditPost + bundle.getString("sendData") + ".json");
         return rootView;
     }
 

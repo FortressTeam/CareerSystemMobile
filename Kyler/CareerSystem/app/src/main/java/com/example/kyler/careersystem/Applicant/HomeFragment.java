@@ -7,6 +7,7 @@ import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
@@ -38,7 +39,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class HomeFragment extends Fragment implements AbsListView.OnScrollListener,ListView.OnItemClickListener {
+public class HomeFragment extends Fragment implements AbsListView.OnScrollListener,ListView.OnItemClickListener, View.OnTouchListener {
     private ListView home_job_listview;
     private TextView homeBlank;
 
@@ -72,6 +73,7 @@ public class HomeFragment extends Fragment implements AbsListView.OnScrollListen
         home_job_listview.addFooterView(footer);
         home_job_listview.setOnScrollListener(this);
         home_job_listview.setOnItemClickListener(this);
+        home_job_listview.setOnTouchListener(this);
 //        progressBar.setVisibility((4 < jobListViewItems.size()) ? View.VISIBLE : View.GONE);
         final SwipeRefreshLayout swipeLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.home_swipe);
         swipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -152,10 +154,7 @@ public class HomeFragment extends Fragment implements AbsListView.OnScrollListen
 
     @Override
     public void onScrollStateChanged(AbsListView view, int scrollState) {
-        if(scrollState == SCROLL_STATE_TOUCH_SCROLL){
-            InputMethodManager inputMethodManager = (InputMethodManager)  getActivity().getSystemService(Activity.INPUT_METHOD_SERVICE);
-            inputMethodManager.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), 0);
-        }
+
     }
 
     @Override
@@ -233,5 +232,12 @@ public class HomeFragment extends Fragment implements AbsListView.OnScrollListen
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
         if(i < jobListViewItems.size())
             Utilities.startFragWith(getActivity(), ChildApplicantActivity.class, "jobdetail", arrPost.get(i).getID() + "");
+    }
+
+    @Override
+    public boolean onTouch(View view, MotionEvent motionEvent) {
+        InputMethodManager inputMethodManager = (InputMethodManager)  getActivity().getSystemService(Activity.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), 0);
+        return false;
     }
 }

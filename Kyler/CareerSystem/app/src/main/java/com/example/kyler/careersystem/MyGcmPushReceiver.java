@@ -69,7 +69,7 @@ public class MyGcmPushReceiver extends GcmListenerService {
             }
             else {
                 intent = new Intent(this, ApplicantMainActivity.class);
-                bundle.putInt("itemID",2);
+                bundle.putInt("itemID",5);
             }
             intent.putExtra("back",bundle);
         }
