@@ -188,6 +188,10 @@
         "source": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/build/generated/res/pngs/debug/drawable-xxxhdpi/navhomeicon.png"
     },
     {
+        "merged": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/build/intermediates/res/merged/debug/drawable-xxxhdpi-v4/calendaricon.png",
+        "source": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/build/generated/res/pngs/debug/drawable-xxxhdpi/calendaricon.png"
+    },
+    {
         "merged": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/build/intermediates/res/merged/debug/drawable-xxxhdpi-v4/hiringmanagerfind2.png",
         "source": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/build/generated/res/pngs/debug/drawable-xxxhdpi/hiringmanagerfind2.png"
     },

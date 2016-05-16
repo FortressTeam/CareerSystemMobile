@@ -1,5 +1,6 @@
 package com.example.kyler.careersystem.Applicant.ChildFragments;
 
+import android.app.DatePickerDialog;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -7,7 +8,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
@@ -22,10 +25,13 @@ import org.json.JSONObject;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 public class MyresumeProfileFragment extends Fragment implements View.OnClickListener{
+    private Calendar calendar = Calendar.getInstance();
     private EditText profileName,profileHometown,profileBirthday;
+    private ImageView profileBirthdayImageView;
     private RadioButton rbMale,rbFemale;
     private Button profileSave;
     private JSONObject jsReceive = null;
@@ -42,12 +48,14 @@ public class MyresumeProfileFragment extends Fragment implements View.OnClickLis
             e.printStackTrace();
         }
         profileName = (EditText) rootView.findViewById(R.id.myresume_profile_name);
+        profileBirthdayImageView = (ImageView) rootView.findViewById(R.id.myresume_profile_birthday_imageview);
         profileHometown = (EditText) rootView.findViewById(R.id.myresume_profile_hometown);
         profileBirthday = (EditText) rootView.findViewById(R.id.myresume_profile_birthday);
         rbMale = (RadioButton) rootView.findViewById(R.id.myresume_profile_rbmale);
         rbFemale = (RadioButton) rootView.findViewById(R.id.myresume_profile_rbfemale);
         profileSave = (Button) rootView.findViewById(R.id.myresume_profile_save);
         profileSave.setOnClickListener(this);
+        profileBirthdayImageView.setOnClickListener(this);
         loadOldData(jsReceive);
         return rootView;
     }
@@ -70,8 +78,29 @@ public class MyresumeProfileFragment extends Fragment implements View.OnClickLis
         }
     }
 
+    DatePickerDialog.OnDateSetListener datePickerListenner = new DatePickerDialog.OnDateSetListener() {
+        @Override
+        public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
+            String dateBirthday = Utilities.convertTime(i + "-" + (i1 + 1) + "-" + i2);
+            profileBirthday.setText(dateBirthday);
+        }
+    };
+
+
     @Override
     public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.myresume_profile_save:
+                doSave();
+                break;
+            case R.id.myresume_profile_birthday_imageview:
+                new DatePickerDialog(getActivity(),datePickerListenner,calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH),calendar.get(Calendar.DAY_OF_MONTH)).show();
+                break;
+        }
+
+    }
+
+    private void doSave(){
         JSONObject jsonObject = new JSONObject();
         try{
             jsonObject.put("applicant_name",profileName.getText().toString());

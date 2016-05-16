@@ -376,6 +376,10 @@
         "source": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/8.4.0/res/drawable-xxhdpi/common_plus_signin_btn_text_light_focused.9.png"
     },
     {
+        "merged": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/build/intermediates/res/merged/debug/drawable-xxhdpi-v4/calendaricon.png",
+        "source": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/build/generated/res/pngs/debug/drawable-xxhdpi/calendaricon.png"
+    },
+    {
         "merged": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/build/intermediates/res/merged/debug/drawable-xxhdpi-v4/jobappliedjoboverview.png",
         "source": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/build/generated/res/pngs/debug/drawable-xxhdpi/jobappliedjoboverview.png"
     },

@@ -280,6 +280,10 @@
         "source": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/drawable/abc_cab_background_top_material.xml"
     },
     {
+        "merged": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/build/intermediates/res/merged/debug/drawable/colorstyleedittext.xml",
+        "source": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/src/main/res/drawable/colorstyleedittext.xml"
+    },
+    {
         "merged": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/build/intermediates/res/merged/debug/drawable/ic_notification2.png",
         "source": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/src/main/res/drawable/ic_notification2.png"
     },

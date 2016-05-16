@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/applicant_myresume_profile"
@@ -14,11 +14,12 @@
     tools:context=".Applicant.ChildFragments.MyresumeProfileFragment">
 
     <LinearLayout
+        android:paddingLeft="@dimen/padding_card"
+        android:paddingRight="@dimen/padding_card"
+        android:paddingTop="@dimen/margin_card"
+        android:paddingBottom="50dp"
         android:background="@drawable/customborder"
         android:orientation="vertical"
-        android:paddingTop="5dp"
-        android:paddingLeft="5dp"
-        android:paddingRight="5dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <android.support.design.widget.TextInputLayout
@@ -67,26 +68,43 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
         </android.support.design.widget.TextInputLayout>
-
-        <android.support.design.widget.TextInputLayout
+        <LinearLayout
+            android:weightSum="1"
+            android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+        <android.support.design.widget.TextInputLayout
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content">
             <EditText
+                android:enabled="false"
+                android:textColor="@drawable/colorstyleedittext"
                 android:singleLine="true"
                 android:textSize="@dimen/activity_content_medium"
                 android:id="@+id/myresume_profile_birthday"
-                android:textColorHint="#727272"
+                android:textColorHint="@color/colorAccent"
                 android:hint="Birthday"
                 android:layout_marginBottom="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
         </android.support.design.widget.TextInputLayout>
-        <Button
-            android:layout_marginTop="10dp"
-            android:id="@+id/myresume_profile_save"
-            android:layout_gravity="center"
-            android:text="@string/Save"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            <ImageView
+                android:id="@+id/myresume_profile_birthday_imageview"
+                android:layout_gravity="center"
+                android:src="@drawable/calendaricon"
+                android:layout_width="35dp"
+                android:layout_height="35dp"/>
+        </LinearLayout>
     </LinearLayout>
-</LinearLayout>
+    <Button
+        android:id="@+id/myresume_profile_save"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="@dimen/padding_card"
+        android:layout_marginRight="@dimen/padding_card"
+        android:layout_gravity="center"
+        android:text="@string/Save"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:theme="@style/MyButton"/>
+</RelativeLayout>

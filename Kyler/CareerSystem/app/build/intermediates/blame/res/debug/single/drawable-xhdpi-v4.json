@@ -704,6 +704,10 @@
         "source": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/8.4.0/res/drawable-xhdpi/common_google_signin_btn_icon_light_normal.9.png"
     },
     {
+        "merged": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/build/intermediates/res/merged/debug/drawable-xhdpi-v4/calendaricon.png",
+        "source": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/build/generated/res/pngs/debug/drawable-xhdpi/calendaricon.png"
+    },
+    {
         "merged": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/build/intermediates/res/merged/debug/drawable-xhdpi-v4/starfollow.png",
         "source": "/home/kyler/GitHub/CareerSystemMobile/Kyler/CareerSystem/app/build/generated/res/pngs/debug/drawable-xhdpi/starfollow.png"
     },

@@ -250,10 +250,7 @@ public class SearchFragment extends Fragment implements View.OnClickListener, Ab
 
     @Override
     public void onScrollStateChanged(AbsListView absListView, int scrollState) {
-        if(scrollState == SCROLL_STATE_TOUCH_SCROLL){
-            InputMethodManager inputMethodManager = (InputMethodManager)  getActivity().getSystemService(Activity.INPUT_METHOD_SERVICE);
-            inputMethodManager.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), 0);
-        }
+
     }
 
     @Override
