@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.kyler.careersystem.Entities.PostsHasCurriculumVitaes;
+import com.example.kyler.careersystem.Helper.OrientationHepler;
 import com.example.kyler.careersystem.R;
 import com.example.kyler.careersystem.UrlStatic;
 import com.example.kyler.careersystem.Utilities;
@@ -29,6 +30,7 @@ public class SubmittedCVListViewAdapter extends BaseAdapter implements View.OnCl
     private Activity context;
     private ArrayList<SubmittedCVListViewItem> submittedCVListViewItems;
     private int ACCEPT = 1, REJECT = 2;
+    private OrientationHepler orientationHepler;
 
     public SubmittedCVListViewAdapter(Activity context, ArrayList<SubmittedCVListViewItem> submittedCVListViewItems) {
         this.context = context;
@@ -56,6 +58,7 @@ public class SubmittedCVListViewAdapter extends BaseAdapter implements View.OnCl
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
             view = inflater.inflate(R.layout.hiringmanager_submittedcv_listviewitem, null);
         }
+        orientationHepler = new OrientationHepler();
         TextView submittedcv_listviewitem_applicantname = (TextView) view.findViewById(R.id.submittedcv_listviewitem_applicantname);
         TextView submittedcv_listviewitem_cvname = (TextView) view.findViewById(R.id.submittedcv_listviewitem_cvname);
         LinearLayout submittedcv_listviewitem_cv = (LinearLayout) view.findViewById(R.id.submittedcv_listviewitem_cv);
@@ -123,7 +126,7 @@ public class SubmittedCVListViewAdapter extends BaseAdapter implements View.OnCl
                             @Override
                             public void receiveData(Object result) {
                                 if (!Utilities.isCreateUpdateSuccess((JSONObject) result)) {
-                                    Utilities.displayViewHiringManager(context, 404);
+                                    orientationHepler.displayViewHiringManager(context, 404);
                                 } else {
                                     img1.setEnabled(false);
                                     img2.setVisibility(View.GONE);

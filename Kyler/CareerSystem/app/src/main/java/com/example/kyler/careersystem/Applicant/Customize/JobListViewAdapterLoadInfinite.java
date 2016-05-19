@@ -100,13 +100,10 @@ public class JobListViewAdapterLoadInfinite extends ArrayAdapter<JobListViewItem
         return view;
     }
 
-    public boolean showMore(){
-        if(count == jobListViewItems.size()) {
-            return true;
-        }else{
+    public void showMore(){
+        if(!(count == jobListViewItems.size())) {
             count = Math.min(count + stepNumber, jobListViewItems.size()); //don't go past the end
             notifyDataSetChanged(); //the count size has changed, so notify the super of the change
-            return endReached();
         }
     }
 

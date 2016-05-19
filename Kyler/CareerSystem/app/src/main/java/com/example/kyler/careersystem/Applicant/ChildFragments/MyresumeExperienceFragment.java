@@ -238,7 +238,7 @@ public class MyresumeExperienceFragment extends Fragment implements View.OnClick
                     }
                 }
             };
-            putDataWithJsonCallback.equals(UrlStatic.URLPersonalHistory2+personalHistory.getID()+".json");
+            putDataWithJsonCallback.execute(UrlStatic.URLPersonalHistory2+personalHistory.getID()+".json");
         } catch (JSONException e) {
             e.printStackTrace();
         }

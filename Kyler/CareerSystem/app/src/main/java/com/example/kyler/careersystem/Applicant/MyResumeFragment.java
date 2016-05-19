@@ -41,6 +41,7 @@ import com.example.kyler.careersystem.Entities.PersonalHistory;
 import com.example.kyler.careersystem.Entities.SkillTypes;
 import com.example.kyler.careersystem.Entities.Skills;
 import com.example.kyler.careersystem.Entities.Users;
+import com.example.kyler.careersystem.Helper.OrientationHepler;
 import com.example.kyler.careersystem.R;
 import com.example.kyler.careersystem.UrlStatic;
 import com.example.kyler.careersystem.Utilities;
@@ -70,11 +71,9 @@ public class MyResumeFragment extends Fragment implements View.OnClickListener,O
 
     private NonScrollListView myresume_listview_education,myresume_listview_experience,myresume_listview_activity,myresume_listview_award,myresume_listview_skill,myresume_listview_hobbie;
     private ObservableScrollView myresumeFragmentObservableScrollView;
-    private TextView myresumeEducation,myresumeExperience,myresumeActivity,myresumeAward,myresumeSkill,myresumeHobbie;
-    private TextView myresumeSex,myresumeHometown,myresumeBirthday,myresumePhone,myresumeEmail,myresumeAddress,myresumeAbout, myresumeObjective;
+    private TextView myresumeEducation,myresumeExperience,myresumeActivity,myresumeAward,myresumeSkill,myresumeHobbie,myresumeSex,myresumeHometown,myresumeBirthday,myresumePhone,myresumeEmail,myresumeAddress,myresumeAbout, myresumeObjective, myresumeBlank;
     private ImageView myresumeUserImage,myresumeEditContact,myresumeEditAbout,myresumeAddEducation,myresumeAddExperience,myresumeAddActivity,myresumeAddAward,myresumeAddSkills,myresumeAddHobbies, myresumeEditObjective;
     private LinearLayout myresumeEditProfile;
-    private TextView myresumeBlank;
     private FloatingActionButton myresumeEditButton;
 
     private ArrayList<PersonalHistory> arrayEducation,arrayExperience,arrayActivity,arrayAward,personalHistories;
@@ -92,10 +91,12 @@ public class MyResumeFragment extends Fragment implements View.OnClickListener,O
     private boolean hideButton=true;
     private Handler mHandler;
     private Dialog addHobbieDialog,addSkillDialog;
+    private OrientationHepler orientationHepler;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mHandler = new Handler();
+        orientationHepler = new OrientationHepler();
         myresumeController = new MyresumeController();
         View rootView=inflater.inflate(R.layout.applicant_myresume_fragment,container,false);
         myresumeFragmentObservableScrollView = (ObservableScrollView) rootView.findViewById(R.id.myresume_fragment_observablescrollview);
@@ -184,7 +185,7 @@ public class MyResumeFragment extends Fragment implements View.OnClickListener,O
                                     myresumeEditButton.setVisibility(View.VISIBLE);
                                 } else {
                                     Toast.makeText(getActivity().getApplicationContext(), "Connection got problem!", Toast.LENGTH_SHORT).show();
-                                    Utilities.displayViewApplicant(getActivity(), 404);
+                                    orientationHepler.displayViewApplicant(getActivity(), 404);
                                 }
                             } catch (JSONException e) {
                                 e.printStackTrace();

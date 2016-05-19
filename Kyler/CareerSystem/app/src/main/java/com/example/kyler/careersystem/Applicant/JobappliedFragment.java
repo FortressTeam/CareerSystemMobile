@@ -84,7 +84,7 @@ public class JobappliedFragment extends Fragment implements AbsListView.OnScroll
                             }
                         }else {
                             Toast.makeText(getActivity().getApplicationContext(), "Connection got problem!", Toast.LENGTH_SHORT).show();
-                            Utilities.displayViewApplicant(getActivity(), 404);
+                            orientationHepler.displayViewApplicant(getActivity(), 404);
                         }
                     }
                 };
@@ -155,7 +155,7 @@ public class JobappliedFragment extends Fragment implements AbsListView.OnScroll
                     };
                     getJsonLoadMoreCallback.execute(url + page + "&sort=post_date&direction=desc");
                 }
-                boolean noMoreToShow = jobAppliedListViewAdapterLoadInfinite.showMore();
+                jobAppliedListViewAdapterLoadInfinite.showMore();
             }
             hasCallback = false;
         }

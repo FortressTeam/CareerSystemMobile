@@ -28,6 +28,7 @@ import com.example.kyler.careersystem.Entities.CurriculumVitaes;
 import com.example.kyler.careersystem.Entities.HiringManagers;
 import com.example.kyler.careersystem.Entities.Posts;
 import com.example.kyler.careersystem.Entities.PostsHasCurriculumVitaes;
+import com.example.kyler.careersystem.Helper.OrientationHepler;
 import com.example.kyler.careersystem.R;
 import com.example.kyler.careersystem.UrlStatic;
 import com.example.kyler.careersystem.Utilities;
@@ -71,6 +72,7 @@ public class JobDetailFragment extends Fragment implements ObservableScrollViewC
     private Dialog myCVDialog;
     private ListView myCVListView;
     private ArrayList<PostsHasCurriculumVitaes> postsHasCurriculumVitaes = new ArrayList<>();
+    private OrientationHepler orientationHepler;
 
     public JobDetailFragment() {
     }
@@ -78,6 +80,7 @@ public class JobDetailFragment extends Fragment implements ObservableScrollViewC
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mHandler = new Handler();
+        orientationHepler = new OrientationHepler();
         View rootView = inflater.inflate(R.layout.applicant_job_detail_fragment, container, false);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Job Detail");
         Bundle bundle = getArguments();
@@ -159,7 +162,7 @@ public class JobDetailFragment extends Fragment implements ObservableScrollViewC
                                 jobDetailBlank.setVisibility(View.GONE);
                             } else {
                                 Toast.makeText(getActivity().getApplicationContext(), "Connection got problem!", Toast.LENGTH_SHORT).show();
-                                Utilities.displayViewApplicant(getActivity(), 404);
+                                orientationHepler.displayViewApplicant(getActivity(), 404);
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();

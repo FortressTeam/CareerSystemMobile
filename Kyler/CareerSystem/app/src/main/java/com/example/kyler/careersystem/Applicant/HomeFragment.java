@@ -27,6 +27,7 @@ import com.example.kyler.careersystem.Bussiness.PostController;
 import com.example.kyler.careersystem.Entities.Categories;
 import com.example.kyler.careersystem.Entities.HiringManagers;
 import com.example.kyler.careersystem.Entities.Posts;
+import com.example.kyler.careersystem.Helper.OrientationHepler;
 import com.example.kyler.careersystem.R;
 import com.example.kyler.careersystem.UrlStatic;
 import com.example.kyler.careersystem.Utilities;
@@ -39,7 +40,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class HomeFragment extends Fragment implements AbsListView.OnScrollListener,ListView.OnItemClickListener, View.OnTouchListener {
+public class    HomeFragment extends Fragment implements AbsListView.OnScrollListener,ListView.OnItemClickListener, View.OnTouchListener {
     private ListView home_job_listview;
     private TextView homeBlank;
 
@@ -54,12 +55,14 @@ public class HomeFragment extends Fragment implements AbsListView.OnScrollListen
 
     private int page=1;
     private boolean nomoreData=false,refresh=false;
+    private OrientationHepler orientationHepler;
 
     public HomeFragment(){}
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mHandler = new Handler();
+        orientationHepler = new OrientationHepler();
         arrPost = new ArrayList<>();
         jobListViewItems = new ArrayList<JobListViewItem>();
         View rootView = inflater.inflate(R.layout.applicant_home_fragment,container,false);
@@ -74,7 +77,7 @@ public class HomeFragment extends Fragment implements AbsListView.OnScrollListen
         home_job_listview.setOnScrollListener(this);
         home_job_listview.setOnItemClickListener(this);
         home_job_listview.setOnTouchListener(this);
-//        progressBar.setVisibility((4 < jobListViewItems.size()) ? View.VISIBLE : View.GONE);
+        progressBar.setVisibility((10 < jobListViewItems.size()) ? View.VISIBLE : View.GONE);
         final SwipeRefreshLayout swipeLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.home_swipe);
         swipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -120,7 +123,7 @@ public class HomeFragment extends Fragment implements AbsListView.OnScrollListen
                                     }
                                 } else {
                                     Toast.makeText(getActivity().getApplicationContext(), "Connection got problem!", Toast.LENGTH_SHORT).show();
-                                    Utilities.displayViewApplicant(getActivity(), 404);
+                                    orientationHepler.displayViewApplicant(getActivity(), 404);
                                 }
                             } catch (JSONException e) {
                                 e.printStackTrace();
@@ -222,7 +225,7 @@ public class HomeFragment extends Fragment implements AbsListView.OnScrollListen
                     };
                     getJsonLoadMoreCallback.execute(UrlStatic.URLHomefragment+page+"&sort=post_date&direction=desc");
                 }
-                boolean noMoreToShow = jobListViewAdapterLoadInfinite.showMore();
+                jobListViewAdapterLoadInfinite.showMore();
             }
             hasCallback = false;
         }

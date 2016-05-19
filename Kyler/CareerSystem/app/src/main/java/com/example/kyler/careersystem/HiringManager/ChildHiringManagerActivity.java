@@ -20,6 +20,7 @@ import android.widget.TextView;
 import com.example.kyler.careersystem.ApplicantMainActivity;
 import com.example.kyler.careersystem.Entities.HiringManagers;
 import com.example.kyler.careersystem.Entities.Users;
+import com.example.kyler.careersystem.Helper.OrientationHepler;
 import com.example.kyler.careersystem.HiringManager.ChildFragments.AddPostFragment;
 import com.example.kyler.careersystem.HiringManager.ChildFragments.JobDetailFragment;
 import com.example.kyler.careersystem.HiringManagerMainActivity;
@@ -34,6 +35,7 @@ public class ChildHiringManagerActivity extends AppCompatActivity implements Vie
     private String receiveData;
     private Users users = Utilities.users;
     private HiringManagers hiringManagers = Utilities.hiringManagers;
+    private OrientationHepler orientationHepler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +43,7 @@ public class ChildHiringManagerActivity extends AppCompatActivity implements Vie
         setContentView(R.layout.activity_child_applicant);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        orientationHepler = new OrientationHepler();
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -58,7 +61,7 @@ public class ChildHiringManagerActivity extends AppCompatActivity implements Vie
         View navigationViewFooter = getLayoutInflater().inflate(R.layout.nav_footer_main, null);
         Utilities.navigationViewMenu.addHeaderView(navigationViewHeader);
         Utilities.navigationViewMenu.addFooterView(navigationViewFooter);
-        Utilities.loadNavigationViewHiringManager(this);
+        orientationHepler.loadNavigationViewHiringManager(this);
         ImageView hiringManagerImage = (ImageView) findViewById(R.id.nav_header_image);
         TextView hiringManagerName = (TextView) findViewById(R.id.nav_header_name);
         TextView hiringManagerEmail = (TextView) findViewById(R.id.nav_header_email);
@@ -144,7 +147,7 @@ public class ChildHiringManagerActivity extends AppCompatActivity implements Vie
                 drawer.closeDrawer(GravityCompat.START);
                 switch(items[i]){
                     case "Log out":
-                        Utilities.logOut(ChildHiringManagerActivity.this);
+                        orientationHepler.logOut(ChildHiringManagerActivity.this);
                         break;
                     case "Settings":
                         break;

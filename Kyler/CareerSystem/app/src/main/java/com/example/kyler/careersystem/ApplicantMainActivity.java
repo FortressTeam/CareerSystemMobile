@@ -24,6 +24,7 @@ import android.widget.TextView;
 import com.example.kyler.careersystem.Applicant.ChildApplicantActivity;
 import com.example.kyler.careersystem.Entities.Applicants;
 import com.example.kyler.careersystem.Entities.Users;
+import com.example.kyler.careersystem.Helper.OrientationHepler;
 import com.squareup.picasso.Picasso;
 
 public class ApplicantMainActivity extends AppCompatActivity implements ListView.OnItemClickListener,View.OnClickListener,SearchView.OnQueryTextListener{
@@ -31,6 +32,7 @@ public class ApplicantMainActivity extends AppCompatActivity implements ListView
     private SearchView searchView;
     private Users users = Utilities.users;
     private Applicants applicants = Utilities.applicants;
+    private OrientationHepler orientationHepler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +40,7 @@ public class ApplicantMainActivity extends AppCompatActivity implements ListView
         setContentView(R.layout.activity_applicant_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        orientationHepler = new OrientationHepler();
         mhHandler = new Handler();
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -49,7 +52,7 @@ public class ApplicantMainActivity extends AppCompatActivity implements ListView
         View navigationViewFooter = getLayoutInflater().inflate(R.layout.nav_footer_main, null);
         Utilities.navigationViewMenu.addHeaderView(navigationViewHeader);
         Utilities.navigationViewMenu.addFooterView(navigationViewFooter);
-        Utilities.loadNavigationViewApplicant(this);
+        orientationHepler.loadNavigationViewApplicant(this);
         ImageView applicantImage = (ImageView) findViewById(R.id.nav_header_image);
         TextView applicantName = (TextView) findViewById(R.id.nav_header_name);
         TextView applicantEmail = (TextView) findViewById(R.id.nav_header_email);
@@ -62,10 +65,10 @@ public class ApplicantMainActivity extends AppCompatActivity implements ListView
         Bundle bundle = getIntent().getBundleExtra("back");
         if(bundle!=null){
             int id = bundle.getInt("itemID");
-            Utilities.displayViewApplicant(this, id);
+            orientationHepler.displayViewApplicant(this, id);
         }
         else
-            Utilities.displayViewApplicant(this, 1);
+            orientationHepler.displayViewApplicant(this, 1);
         Utilities.getNotificationCount(this);
     }
 
@@ -123,7 +126,7 @@ public class ApplicantMainActivity extends AppCompatActivity implements ListView
         mhHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                Utilities.displayViewApplicant(activity, id);
+                orientationHepler.displayViewApplicant(activity, id);
             }
         }, 300);
     }
@@ -149,7 +152,7 @@ public class ApplicantMainActivity extends AppCompatActivity implements ListView
                 drawer.closeDrawer(GravityCompat.START);
                 switch(items[i]){
                     case "Log out":
-                        Utilities.logOut(ApplicantMainActivity.this);
+                        orientationHepler.logOut(ApplicantMainActivity.this);
                         break;
                     case "Settings":
                         break;

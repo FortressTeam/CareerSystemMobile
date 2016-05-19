@@ -31,6 +31,7 @@ import com.example.kyler.careersystem.ApplicantMainActivity;
 import com.example.kyler.careersystem.Entities.Applicants;
 import com.example.kyler.careersystem.Entities.Users;
 import com.example.kyler.careersystem.FeedbackFragment;
+import com.example.kyler.careersystem.Helper.OrientationHepler;
 import com.example.kyler.careersystem.R;
 import com.example.kyler.careersystem.UrlStatic;
 import com.example.kyler.careersystem.Utilities;
@@ -41,10 +42,12 @@ public class ChildApplicantActivity extends AppCompatActivity implements ListVie
     private String receiveData;
     private Users users = Utilities.users;
     private Applicants applicants = Utilities.applicants;
+    private OrientationHepler orientationHepler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        orientationHepler = new OrientationHepler();
         setContentView(R.layout.activity_child_applicant);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -65,7 +68,7 @@ public class ChildApplicantActivity extends AppCompatActivity implements ListVie
         View navigationViewFooter = getLayoutInflater().inflate(R.layout.nav_footer_main, null);
         Utilities.navigationViewMenu.addHeaderView(navigationViewHeader);
         Utilities.navigationViewMenu.addFooterView(navigationViewFooter);
-        Utilities.loadNavigationViewApplicant(this);
+        orientationHepler.loadNavigationViewApplicant(this);
         ImageView hiringManagerImage = (ImageView) findViewById(R.id.nav_header_image);
         TextView hiringManagerName = (TextView) findViewById(R.id.nav_header_name);
         TextView hiringManagerEmail = (TextView) findViewById(R.id.nav_header_email);

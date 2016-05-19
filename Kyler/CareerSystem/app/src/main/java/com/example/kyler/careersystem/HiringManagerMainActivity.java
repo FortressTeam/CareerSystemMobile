@@ -22,6 +22,7 @@ import android.widget.TextView;
 import com.example.kyler.careersystem.Applicant.ChildApplicantActivity;
 import com.example.kyler.careersystem.Entities.HiringManagers;
 import com.example.kyler.careersystem.Entities.Users;
+import com.example.kyler.careersystem.Helper.OrientationHepler;
 import com.squareup.picasso.Picasso;
 
 public class HiringManagerMainActivity extends AppCompatActivity implements View.OnClickListener,ListView.OnItemClickListener {
@@ -29,6 +30,7 @@ public class HiringManagerMainActivity extends AppCompatActivity implements View
     private Handler mhHandler;
     private Users users = Utilities.users;
     private HiringManagers hiringManagers = Utilities.hiringManagers;
+    private OrientationHepler orientationHepler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +38,7 @@ public class HiringManagerMainActivity extends AppCompatActivity implements View
         setContentView(R.layout.activity_hiringmanager_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        orientationHepler = new OrientationHepler();
         mhHandler = new Handler();
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -47,7 +50,7 @@ public class HiringManagerMainActivity extends AppCompatActivity implements View
         View navigationViewFooter = getLayoutInflater().inflate(R.layout.nav_footer_main, null);
         Utilities.navigationViewMenu.addHeaderView(navigationViewHeader);
         Utilities.navigationViewMenu.addFooterView(navigationViewFooter);
-        Utilities.loadNavigationViewHiringManager(this);
+        orientationHepler.loadNavigationViewHiringManager(this);
         ImageView hiringManagerImage = (ImageView) findViewById(R.id.nav_header_image);
         TextView hiringManagerName = (TextView) findViewById(R.id.nav_header_name);
         TextView hiringManagerEmail = (TextView) findViewById(R.id.nav_header_email);
@@ -60,10 +63,10 @@ public class HiringManagerMainActivity extends AppCompatActivity implements View
         Bundle bundle = getIntent().getBundleExtra("back");
         if(bundle!=null){
             int id = bundle.getInt("itemID");
-            Utilities.displayViewHiringManager(this, id);
+            orientationHepler.displayViewHiringManager(this, id);
         }
         else
-            Utilities.displayViewHiringManager(this, 0);
+            orientationHepler.displayViewHiringManager(this, 0);
     }
 
     @Override
@@ -107,7 +110,7 @@ public class HiringManagerMainActivity extends AppCompatActivity implements View
         mhHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                Utilities.displayViewHiringManager(activity, id);
+                orientationHepler.displayViewHiringManager(activity, id);
             }
         },300);
     }
@@ -133,7 +136,7 @@ public class HiringManagerMainActivity extends AppCompatActivity implements View
                 drawer.closeDrawer(GravityCompat.START);
                 switch(items[i]){
                     case "Log out":
-                        Utilities.logOut(HiringManagerMainActivity.this);
+                        orientationHepler.logOut(HiringManagerMainActivity.this);
                         break;
                     case "Settings":
                         break;

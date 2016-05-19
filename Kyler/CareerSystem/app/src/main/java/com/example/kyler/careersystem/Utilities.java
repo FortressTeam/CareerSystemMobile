@@ -126,44 +126,6 @@ public class Utilities {
         adapter.notifyDataSetChanged();
     }
 
-    public static void displayViewApplicant(Activity context, int position){
-        Fragment fragment = null;
-        switch (position){
-            case 0://home
-                fragment = new MyResumeFragment();
-                break;
-            case 1://home
-                fragment = new HomeFragment();
-                break;
-            case 2://myresume
-                fragment = new MyResumeFragment();
-                break;
-            case 3://favorite
-                fragment = new FollowJobFragment();
-                break;
-            case 4://jobapplied
-                fragment = new JobappliedFragment();
-                break;
-            case 5://notifications
-                fragment = new NotificationFragment();
-                break;
-            case 99:
-                logOut(context);
-                break;
-            default:
-                fragment = new FailedConnectionFragment();
-                break;
-        }
-        if(fragment != null){
-            FragmentManager fragmentManager = context.getFragmentManager();
-            fragmentManager.beginTransaction().replace(R.id.frame_main,fragment).commit();
-        } else{
-            Log.e("Applicant MainActivity", "Error in creating fragment");
-        }
-        DrawerLayout drawer = (DrawerLayout) context.findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-    }
-
     public static void getNotificationCount(final Context context){
         GetJsonObjectCallback getJsonObjectNotificationCount = new GetJsonObjectCallback("count") {
             @Override
@@ -180,48 +142,6 @@ public class Utilities {
             }
         };
         getJsonObjectNotificationCount.execute(UrlStatic.URLNotificationCount+"?user_id="+users.getID());
-    }
-
-    public static void loadNavigationViewHiringManager(Context context){
-        ArrayList<NavigationListViewItem> listItem = new ArrayList<>();
-        listItem.add(new NavigationListViewItem(R.drawable.hiringmanagerpost,"Posts"));
-//        listItem.add(new NavigationListViewItem(R.drawable.hiringmanagercvsubmitted,"Resume Submitted"));
-//        listItem.add(new NavigationListViewItem(R.drawable.hiringmanagerfind,"Find"));
-//        listItem.add(new NavigationListViewItem(R.drawable.hiringmanagercalendar,"Calendar"));
-//        listItem.add(new NavigationListViewItem(R.drawable.navjobappliedicon,"Job Applied"));
-        if(notificationCount > 0) {
-            listItem.add(new NavigationListViewItem(R.drawable.navnotificationicon, "Notifications", notificationCount, true));
-        }else{
-            listItem.add(new NavigationListViewItem(R.drawable.navnotificationicon, "Notifications"));
-        }
-        NavigationListViewAdapter adapter = new NavigationListViewAdapter(context.getApplicationContext(),listItem);
-        navigationViewMenu.setAdapter(adapter);
-    }
-
-    public static void displayViewHiringManager(Activity context, int position){
-        Fragment fragment = null;
-        switch (position){
-            case 0:
-                fragment = new com.example.kyler.careersystem.HiringManager.HomeFragment();
-                break;
-            case 1:
-                fragment = new com.example.kyler.careersystem.HiringManager.ManagePost();
-                break;
-            case 2:
-                fragment = new NotificationFragment();
-                break;
-            default:
-                fragment = new FailedConnectionFragment();
-                break;
-        }
-        if(fragment != null){
-            FragmentManager fragmentManager = context.getFragmentManager();
-            fragmentManager.beginTransaction().replace(R.id.frame_main,fragment).commit();
-        } else{
-            Log.e("Applicant MainActivity", "Error in creating fragment");
-        }
-        DrawerLayout drawer = (DrawerLayout) context.findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
     }
 
     public static String getDays(String datetime){
@@ -365,29 +285,6 @@ public class Utilities {
             }
         };
         postDataWithJsonCallback.execute(UrlStatic.URLSignin);
-    }
-
-
-    public static void logOut(final Activity activity){
-        JSONObject jsSendData = new JSONObject();
-        try {
-            jsSendData.put("user_android_token","");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        final JSONObject sendData = jsSendData;
-        PostDataWithJsonCallback postDataWithJsonCallback = new PostDataWithJsonCallback(sendData,activity) {
-            @Override
-            public void receiveData(Object result) {
-                clear();
-                Intent intent = new Intent(activity,LoginActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                activity.deleteFile(Utilities.SAVING_FILE_LOGIN);
-                activity.startActivity(intent);
-                activity.finish();
-            }
-        };
-        postDataWithJsonCallback.execute(UrlStatic.URLUpdateToken+users.getID()+".json");
     }
 
     public static String convertTime(String date){

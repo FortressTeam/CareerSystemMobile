@@ -234,6 +234,7 @@ public class MyresumeActivityFragment extends Fragment implements View.OnClickLi
                     }
                 }
             };
+            putDataWithJsonCallback.execute(UrlStatic.URLPersonalHistory2+personalHistory.getID()+".json");
         } catch (JSONException e) {
             e.printStackTrace();
         }

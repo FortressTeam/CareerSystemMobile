@@ -15,6 +15,7 @@ import android.widget.ProgressBar;
 
 import com.example.kyler.careersystem.Applicant.ChildApplicantActivity;
 import com.example.kyler.careersystem.Entities.Notifications;
+import com.example.kyler.careersystem.Helper.OrientationHepler;
 import com.example.kyler.careersystem.HiringManager.ChildHiringManagerActivity;
 import com.example.kyler.careersystem.WorkWithService.GetJsonArrayCallback;
 import com.example.kyler.careersystem.WorkWithService.GetJsonLoadMoreCallback;
@@ -36,6 +37,7 @@ public class NotificationFragment extends Fragment implements  AbsListView.OnScr
     private boolean nomoreData=true;
     private int page = 1;
     private ArrayList<Notifications> notifications = new ArrayList<>();
+    private OrientationHepler orientationHepler;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -43,6 +45,7 @@ public class NotificationFragment extends Fragment implements  AbsListView.OnScr
         ((AppCompatActivity)getActivity()).getSupportActionBar().show();
         ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Notifications");
         notificationListviewitems = new ArrayList<>();
+        orientationHepler = new OrientationHepler();
         mHandler = new Handler();
         notification_listview = (ListView) rootView.findViewById(R.id.hiringmanager_notification_listview);
         View footer = getActivity().getLayoutInflater().inflate(R.layout.progress_bar_footer, null);
@@ -76,9 +79,9 @@ public class NotificationFragment extends Fragment implements  AbsListView.OnScr
                 }else{
                     nomoreData=true;
                     if(Utilities.users.getGroupID() == 2){
-                        Utilities.displayViewHiringManager(getActivity(),404);
+                        orientationHepler.displayViewHiringManager(getActivity(),404);
                     }else if(Utilities.users.getGroupID() == 3){
-                        Utilities.displayViewApplicant(getActivity(),404);
+                        orientationHepler.displayViewApplicant(getActivity(),404);
                     }
                 }
             }

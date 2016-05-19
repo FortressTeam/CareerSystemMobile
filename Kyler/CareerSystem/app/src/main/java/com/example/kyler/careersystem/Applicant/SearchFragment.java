@@ -318,7 +318,7 @@ public class SearchFragment extends Fragment implements View.OnClickListener, Ab
                     };
                     getJsonLoadMoreCallback.execute(urlSearch + page + "&sort=post_date&direction=desc");
                 }
-                boolean noMoreToShow = jobListViewAdapterLoadInfinite.showMore();
+                jobListViewAdapterLoadInfinite.showMore();
             }
             hasCallback = false;
         }

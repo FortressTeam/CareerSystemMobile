@@ -21,6 +21,7 @@ import com.example.kyler.careersystem.Entities.Categories;
 import com.example.kyler.careersystem.Entities.HiringManagers;
 import com.example.kyler.careersystem.Entities.Posts;
 import com.example.kyler.careersystem.Entities.PostsHasCurriculumVitaes;
+import com.example.kyler.careersystem.Helper.OrientationHepler;
 import com.example.kyler.careersystem.R;
 import com.example.kyler.careersystem.UrlStatic;
 import com.example.kyler.careersystem.Utilities;
@@ -48,6 +49,7 @@ public class FollowJobFragment extends Fragment implements AbsListView.OnScrollL
     private String url="";
     private int page=1;
     private boolean nomoreData = true;
+    private OrientationHepler orientationHepler;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -55,6 +57,7 @@ public class FollowJobFragment extends Fragment implements AbsListView.OnScrollL
         View rootView = inflater.inflate(R.layout.applicant_follow_job_fragment, container, false);
         ((AppCompatActivity)getActivity()).getSupportActionBar().show();
         ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Follow");
+        orientationHepler = new OrientationHepler();
         url = UrlStatic.URLApplicantsFollowPosts + "?follow_status=1&limit=10&applicant_id="+ Utilities.applicants.getID()+"&page=";
         mHandler = new Handler();
         mHandler.postDelayed(new Runnable() {
@@ -84,7 +87,7 @@ public class FollowJobFragment extends Fragment implements AbsListView.OnScrollL
                             }
                         }else {
                             Toast.makeText(getActivity().getApplicationContext(), "Connection got problem!", Toast.LENGTH_SHORT).show();
-                            Utilities.displayViewApplicant(getActivity(), 404);
+                            orientationHepler.displayViewApplicant(getActivity(), 404);
                         }
                     }
                 };
@@ -148,7 +151,7 @@ public class FollowJobFragment extends Fragment implements AbsListView.OnScrollL
                     };
                     getJsonLoadMoreCallback.execute(url + page );
                 }
-                boolean noMoreToShow = jobFollowAdapterLoadInfinite.showMore();
+                jobFollowAdapterLoadInfinite.showMore();
             }
             hasCallback = false;
         }
